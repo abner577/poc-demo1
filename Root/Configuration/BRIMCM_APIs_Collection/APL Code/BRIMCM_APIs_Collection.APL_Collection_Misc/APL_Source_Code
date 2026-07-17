@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.openapi.BRIMCM_APIs_Collection.PRF_OpenAPI_Collection_Misc;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.Common.APL_CONSTANTS;
+import ultra.FNT;
+
+string API_TAXONLY_EMAIL_DIR =   externalReferenceGet("Common.DB_External_Reference","API_TAXONLY_EMAIL_DIR");
+string API_MAX_TAXONLY_ROWS =   externalReferenceGet("Common.DB_External_Reference","API_MAX_TAXONLY_ROWS");
+
+//Validations for agencyReturn BRMI0090
+AgencyReturnResp checkAgencyReturnReq(map<string,any> Rec,string req,string resourceCode){
+    map<string,string> mapReqInfo = (map<string,string>)mapGet(Rec,"requestInfo");
+    map<string,string> mapHeaderInfo = (map<string,string>)mapGet(Rec,"headerInfo");
+    AgencyReturnResp respUdr = udrCreate(AgencyReturnResp);
+    AgencyReturnReq reqUdr = udrCreate(AgencyReturnReq);
+    jsonDecodeUdr(req,reqUdr);
+    if(mapGet(mapHeaderInfo,"inputChannelCd") == "" || mapGet(mapHeaderInfo,"inputChannelCd") == null){
+        CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "inputChannelCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapHeaderInfo,"srcApplicationCd") == "" || mapGet(mapHeaderInfo,"srcApplicationCd") == null){
+        CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "srcApplicationCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapReqInfo,"billingAccountNumber") == "" || mapGet(mapReqInfo,"billingAccountNumber") == null){
+        CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "billingAccountNumber IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapReqInfo,"code") == "" || mapGet(mapReqInfo,"code") == null){
+        CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = "400";
+        errUdr.errorMessage =  "code IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(!strREContains("CCD,CDD,CBK",mapGet(mapReqInfo,"code"))){
+        CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = "400";
+        errUdr.errorMessage =  "Please Input Valid Code[CCD,CDD,CBK]";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }
+    if(mapGet(mapReqInfo,"fromDate") != null && mapGet(mapReqInfo,"fromDate") != ""){
+        date dfromDate;
+        strToDate(dfromDate,mapGet(mapReqInfo,"fromDate"),"yyyy-MM-dd");
+        if(dfromDate == null){
+            CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+            ErrorInfo  errUdr = udrCreate(ErrorInfo);
+            errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+            errUdr.errorMessage =  "fromDate Format is Invalid, Please Input[yyyy-MM-dd]";
+            responseUdr.errorInfo = errUdr;
+            responseUdr.transactionStatus = "F";
+            respUdr.responseInfo = responseUdr;
+        }
+    }
+    if(mapGet(mapReqInfo,"toDate") != null && mapGet(mapReqInfo,"toDate") != ""){
+        date dtoDate;
+        strToDate(dtoDate,mapGet(mapReqInfo,"toDate"),"yyyy-MM-dd");
+        if(dtoDate == null){
+            CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+            ErrorInfo  errUdr = udrCreate(ErrorInfo);
+            errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+            errUdr.errorMessage =  "toDate Format is Invalid, Please Input[yyyy-MM-dd]";
+            responseUdr.errorInfo = errUdr;
+            responseUdr.transactionStatus = "F";
+            respUdr.responseInfo = responseUdr;
+        }
+    }
+    
+    if(mapGet(mapReqInfo,"dateOfDeath") != null && mapGet(mapReqInfo,"dateOfDeath") != ""){
+        date ddeathDate;
+        strToDate(ddeathDate,mapGet(mapReqInfo,"dateOfDeath"),"yyyy-MM-dd");
+        if(ddeathDate == null){
+            CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+            ErrorInfo  errUdr = udrCreate(ErrorInfo);
+            errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+            errUdr.errorMessage =  "dateOfDeath Format is Invalid, Please Input[yyyy-MM-dd]";
+            responseUdr.errorInfo = errUdr;
+            responseUdr.transactionStatus = "F";
+            respUdr.responseInfo = responseUdr;
+        }
+    }
+    respUdr.requestInfo = reqUdr.requestInfo;
+    respUdr.headerInfo = reqUdr.headerInfo;
+    return respUdr;
+}
+
+
+CurrencyConversionResponse validateCurrencyConversionRequest(map<string,any> Rec,string request,string resourceCode){
+    CurrencyConversionResponse currencyConversionResponse = udrCreate(CurrencyConversionResponse);
+    CurrencyConversionResponseInfo currencyConversionResponseInfo = udrCreate(CurrencyConversionResponseInfo);
+     CurrencyConversionRequest requestUdr = udrCreate(CurrencyConversionRequest);
+     ErrorInfo errorInfo = udrCreate(ErrorInfo);
+     map<string,string> mapReqInfo = (map<string,string>)mapGet(Rec,"requestInfo");
+    jsonDecodeUdr(request,requestUdr);
+    HeaderInfo headerInfo = udrCreate(HeaderInfo);
+    headerInfo = requestUdr.headerInfo;
+    CurrencyConversionRequestInfo currencyConversionRequestInfo = udrCreate(CurrencyConversionRequestInfo);
+    currencyConversionRequestInfo = requestUdr.requestInfo;
+   // debug("currency conversion request : "+request);
+   // debug("currency conversion requestInfo : "+requestUdr);
+   // bigdec amount = currencyConversionRequestInfo.amount;
+    
+    //debug("Amount : "+currencyConversionRequestInfo.amount);
+    currencyConversionResponse.requestInfo = requestUdr.requestInfo;
+    currencyConversionResponse.headerInfo = requestUdr.headerInfo;
+    if(null == headerInfo){
+        
+        errorInfo.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="HeaderInfo is required";
+    }else if(null == currencyConversionRequestInfo){
+        
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="requestInfo is required";
+    }
+    if(isEmpty(headerInfo.inputChannelCd)){
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="inputChannelCd is required";
+    }else if(isEmpty(headerInfo.srcApplicationCd)){
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="srcApplicationCd is required";
+    }else if(isEmpty(currencyConversionRequestInfo.fromCurrencyCd) || isEmpty(currencyConversionRequestInfo.toCurrencyCd) ){
+        
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="fromCurrencyCd , toCurrencyCd and amount are required.";
+    }else if(mapGet(mapReqInfo,"amount") == null){
+         errorInfo.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="fromCurrencyCd , toCurrencyCd and amount are required.";
+    }
+    
+    if(!isEmpty(currencyConversionRequestInfo.conversionDate)){
+    date conversionDate;
+    strToDate(conversionDate,currencyConversionRequestInfo.conversionDate,"yyyy-MM-dd");
+    debug("conversionDate: "+conversionDate);
+    if(null ==conversionDate || !strREMatches(currencyConversionRequestInfo.conversionDate,"\\d{4}-\\d{2}-\\d{2}")){
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="conversionDate format is invalid. Please input the date in yyyy-MM-dd.";
+    }
+    }
+    if(null != errorInfo && !isEmpty(errorInfo.errorCd)){
+        
+        currencyConversionResponseInfo.errorInfo = errorInfo;
+        currencyConversionResponseInfo.transactionStatus ="F";
+    }
+    currencyConversionResponse.responseInfo = currencyConversionResponseInfo;
+   
+    
+    debug("returning response after validation : "+currencyConversionResponse);
+    return currencyConversionResponse;
+}
+
+
+
+ApprovalDetailsResponse validateWorkflowDetailsRequest(map<string,any> Rec,string request,string resourceCode){
+    ApprovalDetailsResponse approvalDetailsResponse = udrCreate(ApprovalDetailsResponse);
+    ApprovalDetailsResponseInfo approvalDetailsResponseInfo = udrCreate(ApprovalDetailsResponseInfo);
+    ApprovalDetailsRequest requestUdr = udrCreate(ApprovalDetailsRequest);
+     ErrorInfo errorInfo = udrCreate(ErrorInfo);
+     map<string,string> mapReqInfo = (map<string,string>)mapGet(Rec,"requestInfo");
+    jsonDecodeUdr(request,requestUdr);
+    HeaderInfo headerInfo = udrCreate(HeaderInfo);
+    headerInfo = requestUdr.headerInfo;
+    ApprovalDetailsRequestInfo approvalDetailsRequestInfo = udrCreate(ApprovalDetailsRequestInfo);
+    approvalDetailsRequestInfo = requestUdr.requestInfo;
+   // debug("currency conversion request : "+request);
+   // debug("currency conversion requestInfo : "+requestUdr);
+   // bigdec amount = currencyConversionRequestInfo.amount;
+    
+    //debug("Amount : "+currencyConversionRequestInfo.amount);
+    approvalDetailsResponse.requestInfo = requestUdr.requestInfo;
+    approvalDetailsResponse.headerInfo = requestUdr.headerInfo;
+    if(null == headerInfo){
+        
+        errorInfo.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="HeaderInfo is required";
+    }else if(null == approvalDetailsRequestInfo){
+        
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="requestInfo is required";
+    }
+    if(isEmpty(headerInfo.inputChannelCd)){
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="inputChannelCd is required";
+    }else if(isEmpty(headerInfo.srcApplicationCd)){
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="srcApplicationCd is required";
+    }
+    
+     date createdDate;
+    if(!isEmpty(approvalDetailsRequestInfo.createDateFrom)){
+   
+    strToDate(createdDate,approvalDetailsRequestInfo.createDateFrom,"yyyy-MM-dd");
+    debug("createdDate: "+createdDate);
+    
+    }
+    date createToDate;
+    if(!isEmpty(approvalDetailsRequestInfo.createDateTo)){
+   
+    strToDate(createToDate,approvalDetailsRequestInfo.createDateTo,"yyyy-MM-dd");
+    debug("createToDate: "+createToDate);
+    
+    }
+    if( (!isEmpty(approvalDetailsRequestInfo.createDateFrom) && (null ==createdDate || !strREMatches(approvalDetailsRequestInfo.createDateFrom,"\\d{4}-\\d{2}-\\d{2}"))) ||
+    (!isEmpty(approvalDetailsRequestInfo.createDateTo) &&( null == createToDate || !strREMatches(approvalDetailsRequestInfo.createDateTo,"\\d{4}-\\d{2}-\\d{2}")))){
+        errorInfo.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errorInfo.errorMessage ="createDateFrom or createDateTo format is invalid. Please input the date in YYYY-MM-DD.";
+    }
+    if(null != errorInfo && !isEmpty(errorInfo.errorCd)){
+        
+        approvalDetailsResponseInfo.errorInfo = errorInfo;
+        approvalDetailsResponseInfo.transactionStatus ="F";
+    }
+    approvalDetailsResponse.responseInfo = approvalDetailsResponseInfo;
+   
+    
+    debug("returning response after validation : "+approvalDetailsResponse);
+    return approvalDetailsResponse;
+}
+
+string getFilterForApprovalDetails(ApprovalDetailsRequest approvalDetailsRequest){
+    
+    string filter ="$filter=";
+    string filterCondition = "";
+    string andValue = "%20and%20";
+    string quoteValue = "'";
+    ApprovalDetailsRequestInfo approvalDetailsRequestInfo = approvalDetailsRequest.requestInfo;
+    
+    if(null != approvalDetailsRequestInfo){
+    if(!isEmpty(approvalDetailsRequestInfo.billingAccountNumber))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "billingAccountNumber%20eq%20" + quoteValue + approvalDetailsRequestInfo.billingAccountNumber + quoteValue;
+      
+    if(!isEmpty(approvalDetailsRequestInfo.approverCUID))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "approverCUID%20eq%20" + quoteValue + approvalDetailsRequestInfo.approverCUID + quoteValue;
+    
+    if(!isEmpty(approvalDetailsRequestInfo.currentApproverCUID))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "currentApproverCUID%20eq%20" + quoteValue + approvalDetailsRequestInfo.currentApproverCUID + quoteValue;
+      
+    if(!isEmpty(approvalDetailsRequestInfo.createDateFrom))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "createDateFrom%20eq%20" + quoteValue + approvalDetailsRequestInfo.createDateFrom + quoteValue;
+    
+    if(!isEmpty(approvalDetailsRequestInfo.createDateTo))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "createDateTo%20eq%20" + quoteValue + approvalDetailsRequestInfo.createDateTo + quoteValue;
+      
+    if(!isEmpty(approvalDetailsRequestInfo.initiatorCUID))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "initiatorCUID%20eq%20" + quoteValue + approvalDetailsRequestInfo.initiatorCUID + quoteValue;
+      
+    if(!isEmpty(approvalDetailsRequestInfo.requestId))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "requestId%20eq%20" + quoteValue +approvalDetailsRequestInfo.requestId + quoteValue;
+      
+    if(!isEmpty(approvalDetailsRequestInfo.requestStatus))
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "requestStatus%20eq%20" + quoteValue + approvalDetailsRequestInfo.requestStatus + quoteValue;
+    
+    if(!isEmpty(approvalDetailsRequestInfo.requestType)){
+        
+        string requestTypeId = "";
+        if(strEqualsIgnoreCase("Invoice level Adjustment", approvalDetailsRequestInfo.requestType))
+           requestTypeId = "WS90300019";
+        else if(strEqualsIgnoreCase("Account level Adjustment", approvalDetailsRequestInfo.requestType))
+           requestTypeId = "WS90300012";
+        else if(strEqualsIgnoreCase("Refund", approvalDetailsRequestInfo.requestType))
+          requestTypeId = "WS90300008";
+        else if(strEqualsIgnoreCase("Write-Off", approvalDetailsRequestInfo.requestType))
+           requestTypeId = "WS90300003";
+        else if(strEqualsIgnoreCase("LPC Adjustment", approvalDetailsRequestInfo.requestType))
+           requestTypeId = "WS90300LPC";
+           
+      filterCondition = filterCondition + (isEmpty(filterCondition) ? "" : andValue) + "requestType%20eq%20"+ quoteValue +requestTypeId + quoteValue;
+    }
+    }
+    
+    log.info("Value of filter condition : "+filterCondition);
+    
+    if(isEmpty(filterCondition))
+      return "";
+      
+    
+    filter = filter + filterCondition + "&$expand=IP_RSLT_NAV/RSLT_APPR_NAV&$format=json";
+    log.info("Value of filter  : "+filter);
+   return filter;
+    
+}
+
+
+TaxOnlyReportResponse validateTaxOnlyReportRequest(TaxOnlyReportRequest taxOnlyReportRequest, string resourceCode){
+    
+    
+    
+     TaxOnlyReportResponse taxOnlyReportResponse = udrCreate(TaxOnlyReportResponse);
+     TaxOnlyReportResponseInfo taxOnlyReportResponseInfo = udrCreate(TaxOnlyReportResponseInfo);
+     ErrorInfo errorInfo = udrCreate(ErrorInfo);
+     
+    HeaderInfo headerInfo = udrCreate(HeaderInfo);
+    headerInfo = taxOnlyReportRequest.headerInfo;
+    TaxOnlyReportRequestInfo taxOnlyReportRequestInfo = udrCreate(TaxOnlyReportRequestInfo);
+    taxOnlyReportRequestInfo = taxOnlyReportRequest.requestInfo;
+    
+     
+     date invDate;
+    if(taxOnlyReportRequestInfo == null)
+    {
+		errorInfo = buildError(resourceCode , "requestInfo is required");
+    }
+    else if(isEmpty(taxOnlyReportRequestInfo.billingApplicationCd) || isEmpty(taxOnlyReportRequestInfo.billingAccountNumber))
+    {
+        errorInfo = buildError(resourceCode , "Both billingApplicationCd and billingAccountNumber are required");
+    }else if(!isEmpty(taxOnlyReportRequestInfo.billingApplicationCd) &&
+     (strEqualsIgnoreCase(taxOnlyReportRequestInfo.billingApplicationCd,"LATIS") ||strEqualsIgnoreCase(taxOnlyReportRequestInfo.billingApplicationCd,"KENAN"))){
+         
+         errorInfo = buildError(resourceCode ,  taxOnlyReportRequestInfo.billingApplicationCd+ " is not supported.");
+         
+     }else if(null == taxOnlyReportRequestInfo.invoiceDates || listSize(taxOnlyReportRequestInfo.invoiceDates) <=0){
+        errorInfo = buildError(resourceCode , "invoiceDates are empty. Please input the dates in YYYY-MM-DD"); 
+    }
+    
+    if(null != taxOnlyReportRequestInfo.invoiceDates && listSize(taxOnlyReportRequestInfo.invoiceDates) >0){
+    for(string invoiceDate : taxOnlyReportRequestInfo.invoiceDates){
+          if(!isValidDate(invoiceDate, invDate)){
+              errorInfo = buildError(resourceCode , "invoiceDate format is invalid. Please input the date in YYYY-MM-DD");
+              break;
+              }   
+          }  
+    }
+    
+    if(errorInfo != null && !isEmpty(errorInfo.errorCd)){
+        
+        
+        taxOnlyReportResponse.requestInfo = taxOnlyReportRequest.requestInfo;
+        taxOnlyReportResponse.headerInfo = taxOnlyReportRequest.headerInfo;
+        
+        taxOnlyReportResponseInfo.errorInfo = errorInfo;
+        taxOnlyReportResponseInfo.transactionStatus ="F";
+        
+         taxOnlyReportResponse.responseInfo = taxOnlyReportResponseInfo;
+         debug("returning response after validation : "+taxOnlyReportResponse);
+          log.info("returning response after validation : "+taxOnlyReportResponse);
+         return taxOnlyReportResponse;
+    }
+   
+    return null;
+}
+
+// defect 7393, Anurag Shukla
+TaxOnlyReportResponse handleTaxOnlyReportRequest(map<string,any> Rec,string request,string resourceCode, list<TaxInfo> taxInfo){
+    TaxOnlyReportResponse taxOnlyReportResponse = udrCreate(TaxOnlyReportResponse);
+    TaxOnlyReportResponseInfo taxOnlyReportResponseInfo = udrCreate(TaxOnlyReportResponseInfo);
+    TaxOnlyReportRequest requestUdr = udrCreate(TaxOnlyReportRequest);
+    
+    map<string,string> mapReqInfo = (map<string,string>)mapGet(Rec,"requestInfo");
+    date invDateFrom,invDateTo;
+    jsonDecodeUdr(request,requestUdr);
+    HeaderInfo headerInfo = udrCreate(HeaderInfo);
+    headerInfo = requestUdr.headerInfo;
+    TaxOnlyReportRequestInfo taxOnlyReportRequestInfo = udrCreate(TaxOnlyReportRequestInfo);
+    taxOnlyReportRequestInfo = requestUdr.requestInfo;
+   
+    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+   
+    taxOnlyReportResponse = validateTaxOnlyReportRequest(requestUdr, resourceCode);
+    if(taxOnlyReportResponse != null)
+       return taxOnlyReportResponse;
+    
+    string sqlQuery = "";
+    if(strEqualsIgnoreCase(taxOnlyReportRequestInfo.billingApplicationCd, "LATIS")){
+        sqlQuery = "select /*+ parallel(16)  */      fjd.invoice_nbr,   fjd.SRC_LINE_ID,   fjdt.tax_type_cd,   fjdt.tax_authority_cd,   fjdt.condition_type_cd,   fjdt.tax_group_cd,   fjdt.tax_amt,   fjdt.currency_cd,   fjd.invoice_line_nbr,     fjd.INVOICE_DESC,     fjd.bill_service_id,   fjd.network_invtry_circuit_id,   fjdt.tax_rate_desc,      fjdt.tax_rate_nbr,     fjd.gl_period_start_dt from dsl_erp.f_journal_detail fjd inner join dsl_erp.f_bridge_keys br    on fjd.br_bits_key_id = br.br_bits_key_id    and fjd.acctng_doc_nbr = br.acctng_doc_nbr    and fjd.acctng_doc_line_item_nbr = br.acctng_doc_line_item_nbr left join dsl_erp.f_journal_detail_tax fjdt    on fjd.gl_period_start_Dt  = fjdt.gl_period_start_Dt    and ltrim(fjd.bit_src_transaction_id,'0')    = ltrim(fjdt.bit_src_transaction_id ,'0')    and ltrim(trim(fjd.tax_group_cd),'0')        = ltrim(trim(fjdt.tax_group_cd),'0')    and fjd.invoice_nbr  = fjdt.invoice_nbr    and br.inv_doc_nbr = fjdt.inv_doc_nbr    and TO_CHAR(fjd.invoice_line_nbr) = substr(fjdt.file_item_nbr, 1, instr(fjdt.file_item_nbr,'_',1,1)-1)    and fjd.tax_group_cd  is not null where   fjd.fjd_origin_cd = 'JD' and fjd.src_bill_system_cd = ?    and fjd.bill_account_nbr=? ";
+       
+    }else if(strEqualsIgnoreCase(taxOnlyReportRequestInfo.billingApplicationCd, "KENAN")){
+        
+    }else{
+        sqlQuery = "  select /*+ parallel(16)  */     fjd.invoice_nbr,   fjd.SRC_LINE_ID,   fjdt.tax_type_cd,   fjdt.tax_authority_cd,   fjdt.condition_type_cd,   fjdt.tax_group_cd,   fjdt.tax_amt,   fjdt.currency_cd,   fjd.invoice_line_nbr,     fjd.INVOICE_DESC,     fjd.bill_service_id,   fjd.network_invtry_circuit_id,   fjdt.tax_rate_desc,        fjdt.tax_rate_nbr,      fjd.gl_period_start_dt from dsl_erp.f_journal_detail fjd inner join dsl_erp.f_bridge_keys br    on fjd.br_bits_key_id = br.br_bits_key_id    and fjd.acctng_doc_nbr = br.acctng_doc_nbr    and fjd.acctng_doc_line_item_nbr = br.acctng_doc_line_item_nbr left join dsl_erp.f_journal_detail_tax fjdt    on fjd.gl_period_start_Dt  = fjdt.gl_period_start_Dt    and ltrim(fjd.bit_src_transaction_id,'0')    = ltrim(fjdt.bit_src_transaction_id ,'0')    and ltrim(trim(fjd.tax_group_cd),'0')        = ltrim(trim(fjdt.tax_group_cd),'0')    and fjd.invoice_nbr  = fjdt.invoice_nbr    and br.inv_doc_nbr = fjdt.inv_doc_nbr    and fjd.tax_group_cd is not null where  fjd.src_bill_system_cd = ?   and fjd.bill_account_nbr=? ";
+
+    }
+    list<string> invoiceDates = taxOnlyReportRequestInfo.invoiceDates;
+    
+    list<any> params = listCreate(any);
+   
+   string billingApplicationCode = strEqualsIgnoreCase(taxOnlyReportRequestInfo.billingApplicationCd, "SAPBILL")?"SAPB":taxOnlyReportRequestInfo.billingApplicationCd;
+   
+   listAdd(params, billingApplicationCode);
+   listAdd(params, taxOnlyReportRequestInfo.billingAccountNumber);
+   
+   
+    string invoiceDatesQuery = "";
+   for(string invoiceDate : invoiceDates){
+       date parsedInvDate;
+       strToDate(parsedInvDate, invoiceDate, "yyyy-MM-dd");
+       dateToString(invoiceDate, parsedInvDate, "dd-MMM-yy");
+       listAdd(params, invoiceDate);
+		invoiceDatesQuery = invoiceDatesQuery + "?,";
+		}
+		invoiceDatesQuery = strSubstring(invoiceDatesQuery,0,strLength(invoiceDatesQuery)-1);
+	    debug("invoiceDates value = "+invoiceDatesQuery);
+        sqlQuery = sqlQuery + " and fjd.gl_period_start_dt in ("+invoiceDatesQuery+")";
+        
+   if(null != taxOnlyReportRequestInfo.invoiceNumber && listSize(taxOnlyReportRequestInfo.invoiceNumber)>0){
+   string invoiceNumbers = "";
+   for (string invoiceNumber : taxOnlyReportRequestInfo.invoiceNumber) {
+		listAdd(params, invoiceNumber);
+		invoiceNumbers = invoiceNumbers + "?,";
+		}
+		invoiceNumbers = strSubstring(invoiceNumbers,0,strLength(invoiceNumbers)-1);
+        sqlQuery = sqlQuery + " and fjd.invoice_nbr in ("+invoiceNumbers+")";
+   }
+	sqlQuery = sqlQuery + " and NVL(fjdt.DEFERRAL_TREATMENT_CD,'NULL') not in('BUE_DEF','BUE_REV','DRS_AMORT','DRS_MIG')" ;
+    debug("Values of Query : "+sqlQuery + " Value of param : "+params);
+    log.info("Values of Query : "+sqlQuery + " Value of param : "+params);
+    any var = sqlPrepDynamicSelect(sqlQuery, params, "BRIMCM_APIs.PRF_DWH","BRIMCM_APIs.PRF_DWH","BRIMCM_APIs.PRF_DWH");
+            if(var == null)
+            {
+                errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR ;
+                errorInfo.errorMessage = "CM CONNECTION ERROR";
+                taxOnlyReportResponseInfo.transactionStatus = "F";
+                taxOnlyReportResponseInfo.errorInfo = errorInfo;
+            }
+            else
+            {
+               table tb = (table)var;
+               debug("The value of tb = " + (tb));
+               int rowCount = tableRowCount(tb);
+               debug("The value of rowCount = " + (rowCount));
+               //check RowCount if rowCount > API_MAX_TAXONLY_ROWS, use Email Attachment
+               
+    			if (rowCount > 0) {
+                   //list<TaxInfo> taxInfo = listCreate(TaxInfo);
+        			mappingTableDataToTaxInfo(tb, rowCount, taxInfo);
+                    int maxRows = 1000;
+                    if(!strToInt(maxRows, API_MAX_TAXONLY_ROWS)) {
+                        maxRows = 1000;
+                    }
+                    if(listSize(taxInfo) >= maxRows) {
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR ;
+                        errorInfo.errorMessage = "There are " + listSize(taxInfo) +  " Tax records exist in CDW, so the results will be delivered to your email shortly.";
+                        //errorInfo.errorMessage = "TOO MANY RECORDS IN CDW";
+                        taxOnlyReportResponseInfo.transactionStatus = "F";
+                        taxOnlyReportResponseInfo.errorInfo = errorInfo;
+                    } else {
+                        taxOnlyReportResponseInfo.transactionStatus = "S";
+                        taxOnlyReportResponseInfo.taxInfo = taxInfo;  
+                        debug("Value of taxOnlyReportResponseInfo : "+taxOnlyReportResponseInfo);
+                    }
+    			} else {
+                    errorInfo.errorCd = resourceCode + BRIM_ERROR ;
+                    errorInfo.errorMessage = "NO DATA FOUND IN THE CDW";
+                    taxOnlyReportResponseInfo.transactionStatus = "F";
+                    taxOnlyReportResponseInfo.errorInfo = errorInfo;
+    			}
+            }
+       taxOnlyReportResponse = udrCreate(TaxOnlyReportResponse);
+       taxOnlyReportResponse.headerInfo = headerInfo;
+       taxOnlyReportResponse.requestInfo = taxOnlyReportRequestInfo;
+       taxOnlyReportResponse.responseInfo = taxOnlyReportResponseInfo;
+       return taxOnlyReportResponse;
+    
+}
+
+bytearray getTxReportContent(string ban, list<TaxInfo> taxInfoList) {
+    bytearray ba;
+    strToBA(ba, "BAN,Lumen Invoice No,Source Line Identifier,Source Tax Type,Source Tax Authority,Condition Type,Tax Group,Amount,Currency,Inv Line Item#,Inv Desc,Service Id,Inventory Circuit Id,Tax Rate"  + "\n");
+    for(TaxInfo taxInfoUdr: taxInfoList) {
+        string result = ban + "," + taxInfoUdr.invoiceNumber + "," + taxInfoUdr.sourceLineIdentifier + "," + 
+        taxInfoUdr.sourceTaxType + "," + taxInfoUdr.sourceTaxAuthority + "," + taxInfoUdr.conditionType +  "," + 
+        taxInfoUdr.taxGroup +  "," + taxInfoUdr.taxAmount + "," + taxInfoUdr.currencyCd + "," +
+        taxInfoUdr.invoiceLineItemNumber + "," + taxInfoUdr.invoiceLineDescription + "," +  
+        taxInfoUdr.billerServiceId  + "," + taxInfoUdr.networkInventoryCircuitId  + "," + 
+//        taxInfoUdr.taxRate + " -" + taxInfoUdr.taxRateDescription + "\n";
+        taxInfoUdr.taxRateDescription + "\n";
+        bytearray temp;
+        strToBA(temp, result);
+        ba = baAppend(ba, temp);
+    }
+    return ba;
+}
+void mappingTableDataToTaxInfo(table tab,int rc,list<TaxInfo> taxInfoList)
+{
+    //list<TaxInfo> taxInfo = listCreate(TaxInfo);
+    for(int i = 0;i < rc;i++){
+    TaxInfo taxInfoUdr = udrCreate(TaxInfo);
+      /* // taxInfoUdr.biliingApplicationCd         =   (string)tableGet(tab,i,"src_bill_system_cd");
+        taxInfoUdr.billerServiceId              =   (string)tableGet(tab,i,"bill_service_id");
+       // taxInfoUdr.billingAccountNumber         =   (string)tableGet(tab,i,"bill_account_nbr");
+       // taxInfoUdr.businessPartner              =   (string)tableGet(tab,i,"BUSINESS_PARTNER_NBR");   
+       // taxInfoUdr.busOrgId                     =   (string)tableGet(tab,i,"CUST_NBR");
+        taxInfoUdr.conditionType                =   (string)tableGet(tab,i,"condition_type_cd");
+        //taxInfoUdr.contractAccountNumber        =   (string)tableGet(tab,i,"CONTRACT_ACCOUNT_NBR");
+        taxInfoUdr.currencyCd                   =   (string)tableGet(tab,i,"currency_cd");
+       // taxInfoUdr.financeAccountNumber         =   (string)tableGet(tab,i,"finance_account_nbr");
+        taxInfoUdr.invoiceLineDescription       =   (string)tableGet(tab,i,"INVOICE_DESC");
+        taxInfoUdr.invoiceLineItemNumber        =   (string)tableGet(tab,i,"invoice_line_nbr");
+        taxInfoUdr.invoiceNumber                =   (string)tableGet(tab,i,"invoice_nbr");
+        taxInfoUdr.networkInventoryCircuitId    =   (string)tableGet(tab,i,"network_invtry_circuit_id");
+        taxInfoUdr.sourceLineIdentifier         =   (string)tableGet(tab,i,"SRC_LINE_ID");
+        taxInfoUdr.sourceTaxAuthority           =   (string)tableGet(tab,i,"tax_authority_cd");
+        taxInfoUdr.sourceTaxType                =   (string)tableGet(tab,i,"tax_type_cd");
+        taxInfoUdr.taxAmount                    =   (float)tableGet(tab,i,"tax_amt");
+        taxInfoUdr.taxGroup                     =   (string)tableGet(tab,i,"tax_group_cd");
+       // taxInfoUdr.taxJurisdictionGeoCd         =   (string)tableGet(tab,i,"tax_jursdctn_cd");
+        taxInfoUdr.taxRate                      =   (string)tableGet(tab,i,"tax_rate_nbr");
+        taxInfoUdr.taxRateDescription           =   (string)tableGet(tab,i,"tax_rate_desc"); */
+        
+        taxInfoUdr.billerServiceId              =   (string)(tableGet(tab, i, "bill_service_id") != null ? tableGet(tab, i, "bill_service_id") : "");
+taxInfoUdr.conditionType                =   (string)(tableGet(tab, i, "condition_type_cd") != null ? tableGet(tab, i, "condition_type_cd") : "");
+taxInfoUdr.currencyCd                   =   (string)(tableGet(tab, i, "currency_cd") != null ? tableGet(tab, i, "currency_cd") : "");
+taxInfoUdr.invoiceLineDescription       =   (string)(tableGet(tab, i, "INVOICE_DESC") != null ? tableGet(tab, i, "INVOICE_DESC") : "");
+taxInfoUdr.invoiceLineItemNumber        =   (string)(tableGet(tab, i, "invoice_line_nbr") != null ? tableGet(tab, i, "invoice_line_nbr") : "");
+taxInfoUdr.invoiceNumber                =   (string)(tableGet(tab, i, "invoice_nbr") != null ? tableGet(tab, i, "invoice_nbr") : "");
+taxInfoUdr.networkInventoryCircuitId    =   (string)(tableGet(tab, i, "network_invtry_circuit_id") != null ? tableGet(tab, i, "network_invtry_circuit_id") : "");
+taxInfoUdr.sourceLineIdentifier         =   (string)(tableGet(tab, i, "SRC_LINE_ID") != null ? tableGet(tab, i, "SRC_LINE_ID") : "");
+taxInfoUdr.sourceTaxAuthority           =   (string)(tableGet(tab, i, "tax_authority_cd") != null ? tableGet(tab, i, "tax_authority_cd") : "");
+taxInfoUdr.sourceTaxType                =   (string)(tableGet(tab, i, "tax_type_cd") != null ? tableGet(tab, i, "tax_type_cd") : "");
+taxInfoUdr.taxAmount                    =   (double)(tableGet(tab, i, "tax_amt") != null ? tableGet(tab, i, "tax_amt") : 0.0); // Default to 0.0 for float
+taxInfoUdr.taxGroup                     =   (string)(tableGet(tab, i, "tax_group_cd") != null ? tableGet(tab, i, "tax_group_cd") : "");
+taxInfoUdr.taxRate                      =   (string)(tableGet(tab, i, "tax_rate_nbr") != null ? tableGet(tab, i, "tax_rate_nbr") : "");
+taxInfoUdr.taxRateDescription           =   (string)(tableGet(tab, i, "tax_rate_desc") != null ? tableGet(tab, i, "tax_rate_desc") : "");
+       // debug("The value of taxInfoUdr = " + (taxInfoUdr));
+        listAdd(taxInfoList,taxInfoUdr);
+    }
+}
+ErrorInfo buildError(string resourceCode, string message) {
+    ErrorInfo err = udrCreate(ErrorInfo);
+    err.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+    err.errorMessage = message;
+    return err;
+}
+boolean isValidDate(string dateStr, date parsedDate) {
+    if (isEmpty(dateStr)) return false;
+    strToDate(parsedDate, dateStr, "yyyy-MM-dd");
+    return parsedDate != null && strREMatches(dateStr, "\\d{4}-\\d{2}-\\d{2}");
+}
+SurchargeDetailsResponse validateSurchargeDetailsRequest(SurchargeDetailsRequest surchargeDetailsRequest, string resourceCode){
+    
+    SurchargeDetailsResponse surchargeDetailsResponse = udrCreate(SurchargeDetailsResponse);
+    SurchargeDetailsRequestInfo surchargeDetailsRequestInfo = surchargeDetailsRequest.requestInfo;
+    HeaderInfo headerInfo = surchargeDetailsRequest.headerInfo;
+    
+    SurchargeDetailsResponseInfo surchargeDetailsResponseInfo = udrCreate(SurchargeDetailsResponseInfo);
+    
+    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+    if(null == headerInfo || null == surchargeDetailsRequestInfo){
+        errorInfo = buildError(resourceCode , "Both headerInfo and requestInfo are required");
+    }else if(null != surchargeDetailsRequestInfo && (null ==surchargeDetailsRequestInfo.zipCode || isEmpty(surchargeDetailsRequestInfo.zipCode))){
+         errorInfo = buildError(resourceCode , "zipCode,billingAccountNumber and currencyCd are required");
+    }else if(null != surchargeDetailsRequestInfo && (null ==surchargeDetailsRequestInfo.billingAccountNumber || isEmpty(surchargeDetailsRequestInfo.billingAccountNumber))){
+         errorInfo = buildError(resourceCode , "zipCode,billingAccountNumber and currencyCd are required");
+    }else if(null != surchargeDetailsRequestInfo && (null == surchargeDetailsRequestInfo.currencyCd || isEmpty(surchargeDetailsRequestInfo.currencyCd))){
+         errorInfo = buildError(resourceCode , "zipCode,billingAccountNumber and currencyCd are required");
+    }
+    if(errorInfo != null && !isEmpty(errorInfo.errorCd)){
+        
+        surchargeDetailsResponse.requestInfo = surchargeDetailsRequestInfo;
+        surchargeDetailsResponse.headerInfo = headerInfo;
+        
+        surchargeDetailsResponseInfo.transactionStatus ="F";
+        surchargeDetailsResponseInfo.errorInfo = errorInfo;
+        
+        surchargeDetailsResponse.responseInfo = surchargeDetailsResponseInfo;
+        
+    }
+    return surchargeDetailsResponse;
+    
+}]]></string>
+</exportmultiplex>

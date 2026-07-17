@@ -15,10 +15,10 @@
       <boolean name="Is Encrypted" value="false"/>
       <boolean name="Is Locked" value="false"/>
       <boolean name="Is Valid" value="true"/>
-      <string name="Key" value="CMD1718740621169"/>
-      <string name="Modified By" value="AD69583"/>
-      <long name="Modified Date" value="1784226071297"/>
-      <string name="Name" value="APL_Collection_PromiseToPay"/>
+      <string name="Key" value="CMD1722875001423"/>
+      <string name="Modified By" value="AD57674"/>
+      <long name="Modified Date" value="1782403190748"/>
+      <string name="Name" value="APL_Collection_Misc"/>
       <string name="Owner" value="CUSTADM"/>
       <string name="Type" value="APL Code"/>
       <int name="Version" value="60"/>
