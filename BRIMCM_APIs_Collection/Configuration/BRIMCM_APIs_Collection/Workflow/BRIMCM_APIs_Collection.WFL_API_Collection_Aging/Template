@@ -1,0 +1,1881 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="11.0">
+         <boolean name="enabled" value="false"/>
+         <storable name="kafka" null="true"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Local Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="DEFAULT"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Port"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="DEFAULT"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="DEFAULT"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="DEFAULT"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.http;
+import ultra.json;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_AgingBucket;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.Common.APL_CONSTANTS;
+import apl.Common.APL_RoundingFunctions;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+
+SplunkContext splunkCtx;
+
+initialize {
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Analysis_Response" , "Agent Name");
+}
+
+consume {
+    debug("Request "+input);
+    string resourceCode;
+    if(instanceOf (input,RequestCycle)){//ODATA response
+        debug(" response received from S4---->");
+        RequestCycle cycleUdr = (RequestCycle)input;//ODATA requestCycle
+        debug("cycleUdr.path"+cycleUdr.path);
+        Response resp = cycleUdr.response; //ODAT response
+        
+        if (strREContains(cycleUdr.path, "ZGLB_DEVFI_TRAN_HIST_SRV/TRAN_HIST_IPSet")) {
+                handleOdataAgingResponse(cycleUdr);
+            } else if (strREContains(cycleUdr.path, "ZGLB_ENT_AGEING_SRV_01/AgeingAPIDataSet")) {
+                handleNewOdataAgingResponse(cycleUdr);
+            } else {
+        //if(cycleUdr.path == "/sap/opu/odata/sap/ZGLB_DEVFI_CI_INVDOC_SRV/GET_INVDOC_HDRSet" && cycleUdr.method == "GET"){
+            RequestCycle originalReq = (RequestCycle)cycleUdr.context;//deriving RequestCycle from conxtent of ODATA
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE , originalReq.path);
+            string oldOdataStatus = (cycleUdr.response.statusCode == 200 || cycleUdr.response.statusCode == 201) ? "SUCCESS" : "FAILURE";
+            udrRoute(sendToSplunk(originalReq, cycleUdr, ODATA_RESPONSE, oldOdataStatus, cycleUdr.path, splunkCtx), "toSplunk");
+            AgingBucketDetailsRequest originalRequest = udrCreate(AgingBucketDetailsRequest);
+            jsonDecodeUdr(baToStr(originalReq.body), originalRequest);
+            AgingBucketDetailsResponse respo = udrCreate(AgingBucketDetailsResponse);
+            AgingBucketDetailsResponseInfo responseInfo = udrCreate(AgingBucketDetailsResponseInfo);
+            respo.headerInfo = originalRequest.headerInfo;
+            respo.requestInfo = originalRequest.requestInfo;
+            if(isEmpty(originalRequest.requestInfo.effectiveDate)){
+             date dt = dateCreateNow();
+             dateToString(responseInfo.reportRunDate, dt, "yyyy-MM-dd"); 
+            }else{
+               responseInfo.reportRunDate = originalRequest.requestInfo.effectiveDate;
+            } 
+          
+         if(resp.body != null && resp.statusCode == 200){ //ODATA reponse body
+            string strBody = baToStr( (bytearray)resp.body);
+            debug("------------ got this response from S4 --- "+strBody); 
+            JsonObject mainBody = (JsonObject)jsonDecode(strBody);
+            debug("--- mainBody ----\n" +mainBody + "\n------- mainBody --------");
+            JsonObject d = (JsonObject) mapGet(mainBody.asMap, "d");
+            debug("--- d ----\n" +d + "\n------- d --------");            
+            JsonArray results = (JsonArray) mapGet(d.asMap, "results");
+            debug("--- results ----\n" +results + "\n------- results --------");          
+            list<AgingBucketDetail> listOfResults = listCreate(AgingBucketDetail);
+            if(listSize(results.asList) == 0) {
+                debug(" Empty Result --------------->");
+                debug("------------ got this response from S4 --- "+strBody); 
+                AgingBucketDetailsResponse errorUdr = createAgingBucketErrorResponseAging(originalRequest, resourceCode+BRIM_ERROR, getErrorMessage(originalRequest.requestInfo) ,"sBody");            
+                originalReq.response.headers=getHeader();
+                originalReq.response.openAPIUDR = errorUdr;
+                logResponse(originalReq, "");
+                udrRoute(sendToSplunk(originalReq, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx), "toSplunk");
+                udrRoute(originalReq, "toClient");            
+                return;       
+            }
+            
+             map<string,AgingBucketDetail> banMap = mapCreate(string, AgingBucketDetail);
+            for(any result: results.asList) {
+                if(instanceOf(result, JsonObject)) {
+                 JsonObject obj = (JsonObject) result;
+                 debug("--- eachresult ----\n" +obj + "\n------- eachresult --------");
+                
+                 string billingAccountNumber = (string)mapGet(obj.asMap, "BAN");
+                 
+               // if(!mapContains(banMap, billingAccountNumber)){
+                     AgingBucketDetail detail = udrCreate(AgingBucketDetail);
+                     detail.billingAccountNumber = (string)mapGet(obj.asMap, "BAN");
+                     if(null != mapGet(obj.asMap, "BusOrgId"))
+                      detail.busOrgId = (string)mapGet(obj.asMap, "BusOrgId");
+                     if(null !=(mapGet(obj.asMap, "CompanyCodeCurrencyUSD")))
+                      detail.invoiceCurrencyCd = (string)mapGet(obj.asMap, "CompanyCodeCurrencyUSD");
+                     //detail.isEssential = "No attribute to map";//(string)mapGet(obj.asMap, "BusOrgId");
+                     if(null !=(mapGet(obj.asMap, "UltiCustBusOrgId")))
+                      detail.ultimateBusOrgId = (string)mapGet(obj.asMap, "UltiCustBusOrgId");
+                     if(null !=(mapGet(obj.asMap, "UltiCustName")))
+                      detail.ultimateCustomerName = (string)mapGet(obj.asMap, "UltiCustName");
+                      
+                    
+                     AgingBucketDetailsGroupCurrency groupCurrency = udrCreate(AgingBucketDetailsGroupCurrency);
+                       
+                       if(null !=(mapGet(obj.asMap, "OpenAmountUSD")))
+                        strToBigDec(groupCurrency.totalDueAmount , (string)mapGet(obj.asMap, "OpenAmountUSD"));
+                       else 
+                        groupCurrency.totalDueAmount =0;
+                       if(null !=(mapGet(obj.asMap, "OverDueAmountUSD")))
+                        strToBigDec(groupCurrency.pastDueAmount , (string)mapGet(obj.asMap, "OverDueAmountUSD"));
+                       else
+                        groupCurrency.pastDueAmount = 0;
+                       
+                       debug("groupCurrency.pastDueAmount : "+groupCurrency.pastDueAmount);
+                       bigdec pastDueAmt;
+                      // string pastDueAmtStr = (string)mapGet(obj.asMap, "OverDueAmountUSD");
+                       strToBigDec(pastDueAmt, (string)mapGet(obj.asMap, "OverDueAmountUSD"));
+                       debug("groupCurrency.pastDueAmount conversion: "+pastDueAmt);
+                      // groupCurrency.pastDueAmount = pastDueAmt;
+                       if(null !=(mapGet(obj.asMap, "DisputeAmountE")))
+                        strToBigDec(groupCurrency.disputeAmount , (string)mapGet(obj.asMap, "DisputeAmountE"));
+                       else
+                        groupCurrency.disputeAmount = 0;
+                       
+                         //current Due amount for enterprise accounts
+                         //current Due amount for mass market accounts
+                         if(null !=(mapGet(obj.asMap, "CurrentDueAmountUSD")))
+                           strToBigDec(groupCurrency.currentDueAmount , (string)mapGet(obj.asMap, "CurrentDueAmountUSD"));
+                         else
+                           groupCurrency.currentDueAmount = 0;
+                         if(!isEmpty(respo.requestInfo.agingByEssentialRequired) && respo.requestInfo.agingByEssentialRequired == "Y"){
+                     if(null !=(mapGet(obj.asMap, "Regulated")) && "Y" ==(mapGet(obj.asMap, "Regulated"))){
+                         detail.isRegulatedProduct = "Y";
+                     }else{
+                         detail.isRegulatedProduct = "N";
+                     }
+                     }
+                        strToBigDec(groupCurrency.amountDue0To30Days , (string)mapGet(obj.asMap, "Amnt1to30daysUSD"));
+                        strToBigDec(groupCurrency.amountDue31To60Days , (string)mapGet(obj.asMap, "Amnt31to60daysUSD"));
+                        strToBigDec(groupCurrency.amountDue61To90Days , (string)mapGet(obj.asMap, "Amnt61to90daysUSD"));
+                        strToBigDec(groupCurrency.amountDue91To120Days , (string)mapGet(obj.asMap, "Amnt91to120daysUSD"));
+                        strToBigDec(groupCurrency.amountDue121To150Days , (string)mapGet(obj.asMap, "Amnt121to150daysUSD"));
+                        strToBigDec(groupCurrency.amountDue151To180Days , (string)mapGet(obj.asMap, "Amnt151to180daysUSD"));
+                        strToBigDec(groupCurrency.amountDue181To210Days , (string)mapGet(obj.asMap, "Amnt181to210daysUSD"));
+                        strToBigDec(groupCurrency.amountDue211To240Days , (string)mapGet(obj.asMap, "Amnt211to240daysUSD"));
+                        strToBigDec(groupCurrency.amountDue241To270Days , (string)mapGet(obj.asMap, "Amnt241to270daysUSD"));
+                        strToBigDec(groupCurrency.amountDue271To300Days , (string)mapGet(obj.asMap, "Amnt271to300daysUSD"));
+                        strToBigDec(groupCurrency.amountDue301To330Days , (string)mapGet(obj.asMap, "Amnt301to330daysUSD"));
+                        strToBigDec(groupCurrency.amountDue211To240Days , (string)mapGet(obj.asMap, "Amnt211to240daysUSD"));
+                        strToBigDec(groupCurrency.amountDue331To360Days , (string)mapGet(obj.asMap, "Amnt331to360daysUSD"));
+                        strToBigDec(groupCurrency.amountDue361PlusDays , (string)mapGet(obj.asMap, "Amnt361plusdaysUSD"));
+                     groupCurrency.currencyCd = (string)mapGet(obj.asMap, "CompanyCodeCurrencyUSD");
+                     detail.groupCurrency = groupCurrency;
+                  
+                 
+                 listAdd(listOfResults, detail);
+                }
+               
+            }
+             for (string key : mapKeys(banMap)) {
+                     listAdd(listOfResults, mapGet(banMap, key));
+                  }
+            responseInfo.transactionStatus = "S";
+            responseInfo.agingBucketDetails = listOfResults;
+            respo.responseInfo = responseInfo;
+            originalReq.response.openAPIUDR = respo;
+            originalReq.response.headers=getHeader();
+            logResponse(originalReq, "");
+            udrRoute(sendToSplunk(originalReq, null, API_RESPONSE, API_STATUS_SUCCESS, null, splunkCtx), "toSplunk");
+            udrRoute(originalReq, "toClient");
+        } else {
+            debug(" error received --------------->");
+            //string strBody = baToStr( (bytearray)resp.body);
+            //debug("------------ got this response from S4 --- "+strBody); 
+            string strBody;
+            if(resp.body == null){
+                strBody = "Something Went Wrong";
+            }
+            else if(instanceOf(resp.body,string)){
+                strBody = (string)resp.body;
+            }
+            else{
+                strBody = baToStr( (bytearray)resp.body);
+            }
+            
+                              
+            responseInfo.transactionStatus = "F";
+            ErrorInfo errorInfo = udrCreate(ErrorInfo);
+            errorInfo.errorCd = resourceCode+BRIM_ERROR;
+            errorInfo.errorMessage = strBody;
+            originalReq.response.headers=getHeader();
+            responseInfo.errorInfo = errorInfo;
+            respo.responseInfo = responseInfo;
+            originalReq.response.openAPIUDR = respo;
+            logResponse(originalReq, "");
+            udrRoute(sendToSplunk(originalReq, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx), "toSplunk");
+            udrRoute(originalReq, "toClient");            
+        }
+            }
+    }  else if(instanceOf(input, errorUDR)){
+        debug("---------- in error -------------");
+            errorUDR error = (errorUDR)input;
+            debug("ErrorUDR -- " + error);
+            RequestCycle request = (RequestCycle)error.originalUDR;
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE,request.path);
+            //RequestCycle actualRequest = (RequestCycle)request.context;
+            ErrorInfo errUdr = udrCreate(ErrorInfo);
+           //"message":{"lang":"en","value":"No Data Found for this Invoice number"}
+            //errUdr.errorCd = "400";
+            errUdr.errorMessage = error.errorMessage;
+            errUdr.errorCd = resourceCode+BRIM_ERROR;
+          //  strToBA (request.body , jsonEncodeUdr(errUdr));
+            //actualRequest.response.body = error.errorMessage;
+            Response respon = udrCreate(Response);
+            respon.statusCode = 500;
+            request.response = respon;
+            request.openAPIUDR = errUdr;
+            debug("received error udr from ODATA: "+request);
+            logResponse(request, "");
+            udrRoute(sendToSplunk(request, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx), "toSplunk");
+            udrRoute(request, "toClient");
+    }
+}
+
+void convertAndAddAmount(map<any,any> objMap, string key, bigdec existingValue, bigdec newValue){
+    if (null != mapGet(objMap, key)) {
+        strToBigDec(newValue, (string)mapGet(objMap, key));
+        existingValue = existingValue + (double)newValue;
+    }
+}
+
+// Fetches total dispute amount from the dispute ODATA API using billingAccountNumber (LegacyContractAccount)
+// Fetches total dispute amount from the new dispute OData API using raw request inputs.
+// Inputs: zzitban (BAN), zzitbusorg (busOrgId), zzimubusorg (ultimateBusOrgId), zzimcuid (collectorUserId).
+// Only non-empty inputs are included in the OData $filter.
+bigdec fetchDisputeAmount(string ban, string busOrgId, string ultimateBusOrgId, string collectorUserId, string tagId) {
+    bigdec totalDisputeAmount = 0;
+    string inputsLog = "ban=" + ban + ", busOrgId=" + busOrgId
+                     + ", ultimateBusOrgId=" + ultimateBusOrgId + ", collectorUserId=" + collectorUserId;
+    try {
+        string clientId = getSystemValue(SAP_CLIENT);
+
+        // Build OData $filter from non-empty inputs
+        string filterStr = "";
+        if (!isEmpty(ban)) {
+            filterStr = "zzitban%20eq%20%27" + ban + "%27";
+        }
+        if (!isEmpty(busOrgId)) {
+            if (!isEmpty(filterStr)) filterStr = filterStr + "%20and%20";
+            filterStr = filterStr + "zzitbusorg%20eq%20%27" + busOrgId + "%27";
+        }
+        if (!isEmpty(ultimateBusOrgId)) {
+            if (!isEmpty(filterStr)) filterStr = filterStr + "%20and%20";
+            filterStr = filterStr + "zzimubusorg%20eq%20%27" + ultimateBusOrgId + "%27";
+        }
+        if (!isEmpty(collectorUserId)) {
+            if (!isEmpty(filterStr)) filterStr = filterStr + "%20and%20";
+            filterStr = filterStr + "zzimcuid%20eq%20%27" + collectorUserId + "%27";
+        }
+
+        string uri = "/sap/opu/odata/SAP/ZGLB_DEVFICA_OPCON_DISPUTEAMT_SRV/OpconsoleDisputeAmountSet"
+                   + "?%24format=json&sap-client=" + clientId;
+        if (!isEmpty(filterStr)) {
+            uri = uri + "&%24filter=" + filterStr;
+        }
+
+        map<string, string> header = mapCreate(string, string);
+        mapSet(header, "Accept", "application/json");
+        mapSet(header, "Content-Type", "application/json");
+
+        string host = getSystemValue(REST_HOSTNAME);
+        string port = getSystemValue(REST_PORT);
+        int iport;
+        strToInt(iport, port);
+
+        string username          = externalReferenceGet("Common.DB_External_Reference", "BRIM_REST_USER");
+        string password          = externalReferenceGet("Common.DB_External_Reference", "BRIM_REST_PASSWORD");
+        string decryptedPassword = decryptMZEncryptedString(password);
+
+        debug("Fetching dispute amount — " + inputsLog + " URI: " + uri);
+
+        // LOG: Dispute API request
+        string reqLogLine = "[tagId=" + tagId + "] {transactionType=REQUEST,"
+                          + " transactionApi=ZGLB_DEVFICA_OPCON_DISPUTEAMT_SRV/OpconsoleDisputeAmountSet,"
+                          + " src=BRIMCM, dst=S4, " + inputsLog + "} DISPUTE_REQUEST: " + uri;
+        log.info(reqLogLine, tagId);
+
+        http.Response responseUdr = httpReq("GET", host, uri, null, "application/json", "HTTP/1", iport, true, 40000, 40000, username, decryptedPassword, header);
+
+        if (responseUdr.statusCode == 200 || responseUdr.statusCode == 201) {
+            string sBody = baToStr((bytearray) responseUdr.body);
+            debug("Dispute API response: " + sBody);
+
+            // LOG: Dispute API success response
+            string respLogLine = "[tagId=" + tagId + "] {transactionType=RESPONSE,"
+                               + " transactionApi=ZGLB_DEVFICA_OPCON_DISPUTEAMT_SRV/OpconsoleDisputeAmountSet,"
+                               + " src=S4, dst=BRIMCM, statusCode=" + responseUdr.statusCode + ", status=SUCCESS, " + inputsLog + "}"
+                               + " DISPUTE_RESPONSE: " + strREReplaceAll(sBody, "[\n\r\\s]+", " ");
+            log.info(respLogLine, tagId);
+
+            JsonObject json    = (JsonObject) jsonDecode(sBody);
+            JsonObject d       = (JsonObject) mapGet(json.asMap, "d");
+            JsonArray  results = (JsonArray)  mapGet(d.asMap, "results");
+
+            if (results != null) {
+                for (any result : results.asList) {
+                    JsonObject obj       = (JsonObject) result;
+                    string disputeAmtStr = (string) mapGet(obj.asMap, "DisputeAmount");
+                    if (!isEmpty(disputeAmtStr)) {
+                        bigdec amt = 0;
+                        strToBigDec(amt, disputeAmtStr);
+                        totalDisputeAmount = totalDisputeAmount + amt;
+                    }
+                }
+            }
+            debug("Total dispute amount [" + inputsLog + "]: " + totalDisputeAmount);
+        } else {
+            string sBody = responseUdr.body != null ? baToStr((bytearray) responseUdr.body) : "No response body";
+            debug("Dispute API returned non-200 status: " + responseUdr.statusCode + " [" + inputsLog + "]");
+
+            // LOG: Dispute API error response
+            string errLogLine = "[tagId=" + tagId + "] {transactionType=RESPONSE,"
+                              + " transactionApi=ZGLB_DEVFICA_OPCON_DISPUTEAMT_SRV/OpconsoleDisputeAmountSet,"
+                              + " src=S4, dst=BRIMCM, statusCode=" + responseUdr.statusCode + ", status=FAILURE, " + inputsLog + "}"
+                              + " DISPUTE_RESPONSE: " + strREReplaceAll(sBody, "[\n\r\\s]+", " ");
+            log.info(errLogLine, tagId);
+        }
+    } catch (ExceptionDetails e) {
+        debug("Failed to fetch dispute amount [" + inputsLog + "] error: " + e.message);
+
+        // LOG: Dispute API exception
+        string exLogLine = "[tagId=" + tagId + "] {transactionType=RESPONSE,"
+                         + " transactionApi=ZGLB_DEVFICA_OPCON_DISPUTEAMT_SRV/OpconsoleDisputeAmountSet,"
+                         + " src=S4, dst=BRIMCM, status=FAILURE, " + inputsLog + "} DISPUTE_RESPONSE: " + e.message;
+        log.info(exLogLine, tagId);
+    }
+    return totalDisputeAmount;
+}
+
+string dateConversionFromEPOCToNormal(string epocDate){
+   long lMilliSec;
+   //debug ("epocDate = " + epocDate);
+   if (epocDate != null && epocDate != ""){
+       string eDateInMilliSec = strSubstring(epocDate, 6, strLength(epocDate)-2 );
+       //debug ("eDateInMilliSec: "+ eDateInMilliSec);
+       strToLong(lMilliSec, eDateInMilliSec);
+       string sFormattedDate = strSubstring((string)dateCreateFromMilliseconds(lMilliSec), 0, 10); 
+       //debug ("sFormattedDate: "+ sFormattedDate);
+       return sFormattedDate;
+    }
+    else{
+        return null;
+    }
+}
+map<string,list<string>> getHeader(){
+    map<string,list<string> > mapToken = mapCreate(string,list<string>);
+    list<string> lContentType = listCreate(string);
+    listAdd(lContentType,"application/json");
+    mapSet(mapToken,"Content-Type",lContentType) ;
+    return (mapToken);
+}
+/*
+[Yesterday 8:52 AM] Anbarasan, Rajesh
+Case 1: when input collector id is invalid then "Invalid Collector ID"
+Case 2: Input Collector ID and Ultibusorg either of the value is invalid then "Given Collector id or ultibusorg is invalid"
+Case 3: Input collector id and busorgid if either of the value is invalid then "Given Collector id or busorgid is invalid"
+Case 4: Input Busorg id, if its inavlid then "Invalid Busorgid"
+Case 5: Input ultibusorgid, inavlid input then "Invalid ultibusorgid"
+Case 6 : Invalid BAN as input then "Inavlid BAN"
+*/
+string getErrorMessage(AgingBucketDetailsRequestInfo requestInfo) {
+    string  filter = "";
+    // only Collector update 
+    if(isEmpty(requestInfo.collectorUserId) && 
+       isEmpty(requestInfo.ultimateBusOrgId) && 
+       isEmpty(requestInfo.busOrgId) && 
+       isEmpty(requestInfo.billingAccountNumber)) {
+       filter = "Atleast one attribute is needed (Collector / Ulti BusOrg / BusOrg / Billing Account Number )";
+
+       }else{
+           filter ="No Aging Data found for the given Input.";
+       }
+    return filter;     
+}
+
+AgingBucketDetailsResponse createAgingBucketErrorResponseAging(AgingBucketDetailsRequest req, string sErrorCode, string sErrorMsg, string sReqBody){
+	AgingBucketDetailsResponse resp = udrCreate(AgingBucketDetailsResponse);
+    AgingBucketDetailsResponseInfo responseInfo = udrCreate(AgingBucketDetailsResponseInfo);
+    
+    resp.headerInfo = req.headerInfo;
+    resp.requestInfo = req.requestInfo;
+    ErrorInfo errInfo = udrCreate(ErrorInfo);
+    errInfo.errorMessage = sErrorMsg;
+    errInfo.errorCd = sErrorCode;
+    responseInfo.errorInfo = errInfo;
+    responseInfo.transactionStatus =  "F";
+    resp.responseInfo = responseInfo;
+    return resp;  
+}
+
+
+void handleOdataAgingResponse(RequestCycle cycle) {
+    debug("In OData Aging Response Handler");
+
+    int statusCode            = cycle.response.statusCode;
+    RequestCycle origReq      = (RequestCycle) cycle.context;
+    AgingBucketDetailsRequest agingReq = udrCreate(AgingBucketDetailsRequest);
+    jsonDecodeUdr(baToStr(origReq.body), agingReq);
+    string resourceCode       = getXrefValue(RESOURCE_CODE_TABLE, origReq.path);
+    string sBody              = baToStr((bytearray) cycle.response.body);
+
+    debug("ODATA Status Code: " + (string)statusCode);
+    debug("ODATA Response: " + cycle);
+    // LOG: ODATA response received
+    string isOk = (statusCode == 200 || statusCode == 201) ? "SUCCESS" : "FAILURE";
+    udrRoute(sendToSplunk(origReq, cycle, ODATA_RESPONSE, isOk, cycle.path, splunkCtx), "toSplunk");
+
+    // Parse response JSON
+    JsonObject json              = udrCreate(JsonObject);
+    map<string, any> responseMap = mapCreate(string, any);
+
+    if(instanceOf(jsonDecode(sBody), JsonObject)) {
+        json        = (JsonObject) jsonDecode(sBody);
+        responseMap = json.asMap;
+    }
+
+    // Check for timeout
+    if(cycle.response.body != null) {
+        if(strREContains(sBody, "Total timeout 30000 ms elapsed")) {
+            debug("ODATA Timeout");
+            sendAgingErrorResponse(agingReq, origReq, "Request timed out", resourceCode + BRIM_ERROR);
+            return;
+        }
+    }
+
+    // Handle error status codes
+    if(!(statusCode == 200 || statusCode == 201)) {
+        debug("ODATA Error - Status: " + (string)statusCode);
+        string errMsg = "Failure in ODATA call";
+
+        if(instanceOf(mapGet(responseMap, "error"), JsonObject)) {
+            json        = (JsonObject) mapGet(responseMap, "error");
+            responseMap = json.asMap;
+            if(instanceOf(mapGet(responseMap, "message"), JsonObject)) {
+                json        = (JsonObject) mapGet(responseMap, "message");
+                responseMap = json.asMap;
+                errMsg      = (string) mapGet(responseMap, "value");
+            }
+        } else {
+            int index3 = strREIndexOf(sBody, "<message");
+            int index4 = strREIndexOf(sBody, "</message>");
+            if(index3 != -1 && index4 != -1) {
+                errMsg = strSubstring(sBody, index3 + 9, index4);
+            }
+        }
+        sendAgingErrorResponse(agingReq, origReq, errMsg, resourceCode + BRIM_ERROR);
+        return;
+    }
+
+    // Handle empty response
+    if(isEmpty(sBody)) {
+        sendAgingErrorResponse(agingReq, origReq, "No record found", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+        return;
+    }
+
+    // =============================================
+    // SUCCESS - Parse and map ODATA response
+    // =============================================
+    json        = (JsonObject) mapGet(responseMap, "d");
+    responseMap = json.asMap;
+    JsonArray ja = (JsonArray) mapGet(responseMap, "results");
+
+    if(ja == null) {
+        sendAgingErrorResponse(agingReq, origReq, "No record found", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+        return;
+    }
+
+    list<any> listResult = ja.asList;
+
+    // Extract inner TRAN_HIST_NAV results with exclusion filtering
+    list<any> innerList = listCreate(any);
+    for(any result : listResult) {
+        json        = (JsonObject) result;
+        responseMap = json.asMap;
+        JsonObject navObj = (JsonObject) mapGet(responseMap, "TRAN_HIST_NAV");
+        if(navObj != null) {
+            responseMap  = navObj.asMap;
+            JsonArray jaNav = (JsonArray) mapGet(responseMap, "results");
+          
+            if(jaNav != null) {
+                list<any> navList = jaNav.asList;
+                  debug("TRAN_HIST_NAV results count: " + listSize(navList));
+                for(any navItem : navList) {
+                    map<string, any> navMap = ((JsonObject) navItem).asMap;
+                    debug("NAV item keys: " + mapKeys(navMap));
+                    debug("NAV amount=" + mapGet(navMap, "amount") + " | Amount=" + mapGet(navMap, "Amount") + " | invoiceDueDate=" + mapGet(navMap, "invoiceDueDate") + " | DueDate=" + mapGet(navMap, "DueDate") + " | documentType=" + mapGet(navMap, "documentType") + " | DocumentType=" + mapGet(navMap, "DocumentType"));
+
+                    string docType  = "";
+                    string docNotes = "";
+
+                    if(mapGet(navMap, "DocumentType") != null) {
+                        docType = (string) mapGet(navMap, "DocumentType");
+                    }
+                    if(mapGet(navMap, "DocumentNotes") != null) {
+                        docNotes = (string) mapGet(navMap, "DocumentNotes");
+                    }
+
+                    // Exclude documentType 'MR' or 'SD'
+                    if(docType == "SD") {
+                        debug("Excluding transaction - DocumentType: " + docType);
+                        continue;
+                    }
+
+                    // Exclude if documentNotes contains 'Security Deposit' (case-insensitive)
+                    if(strREContains(strToUpper(docNotes), "SECURITY DEPOSIT")) {
+                        debug("Excluding transaction - DocumentNotes contains Security Deposit: " + docNotes);
+                        continue;
+                    }
+
+                    listAdd(innerList, navItem);
+                }
+            }
+        }
+    }
+
+    // Calculate aging buckets
+    AgingBucketDetailsGroupCurrency buckets = calculateAgingBuckets(innerList);
+
+    // Fetch dispute amount from dedicated dispute API using raw request inputs
+    buckets.disputeAmount = (double) fetchDisputeAmount(
+        agingReq.requestInfo.billingAccountNumber,
+        agingReq.requestInfo.busOrgId,
+        agingReq.requestInfo.ultimateBusOrgId,
+        agingReq.requestInfo.collectorUserId,
+        getTagId(origReq));
+    debug("Dispute amount set to: " + buckets.disputeAmount);
+
+    // Build success response
+    sendAgingSuccessResponse(agingReq, origReq, buckets);
+}
+
+// =============================================
+// CALCULATE AGING BUCKETS
+// =============================================
+AgingBucketDetailsGroupCurrency calculateAgingBuckets(list<any> listResult) {
+    AgingBucketDetailsGroupCurrency buckets = udrCreate(AgingBucketDetailsGroupCurrency);
+    buckets.currencyCd            = "USD";
+    buckets.currentDueAmount      = 0.0;
+    buckets.pastDueAmount         = 0.0;
+    buckets.totalDueAmount        = 0.0;
+    buckets.disputeAmount         = 0.0;
+    buckets.amountDue0To30Days    = 0.0;
+    buckets.amountDue31To60Days   = 0.0;
+    buckets.amountDue61To90Days   = 0.0;
+    buckets.amountDue91To120Days  = 0.0;
+    buckets.amountDue121To150Days = 0.0;
+    buckets.amountDue151To180Days = 0.0;
+    buckets.amountDue181To210Days = 0.0;
+    buckets.amountDue211To240Days = 0.0;
+    buckets.amountDue241To270Days = 0.0;
+    buckets.amountDue271To300Days = 0.0;
+    buckets.amountDue301To330Days = 0.0;
+    buckets.amountDue331To360Days = 0.0;
+    buckets.amountDue361PlusDays  = 0.0;
+
+    date today = dateCreateNow();
+
+    for(any value : listResult) {
+        JsonObject json          = (JsonObject) value;
+        map<string, any> responseMap = json.asMap;
+
+        // Get Amount
+        string amountStr = (string) mapGet(responseMap, "Amount");
+        double amount    = 0.0;
+       if(!isEmpty(amountStr)) {
+            string roundedAmountStr = roundUpBigDecValue(amountStr, 2);
+            strToDouble(amount, roundedAmountStr);
+        }
+
+        // Get Currency
+        string currency = (string) mapGet(responseMap, "Currency");
+        if(!isEmpty(currency)) {
+            buckets.currencyCd = currency;
+        }
+
+        // Get DueDate and calculate days overdue
+        string dueDateRaw = convertToHumanDate(mapGet(responseMap, "DueDate"));
+        debug("dueDateRaw : "+dueDateRaw);
+        long daysDiff      = 0;
+
+        if(!isEmpty(dueDateRaw)) {
+            date dueDate;
+            boolean parsed = strToDate(dueDate, dueDateRaw, "yyyy-MM-dd");
+            if(parsed && dueDate != null) {
+                long diffMs = dateDiff(today, dueDate);
+                daysDiff = diffMs / 86400000;
+            }
+        }
+        debug("daysDiff : "+daysDiff);
+        // Bucket assignment
+        if(daysDiff <= 0) {
+            buckets.currentDueAmount = buckets.currentDueAmount + amount;
+        } else {
+            buckets.pastDueAmount = buckets.pastDueAmount + amount;
+
+            if(daysDiff >= 1 && daysDiff <= 30) {
+                buckets.amountDue0To30Days = buckets.amountDue0To30Days + amount;
+            } else if(daysDiff >= 31 && daysDiff <= 60) {
+                buckets.amountDue31To60Days = buckets.amountDue31To60Days + amount;
+            } else if(daysDiff >= 61 && daysDiff <= 90) {
+                buckets.amountDue61To90Days = buckets.amountDue61To90Days + amount;
+            } else if(daysDiff >= 91 && daysDiff <= 120) {
+                buckets.amountDue91To120Days = buckets.amountDue91To120Days + amount;
+            } else if(daysDiff >= 121 && daysDiff <= 150) {
+                buckets.amountDue121To150Days = buckets.amountDue121To150Days + amount;
+            } else if(daysDiff >= 151 && daysDiff <= 180) {
+                buckets.amountDue151To180Days = buckets.amountDue151To180Days + amount;
+            } else if(daysDiff >= 181 && daysDiff <= 210) {
+                buckets.amountDue181To210Days = buckets.amountDue181To210Days + amount;
+            } else if(daysDiff >= 211 && daysDiff <= 240) {
+                buckets.amountDue211To240Days = buckets.amountDue211To240Days + amount;
+            } else if(daysDiff >= 241 && daysDiff <= 270) {
+                buckets.amountDue241To270Days = buckets.amountDue241To270Days + amount;
+            } else if(daysDiff >= 271 && daysDiff <= 300) {
+                buckets.amountDue271To300Days = buckets.amountDue271To300Days + amount;
+            } else if(daysDiff >= 301 && daysDiff <= 330) {
+                buckets.amountDue301To330Days = buckets.amountDue301To330Days + amount;
+            } else if(daysDiff >= 331 && daysDiff <= 360) {
+                buckets.amountDue331To360Days = buckets.amountDue331To360Days + amount;
+            } else if(daysDiff > 360) {
+                buckets.amountDue361PlusDays = buckets.amountDue361PlusDays + amount;
+            }
+        }
+    }
+
+    // Total = current + past
+    buckets.totalDueAmount = buckets.currentDueAmount + buckets.pastDueAmount;
+ strToDouble(buckets.currentDueAmount,      roundUpBigDecValue((string)buckets.currentDueAmount, 2));
+    strToDouble(buckets.pastDueAmount,         roundUpBigDecValue((string)buckets.pastDueAmount, 2));
+    strToDouble(buckets.totalDueAmount,        roundUpBigDecValue((string)buckets.totalDueAmount, 2));
+    strToDouble(buckets.amountDue0To30Days,    roundUpBigDecValue((string)buckets.amountDue0To30Days, 2));
+    strToDouble(buckets.amountDue31To60Days,   roundUpBigDecValue((string)buckets.amountDue31To60Days, 2));
+    strToDouble(buckets.amountDue61To90Days,   roundUpBigDecValue((string)buckets.amountDue61To90Days, 2));
+    strToDouble(buckets.amountDue91To120Days,  roundUpBigDecValue((string)buckets.amountDue91To120Days, 2));
+    strToDouble(buckets.amountDue121To150Days, roundUpBigDecValue((string)buckets.amountDue121To150Days, 2));
+    strToDouble(buckets.amountDue151To180Days, roundUpBigDecValue((string)buckets.amountDue151To180Days, 2));
+    strToDouble(buckets.amountDue181To210Days, roundUpBigDecValue((string)buckets.amountDue181To210Days, 2));
+    strToDouble(buckets.amountDue211To240Days, roundUpBigDecValue((string)buckets.amountDue211To240Days, 2));
+    strToDouble(buckets.amountDue241To270Days, roundUpBigDecValue((string)buckets.amountDue241To270Days, 2));
+    strToDouble(buckets.amountDue271To300Days, roundUpBigDecValue((string)buckets.amountDue271To300Days, 2));
+    strToDouble(buckets.amountDue301To330Days, roundUpBigDecValue((string)buckets.amountDue301To330Days, 2));
+    strToDouble(buckets.amountDue331To360Days, roundUpBigDecValue((string)buckets.amountDue331To360Days, 2));
+    strToDouble(buckets.amountDue361PlusDays,  roundUpBigDecValue((string)buckets.amountDue361PlusDays, 2));
+
+
+
+    debug("Aging Buckets: " + buckets);
+    return buckets;
+}
+
+// =============================================
+// SEND SUCCESS RESPONSE TO CLIENT
+// =============================================
+// =============================================
+// SEND SUCCESS RESPONSE TO CLIENT (Updated)
+// =============================================
+void sendAgingSuccessResponse(AgingBucketDetailsRequest agingReq, RequestCycle origReq,
+                               AgingBucketDetailsGroupCurrency buckets) {
+
+    // Build response UDR
+    AgingBucketDetailsResponse resp       = udrCreate(AgingBucketDetailsResponse);
+    AgingBucketDetailsResponseInfo respInfo = udrCreate(AgingBucketDetailsResponseInfo);
+
+    // Map headerInfo and requestInfo from original request
+    resp.headerInfo  = agingReq.headerInfo;
+    resp.requestInfo = agingReq.requestInfo;
+
+    // Set transaction status
+    respInfo.transactionStatus = "S";
+
+    // Set report run date
+    date now = dateCreateNow();
+    string reportDate;
+    dateToString(reportDate, now, "yyyy-MM-dd");
+    respInfo.reportRunDate = reportDate;
+
+    // Map aging bucket details
+    list<AgingBucketDetail> agingBucketList = listCreate(AgingBucketDetail);
+    AgingBucketDetail agingDetail           = udrCreate(AgingBucketDetail);
+
+    // Set groupCurrency object
+    agingDetail.groupCurrency = buckets;
+
+    // Set additional fields
+    agingDetail.billingAccountNumber = agingReq.requestInfo.billingAccountNumber;
+    agingDetail.invoiceCurrencyCd    = buckets.currencyCd;
+
+    listAdd(agingBucketList, agingDetail);
+    respInfo.agingBucketDetails = agingBucketList;
+    resp.responseInfo           = respInfo;
+
+    // Encode and send
+    string sResp = jsonEncodeUdr(resp);
+    bytearray ba;
+    strToBA(ba, sResp);
+
+    Response respUdr   = udrCreate(Response);
+    respUdr.body       = ba;
+    respUdr.headers    = getHeader();
+    respUdr.statusCode = 200;
+    origReq.response   = respUdr;
+
+    debug("Sending aging success response: " + sResp);
+
+    udrRoute(sendToSplunk(origReq, null, API_RESPONSE, API_STATUS_SUCCESS, null, splunkCtx), "toSplunk");
+
+    udrRoute(origReq, "toClient");
+}
+
+// =============================================
+// SEND ERROR RESPONSE TO CLIENT
+// =============================================
+void sendAgingErrorResponse(AgingBucketDetailsRequest agingReq, RequestCycle origReq,
+                             string errorMessage, string errorCode) {
+
+    AgingBucketDetailsResponse resp       = udrCreate(AgingBucketDetailsResponse);
+    AgingBucketDetailsResponseInfo respInfo = udrCreate(AgingBucketDetailsResponseInfo);
+
+    resp.headerInfo  = agingReq.headerInfo;
+    resp.requestInfo = agingReq.requestInfo;
+
+    respInfo.transactionStatus = "F";
+
+    ErrorInfo errInfo    = udrCreate(ErrorInfo);
+    errInfo.errorCd      = errorCode;
+    errInfo.errorMessage = errorMessage;
+    respInfo.errorInfo   = errInfo;
+
+    resp.responseInfo = respInfo;
+
+    string sErrorResp = jsonEncodeUdr(resp);
+    bytearray ba;
+    strToBA(ba, sErrorResp);
+
+    Response respUdr   = udrCreate(Response);
+    respUdr.body       = ba;
+    respUdr.headers    = getHeader();
+    respUdr.statusCode = 400;
+    origReq.response   = respUdr;
+
+    debug("Sending aging error response: " + sErrorResp);
+
+    udrRoute(sendToSplunk(origReq, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx), "toSplunk");
+
+    udrRoute(origReq, "toClient");
+}
+
+// =============================================
+// NEW ENT AGEING ODATA RESPONSE HANDLER
+// ZGLB_ENT_AGEING_SRV_01/AgeingAPIDataSet
+// =============================================
+void handleNewOdataAgingResponse(RequestCycle cycle) {
+    debug("In New ENT OData Aging Response Handler");
+
+    int statusCode       = cycle.response.statusCode;
+    RequestCycle origReq = (RequestCycle) cycle.context;
+    AgingBucketDetailsRequest agingReq = udrCreate(AgingBucketDetailsRequest);
+    jsonDecodeUdr(baToStr(origReq.body), agingReq);
+    string resourceCode  = getXrefValue(RESOURCE_CODE_TABLE, origReq.path);
+
+    string sBody = "";
+    if (cycle.response.body != null)
+        sBody = baToStr((bytearray) cycle.response.body);
+
+    debug("New ODATA Status Code: " + (string)statusCode);
+
+    // LOG: ODATA_RESPONSE
+    string odataStatus = (statusCode == 200 || statusCode == 201) ? "SUCCESS" : "FAILURE";
+    udrRoute(sendToSplunk(origReq, cycle, ODATA_RESPONSE, odataStatus, cycle.path, splunkCtx), "toSplunk");
+
+    // Check for timeout
+    if (!isEmpty(sBody) && strREContains(sBody, "Total timeout 30000 ms elapsed")) {
+        debug("New ODATA Timeout");
+        sendAgingErrorResponse(agingReq, origReq, "Request timed out", resourceCode + BRIM_ERROR);
+        return;
+    }
+
+    // Handle error status codes
+    if (!(statusCode == 200 || statusCode == 201)) {
+        debug("New ODATA Error - Status: " + (string)statusCode);
+        string errMsg = "Failure in ODATA call";
+        if (!isEmpty(sBody)) {
+            JsonObject errJson = udrCreate(JsonObject);
+            if (instanceOf(jsonDecode(sBody), JsonObject)) {
+                errJson = (JsonObject) jsonDecode(sBody);
+                map<string, any> errMap = errJson.asMap;
+                if (instanceOf(mapGet(errMap, "error"), JsonObject)) {
+                    JsonObject errorObj = (JsonObject) mapGet(errMap, "error");
+                    if (instanceOf(mapGet(errorObj.asMap, "message"), JsonObject)) {
+                        JsonObject msgObj = (JsonObject) mapGet(errorObj.asMap, "message");
+                        errMsg = (string) mapGet(msgObj.asMap, "value");
+                    }
+                }
+            }
+        }
+        sendAgingErrorResponse(agingReq, origReq, errMsg, resourceCode + BRIM_ERROR);
+        return;
+    }
+
+    // Handle empty response
+    if (isEmpty(sBody)) {
+        sendAgingErrorResponse(agingReq, origReq, "No record found", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+        return;
+    }
+
+    // =============================================
+    // SUCCESS - Parse new ENT Ageing response
+    // =============================================
+    JsonObject json = (JsonObject) jsonDecode(sBody);
+    JsonObject d    = (JsonObject) mapGet(json.asMap, "d");
+    JsonArray ja    = (JsonArray) mapGet(d.asMap, "results");
+
+    if (ja == null || listSize(ja.asList) == 0) {
+        sendAgingErrorResponse(agingReq, origReq,
+            getErrorMessage(agingReq.requestInfo), resourceCode + BRIM_ERROR);
+        return;
+    }
+
+    list<any> listResult = ja.asList;
+    debug("New ENT Ageing results count: " + listSize(listResult));
+
+    // Build response — one AgingBucketDetail per account returned
+    list<AgingBucketDetail> listOfDetails = listCreate(AgingBucketDetail);
+    string tagId = getTagId(origReq);
+    string firstErrorMessage = "";
+
+    for (any result : listResult) {
+        JsonObject obj          = (JsonObject) result;
+        map<string, any> objMap = obj.asMap;
+
+        // Check for error: zzmtype = "E" indicates an error row
+        string zzmtype = "";
+        if (mapGet(objMap, "zzmtype") != null)
+            zzmtype = (string) mapGet(objMap, "zzmtype");
+
+        string zzmessage = "";
+        if (mapGet(objMap, "zzmessage") != null)
+            zzmessage = (string) mapGet(objMap, "zzmessage");
+
+        if (zzmtype == "E" && !isEmpty(zzmessage)) {
+            debug("Error row from ENT Ageing: " + zzmessage);
+            if (isEmpty(firstErrorMessage))
+                firstErrorMessage = zzmessage;
+            continue;
+        }
+
+        AgingBucketDetail detail = udrCreate(AgingBucketDetail);
+
+        // Map identifiers
+        string ban = "";
+        if (mapGet(objMap, "ZZban") != null)
+            ban = (string) mapGet(objMap, "ZZban");
+        detail.billingAccountNumber = ban;
+
+        if (mapGet(objMap, "zzimbusorg") != null)
+            detail.busOrgId = (string) mapGet(objMap, "zzimbusorg");
+        if (mapGet(objMap, "zzimubusorg") != null)
+            detail.ultimateBusOrgId = (string) mapGet(objMap, "zzimubusorg");
+
+        // Map currency
+        string currency = "USD";
+        if (mapGet(objMap, "zzwaers") != null && !isEmpty((string) mapGet(objMap, "zzwaers")))
+            currency = (string) mapGet(objMap, "zzwaers");
+        detail.invoiceCurrencyCd = currency;
+
+        // Map aging bucket amounts — values come pre-bucketed from ENT service
+        AgingBucketDetailsGroupCurrency buckets = udrCreate(AgingBucketDetailsGroupCurrency);
+        buckets.currencyCd = currency;
+
+        buckets.currentDueAmount      = parseAmount(objMap, "zzcurrentdueamount");
+        buckets.pastDueAmount         = parseAmount(objMap, "zzpastdueamount");
+        buckets.totalDueAmount        = parseAmount(objMap, "zztotaldueamount");
+        buckets.amountDue0To30Days    = parseAmount(objMap, "zzamountdue0to30days");
+        buckets.amountDue31To60Days   = parseAmount(objMap, "zzamountdue31to60days");
+        buckets.amountDue61To90Days   = parseAmount(objMap, "zzamountdue61to90days");
+        buckets.amountDue91To120Days  = parseAmount(objMap, "zzamountdue91to120days");
+        buckets.amountDue121To150Days = parseAmount(objMap, "zzamountdue121to150days");
+        buckets.amountDue151To180Days = parseAmount(objMap, "zzamountdue151to180days");
+        buckets.amountDue181To210Days = parseAmount(objMap, "zzamountdue181to210days");
+        buckets.amountDue211To240Days = parseAmount(objMap, "zzamountdue211to240days");
+        buckets.amountDue241To270Days = parseAmount(objMap, "zzamountdue241to270days");
+        buckets.amountDue271To300Days = parseAmount(objMap, "zzamountdue271to300days");
+        buckets.amountDue301To330Days = parseAmount(objMap, "zzamountdue301to330days");
+        buckets.amountDue331To360Days = parseAmount(objMap, "zzamountdue331to360days");
+        buckets.amountDue361PlusDays  = parseAmount(objMap, "zzamountdue361plusdays");
+
+        // Fetch dispute amount using raw request inputs; ban is resolved per result row
+        buckets.disputeAmount = (double) fetchDisputeAmount(
+            ban,
+            agingReq.requestInfo.busOrgId,
+            agingReq.requestInfo.ultimateBusOrgId,
+            agingReq.requestInfo.collectorUserId,
+            tagId);
+        debug("Dispute amount for BAN " + ban + ": " + buckets.disputeAmount);
+
+        detail.groupCurrency = buckets;
+        listAdd(listOfDetails, detail);
+    }
+
+    // If all rows were error rows, return the actual error message from S/4
+    if (listSize(listOfDetails) == 0) {
+        string errMsg = !isEmpty(firstErrorMessage) ? firstErrorMessage : getErrorMessage(agingReq.requestInfo);
+        sendAgingErrorResponse(agingReq, origReq, errMsg, resourceCode + BRIM_ERROR);
+        return;
+    }
+
+    // Build success response
+    AgingBucketDetailsResponse resp       = udrCreate(AgingBucketDetailsResponse);
+    AgingBucketDetailsResponseInfo respInfo = udrCreate(AgingBucketDetailsResponseInfo);
+
+    resp.headerInfo  = agingReq.headerInfo;
+    resp.requestInfo = agingReq.requestInfo;
+    respInfo.transactionStatus = "S";
+
+    date now = dateCreateNow();
+    string reportDate;
+    dateToString(reportDate, now, "yyyy-MM-dd");
+    respInfo.reportRunDate = reportDate;
+
+    respInfo.agingBucketDetails = listOfDetails;
+    resp.responseInfo           = respInfo;
+
+    string sResp = jsonEncodeUdr(resp);
+    bytearray ba;
+    strToBA(ba, sResp);
+
+    Response respUdr   = udrCreate(Response);
+    respUdr.body       = ba;
+    respUdr.headers    = getHeader();
+    respUdr.statusCode = 200;
+    origReq.response   = respUdr;
+
+    debug("Sending new ENT aging success response: " + sResp);
+    udrRoute(sendToSplunk(origReq, null, API_RESPONSE, API_STATUS_SUCCESS, null, splunkCtx), "toSplunk");
+    udrRoute(origReq, "toClient");
+}
+
+// Helper: parse a decimal amount from the response map
+double parseAmount(map<string, any> objMap, string key) {
+    double val = 0.0;
+    if (mapGet(objMap, key) != null) {
+        string strVal = (string) mapGet(objMap, key);
+        if (!isEmpty(strVal))
+            strToDouble(val, strVal);
+    }
+    return val;
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.errorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_Response"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.http;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_AgingBucket;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.subUdr;
+import apl.Common.APL_CONSTANTS;
+import apl.Common.APL_LOGGING; 
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+
+SplunkContext splunkCtx;
+map<string, string> resolvedCuidMap;
+
+initialize {
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Analysis_Request" , "Agent Name");
+    resolvedCuidMap = mapCreate(string, string);
+}
+
+// Main consume function
+consume {
+    handleInput(input);
+}
+
+// Function to handle different types of input
+void handleInput(any input) {
+    if (instanceOf(input, RequestCycle)) {
+        handleRequestCycle((RequestCycle)input);
+    } else if (instanceOf(input, ZFIF_FM_VKONA_TO_BP_UDR)) {
+        handleRFCInput((ZFIF_FM_VKONA_TO_BP_UDR)input);
+    } else if(instanceOf(input, ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR)){
+        handleRFCInputForEnt((ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR)input);
+    }
+}
+
+// Function to handle RequestCycle input
+void handleRequestCycle(RequestCycle cycleUdr) {
+    //uniqueId to track request and responses to/from S/4
+    setTagId(cycleUdr);
+    udrRoute(sendToSplunk(cycleUdr, null, API_REQUEST, "", null, splunkCtx), "toSplunk");
+
+    if (cycleUdr.path == "/brimcm/collection/aging/agingBucket" && cycleUdr.method == "POST") {
+        processAgingBucketRequest(cycleUdr);
+    }
+}
+
+// Function to process aging bucket request
+void processAgingBucketRequest(RequestCycle cycleUdr) {
+    AgingBucketDetailsRequest agingReq = parseRequestBody(cycleUdr.body);
+    string valid = isValidRequest(agingReq.requestInfo);
+    
+    if (valid == "") {
+        processValidRequest(cycleUdr, agingReq);
+    } else {
+         string resourceCode = getXrefValue(RESOURCE_CODE_TABLE , cycleUdr.path);
+        sendErrorResponse(cycleUdr, agingReq,resourceCode+BRIM_ERROR, valid);
+    }
+}
+
+// Function to process valid request
+void processValidRequest(RequestCycle cycleUdr, AgingBucketDetailsRequest agingReq) {
+    boolean isEssential = (!isEmpty(agingReq.requestInfo.agingByEssentialRequired) && 
+                           agingReq.requestInfo.agingByEssentialRequired == "Y");
+    string agingEntNewCall = getXrefValue("REFERENCE_DATA", "AGING_ENT_NEW_CALL");
+    debug("AGING_ENT_NEW_CALL flag: " + agingEntNewCall);
+
+    if (!isEssential && (!isEmpty(agingEntNewCall) && agingEntNewCall == "Y")) {
+        // New ENT Ageing OData flow
+        if (!isEmpty(agingReq.requestInfo.billingAccountNumber)) {
+            // BAN present — must resolve to CA via ZFICAF RFC (never pass BAN directly to OData)
+            // If collectorUserId is also present, store it for retrieval after RFC response
+            if (!isEmpty(agingReq.requestInfo.collectorUserId)) {
+                mapSet(resolvedCuidMap, getTagId(cycleUdr), agingReq.requestInfo.collectorUserId);
+                debug("Stored collectorUserId for retrieval after ZFICAF RFC: " + agingReq.requestInfo.collectorUserId);
+            }
+            ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr = udrCreate(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR);
+            importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT importParams = udrCreate(importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT);
+            list<ZFITT_VKONA> listOfBans = listCreate(ZFITT_VKONA);
+            ZFITT_VKONA bill = udrCreate(ZFITT_VKONA);
+            bill.VKONA = agingReq.requestInfo.billingAccountNumber;
+            listAdd(listOfBans, bill);
+            importParams.IT_VKONA = listOfBans;
+            rfcUdr.importParams = importParams;
+            rfcUdr.context = cycleUdr;
+            udrRoute(sendRfcToSplunk(cycleUdr, (string)rfcUdr.importParams, "RFC_REQUEST", "", "ZFICAF_DERIVE_ACTIVE_ACCOUNT", splunkCtx), "toSplunk");
+            udrRoute(rfcUdr, "rfc_req");
+        } else {
+            // No BAN — pass collectorUserId/busOrgId/ultimateBusOrgId directly to OData
+            debug("New ENT OData flow (no BAN): passing inputs directly. collectorUserId=" + agingReq.requestInfo.collectorUserId
+                + " busOrgId=" + agingReq.requestInfo.busOrgId
+                + " ultimateBusOrgId=" + agingReq.requestInfo.ultimateBusOrgId);
+            sendToOdata(cycleUdr, "", "", agingReq.requestInfo.collectorUserId);
+        }
+    } else {
+        // Existing flow — essential or old call
+        ZFIF_FM_VKONA_TO_BP_UDR rfcUdr = udrCreate(ZFIF_FM_VKONA_TO_BP_UDR);
+        rfcUdr.importParams = udrCreate(importParams_ZFIF_FM_VKONA_TO_BP);
+        rfcUdr.context = cycleUdr;
+        rfcUdr.importParams.IT_CUID = listCreate(ZFITT_CUID);
+        rfcUdr.importParams.IT_AGING_MD = listCreate(ZFITT_AGING_MD);
+        ZFITT_AGING_MD aging = udrCreate(ZFITT_AGING_MD);
+        if (!isEmpty(agingReq.requestInfo.billingAccountNumber))
+            aging.BAN = agingReq.requestInfo.billingAccountNumber;
+        if (!isEmpty(agingReq.requestInfo.busOrgId))
+            aging.BUSS_ORG = agingReq.requestInfo.busOrgId;
+        if (!isEmpty(agingReq.requestInfo.collectorUserId))
+            aging.CUID = agingReq.requestInfo.collectorUserId;
+        if (!isEmpty(agingReq.requestInfo.ultimateBusOrgId))
+            aging.BUSS_ORG_UT = agingReq.requestInfo.ultimateBusOrgId;
+        listAdd(rfcUdr.importParams.IT_AGING_MD, aging);
+        udrRoute(sendRfcToSplunk(cycleUdr, (string)rfcUdr.importParams, "RFC_REQUEST", "", "ZFIF_FM_VKONA_TO_BP", splunkCtx), "toSplunk");
+        udrRoute(rfcUdr, "rfc_req");
+    }
+}
+
+// Function to handle RFC input
+void handleRFCInput(ZFIF_FM_VKONA_TO_BP_UDR rfcUdr) {
+    debug(rfcUdr);
+    RequestCycle origReq = (RequestCycle) rfcUdr.context;
+
+    if (udrIsPresent(rfcUdr.tableParams.ET_ERROR)) {
+        udrRoute(sendRfcToSplunk(origReq, (string)rfcUdr.tableParams.ET_ERROR, "RFC_RESPONSE", API_STATUS_FAILURE, "ZFIF_FM_VKONA_TO_BP", splunkCtx), "toSplunk");
+        processRFCError(rfcUdr);
+    } else if (udrIsPresent(rfcUdr.tableParams.ET_OUT_FINAL)) {
+        udrRoute(sendRfcToSplunk(origReq, (string)rfcUdr.tableParams, "RFC_RESPONSE", "SUCCESS", "ZFIF_FM_VKONA_TO_BP", splunkCtx), "toSplunk");
+        processRFCSuccess(rfcUdr, origReq);
+    }
+}
+
+void handleRFCInputForEnt(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR input) {
+    debug("RFC response received: " + input);
+    ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr = (ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR) input;
+    RequestCycle reqUdr = (RequestCycle) rfcUdr.context;
+    udrRoute(sendRfcToSplunk(reqUdr, (string)rfcUdr.exportParams, "RFC_RESPONSE", "", "ZFICAF_DERIVE_ACTIVE_ACCOUNT", splunkCtx), "toSplunk");
+    AgingBucketDetailsRequest agingReq = parseRequestBody(reqUdr.body);
+    AgingBucketDetailsRequestInfo agingBucketDetailsRequestInfo = agingReq.requestInfo;
+
+    string resourceCode = getXrefValue(RESOURCE_CODE_TABLE, reqUdr.path);
+
+    // Check if this is the new ENT flow
+    string agingEntNewCall = getXrefValue("REFERENCE_DATA", "AGING_ENT_NEW_CALL");
+    boolean isEssential = (!isEmpty(agingBucketDetailsRequestInfo.agingByEssentialRequired) && 
+                           agingBucketDetailsRequestInfo.agingByEssentialRequired == "Y");
+
+    if (!isEssential && (!isEmpty(agingEntNewCall) && agingEntNewCall == "Y")) {
+        // New ENT flow — extract CA, retrieve stored CUID if collectorUserId was present
+        if (listSize(rfcUdr.exportParams.ET_GPART_VKONT) > 0) {
+            ZFITT_OUTPUT_BILL rfcOutput = listGet(rfcUdr.exportParams.ET_GPART_VKONT, 0);
+            string CA = rfcOutput.VKONT;
+            if (isEmpty(CA)) {
+                sendErrorResponse(reqUdr, agingReq, "Unable to resolve Contract Account", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+            } else {
+                // Retrieve previously resolved CUID (stored by processRFCSuccess if collectorUserId was present)
+                string nCUID = "";
+                if (!isEmpty(agingBucketDetailsRequestInfo.collectorUserId)) {
+                    nCUID = (string)mapGet(resolvedCuidMap, getTagId(reqUdr));
+                }
+                debug("Resolved CA: " + CA + " CUID: " + nCUID);
+                sendToOdata(reqUdr, CA, "", nCUID);
+            }
+        } else if (listSize(rfcUdr.exportParams.ET_ERROR) > 0) {
+            ZFIT_VKONA_ERR_MSG rfcError = listGet(rfcUdr.exportParams.ET_ERROR, 0);
+            sendErrorResponse(reqUdr, agingReq, rfcError.E_ERROR_MSG, resourceCode + CM_CONNECTION_ERROR);
+        }
+    } else {
+        // Existing flow — validate CA/BP and send to old OData
+        if (listSize(rfcUdr.exportParams.ET_GPART_VKONT) > 0) {
+            ZFITT_OUTPUT_BILL rfcOutput = listGet(rfcUdr.exportParams.ET_GPART_VKONT, 0);
+            string CA = rfcOutput.VKONT;
+            string BP = rfcOutput.GPART;
+            string busOrg = rfcOutput.BUSS_ORG;
+            if (isEmpty(CA) || isEmpty(BP)) {
+                sendErrorResponse(reqUdr, agingReq, "Invalid BAN", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+            } else if (!isEmpty(agingBucketDetailsRequestInfo.busOrgId) &&
+                       !strEqualsIgnoreCase(busOrg, agingBucketDetailsRequestInfo.busOrgId)) {
+                sendErrorResponse(reqUdr, agingReq,
+                    "Invalid billing account number " + agingBucketDetailsRequestInfo.billingAccountNumber +
+                    " and bus org id " + agingBucketDetailsRequestInfo.busOrgId + " combination.",
+                    resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+            } else {
+                sendToOdata(reqUdr, CA, BP, "");
+            }
+        } else if (listSize(rfcUdr.exportParams.ET_ERROR) > 0) {
+            ZFIT_VKONA_ERR_MSG rfcError = listGet(rfcUdr.exportParams.ET_ERROR, 0);
+            sendErrorResponse(reqUdr, agingReq, rfcError.E_ERROR_MSG, resourceCode + CM_CONNECTION_ERROR);
+        }
+    }
+}
+
+// Function to process successful RFC response
+void processRFCSuccess(ZFIF_FM_VKONA_TO_BP_UDR rfcUdr, RequestCycle rcUdr) {
+      string nCUID;
+    AgingBucketDetailsRequest agingReq = parseRequestBody(rcUdr.body);
+
+    if(null != rfcUdr && !isEmpty(agingReq.requestInfo.collectorUserId))
+        nCUID = extractCUID(rfcUdr);
+
+    boolean isEssential = (!isEmpty(agingReq.requestInfo.agingByEssentialRequired) && 
+                           agingReq.requestInfo.agingByEssentialRequired == "Y");
+
+    // Check DB property for new ENT ODATA call
+    string agingEntNewCall = getXrefValue("REFERENCE_DATA", "AGING_ENT_NEW_CALL");
+    debug("AGING_ENT_NEW_CALL flag: " + agingEntNewCall);
+
+    // If agingByEssentialRequired is N or empty AND AGING_ENT_NEW_CALL is Y → call sendToOdata
+    if(!isEssential && (!isEmpty(agingEntNewCall) && agingEntNewCall == "Y")) {
+        // This path is only reached when BAN-only (no collectorUserId) triggers ZFIF RFC
+        // collectorUserId case now goes directly to OData without RFC
+        debug("Routing to new ENT ODATA call after RFC (BAN-only path), CUID: " + nCUID);
+        if (!isEmpty(agingReq.requestInfo.billingAccountNumber)) {
+            // BAN present — also need CA from ZFICAF_DERIVE_ACTIVE_ACCOUNT
+            if (!isEmpty(nCUID))
+                mapSet(resolvedCuidMap, getTagId(rcUdr), nCUID);
+            ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr2 = udrCreate(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR);
+            importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT importParams = udrCreate(importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT);
+            list<ZFITT_VKONA> listOfBans = listCreate(ZFITT_VKONA);
+            ZFITT_VKONA bill = udrCreate(ZFITT_VKONA);
+            bill.VKONA = agingReq.requestInfo.billingAccountNumber;
+            listAdd(listOfBans, bill);
+            importParams.IT_VKONA = listOfBans;
+            rfcUdr2.importParams = importParams;
+            rfcUdr2.context = rcUdr;
+            udrRoute(sendRfcToSplunk(rcUdr, (string)rfcUdr2.importParams, "RFC_REQUEST", "", "ZFICAF_DERIVE_ACTIVE_ACCOUNT", splunkCtx), "toSplunk");
+            udrRoute(rfcUdr2, "rfc_req");
+        } else {
+            // No BAN — send directly to OData
+            sendToOdata(rcUdr, "", "", nCUID);
+        }
+        return;
+    }
+
+    // Existing logic — agingByEssentialRequired = Y OR AGING_ENT_NEW_CALL != Y
+    string filter = isEssential ? getFilterForEssential(agingReq.requestInfo) :
+                                  getFilter(agingReq.requestInfo, nCUID);
+
+    string select = isEssential ? getSelectColumnsForEssential(agingReq.requestInfo) :
+                                  getSelectColumns(agingReq.requestInfo);
+
+    string dtStr = getEffectiveDate(agingReq.requestInfo);
+    string sURI  = buildURI(agingReq.requestInfo, filter, select, dtStr);
+
+    RequestCycle reqUDR = getTokenDetailsForCI(sURI);
+    reqUDR.context = rcUdr;
+    debug("Request sent to BRIM at : " + dateCreateNow());
+    udrRoute(sendToSplunk(rcUdr, reqUDR, "ODATA_REQUEST", "", reqUDR.path, splunkCtx), "toSplunk");
+    udrRoute(reqUDR, "toS4");
+}
+
+// Function to process RFC error
+void processRFCError(ZFIF_FM_VKONA_TO_BP_UDR rfcUdr) {
+    RequestCycle reqUdr = (RequestCycle) rfcUdr.context;
+    AgingBucketDetailsRequest agingReq = parseRequestBody(reqUdr.body);
+    list<ZFITT_BAN_CUID> etError = rfcUdr.tableParams.ET_ERROR;
+    debug("etError - " + etError);
+
+    string errorMsg = !isEmpty(etError[0].ERROR_MSG) ? etError[0].ERROR_MSG : "";
+    string resourceCode = getXrefValue(RESOURCE_CODE_TABLE, reqUdr.path);
+
+   // logRfcResponse(reqUdr, "", getTagId(reqUdr), (string)etError, errorMsg, "ZFIF_FM_VKONA_TO_BP_UDR");
+    sendErrorResponse(reqUdr, agingReq, resourceCode + BRIM_ERROR, errorMsg);
+}
+
+// Utility functions
+AgingBucketDetailsRequest parseRequestBody(bytearray body) {
+    string sJson = baToStr(body);
+    AgingBucketDetailsRequest agingReq = udrCreate(AgingBucketDetailsRequest);
+    jsonDecodeUdr(sJson, agingReq);
+    return agingReq;
+}
+
+string getEffectiveDate(AgingBucketDetailsRequestInfo requestInfo) {
+    if (isEmpty(requestInfo.effectiveDate)) {
+        date dt = dateCreateNow();
+        string dtStr;
+        dateToString(dtStr, dt, "yyyy-MM-dd'T'00:00:00");
+        return dtStr;
+    } else {
+        date dt;
+        boolean success = strToDate(dt, requestInfo.effectiveDate, "yyyy-MM-dd");
+        if(success) {
+            string dtStr;
+            dateToString(dtStr, dt, "yyyy-MM-dd'T'00:00:00");
+            return dtStr;
+        }
+        
+    }
+    return requestInfo.effectiveDate;
+}
+
+string buildURI(AgingBucketDetailsRequestInfo requestInfo, string filter, string select, string dtStr) {
+    
+    string sURI;
+    if(!isEmpty(requestInfo.agingByEssentialRequired) && requestInfo.agingByEssentialRequired == "Y"){ // Only for MM
+        sURI = "/sap/opu/odata/sap/ZZ1_ZTCC_CADOCITMESS_M_Q1_CDS/ZZ1_ZTCC_CADOCITMESS_M_Q1(UIDate=datetime'<CURRENTDATE>')/Results?$format=json&$filter=<FILTER>" ;
+        sURI = strREReplaceAll(sURI, "<CURRENTDATE>", dtStr);
+        sURI = strREReplaceAll(sURI, "<FILTER>", filter);
+    }
+     
+    else{
+       sURI = "/sap/opu/odata/sap/ZZ1_ZTCC_CADOCBPITM_Q2_CDS/ZZ1_ZTCC_CADOCBPITM_Q2(UIDate=datetime'<CURRENTDATE>')/Results?$format=json&$filter=<FILTER>&$select=<SELECT>";
+       
+       sURI = strREReplaceAll(sURI, "<CURRENTDATE>", dtStr);
+       sURI = strREReplaceAll(sURI, "<FILTER>", filter);
+       sURI = strREReplaceAll(sURI, "<SELECT>", select);
+    }
+    debug("URI : "+sURI);
+    return sURI;
+}
+
+void sendErrorResponse(RequestCycle cycleUdr, AgingBucketDetailsRequest agingReq, string errorCode, string errorMessage) {
+    AgingBucketDetailsResponse errorUdr = createAgingBucketErrorResponseAging(agingReq, errorCode, errorMessage, "sBody");
+    string sErrorResp = jsonEncodeUdr(errorUdr);
+    bytearray ba;
+    strToBA(ba, sErrorResp);
+
+    Response respUdr = udrCreate(Response);
+    respUdr.body = ba;
+    respUdr.headers = getHeader();
+    respUdr.statusCode = 400;
+    cycleUdr.response = respUdr;
+
+    udrRoute(sendToSplunk(cycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx), "toSplunk");
+    udrRoute(cycleUdr, "toClient");
+}
+
+map<string,list<string>> getHeader(){
+    map<string,list<string> > mapToken = mapCreate(string,list<string>);
+    list<string> lContentType = listCreate(string);
+    listAdd(lContentType,"application/json");
+    mapSet(mapToken,"Content-Type",lContentType) ;
+    return (mapToken);
+}
+string extractCUID(ZFIF_FM_VKONA_TO_BP_UDR rfcUdr) {
+    string nCUID;
+    list<ZFITT_BAN_CUID_ALL> liExCuid = rfcUdr.tableParams.ET_OUT_FINAL;
+    for (ZFITT_BAN_CUID_ALL exCuid : liExCuid) {
+        nCUID = exCuid.GTY_V_CUID_PARTNER;
+    }
+    debug("Extracted CUID ::"+nCUID);
+    return nCUID;
+}
+string isValidRequest(AgingBucketDetailsRequestInfo requestInfo) {
+    string isValid = "";
+    
+    if(isEmpty(requestInfo.collectorUserId) && 
+       isEmpty(requestInfo.ultimateBusOrgId)&& 
+       isEmpty(requestInfo.busOrgId) && isEmpty(requestInfo.billingAccountNumber)) {
+           isValid = "Atleast one filter condition is required";
+           return isValid;
+       } 
+       if(!isEmpty(requestInfo.agingByEssentialRequired) && requestInfo.agingByEssentialRequired == "Y"
+       && isEmpty(requestInfo.billingAccountNumber)){
+        isValid = "billingAccountNumber is required";
+           return isValid;
+       }
+         if(requestInfo.effectiveDate != null) {
+          date dt;
+          strToDate(dt, requestInfo.effectiveDate, "yyyy-MM-dd");
+          if(dt == null) {
+              isValid = "Invalid Date format: Effective Date: expeted format: yyyy-MM-dd";
+          }
+          return isValid;
+         }
+       
+    return isValid;
+}
+
+boolean isValidCombination(AgingBucketDetailsRequestInfo requestInfo) {
+    boolean isValid = false;
+    // only Collector update 
+    if(!isEmpty(requestInfo.collectorUserId) && 
+    (isEmpty(requestInfo.ultimateBusOrgId) && isEmpty(requestInfo.busOrgId) && isEmpty(requestInfo.billingAccountNumber))) {
+     isValid = true;   
+    } else if((!isEmpty(requestInfo.collectorUserId) && !isEmpty(requestInfo.ultimateBusOrgId)) && // Collector and ultimateBusOrgId
+      (isEmpty(requestInfo.busOrgId) && isEmpty(requestInfo.billingAccountNumber))) {
+      isValid = true;  
+    } else if((!isEmpty(requestInfo.collectorUserId) && !isEmpty(requestInfo.busOrgId)) &&   // Collector and busOrgId
+        (isEmpty(requestInfo.ultimateBusOrgId) && isEmpty(requestInfo.billingAccountNumber))) {
+      isValid = true;
+    } else if(!isEmpty(requestInfo.ultimateBusOrgId) && // only Ultimate busOrg Id
+        (isEmpty(requestInfo.busOrgId) && isEmpty(requestInfo.billingAccountNumber) && isEmpty(requestInfo.collectorUserId))) {
+      isValid = true;   
+    } else if((!isEmpty(requestInfo.busOrgId)) && // only BusOrgId
+              (isEmpty(requestInfo.ultimateBusOrgId) && isEmpty(requestInfo.billingAccountNumber) && isEmpty(requestInfo.collectorUserId))) {
+      isValid = true;  
+    } else if((!isEmpty(requestInfo.billingAccountNumber)) && // only billing account number.
+              (isEmpty(requestInfo.ultimateBusOrgId) && isEmpty(requestInfo.busOrgId) && isEmpty(requestInfo.collectorUserId))) {
+      isValid = true;  
+    }
+    return isValid;   
+}
+
+// Helper: appends a filter clause with %20and%20 separator if filter already has content
+string appendFilter(string filter, string clause) {
+    return filter != null ? filter + "%20and%20" + clause : clause;
+}
+
+string getFilter(AgingBucketDetailsRequestInfo requestInfo, string nCUID) {
+    string filter = null;
+    if (!isEmpty(nCUID))
+        filter = appendFilter(filter, "CACollectionsClerk%20eq%20'" + nCUID + "'");
+    if (!isEmpty(requestInfo.ultimateBusOrgId))
+        filter = appendFilter(filter, "UltiCustBusOrgId%20eq%20'" + requestInfo.ultimateBusOrgId + "'");
+    if (!isEmpty(requestInfo.busOrgId))
+        filter = appendFilter(filter, "BusOrgId%20eq%20'" + requestInfo.busOrgId + "'");
+    if (!isEmpty(requestInfo.billingAccountNumber))
+        filter = appendFilter(filter, "BAN%20eq%20'" + requestInfo.billingAccountNumber + "'");
+    return filter;
+}
+
+string getFilterForEssential(AgingBucketDetailsRequestInfo requestInfo) {
+    string filter = null;
+    if (!isEmpty(requestInfo.billingAccountNumber))
+        filter = appendFilter(filter, "BAN%20eq%20'" + requestInfo.billingAccountNumber + "'");
+    return filter;
+}
+
+// Helper: returns the leading select columns based on which identifier is present
+string getSelectPrefix(AgingBucketDetailsRequestInfo requestInfo) {
+    if (!isEmpty(requestInfo.billingAccountNumber) || !isEmpty(requestInfo.busOrgId))
+        return "BAN,";
+    if (!isEmpty(requestInfo.ultimateBusOrgId))
+        return "BusOrgId,";
+    if (!isEmpty(requestInfo.collectorUserId))
+        return "CACollectionsClerk,UltiCustBusOrgId,UltiCustName,";
+    return "";
+}
+
+string getSelectColumnsForEssential(AgingBucketDetailsRequestInfo requestInfo) {
+    string commonColumns = "CompanyCodeCurrencyUSD,Regulated,OpenAmountUSD,CurrentDueAmountUSD,OverDueAmountUSD,Amnt1to30daysUSD,Amnt31to60daysUSD,Amnt61to90daysUSD,Amnt91to120daysUSD,Amnt121to150daysUSD,Amnt151to180daysUSD,Amnt181to210daysUSD,Amnt211to240daysUSD,Amnt241to270daysUSD,Amnt271to300daysUSD,Amnt301to330daysUSD,Amnt331to360daysUSD,Amnt361plusdaysUSD";
+    return getSelectPrefix(requestInfo) + commonColumns;
+}
+
+string getSelectColumns(AgingBucketDetailsRequestInfo requestInfo) {
+    string commonColumns = "CurrentDueAmountUSD,CompanyCodeCurrencyUSD,OverDueAmountUSD,OpenAmountUSD,DisputeAmountE,Amnt1to30daysUSD,Amnt31to60daysUSD,Amnt61to90daysUSD,Amnt91to120daysUSD,Amnt121to150daysUSD,Amnt151to180daysUSD,Amnt181to210daysUSD,Amnt211to240daysUSD,Amnt241to270daysUSD,Amnt271to300daysUSD,Amnt301to330daysUSD,Amnt331to360daysUSD,Amnt361plusdaysUSD";
+    return getSelectPrefix(requestInfo) + commonColumns;
+}
+
+
+RequestCycle getTokenDetailsForCI(string uri){
+    RequestCycle udr = udrCreate(RequestCycle);
+    map<string,list<string> > mapToken = mapCreate(string,list<string>);
+    list<string> lContentType = listCreate(string);
+    listAdd(lContentType,"application/json");
+    mapSet(mapToken,"Accept",lContentType) ;
+    list<string> lToken = listCreate(string);
+    listAdd(lToken,"fetch");
+    
+    map<string,string> mapParams = mapCreate(string,string);
+    mapSet(mapParams,"sap-client",getSystemValue(SAP_CLIENT));
+    
+   // mapSet(mapParams,"format","json");
+    udr.host = getSystemValue(REST_HOSTNAME);  //getSystemValue(REST_HOSTNAME); //http://ns2s4dapp2.saperp.corp.intranet:8080/sap/opu/odata/sap/ZGLB_DEVFI_WRITEOFF_REVERSAL_SRV/WriteoffNotesSet
+    udr.secure = true;
+    udr.port = getSystemValue(REST_PORT);//getSystemValue(REST_PORT);
+    udr.path =  uri;
+    udr.headers = mapToken;
+    udr.method = "GET";
+    udr.parameters = mapParams;
+    return udr;     
+}
+AgingBucketDetailsResponse createAgingBucketErrorResponseAging(AgingBucketDetailsRequest req, string sErrorCode, string sErrorMsg, string sReqBody){
+	AgingBucketDetailsResponse resp = udrCreate(AgingBucketDetailsResponse);
+    AgingBucketDetailsResponseInfo responseInfo = udrCreate(AgingBucketDetailsResponseInfo);
+    
+    resp.headerInfo = req.headerInfo;
+    resp.requestInfo = req.requestInfo;
+    ErrorInfo errInfo = udrCreate(ErrorInfo);
+    errInfo.errorMessage = sErrorMsg;
+    errInfo.errorCd = sErrorCode;
+    responseInfo.errorInfo = errInfo;
+    responseInfo.transactionStatus =  "F";
+    resp.responseInfo = responseInfo;
+    return resp;  
+}
+
+void sendToOdata(RequestCycle cycle, string CA, string BP, string nCUID) {
+    // Parse original request to get filter fields
+    AgingBucketDetailsRequest agingReq = parseRequestBody(cycle.body);
+    AgingBucketDetailsRequestInfo reqInfo = agingReq.requestInfo;
+
+    // Build filter for new ENT Ageing OData
+    // zzimca = CA from ZFICAF_DERIVE_ACTIVE_ACCOUNT (NOT billingAccountNumber)
+    // zzimcuid = resolved CUID from ZFIF_FM_VKONA_TO_BP
+    // zzimbusorg / zzimubusorg from request directly
+    string filter = null;
+    if (!isEmpty(CA)) {
+        // CA resolved via ZFICAF RFC — use contract account filter
+        filter = appendFilter(filter, "zzimca%20eq%20'" + CA + "'");
+    }
+    if (!isEmpty(nCUID)) {
+        filter = appendFilter(filter, "zzimcuid%20eq%20'" + nCUID + "'");
+    }
+    if (!isEmpty(reqInfo.busOrgId)) {
+        filter = appendFilter(filter, "zzimbusorg%20eq%20'" + reqInfo.busOrgId + "'");
+    }
+    if (!isEmpty(reqInfo.ultimateBusOrgId)) {
+        filter = appendFilter(filter, "zzimubusorg%20eq%20'" + reqInfo.ultimateBusOrgId + "'");
+    }
+
+    string sURI = "/sap/opu/odata/SAP/ZGLB_ENT_AGEING_SRV_01/AgeingAPIDataSet?$filter=" + filter + "&$format=json";
+    debug("sURI :: " + sURI);
+
+    RequestCycle request = requestTokenDetails(sURI);
+    request.context = cycle;
+
+    debug("###Ageing GET request sending to ODATA : " + request);
+    udrRoute(sendToSplunk(cycle, request, "ODATA_REQUEST", "", request.path, splunkCtx), "toSplunk");
+    udrRoute(request, "toS4");
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="12">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.BAPI_CTRACCONTRACTACCOUNT_GD1_UDR]]></string>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                     <storable name="10" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_NOTIF_UPD_UDR]]></string>
+                     </storable>
+                     <storable name="11" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFIF_FM_VKONA_TO_BP_UDR]]></string>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICA_FKK_UPDATE_SUSPENDED_BIT_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICA_GET_BUSI_SEG_UDR]]></string>
+                     </storable>
+                     <storable name="5" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_BIT_CREATE_API_UDR]]></string>
+                     </storable>
+                     <storable name="6" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_BUPABANK_UPDATE_UDR]]></string>
+                     </storable>
+                     <storable name="7" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_CA_ACC_CREATE_API_UDR]]></string>
+                     </storable>
+                     <storable name="8" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR]]></string>
+                     </storable>
+                     <storable name="9" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_GPART_VKONT_DERIVE_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_Request"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ServerData" ver="12.2">
+                  <enum classname="com.digitalroute.http2.server.auth.AuthLevel" name="authLevel" value="NONE"/>
+                  <string name="authPublicKey" null="true"/>
+                  <int name="averagePeriod" value="10"/>
+                  <string name="characterEncoding" value="UTF-8"/>
+                  <int name="clientTimeout" value="10"/>
+                  <boolean name="enableTooManyRequests" value="false"/>
+                  <int name="gzipLevel" value="7"/>
+                  <string name="host" value="ns2cmdapp2.saperp.corp.intranet"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <int name="maxCacheSize" value="1000"/>
+                  <int name="maxCacheTime" value="1000"/>
+                  <int name="maxConcurrentStreams" value="500"/>
+                  <int name="numberOfRequests" value="1000"/>
+                  <int name="port" value="8405"/>
+                  <boolean name="routeToApl" value="false"/>
+                  <storable name="securityProfile" null="true"/>
+                  <int name="serverTimeout" value="0"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" storable-id="dr.DRConfiguration" ver="2.0">
+                           <set name="Dynamic Parameters" null="true"/>
+                           <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                           <string name="Key" value="CMD1719073393880"/>
+                           <string name="Name" value="PRF_OPENAPI_AgingBucket"/>
+                           <string name="Type" value="Open API Profile"/>
+                        </storable>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList">
+                           <storable name="0" storable-id="dr.DRConfiguration" ver="2.0">
+                              <set name="Dynamic Parameters" null="true"/>
+                              <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                              <string name="Key" value="CMD1719073393880"/>
+                              <string name="Name" value="PRF_OPENAPI_AgingBucket"/>
+                              <string name="Type" value="Open API Profile"/>
+                           </storable>
+                        </list>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="true"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.HTTP2.Support5G" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <boolean name="enableFallBack" value="false"/>
+                        <boolean name="enableRegistrationRetry" value="false"/>
+                        <string name="nrfAddress" value=""/>
+                        <array classname="java.lang.String" name="nrfAddresses" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="numberOfRegistrationRetry" value="0"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList"/>
+                        <array classname="java.lang.String" name="secondaryAddress" size="0"/>
+                        <array classname="java.lang.String" name="secondaryAddressList" size="0"/>
+                        <int name="timeIntervalForRegistrationRetry" value="0"/>
+                        <boolean name="use5g" value="false"/>
+                     </storable>
+                  </list>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useCache" value="false"/>
+                  <boolean name="useSSL" value="false"/>
+                  <int name="waitDuration" value="10"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-C47096DB3390424214330B5B2BC35B9B"/>
+                  <int name="queueFullMaxRetries" value="0"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="true"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Common"/>
+                     <string name="Key" value="CMD1718267260229"/>
+                     <string name="Name" value="PRF_TLS"/>
+                     <string name="Type" value="Security Profile"/>
+                  </storable>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="true"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="BRIM_CM_REST"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="HTTP2_Client"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="11.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableExecutionThresholdLog" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executionThresholdTime" value="1"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="10"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                     <string name="Key" value="CMD1718267125289"/>
+                     <string name="Name" value="RFC_LUMN"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_RFC_Processor_1"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="Common"/>
+                     <string name="Key" value="CMD1779279436841"/>
+                     <string name="Name" value="PRF_WFB_LOGS"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Workflow_Bridge_1"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+debug(input);
+    if(instanceOf(input,ErrorCycleUDR)){
+        ErrorCycleUDR udr = (ErrorCycleUDR)input;
+        log.info("ErrorCycleUDR Response from Splunk WorkflowBridge = " + udr);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ErrorCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_1"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="rfc_resp"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="fromS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="rfc_req"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_37"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

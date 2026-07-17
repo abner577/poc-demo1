@@ -1,0 +1,1769 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="11.0">
+         <boolean name="enabled" value="false"/>
+         <storable name="kafka" null="true"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Local Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-800463886"/>
+         <string name="Node Name" value="Portal"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Port"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-800463886"/>
+         <string name="Node Name" value="Portal"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client_1"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client_1"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("request" , "Agent Name");
+}
+consume{ 
+    try{
+        if(instanceOf(input,RequestCycle)){
+            RequestCycle restUDR = (RequestCycle)input;
+            debug("Incoming Request ::: "+restUDR);
+            string tagId = setTagId(restUDR);
+            debug("tagId:::"+tagId);
+            ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_REQUEST, "",null,splunkCtx);
+            udrRoute(splunkUdr,"toSplunk");                         
+            if(strREContains(restUDR.path,"collection") || strREContains(restUDR.path,"collection")){
+               udrRoute(restUDR,"toAdjustment");
+            } 
+        }
+    } catch (ExceptionDetails exception) {
+        debug("Exception :: " + exception);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="request"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ServerData" ver="12.2">
+                  <enum classname="com.digitalroute.http2.server.auth.AuthLevel" name="authLevel" value="NONE"/>
+                  <string name="authPublicKey" null="true"/>
+                  <int name="averagePeriod" value="10"/>
+                  <string name="characterEncoding" value="UTF-8"/>
+                  <int name="clientTimeout" value="10"/>
+                  <boolean name="enableTooManyRequests" value="false"/>
+                  <int name="gzipLevel" value="7"/>
+                  <string name="host" value="hec45v172575.us1.sap.lumen.corp.intranet"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <int name="maxCacheSize" value="1000"/>
+                  <int name="maxCacheTime" value="1000"/>
+                  <int name="maxConcurrentStreams" value="500"/>
+                  <int name="numberOfRequests" value="1000"/>
+                  <int name="port" value="8443"/>
+                  <boolean name="routeToApl" value="false"/>
+                  <storable name="securityProfile" null="true"/>
+                  <int name="serverTimeout" value="0"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList">
+                           <storable name="0" storable-id="dr.DRConfiguration" ver="2.0">
+                              <set name="Dynamic Parameters" null="true"/>
+                              <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                              <string name="Key" value="CMD1718267394084"/>
+                              <string name="Name" value="PRF_API_Collection_WriteOff"/>
+                              <string name="Type" value="Open API Profile"/>
+                           </storable>
+                        </list>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="true"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.HTTP2.Support5G" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <boolean name="enableFallBack" value="false"/>
+                        <boolean name="enableRegistrationRetry" value="false"/>
+                        <string name="nrfAddress" null="true"/>
+                        <array classname="java.lang.String" name="nrfAddresses" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="numberOfRegistrationRetry" value="0"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList"/>
+                        <array name="secondaryAddress" null="true"/>
+                        <array classname="java.lang.String" name="secondaryAddressList" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="timeIntervalForRegistrationRetry" value="0"/>
+                        <boolean name="use5g" value="false"/>
+                     </storable>
+                  </list>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useCache" value="false"/>
+                  <boolean name="useSSL" value="false"/>
+                  <int name="waitDuration" value="10"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Portal"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-C47096DB3390424214330B5B2BC35B9B"/>
+                  <int name="queueFullMaxRetries" value="0"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="true"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Common"/>
+                     <string name="Key" value="CMD1718267260229"/>
+                     <string name="Name" value="PRF_TLS"/>
+                     <string name="Type" value="Security Profile"/>
+                  </storable>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="true"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="BRIM_CM_REST"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="HTTP2_Client_1"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.BRIMCM_APIs_Common.ULF_PAYMENT_APIS;
+import ultra.json;
+import apl.Common.APL_COMMON;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_API_Collection_WriteOff;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+final string writeOffReversePath = "/brimcm/collection/writeoff/reverse";
+
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Analysis_1" , "Agent Name");
+}
+consume {
+   if(instanceOf(input,RequestCycle)){   
+        RequestCycle cycleUdr = (RequestCycle)input;
+        debug("In Analysis Response from S4 :::  " +cycleUdr); 
+        
+        string sResponseBody,status,tagId;
+        string resourceCode;
+        try{
+            bytearray baRecord = (bytearray)cycleUdr.response.body;        
+            sResponseBody = baToStr(baRecord);
+            //debug("sResponseBody : " + sResponseBody);
+        }catch(ExceptionDetails e){
+           sResponseBody = (string)cycleUdr.response.body;
+           debug("sResponseBody catch : " + sResponseBody);           
+        }
+        
+    if(instanceOf(cycleUdr.context, autopayAgg)){//Response from S4            
+            autopayAgg aggUDR = (autopayAgg)cycleUdr.context;
+            debug("aggUDR : " + aggUDR);
+            http.RequestCycle httpRespUDR = aggUDR.requestUDR;
+          if (httpRespUDR.path == writeOffReversePath) {
+                 if(cycleUdr.path == "/sap/opu/odata/sap/ZGLB_DEVFI_WRITEOFF_REVERSAL_SRV/WriteoffNotesSet" && cycleUdr.method == "GET"){
+                    map<string,list<string> > mapToken = tokenReq(cycleUdr.response.headers); 
+                    if(mapGet(mapToken, "x-csrf-token") != null) {
+                        string sBody = baToStr(httpRespUDR.body);
+                        //WriteoffReverseReq writeOffReverseReq = udrCreate(WriteoffReverseReq); 
+                        WriteOffReversalRequest writeOffReverseReq = udrCreate(WriteOffReversalRequest);
+                        jsonDecodeUdr(sBody,writeOffReverseReq);
+                        string reqDocIdLoop,reqDocIdLoop1 = null;
+                        //debug ("sBody :" + sBody); 
+                        //debug ("writeOffReverseReq :" + writeOffReverseReq);
+                        //debug ("userId - " + writeOffReverseReq.headerInfo.userId);
+                        //WriteOffReversalRequest.requestinfo reqInfo= udrCreate(WriteOffReversalRequest.requestInfo);
+                        //for(openapi.BRIMCM_APIs.PRF_CMAPIs.WriteoffReverseReq_requestInfo reqInfo: writeOffReverseReq.requestInfo) {
+                            // Including Audit Trail Fields
+                            string reqStart = "{" + "\"Notes\": \"" + writeOffReverseReq.requestInfo.notes +"\"," + "\"InputChannelCd\": \"" + writeOffReverseReq.headerInfo.inputChannelCd +"\"," + "\"UserId\": \"" + writeOffReverseReq.headerInfo.userId + "\"," + "\"WriteOffReversalSet\": [";
+                            string reqEnd = "]," + "\"Result_Message\": [" + "{" + "\"Notes\": \"\"," + "\"DocumentID\": \"\"," + "\"Message\": \"\"" + "}]}";
+
+                            //for(openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse document: reqInfo.customerInfo) {
+                                //http.RequestCycle reqUDR = createWriteoffReverseReq(mapToken,  document.documentNo, reqInfo.notes);
+                                //reqUDR.context = aggUDR;
+                                //udrRoute(reqUDR,"toHTTP");
+                                //reqDocIdLoop1 = "{" + "\"DocumentID\":\"" + document.documentNo + "\"\n},";
+                                
+                                reqDocIdLoop1 = reqDocIdLoop1 + "{" + "\"DocumentID\":\"" + writeOffReverseReq.requestInfo.writeoffDocumentId + "\"},";
+                            //}
+                            reqDocIdLoop = strSubstring(reqDocIdLoop1,0,strLength(reqDocIdLoop1)-1); // remove the comma in the end
+                            debug ("reqDocIdLoop1 : " + reqDocIdLoop1);
+                            debug ("reqDocIdLoop : " + reqDocIdLoop);
+                            string reqDocId = reqStart + reqDocIdLoop + reqEnd;
+                            debug ("reqDocId : " + reqDocId);
+                            http.RequestCycle reqUDR = createWriteoffReverseReqLoop(mapToken,  reqDocId);
+                            reqUDR.context = aggUDR;
+                            udrRoute(reqUDR,"toHTTP");
+                            ConsumeCycleUDR splunkUdr = sendToSplunk(httpRespUDR,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx);
+                            udrRoute(splunkUdr,"toSplunk");                            
+                            
+                        //}                        
+                    }else{
+                            debug("Get token error ....................................");
+                            //Error is Fetching access token
+                    }
+                 } else  if(cycleUdr.path == "/sap/opu/odata/sap/ZGLB_DEVFI_WRITEOFF_REVERSAL_SRV/WriteoffNotesSet" && cycleUdr.method == "POST"){
+                     //For Post since the request is splitted, we should receive more than one response
+                     //I will use the AGG agent to correlate the response 
+                    debug("----> Agg UDR :: "+aggUDR);
+                    debug("----> cycleUDR ::"+cycleUdr);
+                    aggUDR.responseUdr = cycleUdr.response;//send the response to Aggregation
+                    aggUDR.s4RequestUDR = cycleUdr; 
+                    udrRoute(aggUDR,"toAdjustment");  
+                 }
+            }
+        }else if(cycleUdr.path == "/sap/opu/odata/SAP/ZGLB_DEVFICA_WRITE_OFF_INT_SRV/$metadata" && cycleUdr.method == "GET"){
+            RequestCycle reqUdr = (RequestCycle)cycleUdr.context;
+            debug("reqUdr in consume : "+reqUdr);
+            string sReqBody = baToStr(reqUdr.body);
+            debug("Inside POST Call to GET access token request for write off");
+            map<string, map<string,string>> mapInputRequestDetails = (map<string, map<string,string>>)jsonParse(sReqBody);
+            map<string,list<string> > mapToken = tokenReq(cycleUdr.response.headers); //Creating Headers request with token for POST API CALL  
+            http.RequestCycle udr = sendWriteoffDetails(mapToken,mapInputRequestDetails);
+            udr.context = reqUdr;
+            debug("UDR in GET call : "+udr);
+            udrRoute(udr,"toHTTP");
+            ConsumeCycleUDR splunkUdr = sendToSplunk(reqUdr,udr,ODATA_REQUEST, "",udr.path,splunkCtx);
+            udrRoute(splunkUdr,"toSplunk");            
+        } else if(cycleUdr.path == "/sap/opu/odata/SAP/ZGLB_DEVFICA_WRITE_OFF_INT_SRV/WriteHeaders" && cycleUdr.method == "POST"){
+            RequestCycle reqUdr = (RequestCycle)cycleUdr.context;
+            tagId=getTagId(reqUdr);
+            debug("tagId:::"+tagId);
+            resourceCode = BRIMCM_APIs_Common.APL_FUNCTIONS.getXrefValue(RESOURCE_CODE_TABLE,reqUdr.path);
+            debug("reqUdr in consume : "+reqUdr);
+            string sReqBody = baToStr(reqUdr.body);
+            bytearray baRecord = (bytearray)cycleUdr.response.body;
+            sResponseBody = baToStr(baRecord);
+            map<string,any> response = (map<string,any>)jsonParse(sResponseBody);
+            //debug("Response in POST Call : "+response);
+            WriteOffReq writeOffReq = udrCreate(WriteOffReq); 
+            jsonDecodeUdr(sReqBody,writeOffReq);
+            WriteOffResp writeOffResp = udrCreate(WriteOffResp);
+            WriteOffResp_responseInfo responseUdr = udrCreate(WriteOffResp_responseInfo);                
+            writeOffResp.requestInfo = writeOffReq.requestInfo;
+            writeOffResp.headerInfo = writeOffReq.headerInfo;
+            debug("before success condition");
+            if(cycleUdr.response.statusCode == 201  ){
+                debug("Inside 201 success condition");
+                writeOffResp = mapWriteOffSuccessResponse(response, writeOffReq);
+                status = API_STATUS_SUCCESS;                
+            } else {
+                debug("inside else condition of status code 200");
+                writeOffResp = mapWriteOffFailureResponse(resourceCode+BRIM_ERROR,response, writeOffReq);
+                status = API_STATUS_FAILURE;                                     
+            }               
+            
+            reqUdr.response.openAPIUDR = writeOffResp;
+            reqUdr.response.statusCode = 200;
+            udrRoute(reqUdr,"toClient");
+			ConsumeCycleUDR ccOdataUdr  = buildSplunkEventRaw(tagId, "ODATA_RESPONSE",cycleUdr.path,BRIMCM, BRIM, "BILLING_ACCOUNT_ID",writeOffReq.requestInfo.billingAccountNumber,"",status,(string)reqUdr.response.body,"", null,splunkCtx);
+            udrRoute(ccOdataUdr,"toSplunk");                              
+            ConsumeCycleUDR splunkOdataUdr = sendToSplunk(reqUdr,reqUdr,ODATA_RESPONSE,status,reqUdr.path,splunkCtx);
+            udrRoute(splunkOdataUdr,"toSplunk"); 
+            ConsumeCycleUDR ccApiUdr = sendToSplunk(reqUdr,null,API_RESPONSE,status,null,splunkCtx);
+            udrRoute(ccApiUdr,"toSplunk");            
+        }
+  /************START OF DEVELOPMENT OF HISTORY****************/       
+        else if(strREContains(cycleUdr.path, "ZGLB_DEVFI_WRITEOFF_INFO_SRV/writeOffInputSet") && cycleUdr.method == "GET"){
+            autopayAgg sessionUdr = udrCreate(autopayAgg);
+            sessionUdr.sessionId = (string)cycleUdr.context;
+            sessionUdr.s4ResponseStatus =(string) cycleUdr.response.statusCode;
+            if(instanceOf(cycleUdr.response.body,bytearray)){
+                sessionUdr.s4ResponseBody = (bytearray)cycleUdr.response.body;
+            }
+            sessionUdr.status = "ODATA_SUCCESS_RECEIVED";
+            status = API_STATUS_SUCCESS;
+             if(cycleUdr.response.body != null){
+             if(strREContains((string)cycleUdr.response.body,"Total timeout 30000 ms elapsed")){
+                debug("##Failure");
+                sessionUdr.responseDescription = (string)cycleUdr.body;
+                sessionUdr.status = "ODATA_ERROR_RESPONSE";
+                status = API_STATUS_FAILURE;
+             } else if(!strStartsWith(sessionUdr.s4ResponseStatus,"2")){
+                 debug("##Failure - Inside ErrorMsg Mapping");
+                 string errMsg;
+                 try{
+                    JsonObject json =  (JsonObject) jsonDecode(baToStr((bytearray)cycleUdr.response.body));
+                    map<string, any> responseMap = json.asMap;
+                    json  = (JsonObject) mapGet(responseMap, "error");
+                    responseMap = json.asMap;
+                    json  = (JsonObject) mapGet(responseMap, "message");
+                    responseMap = json.asMap;
+                    //debug("converted MAP :: \n ------------->>>>>" + responseMap);
+                    errMsg = (string) mapGet(responseMap, "value");
+                    status = API_STATUS_FAILURE;                    
+                    //debug("ErrorMsg :"+ errMsg); //*/
+                 } catch (ExceptionDetails exception){
+                    errMsg = "The OData request processing has been abnormally terminated";
+                    status = API_STATUS_FAILURE;                    
+                    debug("type casting error ...." + exception.message);
+                    log.info("type casting error ...." + exception.message);                    
+                 }
+             /* //For XML error handling
+                string s = baToStr((bytearray)cycle.response.body);
+                debug("value: "+s);
+                string errMsg = "";
+                int index3 = strREIndexOf(s, "<message");
+                int index4 = strREIndexOf(s, "</message>");
+                if(index3 != -1 && index4 != -1){
+                    errMsg = strSubstring(s, index3+9, index4);
+                }*/
+                sessionUdr.responseDescription = errMsg;
+                sessionUdr.status = "ODATA_ERROR_RESPONSE";
+             }
+             }
+             debug(" sending the session object to :: "+sessionUdr);
+             udrRoute(sessionUdr,"toAdjustment");
+             
+        }
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.errorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.BRIMCM_APIs_Common.ULF_PAYMENT_APIS; 
+import apl.Common.APL_COMMON;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_API_Collection_WriteOff;
+import apl.BRIMCM_APIs_Collection.APL_Collection_WriteOff;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("filterAdjustments" , "Agent Name");
+}
+
+final string writeOffReversePath = "/brimcm/collection/writeoff/reverse";
+final string history = "/brimcm/collection/writeoff/history";
+consume{
+    string resourceCode;
+    try{
+         debug("input ::" +input);
+        if(instanceOf(input,RequestCycle)){
+            RequestCycle restUDR = (RequestCycle)input;
+            map < string, list < string > > mapHeaders = mapCreate(string, list < string > );
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE,restUDR.path);
+            debug("ResourceCode"+resourceCode);
+            list < string > lHeader = listCreate(string);
+            listAdd(lHeader, "application/json");
+            mapSet(mapHeaders, "Content-Type", lHeader);
+            restUDR.response.headers = mapHeaders;
+            string sBody = baToStr(restUDR.body);
+            any Rec = jsonParse(sBody);
+            map<string,any > request = (map<string, any>) Rec;
+            int iCount;
+            autopayAgg aggUDR = udrCreate(autopayAgg);
+            string sessionId = "";
+            if(restUDR.path == writeOffReversePath) {
+                if(restUDR.method == "POST"){
+                    //WriteoffReverseReq writeOffReverseReq = udrCreate(WriteoffReverseReq);
+                    WriteOffReversalRequest writeOffReverseReq = udrCreate(WriteOffReversalRequest);
+                    jsonDecodeUdr(sBody,writeOffReverseReq);
+                    if(writeOffReverseReq.requestInfo != null) {// && listSize(writeOffReverseReq.requestInfo) > 0) {
+                        //for(WriteoffReverseReq_requestInfo reqInfo: writeOffReverseReq.requestInfo) {
+                            //for(DocumentResponse document: reqInfo.customerInfo) {
+                                sessionId = sessionId + writeOffReverseReq.requestInfo.writeoffDocumentId + ",";
+                                iCount = iCount+ 1;
+                            //}
+                        //}
+                        
+                    }
+                    aggUDR.sessionId = sessionId;
+                    aggUDR.iCount = iCount;
+                    aggUDR.requestUDR = restUDR;
+                    udrRoute(aggUDR,"adjustmentsAgg");
+                } else {
+                    //Reply back to client, Only POST is supported. 
+                    
+                }
+            }else if(restUDR.path == "/brimcm/collection/writeoff/create"){
+                string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFICA_WRITE_OFF_INT_SRV/$metadata";
+                debug("srcApplicationCd : "+(string)Rec.headerInfo.srcApplicationCd);
+                debug("writeOffReasonCd : "+(string)Rec.requestInfo.writeOffReasonCd);                
+                if(isEmpty((string)Rec.requestInfo.billingAccountNumber)){
+                    debug("writeoff create : resourceCode+CM_DATA_VALIDATION_ERROR_CODE : "+resourceCode+CM_DATA_VALIDATION_ERROR_CODE);
+                     WriteOffResp resp = errResponseForWriteOffDetails(resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"billingAccountNumber is Null",sBody);
+                     
+                     restUDR.response.openAPIUDR = resp;  
+                     restUDR.response.statusCode = 200;
+                     udrRoute(restUDR,"toClient");
+                     ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                     udrRoute(splunkUdr,"toSplunk");
+                     return;                                                                                    
+                } else if (isEmpty((string)Rec.headerInfo.userId)){
+                     WriteOffResp resp = errResponseForWriteOffDetails(resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"userId is Null",sBody);
+                     restUDR.response.openAPIUDR = resp;  
+                     restUDR.response.statusCode = 200;
+                     udrRoute(restUDR,"toClient");
+                     ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                     udrRoute(splunkUdr,"toSplunk");                     
+                     return;                                                                                    
+                } else if (isEmpty((string)Rec.headerInfo.srcApplicationCd)){
+                     WriteOffResp resp = errResponseForWriteOffDetails(resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"srcApplicationCd is Null",sBody);
+                     restUDR.response.openAPIUDR = resp;  
+                     restUDR.response.statusCode = 200;
+                     udrRoute(restUDR,"toClient");
+                     ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                     udrRoute(splunkUdr,"toSplunk");                     
+                     return;   
+                } else if((string)Rec.headerInfo.srcApplicationCd =="SITETRKR") { //Added extra handling for SITETRKR srcApplicationCdfor BRMI0052-3
+                    string reasonCd = (string)Rec.requestInfo.writeOffReasonCd;
+                    debug("reasonCd : "+reasonCd);
+                    if(reasonCd != "31" && reasonCd != "32" && reasonCd != "33" && reasonCd != "34"){
+                        WriteOffResp resp = errResponseForWriteOffDetails(resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"Specify correct writeOffReasonCd for srcApplicationCd SITETRKR",sBody);
+                        restUDR.response.openAPIUDR = resp;  
+                        restUDR.response.statusCode = 200;
+                        udrRoute(restUDR,"toClient");
+                        ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                        udrRoute(splunkUdr,"toSplunk");                        
+                        return;                           
+                    }
+                }
+                /**********START CHANGES FOR CR 52493**********/
+                /*where the Billing Account Number is being sent along with the Amount for Full Write-off -- 
+                 three fields fullWriteOffAmount, isFullWriteOff and Billing Account Number should be populated
+                    the field isFullWriteOff should have the value Y */
+ 
+                else if(!isEmpty((string)Rec.requestInfo.billingAccountNumber) && !isEmpty((string)Rec.requestInfo.fullWriteOffAmount ) && (double)Rec.requestInfo.fullWriteOffAmount > 0){
+                    debug("writeoff create : resourceCode+CM_DATA_VALIDATION_ERROR_CODE : "+resourceCode+CM_DATA_VALIDATION_ERROR_CODE);
+                     if((isEmpty((string)Rec.requestInfo.isFullWriteOff))|| (!isEmpty((string)Rec.requestInfo.isFullWriteOff) && Rec.requestInfo.isFullWriteOff != "Y")){
+                     
+                     WriteOffResp resp = errResponseForWriteOffDetails(resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"isFullWriteOff cannot Null or N, incase fullWriteOffAmount is being sent",sBody);
+                     restUDR.response.openAPIUDR = resp;  
+                     restUDR.response.statusCode = 200;
+                     udrRoute(restUDR,"toClient");
+                     ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                     udrRoute(splunkUdr,"toSplunk");                     
+                     return;   
+                     }
+                }else if(null != Rec.requestInfo.checkForBankruptcy &&!isEmpty((string)Rec.requestInfo.checkForBankruptcy)
+                 &&strEqualsIgnoreCase((string)Rec.requestInfo.checkForBankruptcy, "Y") && (isEmpty((string)Rec.requestInfo.isFullWriteOff) || strEqualsIgnoreCase((string)Rec.requestInfo.isFullWriteOff, "N")) ){
+                 
+                 WriteOffResp resp = errResponseForWriteOffDetails(resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"isFullWriteOff cannot be empty or N if bankcruptcy flag is Y.",sBody);
+                 restUDR.response.openAPIUDR = resp;  
+                 restUDR.response.statusCode = 200;
+                 udrRoute(restUDR,"toClient");
+                 ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                 udrRoute(splunkUdr,"toSplunk");                     
+                 return;  
+                 }
+                /**********END CHANGES FOR CR 52493**********/
+                
+                http.RequestCycle reqUDR = accessTokenReqDunning(sURI);
+                reqUDR.context = restUDR;
+                debug("reqUDR in POST Call : "+reqUDR);
+                udrRoute(reqUDR,"toS4");
+            }
+       /************START OF DEVELOPMENT OF HISTORY****************/ 
+             else if(restUDR.path == history){
+               debug("###Inside History");
+               WriteOffHistoryRequest ReqUdr = udrCreate(WriteOffHistoryRequest);
+               jsonDecodeUdr(sBody, ReqUdr);
+               WriteOffHistoryResponse respUdr = udrCreate(WriteOffHistoryResponse);
+               respUdr.headerInfo = ReqUdr.headerInfo;
+               respUdr.requestInfo = ReqUdr.requestInfo;
+               respUdr.responseInfo = udrCreate(WriteOffHistoryResponseInfo);
+               
+               if(isEmpty(ReqUdr.requestInfo.billingAccountNumber)){
+                 debug("###Validation Failure :: Mandatory field missing");
+                 restUDR = sendHistoryErrorResponse(respUdr,restUDR,"Missing Mandatory Field -- BAN",resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"");
+                 udrRoute(restUDR,"toClient");
+                 ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                 udrRoute(splunkUdr,"toSplunk");                 
+                 return;
+               }else  if(!isEmpty(ReqUdr.requestInfo.isWriteOffReversed) && ReqUdr.requestInfo.isWriteOffReversed != "N" && ReqUdr.requestInfo.isWriteOffReversed != "Y"){
+                 debug("###Please provide a valid Write Off Reversal Indicator -- Y or N");
+                 restUDR = sendHistoryErrorResponse(respUdr,restUDR,"Please provide a valid Write Off Reversal Indicator -- Y or N",resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"");
+                  udrRoute(restUDR,"toClient");
+                 ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                 udrRoute(splunkUdr,"toSplunk"); 
+                 return;
+               }else{
+                  //send to Agg for further processing
+                  string uuidKey = uuidString(uuidCreateRandom());
+			      debug("Session Key:: " + uuidKey);
+			      autopayAgg sessionUdr = udrCreate(autopayAgg);
+		  	      sessionUdr.sessionId = uuidKey;
+			      sessionUdr.requestUDR = restUDR;
+                  sessionUdr.requestObj = ReqUdr;
+                  sessionUdr.responseObj = respUdr;
+                  sessionUdr.isItemLevelHistoryRequired = itemLevelHistoryRequired(ReqUdr.requestInfo.itemLevelHistoryRequired);
+                  sessionUdr.fetchDataFromCDW = false;sessionUdr.fetchDataFromBRIM = false;
+                  sessionUdr.derivedFromDate = "";sessionUdr.derivedToDate = "";
+                  string sFromDate = ReqUdr.requestInfo.fromDate;
+                  string sToDate =  ReqUdr.requestInfo.toDate;
+                 if(isEmpty(sFromDate) && isEmpty(sToDate)){
+                     //long ldate = dateCreateNowMilliseconds();
+                     if(sessionUdr.isItemLevelHistoryRequired){
+                         date dDate = dateCreateFromMilliseconds(dateCreateNowMilliseconds());
+                         dateToString(sToDate,dDate,"yyyy-MM-dd");
+                         dateAddYears(dDate,-7);
+                         dateToString(sFromDate,dDate,"yyyy-MM-dd");
+                         debug("The value of Derived sToDate = "+ sToDate+" sFromDate = "+sFromDate);
+                         sessionUdr.derivedFromDate = sFromDate;
+                         sessionUdr.derivedToDate = sToDate;
+                     }else{
+                         sessionUdr.derivedFromDate = sFromDate;
+                         sessionUdr.derivedToDate = sToDate;
+                     }
+                   }else if(!isEmpty(sFromDate) && !isEmpty(sToDate)){
+                     sessionUdr.derivedFromDate = sFromDate;
+                     sessionUdr.derivedToDate = sToDate;
+                   }
+                   else{
+                     debug("###Validation Failure :: corresponding fromDate or toDate is expected");
+                     respUdr.responseInfo.transactionStatus = "F";
+                     string errMsg = isEmpty(sFromDate) ? "fromDate is required" : "toDate is required";
+                     restUDR = sendHistoryErrorResponse(respUdr,restUDR,errMsg,resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"");
+                     udrRoute(restUDR,"toClient");
+                     ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                     udrRoute(splunkUdr,"toSplunk");                
+                     return;
+                   }
+                   if(sessionUdr.isItemLevelHistoryRequired){
+                     
+                    //Date comparison to make the flag fetchDataFromCDW and fetchDataFromCDW true
+                    date dFromDT = convertStringToDate(sFromDate,"yyyy-MM-dd");
+                    date dToDT = convertStringToDate(sToDate,"yyyy-MM-dd");
+                    date dGoLiveDT = convertStringToDate(GO_LIVE_DATE,"yyyy-MM-dd");
+                    
+                    long diffFrmDateToGoLiveDate = dateDiff(dFromDT,dGoLiveDT);
+                    long diffToDateToGoLiveDate = dateDiff(dToDT,dGoLiveDT);
+                    long diffToDateToFromDate = dateDiff(dToDT,dFromDT);
+                    if(diffToDateToFromDate >= 0){
+                        if(diffFrmDateToGoLiveDate < 0 ){
+                           sessionUdr.fetchDataFromCDW = true;
+                           sessionUdr.isBeforeGoLive = true;
+                        }
+                        if(diffToDateToGoLiveDate >= 0){
+                           sessionUdr.fetchDataFromBRIM = true;
+                        }
+                    }else{
+                        //Failure to Source
+                         debug("###Validation Failure :: fromDate should not be greater than toDate");
+                         respUdr.responseInfo.transactionStatus = "F";
+                         restUDR = sendHistoryErrorResponse(respUdr,restUDR,"fromDate should not be greater than toDate",resourceCode+CM_DATA_VALIDATION_ERROR_CODE,"");
+                         udrRoute(restUDR,"toClient");
+                         ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                         udrRoute(splunkUdr,"toSplunk");                         
+                         return;
+                    }
+                   }else{
+                       sessionUdr.fetchDataFromBRIM = true;
+                   }
+                   if(!getCDW_FLAG()){
+                       debug("###CDW FLAG IS OFF");
+                       sessionUdr.fetchDataFromCDW = false;
+                       if(!sessionUdr.fetchDataFromBRIM){
+                            respUdr.responseInfo.transactionStatus = "S";
+                            restUDR.response.statusCode = 200;
+                            restUDR.response.openAPIUDR = respUdr;
+                            //restUDR.response.headers=APL_FUNCTIONS.getHeader();
+                            debug("##Success Response :" + restUDR);
+                            udrRoute(restUDR,"toClient");
+                            ConsumeCycleUDR splunkUdr = sendToSplunk(restUDR,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx);
+                            udrRoute(splunkUdr,"toSplunk");                            
+                            return;
+                       }
+                   }
+                   sessionUdr.status = "RECEIVED";
+                   debug("is instance of WriteOff History received");
+                   udrRoute(sessionUdr, "adjustmentsAgg");
+                }
+            }
+    /************END OF DEVELOPMENT OF WRITEOFF HISTORY****************/ 
+        }
+    } catch (ExceptionDetails exception) {
+        debug("Exception :: " + exception);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="filterAdjustments"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.wfc.aggregation.AggregationRealtimeInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.wfc.aggregation.AggregationRealtimeInsp]]></string>
+               <storable name="Data" storable-id="dr.AggregationConfig" ver="11.0">
+                  <int name="commitCount" value="0"/>
+                  <int name="commitTimeout" value="0"/>
+                  <int name="defaultTimeout" value="-1"/>
+                  <int name="defragAfterNumberOfBatches" value="1"/>
+                  <int name="defragEachBatchTimeLimit" value="5"/>
+                  <int name="defragFileAgeLimit" value="5"/>
+                  <string name="defragFileAgeLimit_TimeUnit" value="MINUTES"/>
+                  <enum name="defragTrigger" storable-id="dr.DefragType" value="NONE"/>
+                  <int name="intervalTimeout" value="1"/>
+                  <string name="mainScript"><![CDATA[import ultra.http;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+//import apl.Common.APL_COMMON;
+import apl.BRIMCM_APIs_Collection.APL_Collection_WriteOff;
+import ultra.BRIMCM_APIs_Common.ULF_PAYMENT_APIS; 
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_API_Collection_WriteOff;
+import ultra.SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute.subUdr;
+import ultra.SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+final string writeOffReversePath = "/brimcm/collection/writeoff/reverse";
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Collection" , "Agent Name");
+}
+sessionInit{
+    debug("###SessionInit = " + input);
+    session.sessionId = input.sessionId;
+    session.iCount = input.iCount;
+    session.requestUDR = input.requestUDR; //Main request
+    http.RequestCycle restUDR = (http.RequestCycle)session.requestUDR;
+    session.responseObj = input.responseObj;
+    session.requestObj = input.requestObj;
+    session.isItemLevelHistoryRequired = input.isItemLevelHistoryRequired;
+    session.isBeforeGoLive = input.isBeforeGoLive;
+    session.isCDWDB_ResponseReceieved = false;
+    session.isS4_ResponseReceieved = false;
+    string sBody = baToStr(restUDR.body);  
+    any Rec = jsonParse(sBody);    
+    if(restUDR.path == writeOffReversePath) {
+        session.responseReceived = false;
+        debug("Writeoff reverse before getting access token");
+        string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_WRITEOFF_REVERSAL_SRV/WriteoffNotesSet";
+        http.RequestCycle reqUDR = accessTokenReq(sURI);
+        reqUDR.context = session;
+        udrRoute(reqUDR,"toHTTP");
+    }
+    session.fetchDataFromCDW = input.fetchDataFromCDW;
+    session.fetchDataFromBRIM = input.fetchDataFromBRIM;
+    session.derivedFromDate = input.derivedFromDate;
+    session.derivedToDate = input.derivedToDate;
+}
+
+consume {
+    string resourceCode,status;
+    debug("###Inside Aggregation consume" + session);
+    http.RequestCycle httpUDR = (http.RequestCycle)input.requestUDR; 
+    resourceCode = getXrefValue(RESOURCE_CODE_TABLE,httpUDR.path); 
+    if(httpUDR.path == writeOffReversePath) { 
+        if(input.responseUdr != null){
+            http.RequestCycle orginalRestUDR = (http.RequestCycle)session.requestUDR;
+            http.RequestCycle s4HttpUDR = input.s4RequestUDR;
+            
+            string s4Body = baToStr(s4HttpUDR.body);
+            map<string, any> s4Request = (map<string,any>)jsonParse(s4Body);
+                        
+            session.iCount = session.iCount - 1;
+            debug("inside post response of " + writeOffReversePath+ " - " + input.responseUdr);
+            http.Response restUdr = input.responseUdr; 
+            string sRecord;
+            try{
+                bytearray baRec= (bytearray)restUdr.body;
+                sRecord =  baToStr(baRec);   
+            }catch(ExceptionDetails e){
+                sRecord = "{\"error\": \"Timeout Occured in BRIM\"}";
+                status = API_STATUS_FAILURE;
+            }
+            //openapi.BRIMCM_APIs.PRF_CMAPIs.WriteoffReverseResp writeOffReverseResp; 
+            WriteOffReversalResponse writeOffReverseResp; 
+            if(!session.responseReceived){
+                session.responseReceived = true;
+                writeOffReverseResp = udrCreate(WriteOffReversalResponse);
+                writeOffReverseResp.responseInfo = udrCreate(WriteOffReversalResponseInfo);
+                //writeOffReverseResp.responseInfo.customerInfo = listCreate(openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse);
+                httpUDR.response.openAPIUDR = writeOffReverseResp;
+            } else {
+                writeOffReverseResp = (WriteOffReversalResponse) httpUDR.response.openAPIUDR;
+            }
+            
+            if(restUdr.statusCode == 201){
+            map<string,any> mapRestResponse = (map<string,any>)jsonParse(sRecord);
+            debug("Rest Response = " + mapRestResponse);
+            /*if(mapGet(mapRestResponse, "error") != null) {
+                    map<string, any> error = ( map<string, any>) mapGet(mapRestResponse, "error");
+                    map<string, any> innerError = (map<string, any>)mapGet(error, "innererror");
+                    list<any> errordetails = (list<any>)mapGet(innerError, "errordetails");
+                    string msg;
+                    if (listSize(errordetails) > 0) {
+                        map<string, any> errorDetail = (map<string, any>)listGet(errordetails, 0);
+                        msg = (string)mapGet(errorDetail, "message");
+                    }
+                    else {
+                        msg = "Error, but No message from S4P"; 
+                    }
+                    openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse documentResponse = udrCreate(openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse);
+                    documentResponse.documentNo = (string)mapGet(s4Request, "WOReverseDoc");
+                    documentResponse.message = msg;
+                    listAdd(writeOffReverseResp.responseInfo.customerInfo, documentResponse);
+            } else {
+                    openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse documentResponse = udrCreate(openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse);
+                    documentResponse.documentNo = (string)mapGet(s4Request, "WOReverseDoc");
+                    documentResponse.message = "Success";
+                    listAdd(writeOffReverseResp.responseInfo.customerInfo, documentResponse);
+            }*/
+            
+            if(mapGet(mapRestResponse, "d") != null) {            
+                map<string, any> resp1 = ( map<string, any>) mapGet(mapRestResponse, "d");
+                debug ("d keys : " + mapKeys(resp1));
+                string result1 = (string)mapGet(resp1,"Result_Message");
+                string respResult1 = strSubstring(result1,1,strLength(result1)-1);
+                string respResult = strSubstring(respResult1,9,strLength(respResult1)-1);
+                debug("respResult : "+ respResult);
+                int NoOfDocs = strIndexOf(respResult,"},");
+                debug("NoOfDocs = "+NoOfDocs );
+                /*if ( NoOfDocs != -1){
+                    list<string> respList = strSplit(respResult , "},");
+                                       
+                    for (string s : respList){
+                        debug(s);
+                        openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse documentResponse = udrCreate(openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse); 
+                        documentResponse.documentNo = strSubstring(s,strIndexOf(s,", DocumentID=")+13,strIndexOf(s,", Message=")); 
+                        debug("DocID = "+documentResponse.documentNo);
+                        //documentResponse.message = strSubstring(s,strIndexOf(s,", Code=")+7,strIndexOf(s,", DocumentID=")); //Code
+                        documentResponse.message = strSubstring(s,strIndexOf(s,", Message=")+10,strIndexOf(s,", MsgID="));
+                        debug("documentResponse.message = "+documentResponse.message); 
+                        listAdd(writeOffReverseResp.responseInfo.customerInfo, documentResponse);   
+                    }
+                }
+                else {*/
+                    //Only one Document input
+                    string s = respResult;
+                        //openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse documentResponse = udrCreate(openapi.BRIMCM_APIs.PRF_CMAPIs.DocumentResponse);
+                        string DocId = strSubstring(s,strIndexOf(s,", DocumentID=")+13,strIndexOf(s,", Message=")); 
+                        debug("DocID = "+DocId);
+                        string DocMsg = strSubstring(s,strIndexOf(s,", Message=")+10,strIndexOf(s,", MsgID="));
+                        debug("DocMsg = "+ DocMsg);
+                        string DocCode = strSubstring(s,strIndexOf(s,", Code=")+7,strIndexOf(s,", DocumentID="));
+                        debug("DocCode = "+ DocCode);
+                        
+                        if(DocCode == "ERROR"){
+                            writeOffReverseResp.responseInfo.transactionStatus = "F";
+                            ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                            errorInfo.errorMessage = DocMsg;
+                            errorInfo.errorCd = resourceCode + BRIM_ERROR;     
+                            writeOffReverseResp.responseInfo.errorInfo = errorInfo;
+                            status = API_STATUS_FAILURE;
+                        }
+                        else{
+                            writeOffReverseResp.responseInfo.transactionStatus = "S";
+                            status = API_STATUS_SUCCESS;                            
+                        //listAdd(writeOffReverseResp.responseInfo.customerInfo, documentResponse); 
+                //} 
+                        }
+                                     
+            }
+            else {
+                debug("Response is null");
+            }
+            
+            //if(session.iCount == 0) {
+                string sBody = baToStr(orginalRestUDR.body);
+                //openapi.BRIMCM_APIs.PRF_CMAPIs.WriteoffReverseReq writeOffReverseReq = udrCreate(openapi.BRIMCM_APIs.PRF_CMAPIs.WriteoffReverseReq);
+                WriteOffReversalRequest writeOffReverseReq = udrCreate(WriteOffReversalRequest);
+                jsonDecodeUdr(sBody,writeOffReverseReq);           
+
+                writeOffReverseResp.requestInfo = writeOffReverseReq.requestInfo;
+                writeOffReverseResp.headerInfo = writeOffReverseReq.headerInfo;            
+                
+                httpUDR.response.statusCode = input.responseUdr.statusCode;
+                debug("writeOffReverseResp : "+writeOffReverseResp);
+                udrRoute(httpUDR,"toClient");
+                 ConsumeCycleUDR splunkOdataUdr = sendToSplunk(orginalRestUDR,httpUDR,ODATA_RESPONSE,status,httpUDR.path,splunkCtx);
+                 udrRoute(splunkOdataUdr,"toSplunk"); 
+                 ConsumeCycleUDR ccApiUdr = sendToSplunk(httpUDR,null,API_RESPONSE,status,null,splunkCtx);
+                 udrRoute(ccApiUdr,"toSplunk");               
+                sessionRemove(session);
+            //}
+         }
+    }
+    else 
+        debug("Response UDR is null");    
+  }
+  
+/************START OF DEVELOPMENT OF HISTORY****************/ 
+  if (input.status == "RECEIVED") {
+      debug("###Inside Received");
+        session.status = "LOOKUP_INPROGRESS";
+        if(instanceOf(session.requestObj, WriteOffHistoryRequest)) {
+            
+            if(session.fetchDataFromBRIM){
+                debug("###RFC REQUEST");
+                WriteOffHistoryRequest ReqUdr = (WriteOffHistoryRequest)session.requestObj;
+                ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUDR = udrCreate(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR);
+                importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT importParams = udrCreate(importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT );
+                list<ZFITT_VKONA> listBAN = listCreate(ZFITT_VKONA);
+                ZFITT_VKONA getBanUDR = udrCreate(ZFITT_VKONA);
+                getBanUDR.VKONA = ReqUdr.requestInfo.billingAccountNumber;
+                listAdd(listBAN, getBanUDR); 
+                importParams.IT_VKONA = listBAN;
+                rfcUDR.importParams = importParams;
+                rfcUDR.context = session;
+                debug("request to RFC: "+rfcUDR);
+                udrRoute(rfcUDR, "toRFC");
+                ConsumeCycleUDR splunkRfcUdr  = sendRfcToSplunk(session.requestUDR, (string)rfcUDR.importParams,RFC_REQUEST, "", "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                udrRoute(splunkRfcUdr,"toSplunk");                
+            }
+           if(session.fetchDataFromCDW){
+               debug("###INSIDE CDW FETCH");
+                try{
+                    WriteOffHistoryRequest ReqUdr = (WriteOffHistoryRequest)session.requestObj;
+                    string BAN = ReqUdr.requestInfo.billingAccountNumber;
+                    string bussOrg = ReqUdr.requestInfo.busOrgId;
+                    date dFromDT = convertStringToDate(session.derivedFromDate,"yyyy-MM-dd");
+                    date dToDT = convertStringToDate(session.derivedToDate,"yyyy-MM-dd");
+                    date dGoLiveDT = convertStringToDate(GO_LIVE_DATE,"yyyy-MM-dd");
+                    
+                    WriteOffHistoryResponseInfo respInfo = udrCreate(WriteOffHistoryResponseInfo);
+                    respInfo.billingAccountNumber = BAN;
+                    respInfo.busOrgId = bussOrg;
+                    list<WriteOffDetail> listDetails = listCreate(WriteOffDetail);
+                    table cdwWriteOffHistoryView = getWriteOffHistoryFromDWH(BAN, bussOrg, dFromDT, dToDT, dGoLiveDT);
+                   debug("table -- " + cdwWriteOffHistoryView);
+                     if (cdwWriteOffHistoryView != null) {
+                        debug("Inside cdwWriteOffHistoryView not null condition");
+                        processWriteOffHistory(cdwWriteOffHistoryView,listDetails);
+                        if(!session.fetchDataFromBRIM){
+                            debug("Inside if condition of cdwWriteOffHistoryView not null condition");
+                            respInfo.writeOffDetails = listDetails;
+                            WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+                            respUdr.responseInfo = respInfo;
+                            session.responseObj = respUdr;
+                            session.status = "CDW_DATA_SUCCESS_RECIEVED";
+                            sessionTimeout(session, -1);
+                        }else{
+                               debug("Inside else condition of cdwWriteOffHistoryView not null condition");
+                               session.listDetailsfromCDW = listDetails;
+                               session.isCDWDB_ResponseReceieved = true;
+                               if(session.isS4_ResponseReceieved)
+                                sessionTimeout(session, -1);
+                               else
+                                debug("CDW proccess finished(waiting for BRIM process to close....)");
+                        }
+                    }else{
+                        debug("No Data Recieved from CDW DB");
+                         if(!session.fetchDataFromBRIM){
+                             debug("Inside if condition of cdwWriteOffHistoryView null condition");
+                             session.responseDescription = "No Data Recieved from CDW DB";
+                             session.status = "CDW_ERROR_RESPONSE";
+                             sessionTimeout(session, -1);
+                         }else{
+                             debug("Inside else condition of cdwWriteOffHistoryView null condition");
+                             session.isCDWDB_ResponseReceieved = true;
+                             if(session.isS4_ResponseReceieved)
+                                sessionTimeout(session, -1);
+                             else
+                                debug("CDW proccess finished(waiting for BRIM process to close....)");
+                         }
+                    }
+                }catch (ExceptionDetails exception) {
+                    debug("Exception occured while CDW DATA FETCHING Process:: " + exception);
+                    session.isCDWDB_ResponseReceieved = true;
+                    if(!session.fetchDataFromBRIM){
+                        debug("Inside if condition of catch block for CDW exception");
+                        session.responseDescription = "Exception Occured in CM...";
+                        session.status = "CDW_ERROR_RESPONSE";
+                        sessionTimeout(session, -1);
+                    }else{
+                        debug("Inside else condition of catch block for CDW exception");
+                        if(session.isS4_ResponseReceieved)
+                            sessionTimeout(session, -1);
+                        else
+                            debug("CDW proccess finished(waiting for BRIM process to close....)");
+                    }
+                }
+            }
+        }
+  }
+    if(input.status == "RFC_ERROR_RESPONSE") {
+        if(!session.isItemLevelHistoryRequired || !session.fetchDataFromCDW){
+          debug("Inside if condition of RFC error response");
+          session.context = "S21";
+          session.rfcRequestResponse = input.rfcRequestResponse;
+          session.rfcErrors = input.rfcErrors;
+          session.status =  input.status;
+          sessionTimeout(session, -1);
+        }else{
+           debug("Inside else condition of RFC error response");
+           session.isS4_ResponseReceieved = true;
+           session.rfcErrors = input.rfcErrors;
+           if(session.isCDWDB_ResponseReceieved)
+            sessionTimeout(session, -1);
+        }
+    }
+    if (input.status == "RFC_RESPONSE") {
+        session.status =  input.status;
+        debug("###Session : " + session);        
+        debug("Step 3: Response received from RFC ---->>> ");
+        session.rfcRequestResponse = (RFCRequestResponse)input.rfcRequestResponse; 
+        string CA = session.rfcRequestResponse.contractAccount;
+        string BP = session.rfcRequestResponse.businessPartner;
+        //string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_WRITEOFF_INFO_SRV/writeOffInputSet?$filter=contractAccount%20eq%20'120000000162'&$expand=WO_IP_HDR_NAV/WO_HDR_INV_NAV&$format=json";
+        WriteOffHistoryRequest ReqUdr = (WriteOffHistoryRequest)session.requestObj;
+                   
+        string sURI = getURI( CA,  BP, (WriteOffHistoryRequest)session.requestObj,session);
+        RequestCycle request = requestGetTokenDetails(sURI);
+        request.context = session.sessionId;
+        debug("Request to ODATA = "+ request) ;
+        udrRoute(request, "toHTTP");
+        ConsumeCycleUDR splunkUdr = sendToSplunk(httpUDR,request,ODATA_REQUEST, "",request.path,splunkCtx);
+        udrRoute(splunkUdr,"toSplunk");       
+    }
+    if(input.status == "ODATA_SUCCESS_RECEIVED"){
+        //session.isS4_ResponseReceieved = true;
+        if( strStartsWith(input.s4ResponseStatus,"2")){
+            
+            session.s4ResponseStatus = input.s4ResponseStatus != null? input.s4ResponseStatus: "";
+            session.s4ResponseBody = input.s4ResponseBody;
+            WriteOffHistoryResponseInfo respInfo = udrCreate(WriteOffHistoryResponseInfo); 
+            respInfo.billingAccountNumber = session.rfcRequestResponse.ban;
+            respInfo.busOrgId = session.rfcRequestResponse.bussOrg;
+            
+            list<WriteOffDetail> listDetails = listCreate(WriteOffDetail);
+            //mapping the success response
+            string sResponseBody = baToStr(session.s4ResponseBody);
+            map<string,any> response = (map<string,any>)jsonParse(sResponseBody);
+            map<string,any> mapD = (map<string,any>)mapGet(response,"d");
+         //   debug("###Coverted Map -->" + mapD);
+            list<any> listResults = (list<any>)mapGet(mapD, "results");
+           // debug("###Converted Results to List -->"+ listResults);
+            response =  (map<string,any>)mapGet((map<string,any>)listResults[0],"WO_IP_HDR_NAV");
+            list<any> listResult = (list<any>)mapGet(response, "results");
+            debug("main result = " +listResult );
+            debug("list Size = " + listSize(listResult));
+            if(listSize(listResult) > 0){
+                 for(any item : listResult){
+                     //map response
+                     WriteOffDetail detailUdr = udrCreate(WriteOffDetail);
+                     detailUdr.createDttm = dateConversionFromEPOCToNormalWithTime((string)item.createDttm);
+                     detailUdr.createdBy = (string)item.createdBy;
+                     detailUdr.currencyCd = (string)item.currencyCd;
+                     detailUdr.isPartialWriteOff = (string)item.isPartialWriteOff;
+                     detailUdr.isWriteOffReversed = (string)item.isWriteOffReversed;
+                     detailUdr.lastModifiedBy = (string)item.lastModifiedBy;
+                     detailUdr.lastModifiedDttm = dateConversionFromEPOCToNormalWithTime((string)item.lastModifiedDttm);
+                     strToDouble(detailUdr.writeOffAmount,(string)item.writeOffAmount);
+                     detailUdr.writeOffDocumentNumber = (string)item.writeOffDocumentNumber;
+                     detailUdr.writeOffReasonCd = (string)item.writeOffReasonCd;
+                     detailUdr.writeOffReasonDesc = (string)item.writeOffReasonDesc;
+                     list<WriteOffInvoiceDetail> listInvoice = listCreate(WriteOffInvoiceDetail);
+                     response =  (map<string,any>)mapGet((map<string,any>)item,"WO_HDR_INV_NAV");
+                     list<any> listInvoiceResult = (list<any>)mapGet(response, "results");
+                     if(listSize(listInvoiceResult) > 0){
+                       for(any invoice : listInvoiceResult){
+                         //for invoice
+                         WriteOffInvoiceDetail invoiceUdr = udrCreate(WriteOffInvoiceDetail);
+                         invoiceUdr.invoiceNumber = (string)invoice.invoiceNumber;
+                         strToDouble(invoiceUdr.invoiceAmount,(string)invoice.invoiceAmount);
+                         if(session.isItemLevelHistoryRequired){
+                             //2fields
+                             strToDouble(invoiceUdr.essentialWriteOffAmount,(string)invoice.essentialWriteOffAmount);
+                             strToDouble(invoiceUdr.nonEssentialWriteOffAmount,(string)invoice.nonEssentialWriteOffAmount);
+                         }else
+                            strToDouble(invoiceUdr.invoiceWriteOffAmount,(string)invoice.invoiceWriteOffAmount);
+                         listAdd(listInvoice,invoiceUdr);
+                       }
+                       detailUdr.invoiceDetails = listInvoice;
+                     }
+                      listAdd(listDetails,detailUdr);
+                 }
+                 session.listDetailsfromBRIM = listDetails;
+                if(!session.fetchDataFromCDW || !session.isItemLevelHistoryRequired){
+                    session.status =  input.status;
+                    respInfo.writeOffDetails = listDetails;
+                    WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+                    respUdr.responseInfo = respInfo;
+                    session.responseObj = respUdr;
+                    sessionTimeout(session, -1);
+                }else{
+                    session.listDetailsfromBRIM = listDetails;
+                    session.isS4_ResponseReceieved = true;
+                    if(session.isCDWDB_ResponseReceieved){
+                      sessionTimeout(session, -1);
+                    }
+                 }
+             }else{
+                 //error -- result is null
+                debug("inside result is null");
+                session.context = "S02"; 
+                if(!session.isItemLevelHistoryRequired|| !session.fetchDataFromCDW){
+                    session.responseDescription = "No Write-Off Records Found for given Input in BRIM";
+                    session.status = "ODATA_ERROR_RESPONSE";
+                    debug("Session before sending to odata error timeout"+session.responseDescription);
+                    sessionTimeout(session, -1);
+                }else if(session.isCDWDB_ResponseReceieved){
+                    session.isS4_ResponseReceieved = true;
+                    sessionTimeout(session, -1);
+                }
+            }
+            
+       }else{
+            //send to error
+            session.context = "F21";
+          if(!session.isItemLevelHistoryRequired || !session.fetchDataFromCDW){
+              session.responseDescription = "Unknown Error while fetching from S4";
+              session.status = "ODATA_ERROR_RESPONSE";
+              sessionTimeout(session, -1);
+          }else{
+              session.isS4_ResponseReceieved = true;
+              if(session.isCDWDB_ResponseReceieved){
+                  sessionTimeout(session, -1);
+               }
+          }
+        }
+    }   
+    if(input.status == "ODATA_ERROR_RESPONSE") {
+        session.context = "F21";
+        if(!session.isItemLevelHistoryRequired || !session.fetchDataFromCDW){
+          session.status = "ODATA_ERROR_RESPONSE";
+          session.responseDescription = input.responseDescription;
+          sessionTimeout(session, -1);
+        }else{
+          session.isS4_ResponseReceieved = true;
+          if(session.isCDWDB_ResponseReceieved){
+              sessionTimeout(session, -1);
+           }
+        }
+    } 
+  
+}
+
+timeout{
+    string resourceCode,status;
+    debug("Step 6: Timeout block");
+     debug("Session Id :: "+session.sessionId+" Status:: "+session);
+        string sBody,tagId;
+        RequestCycle cycleUdr = (RequestCycle) session.requestUDR;
+        tagId=getTagId(cycleUdr);
+        debug("tagId:::"+tagId);        
+        resourceCode = getXrefValue(RESOURCE_CODE_TABLE,cycleUdr.path);
+        if(session.status == "RFC_ERROR_RESPONSE" && listSize(session.listDetailsfromCDW) == 0){
+            debug("Inside timeout block for RFC error response");
+            RFCRequestResponse requestRes = udrCreate(RFCRequestResponse);
+            requestRes = session.rfcErrors;
+            string errorMsg  = requestRes.errorMsg;
+            status = API_STATUS_FAILURE;                                
+            if(instanceOf(session.requestObj, WriteOffHistoryRequest)) {
+                WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+                debug("###respUdr object ------ >> " + respUdr);
+                cycleUdr = sendHistoryErrorResponse(respUdr,cycleUdr,errorMsg,resourceCode+BRIM_ERROR,"");
+                udrRoute(cycleUdr,"toClient"); 
+                session.responseReceived = true;
+                ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                udrRoute(splunkUdr,"toSplunk");                 
+            }
+        }
+        
+        if(session.status == "ODATA_ERROR_RESPONSE" && listSize(session.listDetailsfromCDW) == 0){
+            debug("###Inside timeout ODATA Error response");
+            if(instanceOf(session.requestObj,WriteOffHistoryRequest)) {
+                WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+                debug("###respUdr object ------ >> " + respUdr);
+                debug("errMsg to func :"+session.responseDescription);
+                cycleUdr = sendHistoryErrorResponse(respUdr,cycleUdr,session.responseDescription,resourceCode+BRIM_ERROR,(string)session.context);
+                 udrRoute(cycleUdr,"toClient");
+                 session.responseReceived = true;
+				ConsumeCycleUDR ccOdataUdr  = buildSplunkEventRaw(tagId, "ODATA_RESPONSE", cycleUdr.path,BRIMCM, BRIM, "BILLING_ACCOUNT_ID",respUdr.requestInfo.billingAccountNumber ,"",API_STATUS_FAILURE, (string)session.s4ResponseBody,"", null,splunkCtx);
+                udrRoute(ccOdataUdr,"toSplunk");                  
+                ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                udrRoute(splunkUdr,"toSplunk");                 
+            }
+        }
+         if(session.status == "ODATA_SUCCESS_RECEIVED"){
+            
+            WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+            WriteOffHistoryResponseInfo respInfo = (WriteOffHistoryResponseInfo)respUdr.responseInfo; 
+            respInfo.transactionStatus = "S";
+            cycleUdr.response.statusCode = 200;
+            cycleUdr.response.openAPIUDR = respUdr;
+            cycleUdr.response.headers=APL_FUNCTIONS.getHeader();
+            debug("##Success Response :" + cycleUdr);
+             udrRoute(cycleUdr,"toClient");
+             session.responseReceived = true;
+			ConsumeCycleUDR ccOdataUdr  = buildSplunkEventRaw(tagId, "ODATA_RESPONSE", cycleUdr.path,BRIMCM, BRIM, "BILLING_ACCOUNT_ID",respUdr.requestInfo.billingAccountNumber ,"",API_STATUS_SUCCESS, (string)session.s4ResponseBody,"", null,splunkCtx);
+            udrRoute(ccOdataUdr,"toSplunk");                  
+            ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx);
+            udrRoute(splunkUdr,"toSplunk");             
+             
+        }
+        if(session.status == "CDW_ERROR_RESPONSE" && listSize(session.listDetailsfromBRIM) == 0){
+            debug("###Inside timeout CDW_DATA Error response");
+            if(instanceOf(session.requestObj,WriteOffHistoryRequest)) {
+                WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+                debug("###respUdr object ------ >> " + respUdr);
+                debug("errMsg to func :"+session.responseDescription);
+                cycleUdr = sendHistoryErrorResponse(respUdr,cycleUdr,session.responseDescription,resourceCode+BRIM_ERROR,"");
+                 udrRoute(cycleUdr,"toClient");
+                 session.responseReceived = true;
+                 ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                 udrRoute(splunkUdr,"toSplunk");                 
+            }
+        }
+         if(session.status == "CDW_DATA_SUCCESS_RECIEVED"){
+            WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+            WriteOffHistoryResponseInfo respInfo = (WriteOffHistoryResponseInfo)respUdr.responseInfo; 
+            respInfo.transactionStatus = "S";
+            cycleUdr.response.statusCode = 200;
+            cycleUdr.response.openAPIUDR = respUdr;
+            cycleUdr.response.headers=APL_FUNCTIONS.getHeader();
+            cycleUdr.response.openAPIUDR = respUdr;
+            debug("##Success Response :" + cycleUdr);
+             udrRoute(cycleUdr,"toClient");
+             ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx);
+             udrRoute(splunkUdr,"toSplunk");             
+            sessionRemove(session);
+        }
+        
+        if(session.isS4_ResponseReceieved || session.isCDWDB_ResponseReceieved ){
+            debug("Inside timeout block isS4_ResponseReceieved or isCDWDB_ResponseReceieved condition");
+            //As conveyed by functional team :: in case of data fetching from any system,if any error occur from anyone system..
+            // no need to stop and send the data to source whatever we have fetched from other
+            list<WriteOffDetail> mergedList = listCreate(WriteOffDetail);
+            if(listSize(session.listDetailsfromBRIM) == 0 && listSize(session.listDetailsfromCDW) == 0){
+                if(session.responseReceived == false){
+                    debug("###FAILURE TO SOURCE :: NO DATA FOUND FROM ANY OF THE SYSTEMS");
+                    WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+                    debug("###respUdr object ------ >> " + respUdr);
+                    if(session.rfcErrors != null){
+                        //rfc error
+                        debug("Inside timeout block session.rfcErrors not null if condition");
+                        string errorMsg = session.rfcErrors.errorMsg;
+                        cycleUdr = sendHistoryErrorResponse(respUdr,cycleUdr,errorMsg,resourceCode + BRIM_ERROR,(string)session.context);
+                    }else {
+                        debug("Inside timeout block session.rfcErrors not null else condition");
+                        cycleUdr = sendHistoryErrorResponse(respUdr,cycleUdr,"NO DATA FOUND FOR THE GIVEN BILLING ACCOUNT NUMBER. ",resourceCode + BRIM_ERROR,(string)session.context);
+                        udrRoute(cycleUdr,"toClient");
+                		 ConsumeCycleUDR ccOdataUdr  = buildSplunkEventRaw(tagId, "ODATA_RESPONSE", cycleUdr.path,BRIMCM, BRIM, "BILLING_ACCOUNT_ID",respUdr.requestInfo.billingAccountNumber ,"",API_STATUS_SUCCESS, (string)session.s4ResponseBody,"", null,splunkCtx);
+                        udrRoute(ccOdataUdr,"toSplunk");                        
+                        ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx);
+                        udrRoute(splunkUdr,"toSplunk");                                     
+                    }
+                }
+            }else{
+                debug("Inside timeout block BRIM list & CDW list empty else condition");
+                if(session.listDetailsfromBRIM != null){
+                    for(WriteOffDetail detail : session.listDetailsfromBRIM){
+                        listAdd(mergedList,detail);
+                    }
+                }
+                if(session.listDetailsfromCDW != null){
+                    for(WriteOffDetail detail : session.listDetailsfromCDW){
+                        listAdd(mergedList,detail);
+                    }
+                }
+                if(mergedList != null){
+                    WriteOffHistoryRequest ReqUdr = (WriteOffHistoryRequest)session.requestObj;
+                    WriteOffHistoryResponseInfo respInfo = udrCreate(WriteOffHistoryResponseInfo);
+                    respInfo.billingAccountNumber = ReqUdr.requestInfo.billingAccountNumber;
+                    respInfo.busOrgId = ReqUdr.requestInfo.busOrgId;
+                    respInfo.writeOffDetails = mergedList;
+                    respInfo.transactionStatus = "S";
+                    WriteOffHistoryResponse respUdr = (WriteOffHistoryResponse)session.responseObj;
+                    respUdr.responseInfo = respInfo;
+                    cycleUdr.response.statusCode = 200;
+                    cycleUdr.response.openAPIUDR = respUdr;
+                    cycleUdr.response.headers=APL_FUNCTIONS.getHeader();
+                    debug("##Success Response :" + cycleUdr);
+                     udrRoute(cycleUdr,"toClient");
+                     ConsumeCycleUDR ccOdataUdr  = buildSplunkEventRaw(tagId, "ODATA_RESPONSE", cycleUdr.path,BRIMCM, BRIM, "BILLING_ACCOUNT_ID",respUdr.requestInfo.billingAccountNumber ,"",API_STATUS_SUCCESS, (string)session.s4ResponseBody,"", null,splunkCtx);
+                     udrRoute(ccOdataUdr,"toSplunk");                     
+                    ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx);
+                    udrRoute(splunkUdr,"toSplunk");                     
+                }
+            }
+        }
+    debug("Flushing the session");
+    // Finally remove the session from memory INC7413761
+    sessionRemove(session);
+}]]></string>
+                  <int name="noMatchBehaviour" value="0"/>
+                  <string name="noMatchRouter" value="toHTTP"/>
+                  <int name="noStorageBehaviour" value="0"/>
+                  <string name="noStorageRouter" null="true"/>
+                  <int name="nullTimeoutBehaviour" value="0"/>
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                     <string name="Key" value="CMD1718278161404"/>
+                     <string name="Name" value="PRF_AGG_AUTOPAY_WRITEOFF"/>
+                     <string name="Type" value="Aggregation Profile"/>
+                  </storable>
+                  <boolean name="readonly" value="false"/>
+                  <boolean name="timeoutDisable" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Collection"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="11.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableExecutionThresholdLog" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executionThresholdTime" value="1"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="10"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Adjustment"/>
+                     <string name="Key" value="CMD1718829268270"/>
+                     <string name="Name" value="RFC_SAP_BRIM_Dispute"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_RFC"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.http;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+//import apl.Common.APL_COMMON;
+import ultra.BRIMCM_APIs_Common.ULF_PAYMENT_APIS; 
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_API_Collection_WriteOff;
+import ultra.SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute.subUdr;
+import ultra.SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute;
+import apl.Common.APL_CONSTANTS;
+import apl.BRIMCM_APIs_Collection.APL_Collection_WriteOff;
+import apl.Common.APL_LOGGING;
+import ultra.http;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("inspectRFCResponse" , "Agent Name");
+}
+consume {
+    string busPartner,contractAcc,bussOrg,status;
+    debug("received response inspecting");
+    /*if (instanceOf(input, ZFIF_FM_VKONA_TO_BP_UDR)) {
+        debug("###RFC RESPONSE = " + (input));
+        ZFIF_FM_VKONA_TO_BP_UDR rfcUdr = (ZFIF_FM_VKONA_TO_BP_UDR) input;
+        tableParams_ZFIF_FM_VKONA_TO_BP tableParams =  rfcUdr.tableParams ;
+        debug("RFC UDR  Context : "+ rfcUdr.context);
+        debug(input);
+        autopayAgg autopay = udrCreate(autopayAgg);
+        autopay.sessionId = (string)rfcUdr.context;
+        autopay.rfcRequestResponse = udrCreate(RFCRequestResponse);
+        
+        autopay.status = listSize(tableParams.ET_ERROR)== 0? "RFC_RESPONSE":"RFC_ERROR_RESPONSE";
+       
+        RFCRequestResponse requestRes = udrCreate(RFCRequestResponse);
+       if(listSize(tableParams.ET_ERROR) >0) {
+            for (ZFITT_BAN_CUID item: tableParams.ET_ERROR) {
+                debug("received it from RFC:: "+item);
+                requestRes.ban = item.GTY_V_BAN;
+                requestRes.bussOrg = item.GTY_V_BUSS_ORG;
+                requestRes.cuid = item.GTY_V_CUID;
+                requestRes.errorMsg = item.ERROR_MSG;
+                
+                autopay.rfcErrors= requestRes;
+            }
+       } else if(listSize(tableParams.ET_OUT_FINAL) >0) {
+            for (ZFITT_BAN_CUID_ALL item: tableParams.ET_OUT_FINAL) {
+                debug("received it from RFC:: "+item);
+                requestRes.ban = item.GTY_V_BAN;
+                requestRes.contractAccount = item.GTY_V_CONTRACT_ACC;
+                requestRes.bussOrg = item.GTY_V_BUSS_ORG;
+                requestRes.businessPartner = item.GTY_V_BP_ID;
+                requestRes.cuid = item.GTY_V_CUID;
+                requestRes.businessPartnerId = item.GTY_V_CUID_PARTNER;
+                
+                autopay.rfcRequestResponse = requestRes;
+            }
+        } else if(listSize(tableParams.ET_OUT) >0) {
+           for (ZFITT_EX_VKONA_BP_FM item: tableParams.ET_OUT) {
+                debug("received it from RFC:: "+item);
+                requestRes.ban = item.GTY_V_BAN;
+                requestRes.contractAccount = item.GTY_V_CONTRACT_ACC;
+                requestRes.bussOrg = item.GTY_V_BUSS_ORG;
+                requestRes.businessPartner = item.GTY_V_BP_ID;
+                
+                autopay.rfcRequestResponse = requestRes;
+            } 
+        } else if(listSize(tableParams.ET_OUT_BILLAPP) >0 ) {
+           for ( ZFITT_OUTPUT_BILL item: tableParams.ET_OUT_BILLAPP) {
+                debug("received it from RFC:: "+item);
+                requestRes.ban = item.BAN;
+                requestRes.bussOrg = item.BUSS_ORG;
+                requestRes.billingAppCode = item.BILLAPPCODE;
+                requestRes.contractAccount = item.VKONT;
+                requestRes.businessPartner = item.GPART;
+                
+                autopay.rfcRequestResponse = requestRes;
+            }  
+        }
+        
+        debug("final session object sent is ::"+autopay);
+            
+        udrRoute(autopay);
+    } */
+    
+        if (instanceOf(input, ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR)) {
+        debug("###RFC RESPONSE = " + (input));
+        ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr = (ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR) input;
+        debug("RFC UDR  Context : "+ rfcUdr.context);
+        debug(input);
+        autopayAgg autopay = (autopayAgg)rfcUdr.context;
+        autopay.rfcRequestResponse = udrCreate(RFCRequestResponse);
+        string sBody;
+        any Rec;
+        RequestCycle reqUdr = (RequestCycle)autopay.requestUDR;
+        exportParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT exportParams = rfcUdr.exportParams;
+        autopay.status = listSize(exportParams.ET_ERROR)== 0? "RFC_RESPONSE":"RFC_ERROR_RESPONSE";
+        status = API_STATUS_SUCCESS;        
+        RFCRequestResponse requestRes = udrCreate(RFCRequestResponse);
+         if(reqUdr.body != null){
+                    sBody = baToStr(reqUdr.body);
+                    debug("sBody : "+sBody);
+                    Rec = jsonParse(sBody);
+                    debug("Rec : "+Rec);
+                }
+                
+       
+        debug("The value of rfcUdr [Analysis_Request]= " + (rfcUdr));
+        WriteOffHistoryRequest WriteOffHistoryReqUdr = udrCreate(WriteOffHistoryRequest);
+        jsonDecodeUdr(baToStr(reqUdr.body), WriteOffHistoryReqUdr );
+        WriteOffHistoryRequestInfo writeOffReqInfo = WriteOffHistoryReqUdr.requestInfo;   
+        //exportParams (exportParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT (SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute.subUdr))  
+        if(udrIsPresent(rfcUdr.exportParams.ET_GPART_VKONT)){
+                        list<ZFITT_OUTPUT_BILL> liBill = rfcUdr.exportParams.ET_GPART_VKONT;
+                        for(ZFITT_OUTPUT_BILL bill : liBill){
+                                busPartner = bill.GPART;
+                                contractAcc = bill.VKONT;
+                                bussOrg = bill.BUSS_ORG;
+                            }
+                            
+                            debug("busPartner = " + busPartner+"::contractAcc = "+contractAcc+"::busOrg = "+bussOrg);
+                            if(!isEmpty(writeOffReqInfo.busOrgId) && !strEqualsIgnoreCase(writeOffReqInfo.busOrgId, bussOrg)){  
+                                requestRes.errorMsg = "Invalid billingAccountNumber :"+writeOffReqInfo.billingAccountNumber+" and busOrgId :"+writeOffReqInfo.busOrgId+"combination.";
+                                requestRes.ban = writeOffReqInfo.billingAccountNumber;
+                                requestRes.bussOrg = writeOffReqInfo.busOrgId;
+                                autopay.rfcErrors = requestRes;
+                                autopay.status = "RFC_ERROR_RESPONSE";
+                                status = API_STATUS_FAILURE;                                
+                                autopay.requestUDR = reqUdr;
+                                debug("autopay object sent due to failure= " + (autopay));
+                                udrRoute(autopay);
+                                //Forwarding RFC Response log to splunk
+                                udrRoute(sendRfcToSplunk(reqUdr,(string)rfcUdr.exportParams,RFC_RESPONSE,status,"ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR",splunkCtx),"toSplunk");                                
+                                return;   
+                                
+                            } 
+        // Set successful response data
+        requestRes.ban = WriteOffHistoryReqUdr.requestInfo.billingAccountNumber;
+        requestRes.contractAccount = contractAcc;
+        requestRes.bussOrg = bussOrg;
+        requestRes.businessPartner = busPartner;
+        autopay.rfcRequestResponse = requestRes;
+        autopay.requestUDR = reqUdr;
+        
+        debug("final autopay object sent is ::"+autopay);
+        udrRoute(autopay);
+        }
+        // Handle error response
+        if(listSize(exportParams.ET_ERROR) > 0){
+            debug("###RFC ERROR: ET_ERROR has errors");
+            ZFIT_VKONA_ERR_MSG errorItem = (ZFIT_VKONA_ERR_MSG)listGet(exportParams.ET_ERROR, 0);
+            requestRes.errorMsg = errorItem.E_ERROR_MSG;
+            requestRes.ban = errorItem.VKONA;
+            autopay.rfcErrors = requestRes;
+            autopay.status = "RFC_ERROR_RESPONSE";
+            status = API_STATUS_FAILURE;
+            autopay.requestUDR = reqUdr;
+            debug("autopay object sent due to RFC error= " + (autopay));
+            udrRoute(autopay);
+            //Forwarding RFC Response log to splunk
+            udrRoute(sendRfcToSplunk(reqUdr,(string)rfcUdr.exportParams,RFC_RESPONSE,status,"ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR",splunkCtx),"toSplunk");                        
+            return;
+        }
+         //Forwarding RFC Response log to splunk
+         udrRoute(sendRfcToSplunk(reqUdr,(string)rfcUdr.exportParams,RFC_RESPONSE,status,"ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR",splunkCtx),"toSplunk");        
+        
+        
+    }
+      else if(instanceOf(input,RfcErrorUDR)){
+        debug("In RfcErrorUDR consition ::"+input);
+        try{
+            RfcErrorUDR rfcError = (RfcErrorUDR) input;            
+            ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR udr = (ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR) rfcError.inputUDR;
+            autopayAgg autopay = (autopayAgg)udr.context;
+            RequestCycle reqUdr = (RequestCycle)autopay.requestUDR;            
+            RFCRequestResponse requestRes = udrCreate(RFCRequestResponse);            
+            requestRes.errorMsg = (string)rfcError.errorMessage;                     
+
+            ZFITT_VKONA inputItem = (ZFITT_VKONA)listGet(udr.importParams.IT_VKONA, 0);
+            requestRes.ban = inputItem.VKONA;
+            autopay.rfcErrors = requestRes;
+            autopay.status = "RFC_ERROR_RESPONSE";
+            status = API_STATUS_FAILURE;
+            debug("autopay object sent due to RFC error= " + (autopay));    
+            udrRoute(autopay);
+         //Forwarding RFC Response log to splunk
+         udrRoute(sendRfcToSplunk(reqUdr,(string)udr.exportParams,RFC_RESPONSE,status,"ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR",splunkCtx),"toSplunk");                            
+        } catch  (ExceptionDetails exception) {
+             debug("Assert Exception due to RFC error...." + exception.message);
+             log.info("Assert Exception due to RFC error...." + exception.message);
+        }
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="5">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute.ZFICAF_CA_ACC_CREATE_API_UDR]]></string>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute.ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR]]></string>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute.ZFICAF_GPART_VKONT_DERIVE_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Adjustment.RFC_SAP_BRIM_Dispute.ZFIF_FM_VKONA_TO_BP_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="inspectRFCResponse"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="Common"/>
+                     <string name="Key" value="CMD1779279436841"/>
+                     <string name="Name" value="PRF_WFB_LOGS"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Workflow_Bridge_1"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+  debug("Input from WFB::"+input);
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ErrorCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_2"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="fromPortal"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="10" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="11" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="12" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="rfc_res"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="13" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toRFC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="14" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_9043026"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="15" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="16" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="17" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="18" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="19" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_9043031"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAnalysis"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="20" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toHTTP"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAdjustment"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="adjustmentsAgg"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toHTTP"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAdjustment"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

@@ -1,0 +1,984 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="PRF_OpenAPI_Collection_Misc.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme" quoted="true"><![CDATA[---\u000d
+openapi: 3.0.1\u000d
+info:\u000d
+  title: OpenAPI definition\u000d
+  version: v0\u000d
+servers:\u000d
+- url: http://localhost:8080/paymentservices\u000d
+  description: Generated server url\u000d
+paths:\u000d
+  "/brimcm/collection/misc/currency/convert":\u000d
+    post:\u000d
+      tags:\u000d
+      - collection\u000d
+      operationId: currencyConversion\u000d
+      requestBody:\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              "$ref": "#/components/schemas/CurrencyConversionRequest"\u000d
+        required: true\u000d
+      responses:\u000d
+        '200':\u000d
+          description: OK\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/CurrencyConversionResponse"\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '123456789'\u000d
+                      srcApplicationCd: '123456789'\u000d
+                      requestId: 123456789\u000d
+                      inputChannelCd: '123456789'\u000d
+                      srcSysTransactionId: 123456789\u000d
+                      userId: '123456789'\u000d
+                    requestInfo:\u000d
+                      fromCurrencycd: USD\u000d
+                      toCurrencyCd: CAD\u000d
+                      amount: 10.24\u000d
+                      conversionDate: '2024-08-05'\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S\u000d
+                      convertedAmount: 15.319\u000d
+                      exchangeRate: 1.496\u000d
+        '400':\u000d
+          description: Bad Request\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/CurrencyConversionResponse"\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '123456789'\u000d
+                      srcApplicationCd: '123456789'\u000d
+                      requestId: 123456789\u000d
+                      inputChannelCd: '123456789'\u000d
+                      srcSysTransactionId: 123456789\u000d
+                      userId: '123456789'\u000d
+                    requestInfo:\u000d
+                      fromCurrencycd: string\u000d
+                      toCurrencyCd: string\u000d
+                      amount: 0\u000d
+                      conversionDate: string\u000d
+                    responseInfo:\u000d
+                      transactionStatus: F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+        '500':\u000d
+          description: Internal Server Error\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/CurrencyConversionResponse"\u000d
+              examples:\u000d
+                Application level exceptions/errors:\u000d
+                  description: Application level exceptions/errors\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '123456789'\u000d
+                      srcApplicationCd: '123456789'\u000d
+                      requestId: 123456789\u000d
+                      inputChannelCd: '123456789'\u000d
+                      srcSysTransactionId: 123456789\u000d
+                      userId: '123456789'\u000d
+                    requestInfo:\u000d
+                      fromCurrencycd: string\u000d
+                      toCurrencyCd: string\u000d
+                      amount: 0\u000d
+                      conversionDate: string\u000d
+                    responseInfo:\u000d
+                      transactionStatus: F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+  "/brimcm/collection/misc/agencyReturn":\u000d
+    post:\u000d
+      tags:\u000d
+      - collection\u000d
+      summary: Agency Return Details.\u000d
+      description: User to send the Agency Return Details\u000d
+      operationId: Agency Return Details\u000d
+      requestBody:\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              $ref: '#/components/schemas/AgencyReturnReq'\u000d
+      responses:\u000d
+        "200":\u000d
+          description: Success Response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/AgencyReturnResp'\u000d
+        "400":\u000d
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/ErrorInfo'\u000d
+        "405":\u000d
+          description: Method Not Allowed\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/ErrorInfo'\u000d
+        "500":\u000d
+          description: Failure Response from S4\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/AgencyReturnResp'\u000d
+  "/brimcm/collection/misc/referenceData/dunningLockReasons":\u000d
+    get:\u000d
+      tags:\u000d
+      - collection\u000d
+      operationId: getDunningLockReasons\u000d
+      parameters:\u000d
+      - name: marketSegment\u000d
+        in: query\u000d
+        required: true\u000d
+        schema:\u000d
+          type: string\u000d
+      responses:\u000d
+        '200':\u000d
+          description: OK\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/DunningLockReasonResponse"\u000d
+              examples:\u000d
+                success response:\u000d
+                  description: success response\u000d
+                  value:\u000d
+                    requestInfo:\u000d
+                      marketSegment: MM/ENT/ALL\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S\u000d
+                      lockDetails:\u000d
+                      - lockReason: string\u000d
+                        lockReasonCd: string\u000d
+                      - lockReason: string\u000d
+                        lockReasonCd: string\u000d
+        '400':\u000d
+          description: Bad Request\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/DunningLockReasonResponse"\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    requestInfo:\u000d
+                      marketSegment: MM/ENT/ALL\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+        '500':\u000d
+          description: Internal Server Error\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/DunningLockReasonResponse"\u000d
+              examples:\u000d
+                Application level exceptions/errors:\u000d
+                  description: Application level exceptions/errors\u000d
+                  value:\u000d
+                    requestInfo:\u000d
+                      marketSegment: MM/ENT/ALL\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+  "/brimcm/collection/misc/referenceData/countryAndStateCodes":\u000d
+    get:\u000d
+      tags:\u000d
+      - collection\u000d
+      operationId: getCountryAndStateCode\u000d
+      parameters:\u000d
+      - name: countryCode\u000d
+        in: query\u000d
+        required: false\u000d
+        schema:\u000d
+          type: string\u000d
+      responses:\u000d
+        '200':\u000d
+          description: OK\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/CountryAndStateCodesResponse"\u000d
+              examples:\u000d
+                Response when country code is not passed:\u000d
+                  description: Response when country code is not passed\u000d
+                  value:\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S\u000d
+                      countryCodeDetails:\u000d
+                      - countryCd: IND\u000d
+                        countryDesciption: India\u000d
+                      - countryCd: USA\u000d
+                        countryDesciption: United States Of America\u000d
+                Response when country code is passed:\u000d
+                  description: Response when country code is passed\u000d
+                  value:\u000d
+                    requestInfo:\u000d
+                      countrycd: USA\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+        '400':\u000d
+          description: Bad Request\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/CountryAndStateCodesResponse"\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    requestInfo:\u000d
+                      countrycd: USA\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+        '500':\u000d
+          description: Internal Server Error\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/CountryAndStateCodesResponse"\u000d
+              examples:\u000d
+                Application level exceptions/errors:\u000d
+                  description: Application level exceptions/errors\u000d
+  "/brimcm/collection/misc/referenceData/adjustmentReasonCodes":\u000d
+    get:\u000d
+      summary: Get Adjustment Reason Codes\u000d
+      responses:\u000d
+        '200':\u000d
+          description: Successful response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/AdjustmentReasonCodesResponse'\u000d
+              examples:\u000d
+                Successful response:\u000d
+                  description: Successful response\u000d
+                  value:\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S\u000d
+                      adjustmentReasonCodes:\u000d
+                      - adjustmentReasonCd: string\u000d
+                        adjustmentReasonDescription: string\u000d
+                      - adjustmentReasonCd: string\u000d
+                        adjustmentReasonDescription: string\u000d
+        '400':\u000d
+          description: Bad Request\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/AdjustmentReasonCodesResponse'\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+        '500':\u000d
+          description: Internal Server Error\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/AdjustmentReasonCodesResponse'\u000d
+              examples:\u000d
+                Application level exceptions/errors:\u000d
+                  description: Application level exceptions/errors\u000d
+                  value:\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+  "/brimcm/collection/misc/referenceData/hotlistIndicator":\u000d
+    get:\u000d
+      summary: Get Hotlist Indicators\u000d
+      responses:\u000d
+        '200':\u000d
+          description: Successful response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/HotlistIndicatorResponse'\u000d
+              examples:\u000d
+                Successful response:\u000d
+                  description: Successful response\u000d
+                  value:\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S\u000d
+                      hotlistIndicators:\u000d
+                      - hotlistIndicatorCd: string\u000d
+                        hotlistIndicatorDescription: string\u000d
+                      - hotlistIndicatorCd: string\u000d
+                        hotlistIndicatorDescription: string\u000d
+        '400':\u000d
+          description: Bad Request\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/HotlistIndicatorResponse'\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+        '500':\u000d
+          description: Internal Server Error\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/HotlistIndicatorResponse'\u000d
+              examples:\u000d
+                Application level exceptions/errors:\u000d
+                  description: Application level exceptions/errors\u000d
+                  value:\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S/F\u000d
+                      errorInfo:\u000d
+                        errorCd: '10083'\u000d
+                        errorMessage: error message\u000d
+  "/brimcm/collection/misc/workflow/approvalDetails":\u000d
+     post:\u000d
+      summary: Process a request\u000d
+      requestBody:\u000d
+        required: true\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+                  $ref: '#/components/schemas/ApprovalDetailsRequest'       \u000d
+      responses:\u000d
+        '200':\u000d
+          description: Successful response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/ApprovalDetailsResponse'\u000d
+  "/brimcm/collection/misc/cdw/taxOnlyReport":\u000d
+    post:\u000d
+      summary: Get Tax Only Report details\u000d
+      requestBody:\u000d
+        required: true\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              $ref: '#/components/schemas/TaxOnlyReportRequest'\u000d
+      responses:\u000d
+        '200':\u000d
+          description: Successful response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/TaxOnlyReportResponse'\u000d
+  "/brimcm/collection/misc/payment/surchargeDetails":\u000d
+    post:\u000d
+      summary: Get Surcharge details for a payment\u000d
+      requestBody:\u000d
+        required: true\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              $ref: '#/components/schemas/SurchargeDetailsRequest'\u000d
+      responses:\u000d
+        '200':\u000d
+          description: Successful response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/SurchargeDetailsResponse'\u000d
+components:\u000d
+  schemas:\u000d
+    SurchargeDetailsRequest:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/SurchargeDetailsRequestInfo'\u000d
+    SurchargeDetailsRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        zipCode:\u000d
+          type: string\u000d
+        amount:\u000d
+          type: number\u000d
+          format: double\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+        currencyCd:\u000d
+          type: string\u000d
+    SurchargeDetailsResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/SurchargeDetailsRequestInfo'\u000d
+        responseInfo:\u000d
+          $ref: '#/components/schemas/SurchargeDetailsResponseInfo'\u000d
+    SurchargeDetailsResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          $ref: '#/components/schemas/ErrorInfo'\u000d
+        amount:\u000d
+          type: number\u000d
+          format: double\u000d
+          example: 100.00\u000d
+          description: Original payment amount\u000d
+        surchargeAmount:\u000d
+          type: number\u000d
+          format: double\u000d
+          example: 2.50\u000d
+          description: Calculated surcharge amount\u000d
+        surchargePercent:\u000d
+          type: number\u000d
+          format: double\u000d
+          example: 2.50\u000d
+          description: Surcharge percentage applied\u000d
+        totalAmount:\u000d
+          type: number\u000d
+          format: double\u000d
+          example: 102.50\u000d
+          description: Total amount including surcharge\u000d
+        stateCode:\u000d
+          type: string\u000d
+          example: "CA"\u000d
+          description: State code derived from ZIP code\u000d
+        convenienceFee:\u000d
+          type: string\u000d
+          example: "ACH:9.95^CARD:9.95"\u000d
+          description: Convenience fee amount.\u000d
+    HotlistIndicatorResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        responseInfo:\u000d
+          "$ref": "#/components/schemas/HotlistIndicatorResponseInfo"\u000d
+    HotlistIndicatorResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          "$ref": "#/components/schemas/ErrorInfo"\u000d
+        hotlistIndicators:\u000d
+          type: array\u000d
+          items:\u000d
+            "$ref": "#/components/schemas/HotlistIndicator"\u000d
+    HotlistIndicator:\u000d
+      type: object\u000d
+      properties:\u000d
+        hotlistIndicatorCd:\u000d
+          type: string\u000d
+        hotlistIndicatorDescription:\u000d
+          type: string\u000d
+    CurrencyConversionRequest:\u000d
+      required:\u000d
+      - headerInfo\u000d
+      - requestInfo\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          "$ref": "#/components/schemas/HeaderInfo"\u000d
+        requestInfo:\u000d
+          "$ref": "#/components/schemas/CurrencyConversionRequestInfo"\u000d
+    AdjustmentReasonCodesResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        responseInfo:\u000d
+          "$ref": "#/components/schemas/AdjustmentReasonCodesResponseInfo"\u000d
+    AdjustmentReasonCodesResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          "$ref": "#/components/schemas/ErrorInfo"\u000d
+        adjustmentReasonCodes:\u000d
+          type: array\u000d
+          items:\u000d
+            "$ref": "#/components/schemas/AdjustmentReasonCode"\u000d
+    AdjustmentReasonCode:\u000d
+      type: object\u000d
+      properties:\u000d
+        adjustmentReasonCd:\u000d
+          type: string\u000d
+        adjustmentReasonDescription:\u000d
+          type: string\u000d
+    CurrencyConversionRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        fromCurrencyCd:\u000d
+          type: string\u000d
+        toCurrencyCd:\u000d
+          type: string\u000d
+        amount:\u000d
+          type: number\u000d
+          format: double\u000d
+        conversionDate:\u000d
+          type: string\u000d
+      description: RequestInfo\u000d
+    \u000d
+    CurrencyConversionResponse:\u000d
+      required:\u000d
+      - headerInfo\u000d
+      - requestInfo\u000d
+      - responseInfo\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          "$ref": "#/components/schemas/HeaderInfo"\u000d
+        requestInfo:\u000d
+          "$ref": "#/components/schemas/CurrencyConversionRequestInfo"\u000d
+        responseInfo:\u000d
+          "$ref": "#/components/schemas/CurrencyConversionResponseInfo"\u000d
+    CurrencyConversionResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          "$ref": "#/components/schemas/ErrorInfo"\u000d
+        convertedAmount:\u000d
+          type: number\u000d
+          format: double\u000d
+        exchangeRate:\u000d
+          type: number\u000d
+          format: double\u000d
+        dateOfExchangeRate:\u000d
+          type: string\u000d
+      description: ResponseInfo\u000d
+    ErrorInfo:\u000d
+      required:\u000d
+      - errorCd\u000d
+      - errorMessage\u000d
+      type: object\u000d
+      properties:\u000d
+        errorCd:\u000d
+          type: string\u000d
+          description: Unique error code for each type of error\u000d
+          example: '10083'\u000d
+        errorMessage:\u000d
+          type: string\u000d
+          description: Error message\u000d
+          example: No Account Available\u000d
+    AgencyReturnReq:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/AgencyReturnReq_requestInfo'\u000d
+    AgencyReturnResp:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/AgencyReturnReq_requestInfo'\u000d
+        responseInfo:\u000d
+          $ref: '#/components/schemas/CreateReturnAgency_responseInfo'\u000d
+    CreateReturnAgency_responseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        message:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          $ref: '#/components/schemas/ErrorInfo'\u000d
+    AgencyReturnReq_requestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        busOrgId:\u000d
+          type: string\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+        code:\u000d
+          type: string\u000d
+        text:\u000d
+          type: string\u000d
+        fromDate:\u000d
+          type: string\u000d
+        toDate:\u000d
+          type: string\u000d
+        dateOfDeath:\u000d
+          type: string\u000d
+    DunningLockDetail:\u000d
+      type: object\u000d
+      properties:\u000d
+        lockReason:\u000d
+          type: string\u000d
+        lockReasonCd:\u000d
+          type: string\u000d
+    DunningLockReasonRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        marketSegment:\u000d
+          type: string\u000d
+    DunningLockReasonResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        requestInfo:\u000d
+          "$ref": "#/components/schemas/DunningLockReasonRequestInfo"\u000d
+        responseInfo:\u000d
+          "$ref": "#/components/schemas/DunningLockReasonResponseInfo"\u000d
+    DunningLockReasonResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          "$ref": "#/components/schemas/ErrorInfo"\u000d
+        dunningLockReasonDetails:\u000d
+          type: array\u000d
+          items:\u000d
+            "$ref": "#/components/schemas/DunningLockDetail"\u000d
+    CountryAndStateCodesRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        countryCd:\u000d
+          type: string\u000d
+          description: countryCd\u000d
+      description: CountryAndStateCodesRequestInfo\u000d
+    CountryAndStateCodesResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        requestInfo:\u000d
+          "$ref": "#/components/schemas/CountryAndStateCodesRequestInfo"\u000d
+        responseInfo:\u000d
+          "$ref": "#/components/schemas/CountryAndStateCodesResponseInfo"\u000d
+      description: CountryAndStateCodesResponse\u000d
+    CountryAndStateCodesResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          "$ref": "#/components/schemas/ErrorInfo"\u000d
+        countryCodeDetails:\u000d
+          type: array\u000d
+          items:\u000d
+            "$ref": "#/components/schemas/CountryCodeDetail"\u000d
+        stateCodeDetails:\u000d
+          type: array\u000d
+          items:\u000d
+            "$ref": "#/components/schemas/StateCodeDetail"\u000d
+      description: CountryAndStateCodesResponseInfo\u000d
+    CountryCodeDetail:\u000d
+      type: object\u000d
+      properties:\u000d
+        countryCode:\u000d
+          type: string\u000d
+          description: countryCode\u000d
+        countryDesciption:\u000d
+          type: string\u000d
+          description: countryDesciption\u000d
+    StateCodeDetail:\u000d
+      type: object\u000d
+      properties:\u000d
+        stateCode:\u000d
+          type: string\u000d
+          description: stateCode\u000d
+        stateDesciption:\u000d
+          type: string\u000d
+          description: stateDesciption\u000d
+      description: StateCodeDetail\u000d
+    HeaderInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        sendTimeStamp:\u000d
+          type: string\u000d
+          description: sendTimeStamp\u000d
+          example: '123456789'\u000d
+        srcApplicationCd:\u000d
+          type: string\u000d
+          description: srcApplicationCd\u000d
+          example: '123456789'\u000d
+        requestId:\u000d
+          type: string\u000d
+          description: requestId\u000d
+        inputChannelCd:\u000d
+          type: string\u000d
+          description: inputChannelCd\u000d
+          example: '123456789'\u000d
+        srcSysTransactionId:\u000d
+          type: string\u000d
+          description: srcSysTransactionId\u000d
+        userId:\u000d
+          type: string\u000d
+          description: userId\u000d
+          example: '123456789'\u000d
+      description: header request\u000d
+    ApprovalDetailsRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+        initiatorCUID:\u000d
+          type: string\u000d
+        requestId:\u000d
+          type: string\u000d
+        requestType:\u000d
+          type: string\u000d
+        approverCUID:\u000d
+          type: string\u000d
+        currentApproverCUID:\u000d
+          type: string\u000d
+        requestStatus:\u000d
+          type: string\u000d
+          enum:\u000d
+            - Pending\u000d
+            - Approved\u000d
+            - Rejected\u000d
+        createDateFrom:\u000d
+          type: string\u000d
+          format: date\u000d
+        createDateTo:\u000d
+          type: string\u000d
+          format: date\u000d
+    ApprovalDetailsResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          $ref: '#/components/schemas/ErrorInfo'\u000d
+        workflowRequestDetails:\u000d
+          type: array\u000d
+          items:\u000d
+            $ref: '#/components/schemas/WorkflowRequestDetails'\u000d
+    WorkflowRequestDetails:\u000d
+      type: object\u000d
+      properties:\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+        workflowId:\u000d
+          type: string\u000d
+        requestId:\u000d
+          type: string\u000d
+        requestType:\u000d
+          type: string\u000d
+          enum:\u000d
+            - Refund\u000d
+            - Write-Off\u000d
+            - Adjustment\u000d
+        requestStatus:\u000d
+          type: string\u000d
+        initiator:\u000d
+          type: string\u000d
+        createDate:\u000d
+          type: string\u000d
+          format: date-time\u000d
+        currentApprover:\u000d
+          type: string\u000d
+        notes:\u000d
+          oneOf:\u000d
+            - type: string\u000d
+            - type: array\u000d
+              items:\u000d
+                type: string\u000d
+        requestAmount:\u000d
+          type: number\u000d
+          format: float\u000d
+        currencyCd:\u000d
+          type: string\u000d
+        documentNumber:\u000d
+          type: string\u000d
+        approvalHistory:\u000d
+          type: array\u000d
+          items:\u000d
+            $ref: '#/components/schemas/ApprovalHistory'\u000d
+    ApprovalHistory:\u000d
+      type: object\u000d
+      properties:\u000d
+        approvedBy:\u000d
+          type: string\u000d
+        approvedDate:\u000d
+          type: string\u000d
+          format: date-time\u000d
+        notes:\u000d
+          type: string\u000d
+    ApprovalDetailsRequest:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/ApprovalDetailsRequestInfo'\u000d
+    ApprovalDetailsResponse: \u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/ApprovalDetailsRequestInfo'\u000d
+        responseInfo:\u000d
+          $ref: '#/components/schemas/ApprovalDetailsResponseInfo'\u000d
+    TaxOnlyReportRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+        billingApplicationCd:\u000d
+          type: string\u000d
+        invoiceNumber:\u000d
+          type: array\u000d
+          items:\u000d
+            type: string\u000d
+        invoiceDateFrom:\u000d
+          type: string\u000d
+          format: date\u000d
+        invoiceDateTo:\u000d
+          type: string\u000d
+          format: date\u000d
+        invoiceDates:\u000d
+          type: array\u000d
+          items:\u000d
+            type: string\u000d
+            example: '2024-08-05'\u000d
+        emailAddress:\u000d
+          type: string\u000d
+          example: test@lumen.com\u000d
+      required:\u000d
+        - billingAccountNumber\u000d
+    TaxInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        businessPartner:\u000d
+          type: string\u000d
+        contractAccountNumber:\u000d
+          type: string\u000d
+        busOrgId:\u000d
+          type: string\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+        financeAccountNumber:\u000d
+          type: string\u000d
+        biliingApplicationCd:\u000d
+          type: string\u000d
+        invoiceNumber:\u000d
+          type: string\u000d
+        sourceLineIdentifier:\u000d
+          type: string\u000d
+        sourceTaxType:\u000d
+          type: string\u000d
+        sourceTaxAuthority:\u000d
+          type: string\u000d
+        taxJurisdictionGeoCd:\u000d
+          type: string\u000d
+        conditionType:\u000d
+          type: string\u000d
+        taxGroup:\u000d
+          type: string\u000d
+        taxAmount:\u000d
+          type: number\u000d
+          format: double\u000d
+        currencyCd:\u000d
+          type: string\u000d
+        invoiceLineItemNumber:\u000d
+          type: string\u000d
+        invoiceLineDescription:\u000d
+          type: string\u000d
+        billerServiceId:\u000d
+          type: string\u000d
+        networkInventoryCircuitId:\u000d
+          type: string\u000d
+        taxRate:\u000d
+          type: string\u000d
+        taxRateDescription:\u000d
+          type: string\u000d
+\u000d
+    TaxOnlyReportResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          $ref: '#/components/schemas/ErrorInfo'\u000d
+        taxInfo:\u000d
+          type: array\u000d
+          items:\u000d
+            $ref: '#/components/schemas/TaxInfo'\u000d
+\u000d
+    TaxOnlyReportRequest:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/TaxOnlyReportRequestInfo'\u000d
+\u000d
+    TaxOnlyReportResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/TaxOnlyReportRequestInfo'\u000d
+        responseInfo:\u000d
+          $ref: '#/components/schemas/TaxOnlyReportResponseInfo']]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1722874617588"/>
+      <string name="Modified By" value="AC65919"/>
+      <long name="Modified Date" value="1774303877452"/>
+      <string name="Name" value="PRF_OpenAPI_Collection_Misc"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="48"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

@@ -1,0 +1,2844 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="YAML_V001_InProgress_16052024.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[---
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v1.0.0-inprogress
+servers:
+- url: http://localhost:8080/paymentservices
+  description: Generated server url
+paths:
+  /brimcm/collection/writeoff/reverse:
+    post:
+      tags:
+      - collection
+      operationId: writeOffReversal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteOffReversalRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WriteOffReversalResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      notes: string
+                      writeoffDocumentIdList:
+                      - "1"
+                      - "2"
+                    responseInfo:
+                      transactionStatus: S
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WriteOffReversalResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      notes: string
+                      writeoffDocumentIdList:
+                      - "1"
+                      - "2"
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WriteOffReversalResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      notes: string
+                      writeoffDocumentIdList:
+                      - "1"
+                      - "2"
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/collection/promisetopay/withdraw:
+    post:
+      tags:
+      - collection
+      operationId: withdrawPromiseToPay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawPromiseToPayRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawPromiseToPayResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: "1234567890"
+                      inputChannelCd: ENT
+                      srcSysTransactionId: "2346245768"
+                    requestInfo:
+                      notes: Customer missing hence withdrawing P2P
+                      promiseToPayConfirmationId: "10000000352"
+                    responseInfo:
+                      transactionStatus: S
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawPromiseToPayResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: "1234567890"
+                      inputChannelCd: ENT
+                      srcSysTransactionId: "2346245768"
+                    requestInfo:
+                      notes: Customer missing hence withdrawing P2P
+                      promiseToPayConfirmationId: "10000000352"
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawPromiseToPayResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: "1234567890"
+                      inputChannelCd: ENT
+                      srcSysTransactionId: "2346245768"
+                    requestInfo:
+                      notes: Customer missing hence withdrawing P2P
+                      promiseToPayConfirmationId: "10000000352"
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/collection/promisetopay/history:
+    post:
+      tags:
+      - collection
+      operationId: getP2p
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromiseToPayRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromiseToPayResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: S
+                      billingAccountNumber: BAN1111111
+                      financeAccountNumber: 589698754-ENS
+                      busOrgId: "123214332"
+                      currencyCd: USD
+                      promiseToPayDetails:
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromiseToPayResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      billingAccountNumber: BAN1111111
+                      financeAccountNumber: 589698754-ENS
+                      busOrgId: "123214332"
+                      currencyCd: USD
+                      promiseToPayDetails:
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromiseToPayResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      billingAccountNumber: BAN1111111
+                      financeAccountNumber: 589698754-ENS
+                      busOrgId: "123214332"
+                      currencyCd: USD
+                      promiseToPayDetails:
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+  /brimcm/collection/promisetopay/create:
+    post:
+      tags:
+      - collection
+      operationId: getP2p_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePromiseToPayRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePromiseToPayResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: S
+                      billingAccountNumber: BAN1111111
+                      financeAccountNumber: 589698754-ENS
+                      busOrgId: "123214332"
+                      currencyCd: USD
+                      promiseToPayDetails:
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePromiseToPayResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      billingAccountNumber: BAN1111111
+                      financeAccountNumber: 589698754-ENS
+                      busOrgId: "123214332"
+                      currencyCd: USD
+                      promiseToPayDetails:
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePromiseToPayResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      billingAccountNumber: BAN1111111
+                      financeAccountNumber: 589698754-ENS
+                      busOrgId: "123214332"
+                      currencyCd: USD
+                      promiseToPayDetails:
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: 2024-05-25
+                        promiseToPayConfirmationId: "235234543"
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: '****2354'
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        invoiceDetails:
+                        - invoiceNumber: "123453"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 100
+                        - invoiceNumber: "123454"
+                          invoiceDate: 2024-03-25
+                          invoiceDueDate: 2024-03-25
+                          promiseAmount: 123.56
+  /brimcm/collection/dunning/strategyWorkitem/close:
+    post:
+      tags:
+      - collection
+      operationId: workItemClose
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StrategyWorkItemRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyWorkItemResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      workItemId: 001DD8089F161EEEBAD16712E9B171AE
+                    responseInfo:
+                      transactionStatus: S
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyWorkItemResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      workItemId: 001DD8089F161EEEBAD16712E9B171AE
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StrategyWorkItemResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      workItemId: 001DD8089F161EEEBAD16712E9B171AE
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/collection/aging/agingBucket:
+    post:
+      tags:
+      - collection
+      operationId: getAgingBucketDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgingBucketDetailsRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgingBucketDetailsResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      collectorUserId: AB1234
+                      ultimateBusOrgId: 1-6HBHG-YU
+                      busOrgId: B-68768
+                      effectiveDate: YYYY-MM-DD
+                    responseInfo:
+                      transactionStatus: S
+                      reportRunDate: 2024-07-05
+                      agingBucketDetails:
+                      - ultimateBusOrgId: 1-6HBHG-YU
+                        ultimateCustomerName: ""
+                        busOrgId: B-68768
+                        billingAccountNumber: "235235532"
+                        invoiceCurrency: USD
+                        currentDueAmount: 0
+                        pastDueAmount: 0
+                        totalDueAmount: 0
+                        disputeAmount: 0
+                        amountDue0_30_days: 0
+                        amountDue31_60_days: 0
+                        amountDue61_90_days: 0
+                        amountDue91_120_days: 0
+                        amountDue121_150_days: 0
+                        amountDue151_180_days: 0
+                        amountDue181_210_days: 0
+                        amountDue211_240_days: 0
+                        amountDue241_270_days: 0
+                        amountDue271_300_days: 0
+                        amountDue301_330_days: 0
+                        amountDue331_360_days: 0
+                        amountDue361PlusDays: 0
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgingBucketDetailsResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      collectorUserId: AB1234
+                      ultimateBusOrgId: 1-6HBHG-YU
+                      busOrgId: B-68768
+                      effectiveDate: YYYY-MM-DD
+                    responseInfo:
+                      transactionStatus: F
+                      reportRunDate: 2024-07-05
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      agingBucketDetails:
+                      - ultimateBusOrgId: 1-6HBHG-YU
+                        ultimateCustomerName: ""
+                        busOrgId: B-68768
+                        billingAccountNumber: "235235532"
+                        invoiceCurrency: USD
+                        currentDueAmount: 0
+                        pastDueAmount: 0
+                        totalDueAmount: 0
+                        disputeAmount: 0
+                        amountDue0_30_days: 0
+                        amountDue31_60_days: 0
+                        amountDue61_90_days: 0
+                        amountDue91_120_days: 0
+                        amountDue121_150_days: 0
+                        amountDue151_180_days: 0
+                        amountDue181_210_days: 0
+                        amountDue211_240_days: 0
+                        amountDue241_270_days: 0
+                        amountDue271_300_days: 0
+                        amountDue301_330_days: 0
+                        amountDue331_360_days: 0
+                        amountDue361PlusDays: 0
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgingBucketDetailsResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      collectorUserId: AB1234
+                      ultimateBusOrgId: 1-6HBHG-YU
+                      busOrgId: B-68768
+                      effectiveDate: YYYY-MM-DD
+                    responseInfo:
+                      transactionStatus: F
+                      reportRunDate: 2024-07-05
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      agingBucketDetails:
+                      - ultimateBusOrgId: 1-6HBHG-YU
+                        ultimateCustomerName: ""
+                        busOrgId: B-68768
+                        billingAccountNumber: "235235532"
+                        invoiceCurrency: USD
+                        currentDueAmount: 0
+                        pastDueAmount: 0
+                        totalDueAmount: 0
+                        disputeAmount: 0
+                        amountDue0_30_days: 0
+                        amountDue31_60_days: 0
+                        amountDue61_90_days: 0
+                        amountDue91_120_days: 0
+                        amountDue121_150_days: 0
+                        amountDue151_180_days: 0
+                        amountDue181_210_days: 0
+                        amountDue211_240_days: 0
+                        amountDue241_270_days: 0
+                        amountDue271_300_days: 0
+                        amountDue301_330_days: 0
+                        amountDue331_360_days: 0
+                        amountDue361PlusDays: 0
+  /brimcm/billinginvoice/invoiceDetails:
+    post:
+      tags:
+      - invoice
+      operationId: getInvDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvoiceDetailsReq'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDetailsResp'
+              examples:
+                Success Response:
+                  description: Success Response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AB1234
+                    requestInfo:
+                      invoiceNumber: <<LumenInvoiceNumber>>
+                      billingAccountNumber: ""
+                    responseInfo:
+                      transactionStatus: S
+                      invoiceNumber: LumenInvoiceNumber
+                      sapInvoiceNumber: ""
+                      invoiceDueDate: 2024-03-20
+                      invoicePeriodStartDate: 2024-01-20
+                      invoicePeriodEndDate: 2024-02-20
+                      nextBillDate: 2024-03-20
+                      aggregatedRecurringAmount: "65.00"
+                      aggregatedNonRecurringAmount: "25.00"
+                      aggregatedUsageAmount: "0.00"
+                      aggregatedTaxAmount: "10.00"
+                      aggregatedFeeAmount: ""
+                      aggregatedSurchargeAmount: ""
+                      invoiceItemDetails:
+                      - itemNumber: "1"
+                        chargeType: Recurring/NonRecurring/Usage/Surcharge/Tax/Fee
+                        billerServiceId: ""
+                        billerServiceDescription: ""
+                        itemPeriodStartDate: 2024-01-20
+                        itemPeriodEndDate: 2024-02-20
+                        transactionDate: 2024-02-20
+                        amount: "15.23"
+                        currency: USD
+                      - itemNumber: "2"
+                        chargeType: Recurring/NonRecurring/Usage/Surcharge/Tax/Fee
+                        billerServiceId: ""
+                        billerServiceDescription: ""
+                        itemPeriodStartDate: 2024-01-20
+                        itemPeriodEndDate: 2024-02-20
+                        transactionDate: 2024-02-20
+                        amount: "15.23"
+                        currency: USD
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDetailsResp'
+              examples:
+                Validation Failure:
+                  description: Validation Failure
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      invoiceNumber: string
+                      billingAccountNumber: string
+                    responseInfo:
+                      transactionStatus: S/F
+                      errorInfo:
+                        errorMessage: "10101"
+                        errorCd: No Invoice details found for the given Invoice Number
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InvoiceDetailsResp'
+              examples:
+                Application level exceptions/errors.:
+                  description: Application level exceptions/errors.
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      invoiceNumber: string
+                      billingAccountNumber: string
+                    responseInfo:
+                      transactionStatus: S/F
+                      errorInfo:
+                        errorMessage: "10101"
+                        errorCd: No Invoice details found for the given Invoice Number
+  /brimcm/account/contact/history:
+    post:
+      tags:
+      - account
+      operationId: getCustomerContacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerContactRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerContactResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890A
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD20987
+                    requestInfo:
+                      billingAccountNumber: string
+                      contactType: Dunning/WireTransfer
+                    responseInfo:
+                      transactionStatus: S
+                      contactDetails:
+                      - contactId: ""
+                        contactFirstName: ""
+                        contactLastName: ""
+                        contactEmail: ""
+                        contactAreaCd: ""
+                        contactPhoneNumber: ""
+                        contactAddress:
+                          addressType: ""
+                          addressLine1: ""
+                          addressLine2: ""
+                          city: ""
+                          state: ""
+                          zipCode: ""
+                          country: ""
+                        contactType: Dunning/WireTransfer
+                        isPrimaryDunningContact: Y/N
+                        createdDate: 2022-01-19T15:47:01.151Z
+                        createdBy: ""
+                        lastModifiedDate: 2022-01-19T15:47:01.151Z
+                        lastModifiedBy: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerContactResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890A
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD20987
+                    requestInfo:
+                      billingAccountNumber: string
+                      contactType: Dunning/WireTransfer
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      contactDetails:
+                      - contactId: ""
+                        contactFirstName: ""
+                        contactLastName: ""
+                        contactEmail: ""
+                        contactAreaCd: ""
+                        contactPhoneNumber: ""
+                        contactAddress:
+                          addressType: ""
+                          addressLine1: ""
+                          addressLine2: ""
+                          city: ""
+                          state: ""
+                          zipCode: ""
+                          country: ""
+                        contactType: Dunning/WireTransfer
+                        isPrimaryDunningContact: Y/N
+                        createdDate: 2022-01-19T15:47:01.151Z
+                        createdBy: ""
+                        lastModifiedDate: 2022-01-19T15:47:01.151Z
+                        lastModifiedBy: ""
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerContactResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890A
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD20987
+                    requestInfo:
+                      billingAccountNumber: string
+                      contactType: Dunning/WireTransfer
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      contactDetails:
+                      - contactId: ""
+                        contactFirstName: ""
+                        contactLastName: ""
+                        contactEmail: ""
+                        contactAreaCd: ""
+                        contactPhoneNumber: ""
+                        contactAddress:
+                          addressType: ""
+                          addressLine1: ""
+                          addressLine2: ""
+                          city: ""
+                          state: ""
+                          zipCode: ""
+                          country: ""
+                        contactType: Dunning/WireTransfer
+                        isPrimaryDunningContact: Y/N
+                        createdDate: 2022-01-19T15:47:01.151Z
+                        createdBy: ""
+                        lastModifiedDate: 2022-01-19T15:47:01.151Z
+                        lastModifiedBy: ""
+  /brimcm/account/contact/create:
+    post:
+      tags:
+      - account
+      operationId: createCustomerContacts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerContactRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerContactResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890A
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD20987
+                    requestInfo:
+                      billingAccountNumber: string
+                      contactFirstName: ""
+                      contactLastName: ""
+                      contactEmail: ""
+                      contactAreaCd: ""
+                      contactPhoneNumber: ""
+                      contactAddress:
+                        addressType: ""
+                        addressLine1: ""
+                        addressLine2: ""
+                        city: ""
+                        state: ""
+                        zipCode: ""
+                        country: ""
+                      contactType: Dunning/WireTransfer
+                      isPrimaryDunningContact: Y/N
+                    responseInfo:
+                      transactionStatus: S
+                      contactId: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerContactResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890A
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD20987
+                    requestInfo:
+                      billingAccountNumber: string
+                      contactFirstName: ""
+                      contactLastName: ""
+                      contactEmail: ""
+                      contactAreaCd: ""
+                      contactPhoneNumber: ""
+                      contactAddress:
+                        addressType: ""
+                        addressLine1: ""
+                        addressLine2: ""
+                        city: ""
+                        state: ""
+                        zipCode: ""
+                        country: ""
+                      contactType: Dunning/WireTransfer
+                      isPrimaryDunningContact: Y/N
+                    responseInfo:
+                      transactionStatus: F
+                      contactId: ""
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCustomerContactResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890A
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD20987
+                    requestInfo:
+                      billingAccountNumber: string
+                      contactFirstName: ""
+                      contactLastName: ""
+                      contactEmail: ""
+                      contactAreaCd: ""
+                      contactPhoneNumber: ""
+                      contactAddress:
+                        addressType: ""
+                        addressLine1: ""
+                        addressLine2: ""
+                        city: ""
+                        state: ""
+                        zipCode: ""
+                        country: ""
+                      contactType: Dunning/WireTransfer
+                      isPrimaryDunningContact: Y/N
+                    responseInfo:
+                      transactionStatus: F
+                      contactId: ""
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/account/accountinfo/update:
+    post:
+      tags:
+      - account
+      operationId: updateBlitzInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBlitzInfoRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateBlitzInfoResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "232323232"
+                      busOrgId: ""
+                      dunningLockIndicator: Y/N
+                      dunningLockReasonCd: ""
+                      dunningLockStartDate: 2024-04-19
+                      dunningLockEndDate: 2024-06-15
+                      blitzIndicator: Y/N
+                      blitzStatusCd: ""
+                    responseInfo:
+                      transactionStatus: S
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateBlitzInfoResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "232323232"
+                      busOrgId: ""
+                      dunningLockIndicator: Y/N
+                      dunningLockReasonCd: ""
+                      dunningLockStartDate: 2024-04-19
+                      dunningLockEndDate: 2024-06-15
+                      blitzIndicator: Y/N
+                      blitzStatusCd: ""
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateBlitzInfoResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "232323232"
+                      busOrgId: ""
+                      dunningLockIndicator: Y/N
+                      dunningLockReasonCd: ""
+                      dunningLockStartDate: 2024-04-19
+                      dunningLockEndDate: 2024-06-15
+                      blitzIndicator: Y/N
+                      blitzStatusCd: ""
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/account/accountinfo/collector/update:
+    post:
+      tags:
+      - account
+      operationId: updateCollectorByBan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectorUpdateRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorUpdateResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "232323232"
+                      busOrgId: ""
+                      collectorUserId: AB1234
+                    responseInfo:
+                      transactionStatus: S
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorUpdateResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "232323232"
+                      busOrgId: ""
+                      collectorUserId: AB1234
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectorUpdateResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "232323232"
+                      busOrgId: ""
+                      collectorUserId: AB1234
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/collection/dunning/autoDailerCallStatus:
+    get:
+      tags:
+      - collection
+      operationId: autoDialer
+      parameters:
+      - name: billingAccountNumber
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: busOrgId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: billingApplicationCd
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "1234"
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: S
+                      telephoneNumber: "1080887679"
+                      ivrInteractionId: 5dc62fe961b518c7b785c1d29a14e3f5
+                      contactListId: c397387f-068b-4e3f-8b7c-57e639a4ea52
+                      lastAttemptedOn: 2024-01-08T17:46:03.654Z
+                      autoDialerCallStatus: NO ANSWER
+                      autoDialerErrorCode: ""
+                      autoDialerErrorDescription: ""
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "1234"
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      telephoneNumber: "1080887679"
+                      ivrInteractionId: 5dc62fe961b518c7b785c1d29a14e3f5
+                      contactListId: c397387f-068b-4e3f-8b7c-57e639a4ea52
+                      lastAttemptedOn: 2024-01-08T17:46:03.654Z
+                      autoDialerCallStatus: NO ANSWER
+                      autoDialerErrorCode: ""
+                      autoDialerErrorDescription: ""
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: "1234"
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      telephoneNumber: "1080887679"
+                      ivrInteractionId: 5dc62fe961b518c7b785c1d29a14e3f5
+                      contactListId: c397387f-068b-4e3f-8b7c-57e639a4ea52
+                      lastAttemptedOn: 2024-01-08T17:46:03.654Z
+                      autoDialerCallStatus: NO ANSWER
+                      autoDialerErrorCode: ""
+                      autoDialerErrorDescription: ""
+  /brimcm/collection/correspondence/history:
+    get:
+      tags:
+      - collection
+      operationId: correspondenceHistory
+      parameters:
+      - name: billingAccountNumber
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: busOrgId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorrespondenceHistoryResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    requestInfo:
+                      billingAccountNumber: "1234"
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: S
+                      correspondenceList:
+                      - correspondenceType: Email/Print
+                        recipientName: Smoke Test
+                        sentOrReceivedOn: 2024-01-31T00:00:00.000Z
+                        initiatedByUserName: 'James '
+                        correspondenceURL: TBD
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorrespondenceHistoryResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    requestInfo:
+                      billingAccountNumber: "1234"
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      correspondenceList:
+                      - correspondenceType: Email/Print
+                        recipientName: Smoke Test
+                        sentOrReceivedOn: 2024-01-31T00:00:00.000Z
+                        initiatedByUserName: 'James '
+                        correspondenceURL: TBD
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorrespondenceHistoryResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    requestInfo:
+                      billingAccountNumber: "1234"
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      correspondenceList:
+                      - correspondenceType: Email/Print
+                        recipientName: Smoke Test
+                        sentOrReceivedOn: 2024-01-31T00:00:00.000Z
+                        initiatedByUserName: 'James '
+                        correspondenceURL: TBD
+  /brimcm/account/user/details:
+    get:
+      tags:
+      - account
+      operationId: findUser
+      parameters:
+      - name: userId
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindUserResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    requestInfo:
+                      userId: AB1234
+                    responseInfo:
+                      transactionStatus: S
+                      firstName: ABC
+                      lastName: XYZ
+                      cuId: AD78389
+                      email: ABC.XYZ@example.com
+                      userRoles:
+                      - Role1
+                      - Role2
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindUserResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    requestInfo:
+                      userId: AB1234
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      firstName: ABC
+                      lastName: XYZ
+                      cuId: AD78389
+                      email: ABC.XYZ@example.com
+                      userRoles:
+                      - Role1
+                      - Role2
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindUserResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    requestInfo:
+                      userId: AB1234
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      firstName: ABC
+                      lastName: XYZ
+                      cuId: AD78389
+                      email: ABC.XYZ@example.com
+                      userRoles:
+                      - Role1
+                      - Role2
+components:
+  schemas:
+    HeaderInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+          description: sendTimeStamp
+          example: "123456789"
+        srcApplicationCd:
+          type: string
+          description: srcApplicationCd
+          example: "123456789"
+        requestId:
+          type: integer
+          description: requestId
+          format: int32
+          example: 123456789
+        inputChannelCd:
+          type: string
+          description: inputChannelCd
+          example: "123456789"
+        srcSysTransactionId:
+          type: integer
+          description: srcSysTransactionId
+          format: int32
+          example: 123456789
+        userId:
+          type: string
+          description: userId
+          example: "123456789"
+      description: Header of the request
+    WriteOffReversalRequest:
+      required:
+      - headerInfo
+      - requestInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReversalRequestInfo'
+    WriteOffReversalRequestInfo:
+      required:
+      - notes
+      - writeoffDocumentIdList
+      type: object
+      properties:
+        notes:
+          type: string
+          description: notes
+        writeoffDocumentIdList:
+          type: array
+          description: writeoffDocumentIdList
+          items:
+            type: string
+            description: writeoffDocumentIdList
+      description: resquest
+    ErrorInfo:
+      required:
+      - errorCd
+      - errorMessage
+      type: object
+      properties:
+        errorCd:
+          type: string
+          description: Unique error code for each type of error
+          example: "10083"
+        errorMessage:
+          type: string
+          description: Error message
+          example: No Account Available
+      description: errorInfo
+    WriteOffReversalResponse:
+      required:
+      - headerInfo
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReversalRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WriteOffReversalResponseInfo'
+    WriteOffReversalResponseInfo:
+      required:
+      - errorInfo
+      - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+      description: response
+    WithdrawPromiseToPayRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WithdrawPromiseToPayRequestInfo'
+    WithdrawPromiseToPayRequestInfo:
+      type: object
+      properties:
+        notes:
+          type: string
+        promiseToPayConfirmationId:
+          type: string
+    WithdrawPromiseToPayResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WithdrawPromiseToPayRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WithdrawPromiseToPayResponseInfo'
+    WithdrawPromiseToPayResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    PromiseToPayRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/PromiseToPayRequestInfo'
+    PromiseToPayRequestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+    InvoiceDetail:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+        invoiceDate:
+          type: string
+        invoiceDueDate:
+          type: string
+        promiseAmount:
+          type: number
+          format: double
+    PromiseToPayDetail:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        createdDttm:
+          type: string
+        lastModifiedBy:
+          type: string
+        lastModifiedDttm:
+          type: string
+        noteText:
+          type: string
+        promiseToPayDate:
+          type: string
+        promiseToPayConfirmationId:
+          type: string
+        status:
+          type: string
+        paymentMethodCd:
+          type: string
+        maskedAccountNumber:
+          type: string
+        bankAccountType:
+          type: string
+        cardType:
+          type: string
+        totalPromiseAmount:
+          type: number
+          format: double
+        brokenAmount:
+          type: number
+          format: double
+        invoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceDetail'
+    PromiseToPayResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/PromiseToPayRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/PromiseToPayResponseInfo'
+    PromiseToPayResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        billingAccountNumber:
+          type: string
+        financeAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        currencyCd:
+          type: string
+        promiseToPayDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromiseToPayDetail'
+    BankAccountDetails:
+      required:
+      - bankAccountNumber
+      - bankAccountType
+      - bankRoutingNumber
+      type: object
+      properties:
+        bankRoutingNumber:
+          type: string
+          description: Routing number of bank account.Required when Create or Update ACH wallet
+          example: "021000021"
+        bankAccountType:
+          type: string
+          description: Type of Bank account.Required when Create or Update ACH wallet
+          example: "Checking, Savings"
+        bankAccountNumber:
+          type: string
+          description: Bank account Number.Required when Create or Update ACH wallet
+          example: "12345689"
+        maskedAccountNumber:
+          type: string
+          description: Masked Bank account Number
+          example: '****5689'
+        instrumentId:
+          type: string
+          description: Instrument id of the wallet. Required only for update.
+          example: "22142506"
+        achToken:
+          type: string
+          description: Token to create ACH wallet.
+          example: LPS8345PFVWWUR
+        default:
+          type: boolean
+      description: Customer Bank account details
+    CardDetails:
+      required:
+      - cardToken
+      type: object
+      properties:
+        cardToken:
+          type: string
+          description: Token to create card wallet. Only for internal purpose.
+          example: "021000021"
+        maskedAccountNumber:
+          type: string
+          description: Masked account Number.
+          example: '****5689'
+        cardExpirationDate:
+          type: string
+          description: Expiration date of the card.Required when updating card wallet.
+          example: 04-2025
+        cardType:
+          type: string
+          description: Type of Card.
+          example: "VISA,DISCOVER"
+        cardBillingZipCd:
+          type: string
+          description: Billing Zip code of the card.
+          example: "80126"
+        instrumentId:
+          type: string
+          description: Instrument id of the wallet. Required for update.
+          example: "22142506"
+      description: Customer Card Details like card token
+    CreatePromiseToPayRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        promiseToPay:
+          $ref: '#/components/schemas/PromiseToPayInfo'
+    PaymentMethodDetails:
+      type: object
+      properties:
+        walletDetails:
+          $ref: '#/components/schemas/WalletDetails'
+        cardDetails:
+          $ref: '#/components/schemas/CardDetails'
+        bankAccountDetails:
+          $ref: '#/components/schemas/BankAccountDetails'
+    PromiseToPayInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        currencyCd:
+          type: string
+        busOrgId:
+          type: string
+        noteText:
+          type: string
+        promiseToPayDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromiseToPayDetail'
+        paymentMethodCd:
+          type: string
+        paymentMethodDetails:
+          $ref: '#/components/schemas/PaymentMethodDetails'
+    WalletDetails:
+      required:
+      - instrumentId
+      - walletReferenceNumber
+      type: object
+      properties:
+        walletReferenceNumber:
+          type: string
+          description: "If savePaymentMethod is Y,need walletReferenceNumber. Required if walletPayment."
+          example: KM4qTnEmJytMFLWF6p8cnpGu4
+        instrumentId:
+          type: string
+          description: "Instrument Id: Can be used instead of wallet reference value too"
+          example: "22138295"
+      description: 'Customer wallet information '
+    CreatePromiseToPayResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        promiseToPay:
+          $ref: '#/components/schemas/PromiseToPayResponseInfo'
+    StrategyWorkItemRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/StrategyWorkItemRequestInfo'
+    StrategyWorkItemRequestInfo:
+      type: object
+      properties:
+        workItemId:
+          type: string
+    StrategyWorkItemResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/StrategyWorkItemRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/StrategyWorkItemResponseInfo'
+    StrategyWorkItemResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    AgingBucketDetailsRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AgingBucketDetailsRequestInfo'
+    AgingBucketDetailsRequestInfo:
+      type: object
+      properties:
+        collectorUserId:
+          type: string
+        ultimateBusOrgId:
+          type: string
+        busOrgId:
+          type: string
+        billingAccountNumber:
+          type: string
+        effectiveDate:
+          type: string
+    AgingBucketDetail:
+      type: object
+      properties:
+        ultimateBusOrgId:
+          type: string
+        ultimateCustomerName:
+          type: string
+        busOrgId:
+          type: string
+        billingAccountNumber:
+          type: string
+        invoiceCurrency:
+          type: string
+        currentDueAmount:
+          type: number
+          format: double
+        pastDueAmount:
+          type: number
+          format: double
+        totalDueAmount:
+          type: number
+          format: double
+        disputeAmount:
+          type: number
+          format: double
+        amountDue030Days:
+          type: number
+          format: double
+        amountDue3160Days:
+          type: number
+          format: double
+        amountDue6190Days:
+          type: number
+          format: double
+        amountDue91120Days:
+          type: number
+          format: double
+        amountDue121150Days:
+          type: number
+          format: double
+        amountDue151180Days:
+          type: number
+          format: double
+        amountDue181210Days:
+          type: number
+          format: double
+        amountDue211240Days:
+          type: number
+          format: double
+        amountDue241270Days:
+          type: number
+          format: double
+        amountDue271300Days:
+          type: number
+          format: double
+        amountDue301330Days:
+          type: number
+          format: double
+        amountDue331360Days:
+          type: number
+          format: double
+        amountDue361PlusDays:
+          type: number
+          format: double
+    AgingBucketDetailsResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AgingBucketDetailsRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/AgingBucketDetailsResponseInfo'
+    AgingBucketDetailsResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        reportRunDate:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        agingBucketDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgingBucketDetail'
+    InvoiceDetailsReq:
+      required:
+      - headerInfo
+      - requestInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/InvoiceDetailsRequestInfo'
+      description: request
+    InvoiceDetailsRequestInfo:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+          description: invoice number
+          example: 1234fd
+        billingAccountNumber:
+          type: string
+          description: billingAccountNumber
+          example: "123456789"
+      description: request
+    InvoiceDetailsResp:
+      required:
+      - headerInfo
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/InvoiceDetailsRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/InvoiceDetailsResponseInfo'
+      description: Response
+    InvoiceDetailsResponseInfo:
+      required:
+      - aggregatedFeeAmount
+      - aggregatedNonRecurringAmount
+      - aggregatedRecurringAmount
+      - aggregatedSurchargeAmount
+      - aggregatedTaxAmount
+      - aggregatedUsageAmount
+      - invoiceDueDate
+      - invoiceItemDetails
+      - invoiceNumber
+      - invoicePeriodEndDate
+      - invoicePeriodStartDate
+      - nextBillDate
+      - sapInvoiceNumber
+      - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        invoiceNumber:
+          type: string
+          description: invoiceNumber
+        sapInvoiceNumber:
+          type: string
+          description: sapInvoiceNumber
+        invoiceDueDate:
+          type: string
+          description: invoiceDueDate
+        invoicePeriodStartDate:
+          type: string
+          description: invoicePeriodStartDate
+        invoicePeriodEndDate:
+          type: string
+          description: invoicePeriodEndDate
+        nextBillDate:
+          type: string
+          description: nextBillDate
+        aggregatedRecurringAmount:
+          type: string
+          description: aggregatedRecurringAmount
+        aggregatedNonRecurringAmount:
+          type: string
+          description: aggregatedNonRecurringAmount
+        aggregatedUsageAmount:
+          type: string
+          description: aggregatedUsageAmount
+        aggregatedTaxAmount:
+          type: string
+          description: aggregatedTaxAmount
+        aggregatedFeeAmount:
+          type: string
+          description: aggregatedFeeAmount
+        aggregatedSurchargeAmount:
+          type: string
+          description: aggregatedSurchargeAmount
+        invoiceItemDetails:
+          type: array
+          description: invoiceItemDetails
+          items:
+            $ref: '#/components/schemas/InvoiceItemDetail'
+      description: responseInfo
+    InvoiceItemDetail:
+      required:
+      - amount
+      - billerServiceDescription
+      - billerServiceId
+      - chargeType
+      - currency
+      - itemNumber
+      - itemPeriodEndDate
+      - itemPeriodStartDate
+      - transactionDate
+      type: object
+      properties:
+        itemNumber:
+          type: string
+          description: itemNumber
+        chargeType:
+          type: string
+          description: chargeType
+        billerServiceId:
+          type: string
+          description: billerServiceId
+        billerServiceDescription:
+          type: string
+          description: billerServiceDescription
+        itemPeriodStartDate:
+          type: string
+          description: itemPeriodStartDate
+        itemPeriodEndDate:
+          type: string
+          description: itemPeriodEndDate
+        transactionDate:
+          type: string
+          description: transactionDate
+        amount:
+          type: string
+          description: amount
+        currency:
+          type: string
+          description: currency
+      description: invoiceItemDetails
+    CustomerContactRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CustomerContactRequestInfo'
+    CustomerContactRequestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        contactType:
+          type: string
+    ContactAddress:
+      type: object
+      properties:
+        addressType:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+        country:
+          type: string
+    ContactDetail:
+      type: object
+      properties:
+        contactId:
+          type: string
+        contactFirstName:
+          type: string
+        contactLastName:
+          type: string
+        contactEmail:
+          type: string
+        contactAreaCd:
+          type: string
+        contactPhoneNumber:
+          type: string
+        contactAddress:
+          $ref: '#/components/schemas/ContactAddress'
+        contactType:
+          type: string
+        isPrimaryDunningContact:
+          type: string
+        createdDate:
+          type: string
+        createdBy:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedBy:
+          type: string
+    CustomerContactResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CustomerContactRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CustomerContactResponseInfo'
+    CustomerContactResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        contactDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactDetail'
+    CreateCustomerContactRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCustomerContactRequestInfo'
+    CreateCustomerContactRequestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        contactFirstName:
+          type: string
+        contactLastName:
+          type: string
+        contactEmail:
+          type: string
+        contactAreaCd:
+          type: string
+        contactPhoneNumber:
+          type: string
+        contactAddress:
+          $ref: '#/components/schemas/ContactAddress'
+        contactType:
+          type: string
+        isPrimaryDunningContact:
+          type: string
+    CreateCustomerContactResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCustomerContactRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateCustomerContactResponseInfo'
+    CreateCustomerContactResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        contactId:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    UpdateBlitzInfoRequest:
+      required:
+      - headerInfo
+      - requestInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/UpdateBlitzRequestInfo'
+    UpdateBlitzRequestInfo:
+      required:
+      - billingAccountNumber
+      - blitzIndicator
+      - blitzStatusCd
+      - dunningLockEndDate
+      - dunningLockIndicator
+      - dunningLockReasonCd
+      - dunningLockStartDate
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          description: billingAccountNumber
+        busOrgId:
+          type: string
+          description: busOrgId
+        dunningLockIndicator:
+          type: string
+          description: dunningLockIndicator
+        dunningLockReasonCd:
+          type: string
+          description: dunningLockReasonCd
+        dunningLockStartDate:
+          type: string
+          description: dunningLockStartDate
+        dunningLockEndDate:
+          type: string
+          description: dunningLockEndDate
+        blitzIndicator:
+          type: string
+          description: blitzIndicator
+        blitzStatusCd:
+          type: string
+          description: blitzStatusCd
+      description: Request
+    UpdateBlitzInfoResponse:
+      required:
+      - headerInfo
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/UpdateBlitzRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/UpdateBlitzResponseInfo'
+    UpdateBlitzResponseInfo:
+      required:
+      - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+      description: Response
+    CollectorRequestInfo:
+      required:
+      - billingAccountNumber
+      - collectorUserId
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          description: billingAccountNumber
+        busOrgId:
+          type: string
+          description: busOrgId
+        collectorUserId:
+          type: string
+          description: collectorUserId
+      description: RequestInfo
+    CollectorUpdateRequest:
+      required:
+      - headerInfo
+      - requestInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CollectorRequestInfo'
+      description: Request
+    CollectorUpdateResponse:
+      required:
+      - headerInfo
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CollectorUpdateRequest'
+        responseInfo:
+          $ref: '#/components/schemas/CollectorUpdateResponseInfo'
+    CollectorUpdateResponseInfo:
+      required:
+      - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+      description: Response
+    AutoDailerCallStatusResponse:
+      required:
+      - headerInfo
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AutoDailerRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/AutoDailerResponseInfo'
+    AutoDailerRequestInfo:
+      required:
+      - billingAccountNumber
+      - billingApplicationCd
+      - busOrgId
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          description: billingAccountNumber
+        billingApplicationCd:
+          type: string
+          description: billingApplicationCd
+        busOrgId:
+          type: string
+          description: busOrgId
+      description: Request
+    AutoDailerResponseInfo:
+      required:
+      - autoDialerCallStatus
+      - autoDialerErrorCode
+      - autoDialerErrorDescription
+      - contactListId
+      - ivrInteractionId
+      - lastAttemptedOn
+      - telephoneNumber
+      - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        telephoneNumber:
+          type: string
+          description: telephoneNumber
+        ivrInteractionId:
+          type: string
+          description: ivrInteractionId
+        contactListId:
+          type: string
+          description: contactListId
+        lastAttemptedOn:
+          type: string
+          description: lastAttemptedOn
+        autoDialerCallStatus:
+          type: string
+          description: Response
+        autoDialerErrorCode:
+          type: string
+          description: autoDialerErrorCode
+        autoDialerErrorDescription:
+          type: string
+          description: autoDialerErrorDescription
+      description: Response
+    CorrespondenceHistoryRequestInfo:
+      required:
+      - billingAccountNumber
+      - busOrgId
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          description: billingAccountNumber
+        busOrgId:
+          type: string
+          description: busOrgId
+      description: Request
+    CorrespondenceHistoryResponse:
+      required:
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        requestInfo:
+          $ref: '#/components/schemas/CorrespondenceHistoryRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CorrespondenceHistoryResponseInfo'
+    CorrespondenceHistoryResponseInfo:
+      required:
+      - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        correspondenceList:
+          type: array
+          description: correspondenceList
+          items:
+            $ref: '#/components/schemas/CorrespondenceList'
+      description: Response
+    CorrespondenceList:
+      required:
+      - correspondenceType
+      - correspondenceURL
+      - initiatedByUserName
+      - recipientName
+      - sentOrReceivedOn
+      type: object
+      properties:
+        correspondenceType:
+          type: string
+          description: correspondenceType
+        recipientName:
+          type: string
+          description: recipientName
+        sentOrReceivedOn:
+          type: string
+          description: sentOrReceivedOn
+        initiatedByUserName:
+          type: string
+          description: initiatedByUserName
+        correspondenceURL:
+          type: string
+          description: correspondenceURL
+      description: correspondenceList
+    FindUserRequestInfo:
+      required:
+      - userId
+      type: object
+      properties:
+        userId:
+          type: string
+          description: userId
+      description: Request
+    FindUserResponse:
+      required:
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        requestInfo:
+          $ref: '#/components/schemas/FindUserRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/FindUserResponseInfo'
+    FindUserResponseInfo:
+      required:
+      - cuId
+      - email
+      - firstName
+      - lastName
+      - transactionStatus
+      - userRoles
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        firstName:
+          type: string
+          description: firstName
+        lastName:
+          type: string
+          description: lastName
+        cuId:
+          type: string
+          description: cuId
+        email:
+          type: string
+          description: email
+        userRoles:
+          type: array
+          description: userRoles
+          items:
+            type: string
+            description: userRoles
+      description: Response]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1719080015313"/>
+      <string name="Modified By" value="AD44305"/>
+      <long name="Modified Date" value="1719080015313"/>
+      <string name="Name" value="PRF_Collection_Correspondence"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

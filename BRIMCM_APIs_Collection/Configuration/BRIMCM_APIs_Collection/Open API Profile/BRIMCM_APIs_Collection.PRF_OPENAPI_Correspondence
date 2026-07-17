@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="BRIMCM_APIs_2_20240202_Correspondance.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[openapi: 3.0.1
+info:
+  title: BRIMCM_APIs_InfoSys
+  description: >-
+    This is to document all the APIs that CM wil host to communicate between
+    different portals and BRIM
+  version: 0.1-oas3
+servers:
+  - url: http://148.155.130.78:8088
+paths:
+  /brimcm/creditRisk/bankruptcy/update:
+    post:
+      tags:
+        - bankruptcyIndicatorUpdate
+      summary: Update Bankruptcy Indicator
+      description: API to update Bankruptcy Indicator as recieved from Fusion
+      operationId: updateBankruptcyIndicator
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/bankruptcyIndicatorUpdateReq'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/bankruptcyIndicatorUpdateResp'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+      servers:
+        - url: http://148.155.130.78:8088
+    servers:
+      - url: http://148.155.130.78:8088
+  /brimcm/account/user/getUser:
+    get:
+      tags:
+        - findUserAPIGet
+      summary: Find user Information
+      description: >-
+        Fusion sends a request to CM to find user information based on user
+        input(CUID).
+      parameters:
+        - name: userInput
+          in: query
+          description: CUID
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/findUserGetResp'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+      servers:
+        - url: http://148.155.130.78:8088
+    servers:
+      - url: http://148.155.130.78:8088
+  /brimcm/account/updateCustomerAccountInfo:
+    post:
+      tags:
+        - updateContractAcc
+      summary: Updation Collector Information
+      description: >-
+        Fusion sends a request to CM to update collector info in SAP BRIM based
+        on provided details.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/collectorUpdateRequest'
+        required: true
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/collectorUpdateResp'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+      servers:
+        - url: http://148.155.130.78:8088
+    servers:
+      - url: http://148.155.130.78:8088
+  /brimcm/collection/getCorrespondenceDetails:
+    get:
+      tags:
+        - getCorrespondenceDetails
+      summary: getCorrespondenceDetails
+      description: >-
+        to fetch the Correspondence Details from BRIM using Contract
+        account/Business Partner as an Input.
+      parameters:
+        - name: inputParam1
+          in: query
+          description: Contract account.
+          required: false
+          style: form
+          explode: true
+          schema:
+            $ref: '#/components/schemas/getCorrespondenceDetailsReq'
+        - name: inputParam2
+          in: query
+          description: Business Partner.
+          required: false
+          style: form
+          explode: true
+          schema:
+            $ref: '#/components/schemas/getCorrespondenceDetailsReq2'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getCorrespondenceDetailsResp'
+        '405':
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+      servers:
+        - url: http://148.155.130.78:8088
+    servers:
+      - url: http://148.155.130.78:8088
+components:
+  schemas:
+    errorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    bankruptcyIndicatorUpdateReqInfo:
+      minProperties: 1
+      type: object
+      properties:
+        BAN:
+          type: string
+        bussOrg:
+          type: string
+        bankruptcyIndicator:
+          type: string
+        filingDate:
+          type: string
+        comments:
+          type: string
+      example:
+        BAN: '90887679'
+        bussOrg: A-198876
+        bankruptcyIndicator: X
+        filingdate: 2023-08-11T00:00:00.000Z
+        comments: test
+      oneOf:
+        - required:
+            - BAN
+            - bankruptcyIndicator
+            - bussOrg
+            - filingDate
+        - required:
+            - BAN
+            - bankruptcyIndicator
+            - filingDate
+        - required:
+            - bankruptcyIndicator
+            - bussOrg
+            - filingDate
+    bankruptcyIndicatorUpdateReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/headerInfo'
+        requestInfo:
+          $ref: '#/components/schemas/bankruptcyIndicatorUpdateReqInfo'
+    bankruptcyIndicatorUpdateResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/headerInfo'
+        requestInfo:
+          $ref: '#/components/schemas/bankruptcyIndicatorUpdateReqInfo'
+        responseInfo:
+          $ref: '#/components/schemas/bankruptcyIndicatorUpdateResponseInfo'
+    bankruptcyIndicatorUpdateResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          example: success/Failure
+        errorInfo:
+          $ref: '#/components/schemas/errorInfo'
+        transactionMessage:
+          type: string
+          example: Buss Org FUXXXXX bankruptcy details are updated successfully
+    errorInfo:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCode:
+          type: string
+    findUserGetResp:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          example: Success/Failure
+        errorInfo:
+          $ref: '#/components/schemas/errorInfo'
+        FinduserRespInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/findUserRespDetails'
+    findUserRespDetails:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: ABC
+        lastName:
+          type: string
+          example: XYZ
+        cuid:
+          type: string
+          example: AD78389
+        email:
+          type: string
+          example: ABC.XYZ@example.com
+    collectorUpdateRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/headerInfo'
+        requestInfo:
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/collectorUpdateItems'
+    collectorUpdateItems:
+      type: object
+      properties:
+        BAN:
+          type: string
+          description: Business Account number
+          example: '232323232'
+        COLLECTOR:
+          type: string
+          example: ''
+    collectorUpdateResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/errorInfo'
+    collectorUpdateResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/headerInfo'
+        requestInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/collectorUpdateItems'
+        responseInfo:
+          $ref: '#/components/schemas/collectorUpdateResponseInfo'
+    headerInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+        srcApplicationCd:
+          type: string
+        requestId:
+          type: string
+        inputChannelCd:
+          type: string
+        srcSysTransactionId: {}
+        CUID:
+          type: string
+      example:
+        sendTimeStamp: 2022-01-19T15:47:01.151Z
+        srcApplicationCd: FUSION
+        requestId: 1234567890
+        inputChannelCd: ENT
+        srcSysTransactionId: 2346245768
+        CUID: AD78389
+    getCorrespondenceDetailsReq:
+      type: string
+      properties:
+        ContractAccountNumber:
+          type: string
+          example: CA11111111
+    getCorrespondenceDetailsReq2:
+      type: string
+      properties:
+        BusinessPartner:
+          type: string
+          example: BP-121212
+    getCorrespondenceDetailsResp:
+      type: object
+      properties:
+        responseInfo:
+          $ref: '#/components/schemas/getCorrespondenceDetailsRespInfo'
+    getCorrespondenceDetailsRespInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          example: Success/Failure
+        errorInfo:
+          $ref: '#/components/schemas/errorInfo'
+        getCorrespondenceRespInfo:
+          $ref: '#/components/schemas/getCorrespondenceDetailsRespList'
+    getCorrespondenceDetailsRespList:  
+      type: array
+      items: 
+        $ref: '#/components/schemas/getCorrespondenceDetailsRespItems'
+    getCorrespondenceDetailsRespItems:
+      type: object
+      properties:
+        CACorrespncDispatchControlName:
+          type: string
+        CorrespondenceRecipientName:
+          type: string
+        CorrespondenceIssueDate:
+          type: string
+        CorrespondenceIssuedByUserName:
+          type: string
+        CorrespondencePdf:
+          type: string
+      example:
+        CACorrespncDispatchControlName: Email/Print
+        CorrespondenceRecipientName: Smoke Test
+        CorrespondenceIssueDate: \/Date(1700006400000)\/
+        CorrespondenceIssuedByUserName: 'James '
+        CorrespondencePdf: TBD]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1719080015585"/>
+      <string name="Modified By" value="AD44305"/>
+      <long name="Modified Date" value="1719080015585"/>
+      <string name="Name" value="PRF_OPENAPI_Correspondence"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="PRF_OpenAPI_CollectionWriteOff.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[openapi: 3.0.3
+info:
+  title: BRIM OpenAPI definition
+  description: Description for Account Transaction History
+  version: v1.0.0-dev
+servers:
+  - url: https://virtserver.swaggerhub.com/YUANCHEN_1/BRIMCM-API-Staging/v1.0.0-dev
+    description: SwaggerHub API Auto Mocking
+  - url: http://148.155.130.78:8088
+    description: CM Host
+  - url: https://{apigeehost}/{apigeeproxyuri}
+    description: Apigee Hosts
+paths:
+  /brimcm/collection/writeoff/reverse:
+    post:
+      tags:
+      - collection
+      summary: Reverse writeoff.
+      operationId: writeOffReversal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteOffReversalRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WriteOffReversalResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      notes: string
+                      writeoffDocumentId: string
+                    responseInfo:
+                      transactionStatus: S
+        "400":
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WriteOffReversalResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      notes: string
+                      writeoffDocumentId: string
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/WriteOffReversalResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      notes: string
+                      writeoffDocumentId: string
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/collection/writeoff/create:
+    post:
+      tags:
+      - collections
+      summary: Write Offs Enterprise API
+      description: API to capture write off request initiated by fusion towards BRIM and send response back from BRIM to Portal
+      operationId: Write Offs API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteOffReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffResp'
+  /brimcm/collection/writeoff/history:
+    post:
+      tags:
+      - collection
+      summary: Get WriteOff History.
+      operationId: writeOffHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteOffHistoryRequest'
+        required: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffHistoryResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: ""
+                      busOrgId: ""
+                      fromDate: ""
+                      toDate: ""
+                      isWriteOffReversed: Y/N
+                    responseInfo:
+                      transactionStatus: "S"
+                      billingAccountNumber: ''
+                      busOrgId: ''
+                      writeOffDetails:
+                      - writeOffDocumentNumber: ''
+                        writeOffReasonCd: ''
+                        writeOffReasonDesc: ''
+                        createDttm: ''
+                        createdBy: ''
+                        lastModifiedDttm: ''
+                        lastModifiedBy: ''
+                        isWriteOffReversed: Y/N
+                        isPartialWriteOff: Y/N
+                        currencyCd: ''
+                        writeOffAmount: 100
+                        invoiceDetails:
+                        - invoiceNumber: ''
+                          invoiceAmount: 20
+                          invoiceWriteOffAmount: 40.11
+                          essentialWriteOffAmount: 40.11
+                          nonEssentialWriteOffAmount: 10.00
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffHistoryResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: ""
+                      busOrgId: ""
+                      fromDate: ""
+                      toDate: ""
+                      isWriteOffReversed: Y/N
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffHistoryResponse'  
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: 2022-01-19T15:47:01.151Z
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: ""
+                      busOrgId: ""
+                      fromDate: ""
+                      toDate: ""
+                      isWriteOffReversed: Y/N
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+components:
+  schemas:
+    HeaderInfo:
+      required:
+      - srcApplicationCd
+      - inputChannelCd
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+          description: sendTimeStamp
+          example: '2022-01-19T15:47:01.151Z'
+        srcApplicationCd:
+          type: string
+          description: srcApplicationCd
+          example: 'EPP'
+        requestId:
+          type: string
+          description: requestId
+          example: '1234567KM'
+        inputChannelCd:
+          type: string
+          description: inputChannelCd
+          example: 'EPP'
+        srcSysTransactionId:
+          type: string
+          description: srcSysTransactionId
+          example: '1234567MN'
+        userId:
+          type: string
+          description: userId
+          example: '123456789'
+      description: Header of the request
+    ErrorInfo:
+      required:
+      - errorCd
+      - errorMessage
+      type: object
+      properties:
+        errorCd:
+          type: string
+          description: Unique error code for each type of error
+          example: "10083"
+        errorMessage:
+          type: string
+          description: Error message
+          example: No Account Available
+      description: errorInfo
+    WriteOffHistoryRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffHistoryRequestInfo'
+    WriteOffHistoryRequestInfo:
+      required:
+      - billingAccountNumber
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        fromDate:
+          type: string
+        toDate:
+          type: string
+        isWriteOffReversed:
+          type: string
+        itemLevelHistoryRequired:
+          type: string
+    WriteOffDetail:
+      type: object
+      properties:
+        writeOffDocumentNumber:
+          type: string
+        writeOffReasonCd:
+          type: string
+        writeOffReasonDesc:
+          type: string
+        createDttm:
+          type: string
+        createdBy:
+          type: string
+        lastModifiedDttm:
+          type: string
+        lastModifiedBy:
+          type: string
+        isWriteOffReversed:
+          type: string
+        isPartialWriteOff:
+          type: string
+        currencyCd:
+          type: string
+        writeOffAmount:
+          type: number
+          format: double
+        invoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/WriteOffInvoiceDetail'
+    WriteOffInvoiceDetail:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+        invoiceAmount:
+          type: number
+          format: double
+        invoiceWriteOffAmount:
+          type: number
+          format: double
+        essentialWriteOffAmount:
+          type: number
+          format: double
+        nonEssentialWriteOffAmount:
+          type: number
+          format: double
+      
+    WriteOffHistoryResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffHistoryRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WriteOffHistoryResponseInfo'
+    WriteOffHistoryResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        writeOffDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/WriteOffDetail'
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    WriteOffReversalRequest:
+      required:
+      - headerInfo
+      - requestInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReversalRequestInfo'
+    WriteOffReversalRequestInfo:
+      required:
+      - notes
+      - writeoffDocumentId
+      type: object
+      properties:
+        notes:
+          type: string
+          description: notes
+        writeoffDocumentId:
+          type: string
+          description: writeoffDocumentId
+      description: resquest
+    WriteOffReversalResponse:
+      required:
+      - headerInfo
+      - requestInfo
+      - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReversalRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WriteOffReversalResponseInfo'
+    WriteOffReversalResponseInfo:
+      required:
+      - errorInfo
+      - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+      description: response
+    WriteOffReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReq_requestInfo'
+    WriteOffResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WriteOffResp_responseInfo'
+    WriteoffFields:
+      type: object
+      properties:
+        arDocumentNo:
+          type: string
+          example: "10000000757"
+        documentRepititionItem:
+          type: string
+          example: "0001"
+        documentItem:
+          type: string
+          example: "0001"
+        documentSubItem:
+          type: string
+          example: "000"
+        invoiceSubItem:
+          type: string       
+        writeOffAmount:
+          type: number
+          format: double
+          example: 100
+        currencyCd:
+          type: string
+          example: USD
+
+    WriteOffReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: 0205171586-GC
+        writeOffReasonCd:
+          type: string
+          example: "27"
+          enum:
+          - "{\"27\":\"MM - Bankruptcy Full Write Off\"}"
+          - "{\"28\":\"MM - Non Payment Full Write Off (OCA)\"}"
+          - "{\"29\":\"MM - Non Payment Partial Write Off (OCA)\"}"
+          - "{\"30\":\"MM - Bankruptcy Partial Write Off\"}"
+        noteText:
+          type: string
+          example: Account Level Note
+        fullWriteOffAmount:
+          type: number
+          format: double
+          example: 100
+        isFullWriteOff:
+          type: string
+          example: Y/N  
+        checkForBankruptcy:
+          type: string
+          example: Y/N                  
+        writeOffDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/WriteoffFields'
+    WriteOffResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        writeOffDocumentNumber:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo']]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1718267394084"/>
+      <string name="Modified By" value="AC65919"/>
+      <long name="Modified Date" value="1766158201551"/>
+      <string name="Name" value="PRF_API_Collection_WriteOff"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="9"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

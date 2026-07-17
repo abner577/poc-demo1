@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[import http;
+//import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Dunning;
+
+/**
+ * uuidKey - its UUID but in String format as Session key cannot be a UUID type object
+ * timeReceived - This is used for noting the time the session was created, it might be used for housekeeping purposes.
+ * request - the request we got
+ * status - This status can be used to manage the session and lifecycle. 
+ * for example , 
+ *  RECEIVED - indicates request is just received and the session created, 
+ *  LOOKUP_PROGRESS - indicates Lookup is in progress,
+ *  LOOKUP_FAILED - no response from RFC call,
+ *  REQUEST - indicates request to downstream was made,
+ *  SUCCESS - response was sent after a success response from the api call
+ *  ERROR - error response was sent to caller.
+ * response - the response object from the request cycle.
+*/
+session updateCollector_session {
+    string uuidKey;
+    long timeReceived;
+    RequestCycle request;
+    string status;
+    boolean inputError;
+    string responseDescription;
+    DRUDR response;
+    string s4ResponseStatus;
+    map<string, list<string>> responseHeader;
+    bytearray s4ResponseBody;
+    DRUDR  requestObj;
+    list<RFCRequestResponse> rfcRequestResponse;
+    list<RFCRequestResponse> rfcErrors;
+};
+
+session DisputeMgmtSession {
+    string uuidKey;
+    long timeReceived;
+    RequestCycle request;
+    string status;
+    boolean inputError;
+    string responseDescription;
+    DRUDR response;
+    string s4ResponseStatus;
+    map<string, list<string>> responseHeader;
+    bytearray s4ResponseBody;
+    DRUDR  requestObj;
+    list<RFCRequestResponse> rfcRequestResponse;
+    list<RFCRequestResponse> rfcErrors;
+    boolean hasNotes;
+    boolean hasAttachments;
+    list<MultipartSegment> attachments;
+    string caseID;
+    string caseUUID;
+};
+
+
+
+
+session AutoDialerSession {
+    string uuidKey;
+    long timeReceived;
+    RequestCycle request;
+    DRUDR requestObj;
+    string status;
+    list<RFCRequestResponse> rfcRequestResponse;
+    list<RFCRequestResponse> rfcErrors;
+    boolean inputError;
+    map<string, list<string>> responseHeader;
+        string s4ResponseStatus;
+            bytearray s4ResponseBody;
+};
+
+internal RFCRequestResponse{
+    string ban;
+    string contractAccount;
+    string bussOrg;
+    string businessPartner;
+    string cuid;
+    string businessPartnerId;
+    string billingAppCode;
+    string userId;
+    string errorMsg;
+    //string brimBillingAppCode;
+};]]></string>
+</exportmultiplex>

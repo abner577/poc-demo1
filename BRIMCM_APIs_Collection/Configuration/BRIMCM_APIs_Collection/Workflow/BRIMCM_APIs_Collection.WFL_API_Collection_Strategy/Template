@@ -1,0 +1,1336 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="11.0">
+         <boolean name="enabled" value="false"/>
+         <storable name="kafka" null="true"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Local Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1092893133"/>
+         <string name="Node Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Port"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1092893133"/>
+         <string name="Node Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client_1"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client_1"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ServerData" ver="12.2">
+                  <enum classname="com.digitalroute.http2.server.auth.AuthLevel" name="authLevel" value="NONE"/>
+                  <string name="authPublicKey" null="true"/>
+                  <int name="averagePeriod" value="10"/>
+                  <string name="characterEncoding" value="UTF-8"/>
+                  <int name="clientTimeout" value="10"/>
+                  <boolean name="enableTooManyRequests" value="false"/>
+                  <int name="gzipLevel" value="7"/>
+                  <string name="host" value="ns2cmdapp2.saperp.corp.intranet"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <int name="maxCacheSize" value="1000"/>
+                  <int name="maxCacheTime" value="1000"/>
+                  <int name="maxConcurrentStreams" value="500"/>
+                  <int name="numberOfRequests" value="1000"/>
+                  <int name="port" value="8404"/>
+                  <boolean name="routeToApl" value="false"/>
+                  <storable name="securityProfile" null="true"/>
+                  <int name="serverTimeout" value="0"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList">
+                           <storable name="0" storable-id="dr.DRConfiguration" ver="2.0">
+                              <set name="Dynamic Parameters" null="true"/>
+                              <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                              <string name="Key" value="CMD1719036762881"/>
+                              <string name="Name" value="PRF_OPENAPI_Collection_Strategy"/>
+                              <string name="Type" value="Open API Profile"/>
+                           </storable>
+                        </list>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="true"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.HTTP2.Support5G" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <boolean name="enableFallBack" value="false"/>
+                        <boolean name="enableRegistrationRetry" value="false"/>
+                        <string name="nrfAddress" null="true"/>
+                        <array classname="java.lang.String" name="nrfAddresses" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="numberOfRegistrationRetry" value="0"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList"/>
+                        <array name="secondaryAddress" null="true"/>
+                        <array classname="java.lang.String" name="secondaryAddressList" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="timeIntervalForRegistrationRetry" value="0"/>
+                        <boolean name="use5g" value="false"/>
+                     </storable>
+                  </list>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useCache" value="false"/>
+                  <boolean name="useSSL" value="false"/>
+                  <int name="waitDuration" value="10"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.http;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.BRIMCM_APIs_Common.APL_CMAPIs;
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy;
+import ultra.json;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.subUdr;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.Common.APL_CONSTANTS;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Analysis_1" , "Agent Name");
+}
+
+consume {
+    //debug("###INPUT :" + input);
+    string resourceCode,status;
+    try {
+        if (instanceOf(input, RequestCycle)) {
+            RequestCycle cycle = (RequestCycle) input;
+            //debug("cycle - " + cycle);
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, cycle.path);
+            debug("Request Path :" + resourceCode);
+            string tagId = setTagId(cycle);                       
+           
+            debug("Tag ID :" + tagId);
+            
+             //Forwarding request log towards Splunk
+            udrRoute( sendToSplunk(cycle,null,API_REQUEST, "",null,splunkCtx), "toSplunk");
+            
+
+            /************START OF DEVELOPMENT OF WORK ITEM CLOSE****************/
+            string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_WORKITM_CLOSE_SRV/WorkitmheadSet";
+
+            if (cycle.path == "/brimcm/collection/strategyworkitem/close") {
+                if (cycle.body != null) {
+                    try {
+                        string sBody = baToStr(cycle.body);
+                        StrategyWorkItemRequest workUDR = udrCreate(StrategyWorkItemRequest);
+                        jsonDecodeUdr(sBody, workUDR);
+                        debug("###workUDR object ------ >> " + workUDR);
+                        string workItemId = (string) workUDR.requestInfo.workItemId;
+
+                        if (isEmpty(workItemId)) {
+                            sendCloseErrorResponse(workUDR, cycle, "Mandatory field workItemID missing", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                        } else {
+                            sendToGetCSRF(sURI, cycle);
+                        }
+
+                    } catch (ExceptionDetails exception) {
+                        debug("Not strategy work item close");
+                    }
+                } else {
+                    ("##Body of request is null");
+                }
+            } else if (strREContains(cycle.path, "ZGLB_DEVFI_WORKITM_CLOSE_SRV")) {
+                int statusCode = cycle.response.statusCode;
+                RequestCycle origReq = (RequestCycle) cycle.context;
+                debug("Request Path ::" + cycle.path);
+                string oBody = baToStr(origReq.body);
+                StrategyWorkItemRequest workUDR = udrCreate(StrategyWorkItemRequest);
+                jsonDecodeUdr(oBody, workUDR);
+                debug("###workUDR object ------ >> " + workUDR);
+                if (cycle.response.body != null) {
+                    if (strREContains((string) cycle.response.body, "Total timeout 30000 ms elapsed")) {
+                        debug("##Failure");
+                        sendCloseErrorResponse(workUDR, origReq, (string) cycle.body, resourceCode + BRIM_ERROR);
+                    } else if (!(statusCode == 200 || statusCode == 201)) {
+                        debug("##Failure - Inside ErrorMsg Mapping");
+                        JsonObject json = (JsonObject) jsonDecode(baToStr((bytearray) cycle.response.body));
+                        map < string, any > responseMap = json.asMap;
+                        json = (JsonObject) mapGet(responseMap, "error");
+                        responseMap = json.asMap;
+                        json = (JsonObject) mapGet(responseMap, "message");
+                        responseMap = json.asMap;
+                        debug("converted MAP :: \n ------------->>>>>" + responseMap);
+                        string errMsg = (string) mapGet(responseMap, "value");
+                        debug("ErrorMsg :" + errMsg);
+                        sendCloseErrorResponse(workUDR, origReq, errMsg, resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                    }
+                }
+                if (cycle.method == "GET") {
+                    try {
+                        if (statusCode == 200) {
+                            debug("###token response received");
+
+                            string workItemId = (string) workUDR.requestInfo.workItemId;
+                            if (strLength(workItemId) != 32) {
+                                debug("##Failure");
+                                sendCloseErrorResponse(workUDR, origReq, "Invalid workitem ID", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                            } else {
+                                string userId = (string) workUDR.headerInfo.userId;
+                                string payload = getPayload(workItemId, userId);
+                                sendToPostWorkItem((string) cycle.path, cycle, payload);
+                            }
+                        } else {
+                            debug("##Failure");
+                            sendCloseErrorResponse(workUDR, origReq, "Unable to fetch token", resourceCode + BRIM_ERROR);
+                        }
+                    } catch (ExceptionDetails exception) {
+                        debug("Inside GET");
+                    }
+                } else if (cycle.method == "POST") {
+                    try {
+                        if (statusCode == 200 || statusCode == 201) {
+                            debug("##Success");
+                            sendCloseSuccessResponse(workUDR, origReq);
+                        } else {
+                            debug("##Failure");
+                            sendCloseErrorResponse(workUDR, origReq, "Invalid workitem ID", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                        }
+                    } catch (ExceptionDetails exception) {
+                        debug("##inside POST");
+                    }
+                }
+            }
+            /************END OF DEVELOPMENT OF WORK ITEM CLOSE****************/
+
+            /************START OF DEVELOPMENT OF WORK ITEM GET(HISTORY)****************/
+            else if (cycle.path == "/brimcm/collection/strategyworkitem/retrieve") {
+                debug("###Inside Retrieve##");
+                if (cycle.body != null) {
+                    StrategyWorkItemHistoryRequest historyUDR = udrCreate(StrategyWorkItemHistoryRequest);
+                    try {
+                        string sBody = baToStr(cycle.body);
+
+                        jsonDecodeUdr(sBody, historyUDR);
+                        debug("###historyUDR object ------ >> " + historyUDR);                        
+
+                        map < string, map < string, any >> mapRec = (map < string, map < string, any >> ) jsonParse(sBody);
+
+                        map < string, any > headerInfo = mapGet(mapRec, "headerInfo");
+                        if ((null == mapGet(headerInfo, "pageSize") && null != mapGet(headerInfo, "pageNumber")) || (null != mapGet(headerInfo, "pageSize") && null == mapGet(headerInfo, "pageNumber")) ||
+                            ((null != mapGet(headerInfo, "pageSize") && (long) mapGet(headerInfo, "pageSize") < 1) ||
+                                (null != mapGet(headerInfo, "pageNumber") && (long) mapGet(headerInfo, "pageNumber") < 1))) {
+
+                            sendHistoryErrorResponse(historyUDR, cycle, "Invalid pagination parameters.", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                        } else {
+
+                            StrategyWorkItemHistoryRequestInfo request = (StrategyWorkItemHistoryRequestInfo) historyUDR.requestInfo;
+                            boolean isvalidRequest = validateRequest(request);
+                            if (isvalidRequest) {
+                                list < string > banList = request.billingAccountNumber;
+                                if (listSize(banList) > 0) {
+                                    //Send for RFC call to fetch CA and BP based on BAN
+                                    /*  ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr = udrCreate(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR);
+                    importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT importParams = udrCreate(importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT);                      
+                   
+                    list<ZFITT_VKONA> liGetP2P = listCreate(ZFITT_VKONA); 
+                    ZFITT_VKONA getP2P = udrCreate(ZFITT_VKONA);
+                    getP2P.VKONA = ban;
+                   // getP2P.BUSS_ORG = busOrg;
+                    listAdd(liGetP2P, getP2P); 
+                    importParams.IT_VKONA = liGetP2P;
+                    rfcUdr.importParams = importParams;
+                    rfcUdr.context = cycleUdr;
+                        */
+
+                                    ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUDR = udrCreate(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR);
+                                    importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT importParams = udrCreate(importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT);
+
+                                    list < ZFITT_VKONA > listOfBans = listCreate(ZFITT_VKONA);
+
+                                    for (any item: banList) {
+                                        ZFITT_VKONA bill = udrCreate(ZFITT_VKONA);
+                                        bill.VKONA = (string) item; //banList[i];
+                                        listAdd(listOfBans, bill);
+                                    }
+                                    importParams.IT_VKONA = listOfBans;
+                                    rfcUDR.importParams = importParams;
+                                    rfcUDR.context = cycle;
+                                    debug("request to RFC: " + rfcUDR);
+                                    log.info("request to RFC: " + rfcUDR);                                    
+                                    udrRoute(rfcUDR, "toRFC");
+									ConsumeCycleUDR splunkRfcUdr  = sendRfcToSplunk(cycle, (string)rfcUDR.importParams,RFC_REQUEST, "", "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+									udrRoute(splunkRfcUdr,"toSplunk");
+
+                                } else {
+                                    sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_STRAT_WORK_ITEM_SRV/WORK_DUNN_HEADERSet";
+                                    sendToGetCSRF(sURI, cycle);
+                                }
+                            } else {
+                                debug("##Failure");
+                                sendHistoryErrorResponse(historyUDR, cycle, "Atleast one of the 4 inputs needs to be provided", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+
+                            }
+                        }
+                    } catch (ExceptionDetails exception) {
+                        debug("Exception" + exception);
+                        log.error("Exception" + exception);
+                        sendHistoryErrorResponse(historyUDR, cycle, "Exception occured while processing the request.", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                    }
+                }
+            } else if (strREContains(cycle.path, "ZGLB_DEVFI_STRAT_WORK_ITEM_SRV")) {
+                int statusCode = cycle.response.statusCode;
+                RequestCycle origReq = (RequestCycle) cycle.context;
+                debug("Request Path ::" + cycle.path);
+                string oBody = baToStr(origReq.body);
+                StrategyWorkItemHistoryRequest workUDR = udrCreate(StrategyWorkItemHistoryRequest);
+                jsonDecodeUdr(oBody, workUDR);
+                //debug("###workUDR object ------ >> " + workUDR);
+                if (cycle.response.body != null) {
+                    if (strREContains((string) cycle.response.body, "Total timeout 30000 ms elapsed")) {
+                        debug("##Failure");
+                        sendHistoryErrorResponse(workUDR, origReq, (string) cycle.body, resourceCode + BRIM_ERROR);
+                        return;
+                    } else if (!(statusCode == 200 || statusCode == 201)) {
+                        debug("##Failure - Inside ErrorMsg Mapping");
+                        JsonObject json = (JsonObject) jsonDecode(baToStr((bytearray) cycle.response.body));
+                        map < string, any > responseMap = json.asMap;
+                        json = (JsonObject) mapGet(responseMap, "error");
+                        responseMap = json.asMap;
+                        json = (JsonObject) mapGet(responseMap, "message");
+                        responseMap = json.asMap;
+                        //debug("converted MAP :: \n ------------->>>>>" + responseMap);
+                        string errMsg = (string) mapGet(responseMap, "value");
+                        //debug("ErrorMsg :"+ errMsg); //*/
+                        /* //For XML error handling
+                           string s = baToStr((bytearray)cycle.response.body);
+                           debug("value: "+s);
+                           string errMsg = "";
+                           int index3 = strREIndexOf(s, "<message");
+                           int index4 = strREIndexOf(s, "</message>");
+                           if(index3 != -1 && index4 != -1){
+                               errMsg = strSubstring(s, index3+9, index4);
+                           }*/
+                        sendHistoryErrorResponse(workUDR, origReq, errMsg, resourceCode + BRIM_ERROR);
+                        return;
+                    }
+                }
+                if (cycle.method == "GET") {
+                    try {
+                        if (statusCode == 200) { //send request to fetch data
+                            debug("###token response received");
+
+                            string userId = (string) workUDR.headerInfo.userId;
+                            string payload = getHistoryPayload(origReq, workUDR.requestInfo, userId);
+                            sendToPostWorkItem((string) cycle.path, cycle, payload);
+
+                        } else {
+                            debug("##Failure");
+                            sendHistoryErrorResponse(workUDR, origReq, "Unable to fetch token", resourceCode + BRIM_ERROR);
+                        }
+                    } catch (ExceptionDetails exception) {
+                        log.info("Inside GET exception :: " + exception);
+                    }
+                } else if (cycle.method == "POST") {
+                    try {
+                        if (statusCode == 201) {
+                            debug("##Success");
+                            JsonObject json = (JsonObject) jsonDecode(baToStr((bytearray) cycle.response.body));
+                            map < string, any > responseMap = json.asMap;
+                            json = (JsonObject) mapGet(responseMap, "d");
+                            responseMap = json.asMap;
+                            int totalCount;
+                            strToInt(totalCount, (string) mapGet(responseMap, "totalCount"));
+                            json = (JsonObject) mapGet(responseMap, "WD_H2_WILIST_Nav");
+                            responseMap = json.asMap;
+                            // debug("converted MAP :: \n ------------->>>>>" + responseMap);
+                            JsonArray jsonA = (JsonArray) mapGet(responseMap, "results");
+                            list < any > listResp = jsonA.asList;
+                            //  debug("converted List :: \n ------------->>>>>" + listResp);
+                            // debug("#listResp :" + listResp);
+                            if (listSize(listResp) <= 0) {
+                                sendHistoryErrorResponse(workUDR, origReq, "Failure - No Record for Search Criteria", resourceCode + BRIM_ERROR);
+                            } else {
+                                list < WorkItem > workItemList = listCreate(WorkItem);
+                                for (any value: listResp) {
+                                    debug("####value :" + value);
+                                    json = (JsonObject) value;
+                                    responseMap = json.asMap;
+                                    WorkItem workItem = udrCreate(WorkItem);
+                                    workItem.billingAccountNumber = (string) mapGet(responseMap, "Billingaccountnumber");
+                                    workItem.busOrgId = (string) mapGet(responseMap, "Busorgid");
+                                    workItem.createdBy = (string) mapGet(responseMap, "Createdby");
+                                    workItem.createdDttm = getDateInFormat((string) mapGet(responseMap, "Createddate"));
+                                    workItem.dunningLockEndDate = ValidDate((string) mapGet(responseMap, "Dunninglockenddate"));
+                                    workItem.dunningLockIndicator = (string) mapGet(responseMap, "Dunninglockindicator");
+                                    workItem.dunningLockReasonCd = (string) mapGet(responseMap, "Dunninglockreasoncd");
+                                    workItem.dunningLockReasonCdDesc = (string) mapGet(responseMap, "Dunninglockreasoncddesc");
+                                    workItem.dunningLockStartDate = ValidDate((string) mapGet(responseMap, "Dunninglockstartdate"));
+                                    workItem.dunningLockSetByUserId = (string) mapGet(responseMap, "Dunningsetbyuserid");
+                                    workItem.lastUpdatedBy = (string) mapGet(responseMap, "Lastupdatedby");
+                                    workItem.lastUpdatedDttm = getDateInFormat((string) mapGet(responseMap, "Lastupdateddate"));
+                                    strToDouble(workItem.pastDueAmount, (string) mapGet(responseMap, "Pastdueamount"));
+                                    workItem.strategyName = (string) mapGet(responseMap, "Strategyname");
+                                    workItem.workItemEndDate = ValidDate((string) mapGet(responseMap, "Workitemenddate"));
+                                    workItem.workItemName = (string) mapGet(responseMap, "Workitemname");
+                                    workItem.workItemStartDate = ValidDate((string) mapGet(responseMap, "Workitemstartdate"));
+                                    workItem.workItemStatus = (string) mapGet(responseMap, "Workitemstatus");
+                                    workItem.workitemId = formatUUID((string) mapGet(responseMap, "Workitemid"));
+
+                                    if (null != (string) mapGet(responseMap, "AssignedToUser"))
+                                        workItem.assignedTo = (string) mapGet(responseMap, "AssignedToUser");
+
+                                    if (null != (string) mapGet(responseMap, "CompletedByUser"))
+                                        workItem.completedBy = (string) mapGet(responseMap, "CompletedByUser");
+                                    if (null != (string) mapGet(responseMap, "StatusDescription"))
+                                        workItem.workItemStatusDesc = (string) mapGet(responseMap, "StatusDescription");
+
+                                    if (null != (string) mapGet(responseMap, "CollectionStepId"))
+                                        workItem.collectionStepId = (string) mapGet(responseMap, "CollectionStepId");
+
+                                    if (null != (string) mapGet(responseMap, "CollectionStepName"))
+                                        workItem.collectionStepName = (string) mapGet(responseMap, "CollectionStepName");
+
+                                    if (null != (string) mapGet(responseMap, "CompletedDate"))
+                                        workItem.completedDate = ValidDate((string) mapGet(responseMap, "CompletedDate"));
+
+                                    if (null != (string) mapGet(responseMap, "WorkItemCategory"))
+                                        workItem.workItemCategory = (string) mapGet(responseMap, "WorkItemCategory");
+
+                                    if (null != (string) mapGet(responseMap, "BillingAccountName"))
+                                        workItem.billingAccountName = (string) mapGet(responseMap, "BillingAccountName");
+
+                                    if (null != (string) mapGet(responseMap, "CollectorCUID"))
+                                        workItem.collectorCUID = (string) mapGet(responseMap, "CollectorCUID");
+
+                                    if (null != (string) mapGet(responseMap, "CompanyCode"))
+                                        workItem.companyCode = (string) mapGet(responseMap, "CompanyCode");
+
+                                    listAdd(workItemList, workItem);
+                                    // debug("###workItem : "+ workItem);
+                                }
+                                //debug("####WorkItem List :" + workItemList);
+                                sendHistorySuccessResponse(workUDR, origReq, workItemList, totalCount);
+                            }
+
+                        } else {
+                            debug("##Failure");
+                            sendHistoryErrorResponse(workUDR, origReq, "Invalid Input", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                        }
+                    } catch (ExceptionDetails exception) {
+                        log.info("##inside POST catch" + exception);
+                    }
+                }
+            } else if (cycle.path == "/brimcm/collection/strategyworkitem/collectionSteps/reset") {
+                try {
+                    string sBody = baToStr(cycle.body);
+                    map < string, map < string, string >> mapCollectionReset = (map < string, map < string, string >> ) jsonParse(sBody);
+                    CollectionResetResp respUdr = validateResetReq(mapCollectionReset, sBody, resourceCode);
+                    if (respUdr.responseInfo != null) {
+                        cycle.response.openAPIUDR = respUdr;
+                        cycle.response.statusCode = 200;
+                        udrRoute(cycle, "res");
+			udrRoute(sendToSplunk(cycle,null, API_RESPONSE ,API_STATUS_FAILURE, cycle.path, splunkCtx), "toSplunk");
+                        return;
+                    } else {
+                        map < string, string > mapRequestrInfo = mapGet(mapCollectionReset, "requestInfo");
+                        debug("The value of mapRequestrInfo = " + (mapRequestrInfo));
+                        ZFICAF_GPART_VKONT_DERIVE_UDR rfcUdr = udrCreate(ZFICAF_GPART_VKONT_DERIVE_UDR);
+                        importParams_ZFICAF_GPART_VKONT_DERIVE importUdr = udrCreate(importParams_ZFICAF_GPART_VKONT_DERIVE);
+                        importUdr.I_VKONA = mapGet(mapRequestrInfo, "billingAccountNumber");
+                        importUdr.I_ACC_HOLDER_ONLY = "X";
+                        rfcUdr.importParams = importUdr;
+                        rfcUdr.context = cycle;
+			udrRoute(rfcUdr, "toRFC");
+			ConsumeCycleUDR splunkRfcUdr  = sendRfcToSplunk(cycle, (string)rfcUdr.importParams,RFC_REQUEST, "", "ZFICAF_GPART_VKONT_DERIVE_UDR", splunkCtx);
+			udrRoute(splunkRfcUdr,"toSplunk");
+                    }
+                } catch (ExceptionDetails exception) {
+                    debug("exception " + exception);
+                }
+            } else if (strREIndexOf(cycle.path, "ZGLB_O2C_FICA_DUNNNOTICE_MAIN_SRV") >= 0) {
+                if (instanceOf(cycle.context, banRecords)) {
+                    banRecords banUdr = (banRecords) cycle.context;
+                    RequestCycle cycleUdr = (RequestCycle) banUdr.cycleUdr;
+                    string sBody = baToStr(cycleUdr.body);
+                    map < string, list < string > > mapToken = APL_CMAPIs.tokenReq(cycle.response.headers); //Creating Headers request with token for POST API CALL  
+                    map < string, map < string, string >> mapCollectionReset = (map < string, map < string, string >> ) jsonParse(sBody);
+                    map < string, string > headerInfo = mapGet(mapCollectionReset, "headerInfo");
+                    map < string, string > requestInfo = mapGet(mapCollectionReset, "requestInfo");
+                    RequestCycle reqUdr = collectionResetReq(banUdr.BP, banUdr.CA, mapGet(headerInfo, "userId"), mapToken, mapGet(requestInfo, "stepsFrom"), mapGet(requestInfo, "stepsTo"), mapGet(requestInfo, "fullReset"), mapGet(headerInfo, "inputChannelCd"));
+                    reqUdr.context = cycleUdr;
+                    udrRoute(reqUdr, "toOdata");
+                    
+                    ConsumeCycleUDR splunkUdr = sendToSplunk(cycleUdr,reqUdr,ODATA_REQUEST, "",reqUdr.path,splunkCtx);
+                    udrRoute(splunkUdr,"toSplunk");
+                } else {
+                    debug("The value of cycle = " + (cycle));
+                    RequestCycle requestCycleUdr = (RequestCycle) cycle.context;
+                    CollectionResetResp responseUdr = resetResponse(cycle, (string) requestCycleUdr.body);
+                    map < string, list < string > > mapHeaders = mapCreate(string, list < string > );
+                    list < string > lHeader = listCreate(string);
+                    listAdd(lHeader, "application/json");
+                    mapSet(mapHeaders, "Content-Type", lHeader);
+                    requestCycleUdr.response.headers = mapHeaders;
+                    requestCycleUdr.response.openAPIUDR = responseUdr;
+                    udrRoute(requestCycleUdr, "res");
+					
+                }
+            } else if (cycle.path == "/brimcm/collection/strategyworkitem/collectionSteps/retrieve") {
+                debug(" resourceCode : " + resourceCode);
+                debug("resourceCode+CM_DATA_VALIDATION_ERROR_CODE : " + resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                string sBody = baToStr(cycle.body);
+                map < string, map < string, any >> mapRec = (map < string, map < string, any >> ) jsonParse(sBody);
+                openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.CollectionStepsResp respUdr = APL_CMAPIs.checkCollectionStepsReq(mapRec, sBody, resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                if (respUdr.responseInfo != null) {
+                    cycle.response.openAPIUDR = respUdr;
+                    cycle.response.statusCode = 200;
+                    udrRoute(cycle, "res");
+		    udrRoute(sendToSplunk(cycle,null, API_RESPONSE ,"", cycle.path, splunkCtx), "toSplunk");
+                    return;
+                } else {
+                    map < string, any > reqInfo = mapGet(mapRec, "requestInfo");
+                    map < string, any > headerInfo = mapGet(mapRec, "headerInfo");
+                    string sUri = "/sap/opu/odata/sap/ZGLB_DEVFI_DISPLAY_FUTURE_COLL_SRV/CollectionHeaders";
+                    string expand = "TOCollStepList,TONonEssenColl,TOEssenColl";
+                    string filter = "BAN eq '" + mapGet(reqInfo, "billingAccountNumber") + "'";
+                    http.RequestCycle reqUDR = getS4DetailsWithFilter(sUri, expand, filter);
+                    reqUDR.context = cycle;
+                    ConsumeCycleUDR splunkUdr = sendToSplunk(reqUDR,null,ODATA_REQUEST, "",cycle.path,splunkCtx);
+                    udrRoute(splunkUdr,"toSplunk");
+                    udrRoute(reqUDR, "toOdata");
+                }
+            } else if (strREIndexOf(cycle.path, "ZGLB_DEVFI_DISPLAY_FUTURE_COLL_SRV") >= 0) {
+                debug("Inside POST Call");
+                RequestCycle reqUdr = (RequestCycle) cycle.context;
+                resourceCode = getXrefValue(RESOURCE_CODE_TABLE, reqUdr.path);
+                string sReqBody, sResponseBody;
+                sReqBody = baToStr(reqUdr.body);
+                bytearray baRecord = (bytearray) cycle.response.body;
+                sResponseBody = baToStr(baRecord);
+                openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.CollectionStepsReq collectionStepsReq = udrCreate(openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.CollectionStepsReq);
+                jsonDecodeUdr(sReqBody, collectionStepsReq);
+                openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.CollectionStepsResp collectionStepsResp = udrCreate(openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.CollectionStepsResp);
+                openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.CollectionStepsResp_responseInfo responseUdr = udrCreate(openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.CollectionStepsResp_responseInfo);
+                collectionStepsResp.requestInfo = collectionStepsReq.requestInfo;
+                collectionStepsResp.headerInfo = collectionStepsReq.headerInfo;
+                try {
+                    map < string, any > response = (map < string, any > ) jsonParse(sResponseBody);
+                    map < string, any > collectionStepsRespFullDetails = (map < string, any > ) mapGet(response, "d");
+                    list < map < string, any >> collectionStepsDetailsList = (list < map < string, any >> ) mapGet(collectionStepsRespFullDetails, "results");
+                    map < string, any > collectionStepsDetails = listGet(collectionStepsDetailsList, 0);
+
+                    string transactionStatus = (string) mapGet(collectionStepsDetails, "TransactionStatus");
+
+                    debug("before success condition");
+                    if (transactionStatus == "S") {
+                        debug("Inside 200 success condition");
+                        collectionStepsResp = mapCollectionStepsSuccessResponse(response, collectionStepsReq);
+			status = API_STATUS_SUCCESS;
+                    } else if (transactionStatus == "F") {
+                        debug("inside else condition of status code 200");
+			status = API_STATUS_FAILURE;
+                        collectionStepsResp = mapCollectioStepsFailureResponse(response, collectionStepsReq, resourceCode + BRIM_ERROR);
+                    } else {
+                        openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.ErrorInfo errUdr = udrCreate(openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.ErrorInfo);
+                        errUdr.errorCd = resourceCode + BRIM_ERROR;
+
+                        errUdr.errorMessage = sResponseBody != null && strREContains(sResponseBody, "The OData request processing") ? "The OData request processing has been abnormally terminated" : sResponseBody;
+                        responseUdr.transactionStatus = "F";
+                        responseUdr.errorInfo = errUdr;
+                        collectionStepsResp.responseInfo = responseUdr;
+			status = API_STATUS_FAILURE;
+                    }
+                } catch (ExceptionDetails e) {
+                    openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.ErrorInfo errUdr = udrCreate(openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Strategy.ErrorInfo);
+                    errUdr.errorCd = resourceCode + BRIM_ERROR;
+					status = API_STATUS_FAILURE;
+                    errUdr.errorMessage = sResponseBody != null && strREContains(sResponseBody, "The OData request processing") ? "The OData request processing has been abnormally terminated" : sResponseBody;
+                    responseUdr.transactionStatus = "F";
+                    responseUdr.errorInfo = errUdr;
+                    collectionStepsResp.responseInfo = responseUdr;
+                }
+				
+                //debug("Response in POST Call : "+response);
+
+                map < string, list < string > > mapHeaders = mapCreate(string, list < string > );
+                list < string > lHeader = listCreate(string);
+                listAdd(lHeader, "application/json");
+                mapSet(mapHeaders, "Content-Type", lHeader);
+                reqUdr.response.headers = mapHeaders;
+                reqUdr.response.openAPIUDR = collectionStepsResp;
+                reqUdr.response.statusCode = 200;
+                udrRoute(reqUdr, "res");
+		ConsumeCycleUDR splunkUdr = sendToSplunk(reqUdr,null,API_RESPONSE, status,cycle.path,splunkCtx);
+                udrRoute(splunkUdr,"toSplunk");
+            }
+
+        } else if (instanceOf(input, ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR)) {
+
+            debug("RFC response received: " + input);
+            log.info("RFC response received for strategeyWorkItem retrieve API: " + input);
+            ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr = (ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR) input;
+
+            RequestCycle cycle = (RequestCycle) rfcUdr.context;
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, cycle.path);
+            if (udrIsPresent(rfcUdr.exportParams.ET_ERROR)) { //failure
+                string errorMsg;
+                list < ZFIT_VKONA_ERR_MSG > etError = rfcUdr.exportParams.ET_ERROR;
+                log.error("etError - " + etError);
+                if (!isEmpty(etError[0].E_ERROR_MSG))
+                    errorMsg = etError[0].E_ERROR_MSG;
+                debug("The value of ErrorMsg = " + (errorMsg));
+
+
+                string sBody = baToStr(cycle.body);
+                StrategyWorkItemHistoryRequest historyUDR = udrCreate(StrategyWorkItemHistoryRequest);
+                jsonDecodeUdr(sBody, historyUDR);
+                debug("###historyUDR object ------ >> " + historyUDR);
+                debug("received RFC response is not as expected: " + input);
+                sendHistoryErrorResponse(historyUDR, cycle, errorMsg, resourceCode + BRIM_ERROR);
+                ConsumeCycleUDR splunkUdr = sendToSplunk(cycle,null,RFC_RESPONSE,API_STATUS_FAILURE,cycle.path,splunkCtx);
+                udrRoute(splunkUdr,"toSplunk");
+            } else if (udrIsPresent(rfcUdr.exportParams.ET_GPART_VKONT)) { //success
+                list < ZFITT_OUTPUT_BILL > liBill = rfcUdr.exportParams.ET_GPART_VKONT;
+                list < string > rfcList = listCreate(string);
+                for (ZFITT_OUTPUT_BILL bill: liBill) {
+                    listAdd(rfcList, bill.VKONT);
+                }
+                cycle.context = rfcList;
+                string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_STRAT_WORK_ITEM_SRV/WORK_DUNN_HEADERSet";
+                sendToGetCSRF(sURI, cycle);
+				
+                udrRoute(sendToSplunk(cycle,null,RFC_RESPONSE,API_STATUS_SUCCESS,cycle.path,splunkCtx),"toSplunk");
+            }
+        } else if (instanceOf(input, ZFICAF_GPART_VKONT_DERIVE_UDR)) {
+            ZFICAF_GPART_VKONT_DERIVE_UDR rfcUdr = (ZFICAF_GPART_VKONT_DERIVE_UDR) input;
+            debug("The value of rfcUdr = " + (rfcUdr));
+            RequestCycle cycleUdr = (RequestCycle) rfcUdr.context;
+            exportParams_ZFICAF_GPART_VKONT_DERIVE exportUdr = rfcUdr.exportParams;
+            banRecords banUdr = udrCreate(banRecords);
+            for (FKKVKP_KEY_T udr: exportUdr.ET_GPART_VKONT) {
+                banUdr.BP = udr.GPART;
+                banUdr.CA = udr.VKONT;
+                break;
+            }
+            banUdr.cycleUdr = cycleUdr;
+            string sURI = "/sap/opu/odata/sap/ZGLB_O2C_FICA_DUNNNOTICE_MAIN_SRV/$metadata";
+            http.RequestCycle reqUDR = APL_CMAPIs.accessTokenReq(sURI);
+            reqUDR.context = banUdr;
+            udrRoute(reqUDR, "toOdata");
+	    ConsumeCycleUDR splunkRfcUdr  = sendRfcToSplunk(cycleUdr, (string)rfcUdr.importParams,RFC_REQUEST, "", "ZFICAF_GPART_VKONT_DERIVE_UDR", splunkCtx);
+            udrRoute(splunkRfcUdr,"toSplunk");
+        }
+    } catch (ExceptionDetails exception) {
+        debug("Not of RequestCycle" + exception);
+    }
+}
+
+/************END OF DEVELOPMENT OF WORK ITEM GET(HISTORY)****************/
+
+void sendToGetCSRF(string sURI, RequestCycle cycle) {
+    RequestCycle request = getRequestTokenForCollUp();
+    request.path = sURI;
+    request.context = cycle;
+    debug("###Token request sending to ODATA : " + request);
+    udrRoute(request, "toOdata");	
+}
+
+void sendToPostWorkItem(string sURI, RequestCycle cycle, string payload) {
+    RequestCycle request = getRequestTokenForWorkItem(sURI, cycle.response.headers, cycle);
+
+    strToBA(request.body, payload);
+    request.path = sURI;
+    request.context = cycle.context;
+    debug("### WorkItem request sending to ODATA : " + request);
+    log.info("### WorkItem request sending to ODATA : " + request);
+    udrRoute(request, "toOdata");
+    udrRoute(sendToSplunk(cycle,request,ODATA_REQUEST, "",request.path,splunkCtx),"toSplunk");
+      
+}
+
+string getPayload(string workItemId, string UserId) {
+    string s_workItemId = strSubstring(workItemId, 0, 8) + "-" + strSubstring(workItemId, 8, 12) + "-" + strSubstring(workItemId, 12, 16) + "-" + strSubstring(workItemId, 16, 20) + "-" + strSubstring(workItemId, 20, strLength(workItemId));
+    string payload = "{\"Ernam\":\"" + UserId + "\"," +
+        "\"WITM_H21_NAV\":" +
+        "[" +
+        "{" +
+        "\"Wliguid\" : \"" + s_workItemId + "\"" +
+        "}" +
+        "]" +
+        "}";
+    return payload;
+}
+
+void sendCloseSuccessResponse(StrategyWorkItemRequest request, RequestCycle cycle) {
+    StrategyWorkItemRequest closeWorkItem = (StrategyWorkItemRequest) request;
+
+    StrategyWorkItemResponse resp = udrCreate(StrategyWorkItemResponse);
+    resp.headerInfo = closeWorkItem.headerInfo;
+    resp.requestInfo = closeWorkItem.requestInfo;
+    StrategyWorkItemResponseInfo respItem = udrCreate(StrategyWorkItemResponseInfo);
+    respItem.transactionStatus = "S";
+    resp.responseInfo = respItem;
+    cycle.response.openAPIUDR = resp;
+    cycle.response.statusCode = 200;
+    cycle.response.headers = getHeader();
+    cycle.response.openAPIUDR = resp;
+    debug("##Success Response :" + cycle);
+    udrRoute(cycle, "res");
+    udrRoute(sendToSplunk(cycle,null, ODATA_RESPONSE ,API_STATUS_SUCCESS, cycle.path, splunkCtx), "toSplunk");
+}
+
+void sendCloseErrorResponse(StrategyWorkItemRequest request, RequestCycle cycle, string errMsg, string errCode) {
+    StrategyWorkItemRequest closeWorkItem = (StrategyWorkItemRequest) request;
+
+    StrategyWorkItemResponse resp = udrCreate(StrategyWorkItemResponse);
+    resp.headerInfo = closeWorkItem.headerInfo;
+    resp.requestInfo = closeWorkItem.requestInfo;
+
+    StrategyWorkItemResponseInfo respItem = udrCreate(StrategyWorkItemResponseInfo);
+    respItem.transactionStatus = "F";
+    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+    errorInfo.errorMessage = errMsg;
+    errorInfo.errorCd = errCode;
+    respItem.errorInfo = errorInfo;
+    resp.responseInfo = respItem;
+    cycle.response.openAPIUDR = resp;
+    cycle.response.statusCode = 400;
+    cycle.response.headers = getHeader();
+    cycle.response.openAPIUDR = resp;
+    debug("##Error Response :" + cycle);
+    udrRoute(cycle, "res");
+	udrRoute(sendToSplunk(cycle,null, API_RESPONSE ,API_STATUS_FAILURE, cycle.path, splunkCtx), "toSplunk");
+}
+
+
+RequestCycle getRequestTokenForWorkItem(string sURI, map < string, list < string > > responseHeader, RequestCycle cycle) {
+    RequestCycle udr = udrCreate(RequestCycle);
+    RequestCycle originalRequest = (RequestCycle) cycle.context;
+
+
+    string sBody = baToStr(originalRequest.body);
+    map < string, map < string, any >> mapRec = (map < string, map < string, any >> ) jsonParse(sBody);
+
+    map < string, any > headerInfo = mapGet(mapRec, "headerInfo");
+    long top;
+    if (null != mapGet(headerInfo, "pageSize"))
+        top = (long) headerInfo.pageSize;
+    debug("value of top : " + top);
+    long pageNumber;
+    if (null != mapGet(headerInfo, "pageNumber"))
+        pageNumber = (long) headerInfo.pageNumber;
+    debug("Value of pageNumber : " + pageNumber);
+    long skip;
+    skip = (pageNumber - 1) * top;
+    debug("Value of skip : " + skip);
+    map < string, string > mapParams = mapCreate(string, string);
+    mapSet(mapParams, "sap-client", getSystemValue(SAP_CLIENT));
+    // mapSet(mapParams,"$format","json");
+    udr.host = getSystemValue(REST_HOSTNAME);
+    udr.secure = true;
+    udr.port = getSystemValue(REST_PORT);
+    udr.path = sURI;
+    udr.method = "POST";
+    udr.headers = headerForWorkItem(responseHeader, top, skip);
+    udr.parameters = mapParams;
+    return udr;
+}
+
+map < string, list < string > > headerForWorkItem(map < string, list < string > > responseHeader, long top, long skip) {
+    map < string, list < string > > mapToken = mapCreate(string, list < string > );
+    list < string > contentType = listCreate(string);
+    list < string > topString = listCreate(string);
+    list < string > skipString = listCreate(string);
+    listAdd(contentType, "application/json");
+
+    mapSet(mapToken, "x-csrf-token", mapGet(responseHeader, "x-csrf-token"));
+    mapSet(mapToken, "Content-Type", contentType);
+    mapSet(mapToken, "Accept", contentType);
+
+    listAdd(topString, (string) top);
+    listAdd(skipString, (string) skip);
+    mapSet(mapToken, "$top", topString);
+    mapSet(mapToken, "$skip", skipString);
+
+    return mapToken;
+}
+
+boolean validateRequest(StrategyWorkItemHistoryRequestInfo request) {
+    list < string > banList = request.billingAccountNumber;
+    list < string > dunList = request.dunningLockIndicator;
+    list < string > statusList = request.workItemStatus;
+    list < StrategyWorkItemDetail > workItemList = request.strategyWorkItemDetails;
+    if (listSize(banList) < 0 && listSize(dunList) < 0 && listSize(statusList) < 0 && listSize(workItemList) < 0) {
+        return false;
+    }
+    return true;
+}
+
+void sendHistorySuccessResponse(StrategyWorkItemHistoryRequest request, RequestCycle cycle, list < WorkItem > workItemList, int totalCount) {
+    StrategyWorkItemHistoryRequest workItem = (StrategyWorkItemHistoryRequest) request;
+
+    StrategyWorkItemHistoryResponse resp = udrCreate(StrategyWorkItemHistoryResponse);
+    resp.headerInfo = workItem.headerInfo;
+    resp.requestInfo = workItem.requestInfo;
+    StrategyWorkItemHistoryResponseInfo respItem = udrCreate(StrategyWorkItemHistoryResponseInfo);
+    respItem.transactionStatus = "S";
+    respItem.totalCount = totalCount;
+    respItem.workItemsList = workItemList;
+    resp.responseInfo = respItem;
+    cycle.response.openAPIUDR = resp;
+    cycle.response.statusCode = 200;
+    cycle.response.headers = getHeader();
+    cycle.response.openAPIUDR = resp;
+    debug("##Success Response :" + cycle);
+    udrRoute(cycle, "res");
+    udrRoute(sendToSplunk(cycle,null, API_RESPONSE ,API_STATUS_SUCCESS, cycle.path, splunkCtx), "toSplunk");
+}
+
+void sendHistoryErrorResponse(StrategyWorkItemHistoryRequest request, RequestCycle cycle, string errMsg, string errCode) {
+    StrategyWorkItemHistoryRequest WorkItem = (StrategyWorkItemHistoryRequest) request;
+
+    StrategyWorkItemHistoryResponse resp = udrCreate(StrategyWorkItemHistoryResponse);
+    resp.headerInfo = WorkItem.headerInfo;
+    resp.requestInfo = WorkItem.requestInfo;
+
+    StrategyWorkItemHistoryResponseInfo respItem = udrCreate(StrategyWorkItemHistoryResponseInfo);
+    respItem.transactionStatus = "F";
+    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+    errorInfo.errorMessage = errMsg;
+    errorInfo.errorCd = errCode;
+    respItem.errorInfo = errorInfo;
+    resp.responseInfo = respItem;
+    cycle.response.openAPIUDR = resp;
+    cycle.response.statusCode = 400;
+    cycle.response.headers = getHeader();
+    cycle.response.openAPIUDR = resp;
+    debug("##Error Response :" + cycle);
+    udrRoute(cycle, "res");
+    udrRoute(sendToSplunk(cycle,null, API_RESPONSE ,API_STATUS_FAILURE, cycle.path, splunkCtx), "toSplunk");
+}
+
+
+//Payload for History/Get WorkItem
+string getHistoryPayload(RequestCycle origReq, StrategyWorkItemHistoryRequestInfo request, string userId) {
+    string payload = "{" +
+        "\"Userid\": \"" + (string)(userId != null ? userId : "") + "\"," +
+        "\"CollectorCUID\": \"" + (string)(request.collectorCUID != null ? request.collectorCUID : "") + "\"," +
+        "\"Assignedto\": \"" + (string)(request.assignedTo != null ? request.assignedTo : "") + "\"," +
+        "\"Workitemcategory\": \"" + (string)(request.workItemCategory != null ? request.workItemCategory : "") + "\"," +
+        "\"Completedby\": \"" + (string)(request.completedBy != null ? request.completedBy : "") + "\"," +
+        "\"Strategyid\": \"" + (string)(request.strategyId != null ? request.strategyId : "") + "\"," +
+        "\"Workitemnamekey\": \"" + (string)(request.workItemNameKey != null ? request.workItemNameKey : "") + "\"," +
+        "\"Createddatefrom\": \"" + (string)(request.createdDateFrom != null ? request.createdDateFrom : "") + "\"," +
+        "\"Createddateto\": \"" + (string)(request.createdDateTo != null ? request.createdDateTo : "") + "\"" +
+        ",";
+    list < string > banList = (list < string > ) origReq.context; //request.billingAccountNumber;
+    list < string > dunList = request.dunningLockIndicator;
+    list < string > statusList = request.workItemStatus;
+    list < StrategyWorkItemDetail > workItemList = request.strategyWorkItemDetails;
+    debug("##List Size :" + listSize(request.billingAccountNumber));
+    if (listSize(request.billingAccountNumber) > 0) {
+        payload = payload + "\"WD_H2_BAN_Nav\" : [ ";
+        string Dpayload = "";
+        if (listSize(banList) > 0) {
+            for (any value: banList) {
+                Dpayload = Dpayload + "{" +
+                    "\"Ban\" : \"" + (string) value + "\" },";
+            }
+            Dpayload = strSubstring(Dpayload, 0, strLength(Dpayload) - 1);
+            payload = payload + Dpayload + "],";
+        }
+    }
+
+    if (listSize(dunList) > 0) {
+        payload = payload + "\"WD_H2_DI_Nav\" : [ ";
+        string Dpayload = "";
+        for (any value: dunList) {
+            Dpayload = Dpayload + "{" +
+                "\"Dunninglockindicator\" : \"" + (string) value + "\" },";
+        }
+        Dpayload = strSubstring(Dpayload, 0, strLength(Dpayload) - 1);
+        payload = payload + Dpayload + "],";
+    }
+
+    if (listSize(statusList) > 0) {
+        payload = payload + "\"WD_H2_WIS_Nav\" : [ ";
+        string Dpayload = "";
+        for (any value: statusList) {
+            Dpayload = Dpayload + "{" +
+                "\"Stat\" : \"" + (string) value + "\" },";
+        }
+        Dpayload = strSubstring(Dpayload, 0, strLength(Dpayload) - 1);
+        payload = payload + Dpayload + "],";
+    }
+
+    if (listSize(workItemList) > 0) {
+        payload = payload + "\"WD_H2_SWID_Nav\" : [ ";
+        string Dpayload = "";
+        for (any value: workItemList) {
+            Dpayload = Dpayload + "{" +
+                "\"Workitemname\" : \"" + (string) value.workItemName + "\"," +
+                "\"Strategyname\" : \"" + (string) value.strategyName + "\"},";
+        }
+        Dpayload = strSubstring(Dpayload, 0, strLength(Dpayload) - 1);
+        payload = payload + Dpayload + "],";
+    }
+
+    /*payload = payload + "\"WD_H2_WI_NAV\" : { "
+         + "\"Agent\" : \"" + (string)(request.assignedTo != null ? request.assignedTo : "") + "\","
+         + "\"Wlicat\" : \"" + (string)(request.workItemCategory != null ? request.workItemCategory : "") + "\","
+         + "\"Aenam\" : \"" + (string)(request.completedBy != null ? request.completedBy : "") + "\","
+         + "\"Strat\" : \"" + (string)(request.strategyId != null ? request.strategyId : "") + "\","
+         + "\"Wliguid\" : \"" + (string)(request.workItemNameKey != null ? request.workItemNameKey : "") + "\","
+         + "\"Startdate\" : \"" + (string)(request.createdDateFrom != null ? request.createdDateFrom : "") + "\","
+         + "\"Enddate\" : \"" + (string)(request.createdDateTo != null ? request.createdDateTo : "") + "\""
+         + " },";*/
+
+    payload = payload + "\"WD_H2_WILIST_Nav\" : [ { \"Billingaccountnumber\" : \"\", \"Busorgid\" : \"\", \"Strategyname\" : \"\", \"Workitemname\" : \"\" } ] }";
+
+    return payload;
+
+}
+
+string getDateInFormat(string st) {
+    string str = "";
+    if (st != null || strLength(strTrim(st)) != 0) {
+        str = strSubstring(st, 0, 4) + "-" + strSubstring(st, 4, 6) + "-" + strSubstring(st, 6, 8) + "T" + strSubstring(st, 8, 10) + ":" + strSubstring(st, 10, 12) + ":" + strSubstring(st, 12, 14);
+    }
+    return str;
+}
+
+string formatUUID(string st) {
+    string str = "";
+    if (st != null || strLength(strTrim(st)) != 0) {
+        st = strToUpper(st);
+        list < string > listSt = strSplit(st, "-");
+        for (string value: listSt) {
+            str = str + value;
+        }
+    }
+    return str;
+}
+
+string ValidDate(string dt) {
+    //validate date if 0 then send ""
+    if (strREContains(dt, "0000"))
+        return "";
+    else
+        return dt;
+}
+
+CollectionResetResp resetResponse(http.RequestCycle cycleUdr, string sReqBody) {
+    CollectionResetResp respUdr = udrCreate(CollectionResetResp);
+    CollectionResetResp_ResponseInfo responseUdr = udrCreate(CollectionResetResp_ResponseInfo);
+    CollectionResetReq reqUdr = udrCreate(CollectionResetReq);
+    jsonDecodeUdr(sReqBody, reqUdr);
+    string sErrorMesssage, sRecord;
+    try {
+        bytearray baRec = (bytearray) cycleUdr.response.body;
+        sRecord = baToStr(baRec);
+        if (cycleUdr.response.statusCode == 200) {
+            map < string, any > mapResponseInfo = (map < string, any > ) jsonParse(sRecord);
+            map < string, any > responseInfo = (map < string, any > ) mapGet(mapResponseInfo, "d");
+            string errorCd = (string) mapGet(responseInfo, "errorCode");
+            if (errorCd != "") {
+                ErrorInfo errUdr = udrCreate(ErrorInfo);
+                errUdr.errorMessage = (string) mapGet(responseInfo, "errorMessage");;
+                errUdr.errorCd = errorCd;
+                responseUdr.errorInfo = errUdr;
+                responseUdr.transactionStatus = "F";
+            } else {
+                responseUdr.transactionStatus = "S";
+            }
+        } else {
+            ErrorInfo errUdr = udrCreate(ErrorInfo);
+            try {
+                map < string, map < string, map < string, string >>> mapErrorInfo = (map < string, map < string, map < string, string >>> ) jsonParse(sRecord);
+                map < string, any > mapCode = mapGet(mapErrorInfo, "error");
+                map < string, string > mapErrorValue = (map < string, string > ) mapGet(mapCode, "message");
+                sErrorMesssage = mapGet(mapErrorValue, "value");
+                errUdr.errorCd = "500";
+            } catch (ExceptionDetails e) {
+                sRecord = (string) cycleUdr.response.body;
+                if (cycleUdr.response.statusCode == 401) {
+                    sErrorMesssage = "NOT AUTHORIZED IN BRIM";
+                } else {
+                    sErrorMesssage = sRecord;
+                }
+                errUdr.errorCd = (string) cycleUdr.response.statusCode;
+            }
+            errUdr.errorMessage = sErrorMesssage;
+            responseUdr.transactionStatus = "F";
+            responseUdr.errorInfo = errUdr;
+        }
+    } catch (ExceptionDetails e) {
+        sRecord = (string) cycleUdr.response.body;
+        ErrorInfo errUdr = udrCreate(ErrorInfo);
+        errUdr.errorMessage = sRecord;
+        errUdr.errorCd = (string) cycleUdr.response.statusCode;
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        responseUdr.errorInfo = errUdr;
+    }
+
+    CollectionResetResp_RequestInfo requestUdr = udrCreate(CollectionResetResp_RequestInfo);
+    requestUdr.billingAccountNumber = reqUdr.requestInfo.billingAccountNumber;
+    respUdr.requestInfo = requestUdr;
+    respUdr.headerInfo = reqUdr.headerInfo;
+    respUdr.responseInfo = responseUdr;
+    return respUdr;
+}
+
+
+RequestCycle collectionResetReq(string bp, string ca, string userId, map < string, list < string > > mapToken, string stepsFrom, string stepsTo, string fullRest, string inputChannelCd) {
+    RequestCycle udr = udrCreate(RequestCycle);
+    map < string, string > mapParams = mapCreate(string, string);;
+    mapSet(mapParams, "sap-client", getSystemValue(SAP_CLIENT));
+    mapSet(mapParams, "format", "json");
+    udr.host = getSystemValue(REST_HOSTNAME);
+    udr.secure = true;
+    udr.port = getSystemValue(REST_PORT);
+    udr.path = "/sap/opu/odata/SAP/ZGLB_O2C_FICA_DUNNNOTICE_MAIN_SRV/Reverse?BusinessPartner='" + bp + "'&ContractAccount='" + ca + "'&UserID='" + userId + "'&StepsFrom='" + stepsFrom + "'&StepsTo='" + stepsTo + "'&FullReset='" + fullRest + "'&InputChannelCd='" + inputChannelCd + "'";
+    udr.headers = mapToken;
+    udr.method = "POST";
+    udr.parameters = mapParams;
+    return udr;
+}
+
+//validation for collection steps retrieve  API
+CollectionResetResp validateResetReq(map < string, map < string, string >> Rec, string req, string resourceCode) {
+    map < string, any > mapHeaderInfo = mapGet(Rec, "headerInfo");
+    map < string, any > mapReqInfo = mapGet(Rec, "requestInfo");
+
+    CollectionResetResp respUdr = udrCreate(CollectionResetResp);
+    CollectionResetResp_RequestInfo requestInfoUdr = udrCreate(CollectionResetResp_RequestInfo);
+    CollectionResetResp_ResponseInfo responseUdr = udrCreate(CollectionResetResp_ResponseInfo);
+    CollectionResetReq reqUdr = udrCreate(CollectionResetReq);
+    jsonDecodeUdr(req, reqUdr);
+
+    if (mapGet(mapHeaderInfo, "srcApplicationCd") == "" || mapGet(mapHeaderInfo, "srcApplicationCd") == null) {
+        ErrorInfo errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage = "srcApplicationCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    } else if (mapGet(mapHeaderInfo, "inputChannelCd") == "" || mapGet(mapHeaderInfo, "inputChannelCd") == null) {
+        ErrorInfo errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage = "inputChannelCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    } else if (mapGet(mapHeaderInfo, "userId") == "" || mapGet(mapHeaderInfo, "userId") == null) {
+        ErrorInfo errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage = "userId IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    } else if (mapGet(mapReqInfo, "billingAccountNumber") == "" || mapGet(mapReqInfo, "billingAccountNumber") == null) {
+        ErrorInfo errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage = "billingAccountNumber IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    } else if (((mapGet(mapReqInfo, "stepsFrom") == "" && mapGet(mapReqInfo, "stepsTo") == "") ||
+            (mapGet(mapReqInfo, "stepsTo") == null && mapGet(mapReqInfo, "stepsDrom") == null)) && mapGet(mapReqInfo, "fullReset") != "Y") {
+        ErrorInfo errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage = "Invalid Request for Full Reset";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }
+
+    requestInfoUdr.billingAccountNumber = reqUdr.requestInfo.billingAccountNumber;
+    respUdr.requestInfo = requestInfoUdr;
+    respUdr.headerInfo = reqUdr.headerInfo;
+    return respUdr;
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="6">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICA_GET_BUSI_SEG_UDR]]></string>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICAF_GPART_VKONT_DERIVE_UDR]]></string>
+                     </storable>
+                     <storable name="5" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFIF_FM_VKONA_TO_BP_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-D999C75BC7A3C4AF1B4DAA7F134EEED9"/>
+                  <int name="queueFullMaxRetries" value="10"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="false"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" null="true"/>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="false"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="test"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="HTTP2_Client_1"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="11.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableExecutionThresholdLog" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executionThresholdTime" value="1"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="10"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                     <string name="Key" value="CMD1719036763113"/>
+                     <string name="Name" value="RFC_SAP_BRIM_WORKITEM"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_RFC_Processor_1"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="Common"/>
+                     <string name="Key" value="CMD1779279436841"/>
+                     <string name="Name" value="PRF_WFB_LOGS"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Fwd_Logs"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+    debug("input" + input);
+    if(instanceOf(input,ErrorCycleUDR)){
+        log.info("ErrorCycleUDR : "+input);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ErrorCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_2"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="req"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="res"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toOdata"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="fromOdata"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toRFC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="fromRFC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toDebug"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

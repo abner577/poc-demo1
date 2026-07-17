@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="PRF_OpenAPI_Aging.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[openapi: 3.0.0
+info:
+  title: BRIMCM_APIs_InfoSys
+  description: >-
+     To tae inputs from Fusion for CIInvoicing
+  version: 0.1-oas3
+paths:
+  /brimcm/collection/aging/agingBucket:
+    post:
+      tags:
+        - collection
+      operationId: getAgingBucketDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgingBucketDetailsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgingBucketDetailsResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      collectorUserId: AB1234
+                      ultimateBusOrgId: 1-6HBHG-YU
+                      busOrgId: B-68768
+                      effectiveDate: YYYY-MM-DD
+                      agingByEssentialRequired: 'Y'
+                    responseInfo:
+                      transactionStatus: S
+                      reportRunDate: '2024-07-05T00:00:00.000Z'
+                      agingBucketDetails:
+                        - ultimateBusOrgId: 1-6HBHG-YU
+                          ultimateCustomerName: ''
+                          busOrgId: B-68768
+                          billingAccountNumber: '235235532'
+                          isEssential: 'Y'
+                          invoiceCurrencyCd: USD
+                          groupCurrency: 
+                           currencyCd: USD
+                           currentDueAmount: 0
+                           pastDueAmount: 0
+                           totalDueAmount: 0
+                           disputeAmount: 0
+                           amountDue0To30Days: 0
+                           amountDue31To60Days: 0
+                           amountDue61To90Days: 0
+                           amountDue91To120Days: 0
+                           amountDue121To150Days: 0
+                           amountDue151To180Days: 0
+                           amountDue181To210Days: 0
+                           amountDue211To240Days: 0
+                           amountDue241To270Days: 0
+                           amountDue271To300Days: 0
+                           amountDue301To330Days: 0
+                           amountDue331To360Days: 0
+                           amountDue361PlusDays: 0
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgingBucketDetailsResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      collectorUserId: AB1234
+                      ultimateBusOrgId: 1-6HBHG-YU
+                      busOrgId: B-68768
+                      effectiveDate: YYYY-MM-DD
+                      agingByEssentialRequired: 'Y'
+                    responseInfo:
+                      transactionStatus: F
+                      reportRunDate: '2024-07-05T00:00:00.000Z'
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      agingBucketDetails:
+                        - ultimateBusOrgId: 1-6HBHG-YU
+                          ultimateCustomerName: ''
+                          busOrgId: B-68768
+                          billingAccountNumber: '235235532'
+                          isEssential: 'Y'
+                          invoiceCurrencyCd: USD
+                          groupCurrency: 
+                           currencyCd: USD
+                           currentDueAmount: 0
+                           pastDueAmount: 0
+                           totalDueAmount: 0
+                           disputeAmount: 0
+                           amountDue0_30Days: 0
+                           amountDue31_60Days: 0
+                           amountDue61_90Days: 0
+                           amountDue91_120Days: 0
+                           amountDue121_150Days: 0
+                           amountDue151_180Days: 0
+                           amountDue181_210Days: 0
+                           amountDue211_240Days: 0
+                           amountDue241_270Days: 0
+                           amountDue271_300Days: 0
+                           amountDue301_330Days: 0
+                           amountDue331_360Days: 0
+                           amountDue361PlusDays: 0
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgingBucketDetailsResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      collectorUserId: AB1234
+                      ultimateBusOrgId: 1-6HBHG-YU
+                      busOrgId: B-68768
+                      effectiveDate: YYYY-MM-DD
+                      agingByEssentialRequired: 'Y'
+                    responseInfo:
+                      transactionStatus: F
+                      reportRunDate: '2024-07-05T00:00:00.000Z'
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      agingBucketDetails:
+                        - ultimateBusOrgId: 1-6HBHG-YU
+                          ultimateCustomerName: ''
+                          busOrgId: B-68768
+                          billingAccountNumber: '235235532'
+                          isRegulatedProduct: 'Y'
+                          invoiceCurrencyCd: USD
+                          groupCurrency: 
+                           currencyCd: USD
+                           currentDueAmount: 0
+                           pastDueAmount: 0
+                           totalDueAmount: 0
+                           disputeAmount: 0
+                           amountDue0To30Days: 0
+                           amountDue31To60Days: 0
+                           amountDue61To90Days: 0
+                           amountDue91To120Days: 0
+                           amountDue121To150Days: 0
+                           amountDue151To180Days: 0
+                           amountDue181To210Days: 0
+                           amountDue211To240Days: 0
+                           amountDue241To270Days: 0
+                           amountDue271To300Days: 0
+                           amountDue301To330Days: 0
+                           amountDue331To360Days: 0
+                           amountDue361PlusDays: 0
+components:
+  schemas:
+    ErrorInfo:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+          example: 10101
+        errorCd:
+          type: string
+          example: No Invoice details found for the given Invoice Number
+    HeaderInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+          example: 2022-01-19T15:47:01.151Z
+        srcApplicationCd:
+          type: string
+          example: FUSION
+        requestId:
+          type: string
+          example: 1234567890
+        inputChannelCd:
+          type: string
+          example: FUSION_APP
+        srcSysTransactionId:
+          type: string
+          example: 2346245768
+        userId:
+          type: string
+          example: AB1234
+    AgingBucketDetailsRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AgingBucketDetailsRequestInfo'
+    AgingBucketDetailsRequestInfo:
+      type: object
+      properties:
+        collectorUserId:
+          type: string
+        ultimateBusOrgId:
+          type: string
+        busOrgId:
+          type: string
+        billingAccountNumber:
+          type: string
+        agingByEssentialRequired:
+          type: string
+        effectiveDate:
+          type: string
+    AgingBucketDetail:
+      type: object
+      properties:
+        ultimateBusOrgId:
+          type: string
+        ultimateCustomerName:
+          type: string
+        busOrgId:
+          type: string
+        billingAccountNumber:
+          type: string
+        isRegulatedProduct:
+          type: string
+        invoiceCurrencyCd:
+          type: string
+        groupCurrency:
+          $ref: '#/components/schemas/AgingBucketDetailsGroupCurrency'
+    AgingBucketDetailsResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AgingBucketDetailsRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/AgingBucketDetailsResponseInfo'
+    AgingBucketDetailsResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        reportRunDate:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        agingBucketDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/AgingBucketDetail'
+    AgingBucketDetailsGroupCurrency:
+     type: object
+     properties:
+        currencyCd:
+          type: string
+        currentDueAmount:
+          type: number
+          format: double
+        pastDueAmount:
+          type: number
+          format: double 
+        totalDueAmount:
+          type: number
+          format: double
+        disputeAmount:
+          type: number 
+          format: double
+        amountDue0To30Days:
+          type: number
+          format: double
+        amountDue31To60Days:
+          type: number 
+          format: double
+        amountDue61To90Days:
+          type: number 
+          format: double
+        amountDue91To120Days:
+          type: number 
+          format: double 
+        amountDue121To150Days:
+          type: number 
+          format: double
+        amountDue151To180Days:
+          type: number 
+          format: double
+        amountDue181To210Days:
+          type: number
+          format: double  
+        amountDue211To240Days:
+          type: number
+          format: double  
+        amountDue241To270Days:
+          type: number
+          format: double 
+        amountDue271To300Days:
+          type: number 
+          format: double
+        amountDue301To330Days:
+          type: number
+          format: double 
+        amountDue331To360Days:
+          type: number 
+          format: double
+        amountDue361PlusDays:
+          type: number
+          format: double
+          
+            ]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1719073393880"/>
+      <string name="Modified By" value="AC65919"/>
+      <long name="Modified Date" value="1738075506830"/>
+      <string name="Name" value="PRF_OPENAPI_AgingBucket"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="11"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

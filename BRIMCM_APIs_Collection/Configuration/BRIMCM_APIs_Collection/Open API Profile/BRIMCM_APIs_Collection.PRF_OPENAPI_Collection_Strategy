@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="PRF_OpenAPI_CollectionStrategy.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme" quoted="true"><![CDATA[---\u000d
+openapi: 3.0.3\u000d
+info:\u000d
+  title: BRIM OpenAPI definition\u000d
+  description: Description for BRIM APIs\u000d
+  version: v1.0.0-dev\u000d
+servers:\u000d
+  - description: SwaggerHub API Auto Mocking\u000d
+    url: https://virtserver.swaggerhub.com/YUANCHEN_1/BRIMCM-API-Staging/v1.0.0-dev\u000d
+  - url: http://ns2c1tapp2.saperp.corp.intranet:8443\u000d
+    description: CM Host - 1\u000d
+  - url: http://ns2c1tapp3.saperp.corp.intranet:8443\u000d
+    description: CM Host - 2\u000d
+  - url: https://ns2wd1app1.saperp.corp.intranet:44302\u000d
+    description: Dispatcher Host CMD\u000d
+  - url: https://ns2wq1app1.saperp.corp.intranet:44301\u000d
+    description: Dispatcher Host CMQ\u000d
+  - url: https://ns2wx1app1.saperp.corp.intranet:44301\u000d
+    description: Dispatcher Host C1T\u000d
+  - url: https://api-dev1.test.intranet\u000d
+    description: Apigee Internal Dev1\u000d
+  - url: https://api-test1.test.intranet\u000d
+    description: Apigee Internal Test1\u000d
+  - url: https://api.corp.intranet\u000d
+    description: Apigee Internal Prod\u000d
+paths:  \u000d
+  /brimcm/collection/strategyworkitem/close:\u000d
+    post:\u000d
+      tags:\u000d
+        - collection\u000d
+      operationId: workItemClose\u000d
+      requestBody:\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              $ref: '#/components/schemas/StrategyWorkItemRequest'\u000d
+        required: true\u000d
+      responses:\u000d
+        '200':\u000d
+          description: OK\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/StrategyWorkItemResponse'\u000d
+              examples:\u000d
+                success response:\u000d
+                  description: success response\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'\u000d
+                      srcApplicationCd: FUSION\u000d
+                      requestId: 1234567890\u000d
+                      inputChannelCd: FUSION_APP\u000d
+                      srcSysTransactionId: 2346245768\u000d
+                      userId: AD78389\u000d
+                    requestInfo:\u000d
+                      workItemId: 001DD8089F161EEEBAD16712E9B171AE\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S\u000d
+        '400':\u000d
+          description: Bad Request\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/StrategyWorkItemResponse'\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'\u000d
+                      srcApplicationCd: FUSION\u000d
+                      requestId: 1234567890\u000d
+                      inputChannelCd: FUSION_APP\u000d
+                      srcSysTransactionId: 2346245768\u000d
+                      userId: AD78389\u000d
+                    requestInfo:\u000d
+                      workItemId: 001DD8089F161EEEBAD16712E9B171AE\u000d
+                    responseInfo:\u000d
+                      transactionStatus: F\u000d
+                      errorInfo:\u000d
+                        errorMessage: string\u000d
+                        errorCd: string\u000d
+        '500':\u000d
+          description: Internal Server Error\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/StrategyWorkItemResponse'\u000d
+              examples:\u000d
+                Application level exceptions/errors:\u000d
+                  description: Application level exceptions/errors\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'\u000d
+                      srcApplicationCd: FUSION\u000d
+                      requestId: 1234567890\u000d
+                      inputChannelCd: FUSION_APP\u000d
+                      srcSysTransactionId: 2346245768\u000d
+                      userId: AD78389\u000d
+                    requestInfo:\u000d
+                      workItemId: 001DD8089F161EEEBAD16712E9B171AE\u000d
+                    responseInfo:\u000d
+                      transactionStatus: F\u000d
+                      errorInfo:\u000d
+                        errorMessage: string\u000d
+                        errorCd: string\u000d
+  /brimcm/collection/strategyworkitem/retrieve:\u000d
+    post:\u000d
+      tags:\u000d
+      - collection\u000d
+      operationId: getStrategyWorkItem\u000d
+      requestBody:\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              "$ref": "#/components/schemas/StrategyWorkItemHistoryRequest"\u000d
+        required: true\u000d
+      responses:\u000d
+        '200':\u000d
+          description: OK\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/StrategyWorkItemHistoryResponse"\u000d
+              examples:\u000d
+                success response:\u000d
+                  description: success response\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'\u000d
+                      srcApplicationCd: FUSION\u000d
+                      requestId: 1234567890\u000d
+                      inputChannelCd: FUSION_APP\u000d
+                      srcSysTransactionId: 2346245768\u000d
+                      userId: AD78389\u000d
+                    requestInfo:\u000d
+                      workItemStatus: status_message\u000d
+                      strategyWorkItemDetails:\u000d
+                      - workItemName: ''\u000d
+                        strategyName: ''\u000d
+                      - workItemName: ''\u000d
+                        strategyName: ''\u000d
+                      billingAccountNumber: ''\u000d
+                      dunningLockIndicator: Y\u000d
+                    responseInfo:\u000d
+                      transactionStatus: S\u000d
+                      workItemsList:\u000d
+                      - billingAccountNumber: ''\u000d
+                        busOrgId: ''\u000d
+                        workitemId: ''\u000d
+                        strategyName: ''\u000d
+                        workItemName: ''\u000d
+                        workItemStatus: ''\u000d
+                        workItemStartDate: '2023-03-15T20:57:12.228Z'\u000d
+                        workItemEndDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockIndicator: Y/N\u000d
+                        dunningLockStartDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockEndDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockReasonCd: ''\u000d
+                        dunningLockReasonCdDesc: ''\u000d
+                        dunningLockSetByUserId: AB1234\u000d
+                        pastDueAmount: 0\u000d
+                        createdDttm: '2023-03-15T20:57:12.228Z'\u000d
+                        createdBy: ''\u000d
+                        lastUpdatedDttm: '2023-03-15T20:57:12.228Z'\u000d
+                        lastUpdatedBy: ''\u000d
+                        collectionStepId: ''\u000d
+                        collectionStepName: ''\u000d
+                        completedDate: '2023-03-15'\u000d
+                        workItemCategory: ''\u000d
+                        billingAccountName: ''\u000d
+                        collectorCUID: ''\u000d
+                        companyCode: ''\u000d
+        '400':\u000d
+          description: Bad Request\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/StrategyWorkItemHistoryResponse"\u000d
+              examples:\u000d
+                Validation errors:\u000d
+                  description: Validation errors\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'\u000d
+                      srcApplicationCd: FUSION\u000d
+                      requestId: 1234567890\u000d
+                      inputChannelCd: FUSION_APP\u000d
+                      srcSysTransactionId: 2346245768\u000d
+                      userId: AD78389\u000d
+                    requestInfo:\u000d
+                      workItemStatus: status_message\u000d
+                      strategyWorkItemDetails:\u000d
+                      - workItemName: ''\u000d
+                        strategyName: ''\u000d
+                      - workItemName: ''\u000d
+                        strategyName: ''\u000d
+                      billingAccountNumber: ''\u000d
+                      dunningLockIndicator: Y\u000d
+                    responseInfo:\u000d
+                      transactionStatus: F\u000d
+                      errorInfo:\u000d
+                        errorMessage: string\u000d
+                        errorCd: string\u000d
+                      workItemsList:\u000d
+                      - billingAccountNumber: ''\u000d
+                        busOrgId: ''\u000d
+                        workitemId: ''\u000d
+                        strategyName: ''\u000d
+                        workItemName: ''\u000d
+                        workItemStatus: ''\u000d
+                        workItemStartDate: '2023-03-15T20:57:12.228Z'\u000d
+                        workItemEndDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockIndicator: Y/N\u000d
+                        dunningLockStartDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockEndDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockReasonCd: ''\u000d
+                        dunningLockReasonCdDesc: ''\u000d
+                        dunningLockSetByUserId: AB1234\u000d
+                        pastDueAmount: 0\u000d
+                        createdDate: '2023-03-15T20:57:12.228Z'\u000d
+                        createdBy: ''\u000d
+                        lastUpdatedDate: '2023-03-15T20:57:12.228Z'\u000d
+                        lastUpdatedBy: ''\u000d
+        '500':\u000d
+          description: Internal Server Error\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                "$ref": "#/components/schemas/StrategyWorkItemHistoryResponse"\u000d
+              examples:\u000d
+                Application level exceptions/errors:\u000d
+                  description: Application level exceptions/errors\u000d
+                  value:\u000d
+                    headerInfo:\u000d
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'\u000d
+                      srcApplicationCd: FUSION\u000d
+                      requestId: 1234567890\u000d
+                      inputChannelCd: FUSION_APP\u000d
+                      srcSysTransactionId: 2346245768\u000d
+                      userId: AD78389\u000d
+                    requestInfo:\u000d
+                      workItemStatus: status_message\u000d
+                      strategyWorkItemDetails:\u000d
+                      - workItemName: ''\u000d
+                        strategyName: ''\u000d
+                      - workItemName: ''\u000d
+                        strategyName: ''\u000d
+                      billingAccountNumber: ''\u000d
+                      dunningLockIndicator: Y\u000d
+                    responseInfo:\u000d
+                      transactionStatus: F\u000d
+                      errorInfo:\u000d
+                        errorMessage: string\u000d
+                        errorCd: string\u000d
+                      workItemsList:\u000d
+                      - billingAccountNumber: ''\u000d
+                        busOrgId: ''\u000d
+                        workitemId: ''\u000d
+                        strategyName: ''\u000d
+                        workItemName: ''\u000d
+                        workItemStatus: ''\u000d
+                        workItemStartDate: '2023-03-15T20:57:12.228Z'\u000d
+                        workItemEndDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockIndicator: Y/N\u000d
+                        dunningLockStartDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockEndDate: '2023-03-15T20:57:12.228Z'\u000d
+                        dunningLockReasonCd: ''\u000d
+                        dunningLockReasonCdDesc: ''\u000d
+                        dunningLockSetByUserId: AB1234\u000d
+                        pastDueAmount: 0\u000d
+                        createdDate: '2023-03-15T20:57:12.228Z'\u000d
+                        createdBy: ''\u000d
+                        lastUpdatedDate: '2023-03-15T20:57:12.228Z'\u000d
+                        lastUpdatedBy: ''\u000d
+                        \u000d
+  /brimcm/collection/strategyworkitem/collectionSteps/reset:\u000d
+    post:\u000d
+      tags:\u000d
+        - collection\u000d
+      summary: Collection reset details API\u000d
+      description: API to reverse the dunning from legacy system (Fusion and salesforce) to SAP BRIM.\u000d
+      operationId: Collection reset details\u000d
+      requestBody:\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              $ref: '#/components/schemas/CollectionResetReq'\u000d
+      responses:\u000d
+        '200':\u000d
+          description: Success Response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/CollectionResetResp'\u000d
+        '400':\u000d
+          description: CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/CollectionResetResp'\u000d
+        '405':\u000d
+          description: Method Not Allowed\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/ErrorResponse'\u000d
+        '500':\u000d
+          description: Failure Response from S4\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/CollectionResetResp' \u000d
+  /brimcm/collection/strategyworkitem/collectionSteps/retrieve:\u000d
+    post:\u000d
+      tags:\u000d
+      - collection\u000d
+      summary: Collection steps details API.\u000d
+      description: API to display collection steps details to portals for BAN passed in input request.\u000d
+      operationId: Collection steps details\u000d
+      requestBody:\u000d
+        content:\u000d
+          application/json:\u000d
+            schema:\u000d
+              $ref: '#/components/schemas/CollectionStepsReq'\u000d
+      responses:\u000d
+        "200":\u000d
+          description: Success Response\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/CollectionStepsResp'\u000d
+        "400":\u000d
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/ErrorInfo'\u000d
+        "405":\u000d
+          description: Method Not Allowed\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/ErrorResponse'\u000d
+        "500":\u000d
+          description: Failure Response from S4\u000d
+          content:\u000d
+            application/json:\u000d
+              schema:\u000d
+                $ref: '#/components/schemas/CollectionStepsResp'                \u000d
+                        \u000d
+components:\u000d
+  schemas:\u000d
+    HeaderInfo:\u000d
+      required:\u000d
+      - srcApplicationCd\u000d
+      - inputChannelCd\u000d
+      type: object\u000d
+      properties:\u000d
+        sendTimeStamp:\u000d
+          type: string\u000d
+          description: sendTimeStamp\u000d
+          example: '2022-01-19T15:47:01.151Z'\u000d
+        srcApplicationCd:\u000d
+          type: string\u000d
+          description: srcApplicationCd\u000d
+          example: 'EPP'\u000d
+        requestId:\u000d
+          type: string\u000d
+          description: requestId\u000d
+          example: '1234567KM'\u000d
+        inputChannelCd:\u000d
+          type: string\u000d
+          description: inputChannelCd\u000d
+          example: 'EPP'\u000d
+        srcSysTransactionId:\u000d
+          type: string\u000d
+          description: srcSysTransactionId\u000d
+          example: '1234567MN'\u000d
+        userId:\u000d
+          type: string\u000d
+          description: userId\u000d
+          example: '123456789'\u000d
+      description: Header of the request\u000d
+    HeaderInfoWithPagination:\u000d
+      required:\u000d
+      - inputChannelCd\u000d
+      - srcApplicationCd\u000d
+      type: object\u000d
+      properties:\u000d
+        sendTimeStamp:\u000d
+          type: string\u000d
+          description: sendTimeStamp\u000d
+          example: 2022-01-19T15:47:01.151Z\u000d
+        srcApplicationCd:\u000d
+          type: string\u000d
+          description: srcApplicationCd\u000d
+          example: EPP\u000d
+        requestId:\u000d
+          type: string\u000d
+          description: requestId\u000d
+          example: 1234567KM\u000d
+        inputChannelCd:\u000d
+          type: string\u000d
+          description: inputChannelCd\u000d
+          example: EPP\u000d
+        srcSysTransactionId:\u000d
+          type: string\u000d
+          description: srcSysTransactionId\u000d
+          example: 1234567MN\u000d
+        userId:\u000d
+          type: string\u000d
+          description: userId\u000d
+          example: "123456789"\u000d
+        pageNumber:\u000d
+          type: number\u000d
+          description: pageNumber\u000d
+        pageSize:\u000d
+          type: number\u000d
+          description: pageSize\u000d
+      description: Header of the request\u000d
+    ErrorInfo:\u000d
+      required:\u000d
+        - errorCd\u000d
+        - errorMessage\u000d
+      type: object\u000d
+      properties:\u000d
+        errorCd:\u000d
+          type: string\u000d
+          description: Unique error code for each type of error\u000d
+          example: '10083'\u000d
+        errorMessage:\u000d
+          type: string\u000d
+          description: Error message\u000d
+          example: No Account Available\u000d
+      description: errorInfo\u000d
+    StrategyWorkItemRequest:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/StrategyWorkItemRequestInfo'\u000d
+    StrategyWorkItemRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        workItemId:\u000d
+          type: string\u000d
+    StrategyWorkItemResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/StrategyWorkItemRequestInfo'\u000d
+        responseInfo:\u000d
+          $ref: '#/components/schemas/StrategyWorkItemResponseInfo'\u000d
+    StrategyWorkItemResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          $ref: '#/components/schemas/ErrorInfo'\u000d
+    StrategyWorkItemHistoryRequest:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          "$ref": "#/components/schemas/HeaderInfoWithPagination"\u000d
+        requestInfo:\u000d
+          "$ref": "#/components/schemas/StrategyWorkItemHistoryRequestInfo"\u000d
+    StrategyWorkItemHistoryRequestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        workItemStatus:\u000d
+          type: array\u000d
+          items:\u000d
+            type: string\u000d
+          example: ["Status1","Status2","Status3"]\u000d
+        strategyWorkItemDetails:\u000d
+          type: array\u000d
+          items:\u000d
+            "$ref": "#/components/schemas/StrategyWorkItemDetail"\u000d
+        billingAccountNumber:\u000d
+          type: array\u000d
+          items:\u000d
+            type: string\u000d
+          example: ["BAN1","BAN2"]\u000d
+        dunningLockIndicator:\u000d
+          type: array\u000d
+          items:\u000d
+            type: string\u000d
+          example: ["Y","N"]\u000d
+        collectorCUID:\u000d
+          type: string\u000d
+          example: "CUID123"\u000d
+        assignedTo:\u000d
+          type: string\u000d
+          example: "User123"\u000d
+        completedBy:  \u000d
+          type: string\u000d
+          example: "User456"\u000d
+        workItemCategory:\u000d
+          type: string\u000d
+          example: "Category1"\u000d
+        strategyId: \u000d
+          type: string\u000d
+          example: "STRATEGY123"\u000d
+        workItemNameKey:\u000d
+          type: string\u000d
+          example: "WorkItemNameKey1"\u000d
+        createdDateFrom:\u000d
+          type: string\u000d
+          example: "2025-08-15"\u000d
+        createdDateTo: \u000d
+          type: string\u000d
+          example: "2025-08-20"\u000d
+    StrategyWorkItemHistoryResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          "$ref": "#/components/schemas/HeaderInfoWithPagination"\u000d
+        requestInfo:\u000d
+          "$ref": "#/components/schemas/StrategyWorkItemHistoryRequestInfo"\u000d
+        responseInfo:\u000d
+          "$ref": "#/components/schemas/StrategyWorkItemHistoryResponseInfo"\u000d
+    StrategyWorkItemHistoryResponseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        totalCount:\u000d
+          type: number\u000d
+          format: long\u000d
+        errorInfo:\u000d
+          "$ref": "#/components/schemas/ErrorInfo"\u000d
+        workItemsList:\u000d
+          type: array\u000d
+          items:\u000d
+            "$ref": "#/components/schemas/WorkItem"\u000d
+    WorkItem:\u000d
+      type: object\u000d
+      properties:\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+        busOrgId:\u000d
+          type: string\u000d
+        workitemId:\u000d
+          type: string\u000d
+        strategyName:\u000d
+          type: string\u000d
+        workItemName:\u000d
+          type: string\u000d
+        workItemStatus:\u000d
+          type: string\u000d
+        workItemStartDate:\u000d
+          type: string\u000d
+        workItemEndDate:\u000d
+          type: string\u000d
+        dunningLockIndicator:\u000d
+          type: string\u000d
+        dunningLockStartDate:\u000d
+          type: string\u000d
+        dunningLockEndDate:\u000d
+          type: string\u000d
+        dunningLockReasonCd:\u000d
+          type: string\u000d
+        dunningLockReasonCdDesc:\u000d
+          type: string\u000d
+        dunningLockSetByUserId:\u000d
+          type: string\u000d
+        pastDueAmount:\u000d
+          type: number\u000d
+          format: double\u000d
+        createdDttm:\u000d
+          type: string\u000d
+        createdBy:\u000d
+          type: string\u000d
+        lastUpdatedDttm:\u000d
+          type: string\u000d
+        lastUpdatedBy:\u000d
+          type: string\u000d
+        assignedTo:\u000d
+          type: string\u000d
+        completedBy:\u000d
+          type: string\u000d
+        workItemStatusDesc:\u000d
+          type: string\u000d
+        collectionStepId: \u000d
+          type: string\u000d
+        collectionStepName:\u000d
+          type: string\u000d
+        completedDate: \u000d
+          type: string\u000d
+        workItemCategory:\u000d
+          type: string\u000d
+        billingAccountName: \u000d
+          type: string\u000d
+        collectorCUID: \u000d
+          type: string\u000d
+        companyCode:  \u000d
+          type: string\u000d
+    StrategyWorkItemDetail:\u000d
+      required:\u000d
+      - strategyName\u000d
+      - workItemName\u000d
+      type: object\u000d
+      properties:\u000d
+        workItemName:\u000d
+          type: string\u000d
+        strategyName:\u000d
+          type: string\u000d
+          \u000d
+    CollectionResetReq:\u000d
+        required:\u000d
+          - inputChannelCd\u000d
+          - srcApplicationCd\u000d
+          - billingAccountNumber\u000d
+        type: object\u000d
+        properties:\u000d
+          headerInfo:\u000d
+            $ref: '#/components/schemas/HeaderInfo'\u000d
+          requestInfo:\u000d
+            type: object\u000d
+            properties:\u000d
+              billingAccountNumber:\u000d
+                type: string\u000d
+                description: billingAccountNumber\u000d
+                example: A-1022301\u000d
+              stepsFrom:\u000d
+                type: string\u000d
+              stepsTo:\u000d
+                type: string\u000d
+              fullReset:\u000d
+                type: string                  \u000d
+              isRegulatedProduct:\u000d
+                type: string \u000d
+                \u000d
+    CollectionResetResp:\u000d
+        type: object\u000d
+        properties:\u000d
+          headerInfo:\u000d
+            $ref: '#/components/schemas/HeaderInfo'\u000d
+          requestInfo:\u000d
+            type: object\u000d
+            properties:\u000d
+              billingAccountNumber:\u000d
+                type: string\u000d
+                description: billingAccountNumber\u000d
+                example: A-1022301 \u000d
+              stepsFrom:\u000d
+                type: string\u000d
+              stepsTo:\u000d
+                type: string\u000d
+              fullReset:\u000d
+                type: string\u000d
+              isRegulatedProduct:\u000d
+                 type: string  \u000d
+          responseInfo:\u000d
+            type: object\u000d
+            properties:\u000d
+              transactionStatus:\u000d
+                type: string\u000d
+                description: billingAccountNumber\u000d
+                example: S/F\u000d
+              errorInfo:\u000d
+                $ref: '#/components/schemas/ErrorInfo'\u000d
+    ErrorResponse:\u000d
+      type: object\u000d
+      properties:\u000d
+        status:\u000d
+          type: string\u000d
+        error:\u000d
+          type: string\u000d
+        message:\u000d
+          type: string\u000d
+        path:\u000d
+          type: string\u000d
+      \u000d
+    CollectionStepsReq:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/CollectionStepsReq_requestInfo'\u000d
+    CollectionStepsResp:\u000d
+      type: object\u000d
+      properties:\u000d
+        headerInfo:\u000d
+          $ref: '#/components/schemas/HeaderInfo'\u000d
+        requestInfo:\u000d
+          $ref: '#/components/schemas/CollectionStepsReq_requestInfo'\u000d
+        responseInfo:\u000d
+          $ref: '#/components/schemas/CollectionStepsResp_responseInfo'            \u000d
+    CollectionStepsReq_requestInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        billingAccountNumber:\u000d
+          type: string\u000d
+          example: A-1200121\u000d
+\u000d
+    CollectionStepsResp_responseInfo:\u000d
+      type: object\u000d
+      properties:\u000d
+        startegyName:\u000d
+          type: string\u000d
+        startegyId:\u000d
+          type: string\u000d
+        regulatedCollectionStepList:\u000d
+          type: array\u000d
+          items:\u000d
+            $ref: '#/components/schemas/CollectionStepsResp_responseInfo_regulatedCollectionStepList'\u000d
+        nonRegulatedCollectionStepList:\u000d
+          type: array\u000d
+          items:\u000d
+            $ref: '#/components/schemas/CollectionStepsResp_responseInfo_nonRegulatedCollectionStepList'\u000d
+        collectionStepList:\u000d
+          type: array\u000d
+          items:\u000d
+            $ref: '#/components/schemas/CollectionStepsResp_responseInfo_collectionStepList'     \u000d
+        regulatedResetMessage:\u000d
+          $ref: '#/components/schemas/ResetMessageInfo' \u000d
+        nonRegulatedResetMessage:\u000d
+          $ref: '#/components/schemas/ResetMessageInfo' \u000d
+        transactionStatus:\u000d
+          type: string\u000d
+        errorInfo:\u000d
+          $ref: '#/components/schemas/ErrorInfo' \u000d
+    ResetMessageInfo: \u000d
+      type: object\u000d
+      properties:\u000d
+          messageId:\u000d
+            type: string\u000d
+            example: '1'\u000d
+          message:\u000d
+            type: string \u000d
+            example: 'Collection reset successfully'       \u000d
+    CollectionStepsResp_responseInfo_regulatedCollectionStepList:\u000d
+      properties:\u000d
+        sequenceNumber:\u000d
+          type: string\u000d
+        collectionStepId:\u000d
+          type: string \u000d
+        collectionStepName:\u000d
+          type: string\u000d
+        dueDate:\u000d
+          type: string\u000d
+        isCurrentStep:\u000d
+          type: string\u000d
+    CollectionStepsResp_responseInfo_nonRegulatedCollectionStepList:\u000d
+      properties:\u000d
+        sequenceNumber:\u000d
+          type: string\u000d
+        collectionStepId:\u000d
+          type: string \u000d
+        collectionStepName:\u000d
+          type: string\u000d
+        dueDate:\u000d
+          type: string\u000d
+        isCurrentStep:\u000d
+          type: string          \u000d
+    CollectionStepsResp_responseInfo_collectionStepList:\u000d
+      properties:\u000d
+        sequenceNumber:\u000d
+          type: string\u000d
+        collectionStepId:\u000d
+          type: string \u000d
+        collectionStepName:\u000d
+          type: string\u000d
+        dueDate:\u000d
+          type: string\u000d
+        isCurrentStep:\u000d
+          type: string       ]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1719036762881"/>
+      <string name="Modified By" value="AC65919"/>
+      <long name="Modified Date" value="1756087277253"/>
+      <string name="Name" value="PRF_OPENAPI_Collection_Strategy"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="18"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

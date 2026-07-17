@@ -1,0 +1,1770 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="11.0">
+         <boolean name="enabled" value="false"/>
+         <storable name="kafka" null="true"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Local Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="IncomingRequest"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Port"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="IncomingRequest"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="BRIM"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="BRIM"/>
+      </storable>
+      <storable name="4" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Disk - Directory"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-279974329"/>
+         <string name="Node Name" value="Tax"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ServerData" ver="12.2">
+                  <enum classname="com.digitalroute.http2.server.auth.AuthLevel" name="authLevel" value="NONE"/>
+                  <string name="authPublicKey" null="true"/>
+                  <int name="averagePeriod" value="10"/>
+                  <string name="characterEncoding" value="UTF-8"/>
+                  <int name="clientTimeout" value="10"/>
+                  <boolean name="enableTooManyRequests" value="false"/>
+                  <int name="gzipLevel" value="7"/>
+                  <string name="host" value="ns2cmdapp2.saperp.corp.intranet"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <int name="maxCacheSize" value="1000"/>
+                  <int name="maxCacheTime" value="1000"/>
+                  <int name="maxConcurrentStreams" value="500"/>
+                  <int name="numberOfRequests" value="1000"/>
+                  <int name="port" value="8201"/>
+                  <boolean name="routeToApl" value="false"/>
+                  <storable name="securityProfile" null="true"/>
+                  <int name="serverTimeout" value="0"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList">
+                           <storable name="0" storable-id="dr.DRConfiguration" ver="2.0">
+                              <set name="Dynamic Parameters" null="true"/>
+                              <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                              <string name="Key" value="CMD1722874617588"/>
+                              <string name="Name" value="PRF_OpenAPI_Collection_Misc"/>
+                              <string name="Type" value="Open API Profile"/>
+                           </storable>
+                        </list>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="true"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.HTTP2.Support5G" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <boolean name="enableFallBack" value="false"/>
+                        <boolean name="enableRegistrationRetry" value="false"/>
+                        <string name="nrfAddress" null="true"/>
+                        <array classname="java.lang.String" name="nrfAddresses" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="numberOfRegistrationRetry" value="0"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList"/>
+                        <array name="secondaryAddress" null="true"/>
+                        <array classname="java.lang.String" name="secondaryAddressList" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="timeIntervalForRegistrationRetry" value="0"/>
+                        <boolean name="use5g" value="false"/>
+                     </storable>
+                  </list>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useCache" value="false"/>
+                  <boolean name="useSSL" value="false"/>
+                  <int name="waitDuration" value="10"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="IncomingRequest"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.openapi.BRIMCM_APIs_Collection.PRF_OpenAPI_Collection_Misc;
+import apl.BRIMCM_APIs_Collection.APL_Collection_Misc;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.Common.APL_CONSTANTS;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.FNT;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+
+SplunkContext splunkCtx;
+
+mimPublish(global, "EMAIL", string);
+mimPublish(global, "FILE_NAME", string);
+
+string API_TAXONLY_EMAIL_DIR =   externalReferenceGet("Common.DB_External_Reference","API_TAXONLY_EMAIL_DIR");
+string API_MAX_TAXONLY_ROWS =   externalReferenceGet("Common.DB_External_Reference","API_MAX_TAXONLY_ROWS");
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("request" , "Agent Name");
+}
+
+consume {
+    try{
+        string resourceCode;
+        debug("input : "+input);
+        if(instanceOf(input,RequestCycle)){
+            //debug("inside Request Cycle instance");
+            RequestCycle cycleUdr = (RequestCycle)input;
+            //uniqueId to track request and responses to/from S/4
+            string tagId = setTagId(cycleUdr);
+            
+            //response header setting
+            map<string,list<string>> mapHeaders = mapCreate(string,list<string>);
+            list<string> lHeader = listCreate(string);
+            listAdd(lHeader, "application/json");
+            mapSet(mapHeaders, "Content-Type", lHeader);
+            cycleUdr.response.headers = mapHeaders;
+            string sBody;
+            any Rec;
+            if(cycleUdr.body != null){
+              sBody=  baToStr(cycleUdr.body,"UTF-8");
+             Rec = jsonParse(sBody);
+            }
+            
+            //Forwarding log request to Splunk
+            udrRoute(sendToSplunk(cycleUdr,null,API_REQUEST, "",null,splunkCtx),"toSplunk");
+            
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE,cycleUdr.path);
+            debug("VALUE of resourceCode : "+resourceCode);
+            if(cycleUdr.path == "/brimcm/collection/misc/agencyReturn"){
+                map<string,any> mapRec = (map<string,any>)Rec;
+                AgencyReturnResp respUdr = checkAgencyReturnReq(mapRec,sBody,resourceCode);
+                if(respUdr.responseInfo != null){
+                     cycleUdr.response.openAPIUDR = respUdr;  
+                     cycleUdr.response.statusCode = 200;
+                     //logResponse(cycleUdr, "");
+                     udrRoute(cycleUdr,"toClient");
+                     udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE,API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                     return; 
+                }else{
+                    string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFICA_ACCOUNT_STATUS_UP_SRV/$metadata";
+                    http.RequestCycle reqUDR = accessTokenReq(sURI);
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                    //udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+                }
+            }else if(cycleUdr.path =="/brimcm/collection/misc/currency/convert"){
+                 map<string,any> mapCurrencyReq = (map<string,any>)Rec;
+                 CurrencyConversionRequest requestUdr = udrCreate(CurrencyConversionRequest);
+                 jsonDecodeUdr(sBody,requestUdr);
+                 CurrencyConversionResponse response = validateCurrencyConversionRequest(mapCurrencyReq,sBody,resourceCode);
+                if(null != response && null != response.responseInfo && null!= response.responseInfo.errorInfo){
+                    cycleUdr.response.openAPIUDR = response;  
+                    cycleUdr.response.statusCode = 200;
+                    udrRoute(cycleUdr,"toClient");
+                    //Forwarding log request to Splunk
+                    udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE,API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                    return; 
+                }else{
+                    string amountInString = (string)Rec.requestInfo.amount;
+                    if(strREContains(amountInString, "E")){
+                        Rec.requestInfo.amount = (bigdec)Rec.requestInfo.amount;
+                    }
+                    string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_CURRENCY_CONV_API_SRV/currencyConvSet(fromCurrencyCd='"+Rec.requestInfo.fromCurrencyCd+"',toCurrencyCd='"+Rec.requestInfo.toCurrencyCd+"',amount='"+Rec.requestInfo.amount+"',conversionDate='<date>')";
+                    
+                    if(isEmpty(requestUdr.requestInfo.conversionDate))
+                        sURI = strREReplaceAll(sURI, "<date>", "");
+                    else
+                        sURI = strREReplaceAll(sURI, "<date>", strREReplaceAll(requestUdr.requestInfo.conversionDate,"-",""));
+                    
+                    debug("Calling Currency Conversion : "+sURI);
+                    http.RequestCycle reqUDR = accessTokenReq(sURI);   
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                    udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+                 }
+            }else if(cycleUdr.path =="/brimcm/collection/misc/referenceData/dunningLockReasons"){
+                string marketSegment = mapGet(cycleUdr.parameters,"marketSegment");
+				 debug("Input marketSegment = " + (marketSegment));
+                DunningLockReasonResponse dunningLockReasonResponse = udrCreate(DunningLockReasonResponse);
+                DunningLockReasonResponseInfo dunningLockReasonResponseInfo = udrCreate(DunningLockReasonResponseInfo);
+                DunningLockReasonRequestInfo dunningLockReasonRequestInfo = udrCreate(DunningLockReasonRequestInfo);
+                if(isEmpty(marketSegment) || (marketSegment !="ENT" && marketSegment !="MM" && marketSegment !="ALL")){
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd ="400";
+                    errorInfo.errorMessage="marketSegment in either empty or invalid. Allowed values are ENT,MM,ALL.";
+                    dunningLockReasonResponseInfo.errorInfo = errorInfo;
+                    dunningLockReasonResponseInfo.transactionStatus ="F";
+                    dunningLockReasonResponse.responseInfo = dunningLockReasonResponseInfo;
+                    dunningLockReasonRequestInfo.marketSegment = marketSegment;
+                    dunningLockReasonResponse.requestInfo = dunningLockReasonRequestInfo;
+                    cycleUdr.response.openAPIUDR = dunningLockReasonResponse;  
+                    cycleUdr.response.statusCode = 400;
+                    udrRoute(cycleUdr,"toClient");
+                    //Forwarding log request to Splunk
+                    udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE,API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                    return;
+                }
+                debug("Success validation");
+                string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFI_DUNNING_LOCKS_SRV/DunningAccountSet(Market_Segment='"+marketSegment+"')?$expand=To_LockReasonNav&$format=json";
+                    
+                    debug("Calling dunning lock reasons ODATA service: "+sURI);
+                    http.RequestCycle reqUDR = requestTokenDetails(sURI);
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                    udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+            }else if(cycleUdr.path =="/brimcm/collection/misc/referenceData/countryAndStateCodes"){
+                string countryCd = mapGet(cycleUdr.parameters,"countryCd");
+                string odataURL = "/sap/opu/odata/sap/ZGLB_DEVFI_COUNTRY_STATE_SRV/CountrySet?$filter=CountryCd%20eq%20''%20and%20CountryDesc%20eq%20''%20and%20RegionCd%20eq%20''%20and%20RegionDesc%20eq%20''&$format=json";
+                
+                if(!isEmpty(countryCd)){
+                    
+                  odataURL=  "/sap/opu/odata/sap/ZGLB_DEVFI_COUNTRY_STATE_SRV/CountrySet?$filter=CountryCd%20eq%20'"+countryCd+"'%20and%20CountryDesc%20eq%20''%20and%20RegionCd%20eq%20''%20and%20RegionDesc%20eq%20''&$format=json";
+                }
+                
+                debug("Calling CountryAndStateCodes ODATA service: "+odataURL);
+                    http.RequestCycle reqUDR = accessTokenReq(odataURL);
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                    udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+            }else if(cycleUdr.path =="/brimcm/collection/misc/referenceData/adjustmentReasonCodes"){
+               // string countryCd = mapGet(cycleUdr.parameters,"countryCd");
+               string billingAccountNumber = mapGet(cycleUdr.parameters,"billingAccountNumber");
+               
+               string odataURL = "/sap/opu/odata/SAP/ZGLB_DEVFI_ADJUSTMENT_REASON_SRV/ReasonSet?$filter=Language%20eq%20''&$format=json";
+               if(!isEmpty(billingAccountNumber))
+                  odataURL = "/sap/opu/odata/SAP/ZGLB_DEVFICA_MASS_ADJ_SRV/ReasonValueHelpSet?$filter=BAN%20eq%20'"+billingAccountNumber+"'&$format=json";
+                
+                debug("Calling adjustment reasons ODATA service: "+odataURL);
+                    http.RequestCycle reqUDR = accessTokenReq(odataURL);
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                    udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+            }else if(cycleUdr.path =="/brimcm/collection/misc/referenceData/hotlistIndicators"){
+                
+                string odataUrl = "/sap/opu/odata/sap/ZGLB_DEVFI_HOTLIST_IND_SRV/hotlistIndicatorSet?$format=json";
+                 debug("Calling hotlist indicator ODATA service: "+odataUrl);
+                    http.RequestCycle reqUDR = accessTokenReq(odataUrl);
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                    udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+            }else if(cycleUdr.path =="/brimcm/collection/misc/workflow/approvalDetails"){
+                
+                 log.info("+++ workflow/approvalDetails start +++");
+                 
+                  map<string,any> mapApprovalDetailsReq = (map<string,any>)Rec;
+                 ApprovalDetailsRequest approvalDetailsRequest = udrCreate(ApprovalDetailsRequest);
+                 jsonDecodeUdr(sBody,approvalDetailsRequest);
+                 
+                 
+                 ApprovalDetailsResponse approvalDetailsResponse = udrCreate(ApprovalDetailsResponse);
+ 
+                 approvalDetailsResponse = validateWorkflowDetailsRequest(mapApprovalDetailsReq,sBody,resourceCode);
+                if(null != approvalDetailsResponse && null != approvalDetailsResponse.responseInfo && null!= approvalDetailsResponse.responseInfo.errorInfo){
+                     cycleUdr.response.openAPIUDR = approvalDetailsResponse;  
+                     cycleUdr.response.statusCode = 200;
+                    // logResponse(cycleUdr, "");
+                     udrRoute(cycleUdr,"toClient");
+                     udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE,API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                     return; 
+                 }else{
+                  string approvalDetailsUrl = "/sap/opu/odata/sap/ZGLB_DEVFICA_WF_API_SRV/WF_API_IPSet?";
+                 string filter = getFilterForApprovalDetails(approvalDetailsRequest);
+                 
+                 if(isEmpty(filter)){
+                     
+                     approvalDetailsResponse.headerInfo = approvalDetailsRequest.headerInfo;
+                     approvalDetailsResponse.requestInfo = approvalDetailsRequest.requestInfo;
+                     
+                     ApprovalDetailsResponseInfo approvalDetailsResponseInfo = udrCreate(ApprovalDetailsResponseInfo);
+                     ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                     
+                     errorInfo.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+                     errorInfo.errorMessage = "Please input atleast one field.";
+                     
+                     approvalDetailsResponseInfo.errorInfo = errorInfo;
+                     
+                     approvalDetailsResponseInfo.transactionStatus ="F";
+                     
+                     approvalDetailsResponse.responseInfo = approvalDetailsResponseInfo;
+                     
+                      cycleUdr.response.openAPIUDR = approvalDetailsResponse;  
+                     cycleUdr.response.statusCode = 200;
+                    // logResponse(cycleUdr, "");
+                     log.info("+++ workflow/approvalDetails end +++");
+                     udrRoute(cycleUdr,"toClient");
+                     udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE,API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                     return; 
+                     
+                 }
+                   
+                approvalDetailsUrl = approvalDetailsUrl + filter;
+                
+                debug("Calling approvalDetails ODATA service: "+approvalDetailsUrl);
+                log.info("Calling approvalDetails ODATA service start: "+approvalDetailsUrl);
+                 
+                 http.RequestCycle reqUDR = accessTokenReq(approvalDetailsUrl);
+                 reqUDR.context = cycleUdr;
+                 udrRoute(reqUDR,"toS4");
+                 udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+            }
+            }else if(cycleUdr.path == "/brimcm/collection/misc/cdw/taxOnlyReport"){
+                map<string,any> mapTaxOnlyReportReq = (map<string,any>)Rec;
+                
+                TaxOnlyReportRequest requestUdr = udrCreate(TaxOnlyReportRequest);
+                jsonDecodeUdr(sBody,requestUdr);
+                list<TaxInfo> taxInfo = listCreate(TaxInfo);
+                TaxOnlyReportResponse response = handleTaxOnlyReportRequest(mapTaxOnlyReportReq,sBody,resourceCode, taxInfo);
+                cycleUdr.response.openAPIUDR = response;  
+                cycleUdr.response.statusCode = 200;
+                debug("Response sent back to source");
+                udrRoute(cycleUdr,"toClient");
+                //Added logic to check Success/Error status before routing to SPLUNK      //AD57674
+                string status = API_STATUS_SUCCESS;
+                if(response.responseInfo.transactionStatus == "F") status = API_STATUS_FAILURE;
+                udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE,status,null,splunkCtx),"toSplunk");
+                
+                int maxRows = 1000;
+                if(!strToInt(maxRows, API_MAX_TAXONLY_ROWS)) {
+                    maxRows = 1000;
+                }
+                if(listSize(taxInfo) >= maxRows) {     
+                    map<string,string> mapReqInfo = (map<string,string>)mapGet(mapTaxOnlyReportReq,"requestInfo");           
+                    string ban = (string)mapGet(mapReqInfo, "billingAccountNumber");
+                    string email = (string)mapGet(mapReqInfo, "emailAddress");
+                    if(email == null) {
+                        return;
+                    }
+                
+
+                    FNTUDR fntudr = udrCreate(FNTUDR);
+                    
+                    TaxInfo info = listGet(taxInfo,0);
+                    //fntAddString(fntudr, email + "_" + ban + "_" + info.invoiceNumber + "_" + );
+                    date d = dateCreateNow();
+                    string dateStr;
+                    dateToString(dateStr, d, "yyyMMdd_HHmmss");
+                    fntAddString(fntudr, email + "_" + ban + "_tax_report_" + dateStr + ".csv");
+                   bytearray ba  = getTxReportContent(ban, taxInfo);
+                    debug ("Response body size = " + baSize(ba));
+                    MultiForwardingUDR mfu = udrCreate(MultiForwardingUDR);
+                    mfu.content = ba;
+                    mfu.fntSpecification = fntudr;
+                    udrRoute(mfu, "tax");
+                    /*
+                    fntudr = udrCreate(FNTUDR);
+                    strToBA(ba, "");
+                    fntAddString(fntudr, "EMPTY");
+                    mfu = udrCreate(MultiForwardingUDR);
+                    mfu.fntSpecification = fntudr;
+                    mfu.content = ba;
+                    udrRoute(mfu, "tax");
+                    */
+                }
+            }else if(cycleUdr.path == "/brimcm/collection/misc/payment/surchargeDetails"){
+                map<string,any> mapsurchargeDetailsRequest = (map<string,any>)Rec;
+                
+                SurchargeDetailsRequest surchargeDetailsRequest = udrCreate(SurchargeDetailsRequest);
+                jsonDecodeUdr(sBody,surchargeDetailsRequest);
+                
+                SurchargeDetailsResponse surchargeDetailsResponse = udrCreate(SurchargeDetailsResponse);
+                surchargeDetailsResponse = validateSurchargeDetailsRequest(surchargeDetailsRequest, resourceCode);
+                //debug("surchargeDetailsResponse: "+surchargeDetailsResponse);
+                if(null != surchargeDetailsResponse && null != surchargeDetailsResponse.responseInfo &&
+                 null!= surchargeDetailsResponse.responseInfo.errorInfo){
+                     cycleUdr.response.openAPIUDR = surchargeDetailsResponse;  
+                     cycleUdr.response.statusCode = 200;
+                     udrRoute(cycleUdr,"toClient");
+                     
+                    //Forwarding log request to Splunk
+                    //log response sent back to source for CM validation failures with tagId to track request and response
+                    udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE,API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                    return; 
+                 }else if(!strEqualsIgnoreCase(surchargeDetailsRequest.requestInfo.currencyCd, "USD")){
+                     callOdataForSurcharge(cycleUdr, null, surchargeDetailsRequest.requestInfo.currencyCd, 
+                                           surchargeDetailsRequest.requestInfo.billingAccountNumber, 
+                                           surchargeDetailsRequest.headerInfo.inputChannelCd);
+                     
+                 }else{
+                    ZFICAF_DETERMINE_JURISDICTION_UDR udr = udrCreate(ZFICAF_DETERMINE_JURISDICTION_UDR);     
+                    udr.importParams = udrCreate(SAP_RFC.BRIMCM_APIs_Internal.RFC_REST.subUdr.importParams_ZFICAF_DETERMINE_JURISDICTION);
+                    udr.importParams.IS_LOCATION_DATA = udrCreate(SAP_RFC.BRIMCM_APIs_Internal.RFC_REST.subUdr.COM_JUR);
+                    // udr.importParams.IS_LOCATION_DATA.CITY = city;
+                    // udr.importParams.IS_LOCATION_DATA.COUNTRY = country;
+                    // udr.importParams.IS_LOCATION_DATA.STATE = state;
+                    udr.importParams.IS_LOCATION_DATA.ZIPCODE = surchargeDetailsRequest.requestInfo.zipCode; 
+                    udr.context = cycleUdr;
+                    udrRoute(udr, "toRFC");
+                      
+                    //Forwarding log request to Splunk
+                    udrRoute(sendRfcToSplunk(cycleUdr,(string)udr.importParams,RFC_REQUEST,"","ZFICAF_DETERMINE_JURISDICTION_UDR",splunkCtx),"toSplunk");
+                 }
+            }
+            else{
+                debug("inside unknown path condition");
+            }
+        }else if(instanceOf(input, RfcErrorUDR)) {
+            RfcErrorUDR errorUdr = (RfcErrorUDR)input;
+    
+            if(instanceOf(errorUdr.inputUDR, ZFICAF_DETERMINE_JURISDICTION_UDR)) {
+                //log.info("Processing RFC error for ZFICAF_DETERMINE_JURISDICTION_UDR");
+                debug("RfcErrorUDR details: " + input);
+        
+                ZFICAF_DETERMINE_JURISDICTION_UDR udr = (ZFICAF_DETERMINE_JURISDICTION_UDR) errorUdr.inputUDR;
+                string errorMessage = errorUdr.errorMessage;
+                //log.error("RFC Error occurred: " + errorMessage);
+        
+                RequestCycle inputRequest = (RequestCycle)udr.context;               
+                string inputRequestBody = getRequestBody(inputRequest);
+        
+                SurchargeDetailsRequest surchargeDetailsRequest = udrCreate(SurchargeDetailsRequest);
+                jsonDecodeUdr(inputRequestBody, surchargeDetailsRequest);
+        
+                SurchargeDetailsResponse errorResponse = buildErrorResponse(
+                surchargeDetailsRequest, 
+                resourceCode, 
+                !isEmpty(errorMessage) ? errorMessage : "An internal error occurred while processing the request."
+                );
+                sendResponse(inputRequest, errorResponse, 200);
+                udrRoute(sendRfcToSplunk(inputRequest,(string)udr.exportParams,RFC_RESPONSE,API_STATUS_FAILURE,"ZFICAF_DETERMINE_JURISDICTION_UDR",splunkCtx),"toSplunk");
+                return;
+        }
+    
+} else if (instanceOf(input, ZFICAF_DETERMINE_JURISDICTION_UDR)) {
+      //log.info("Processing ZFICAF_DETERMINE_JURISDICTION_UDR");
+      debug("Processing ZFICAF_DETERMINE_JURISDICTION_UDR"+input);
+    ZFICAF_DETERMINE_JURISDICTION_UDR udr = (ZFICAF_DETERMINE_JURISDICTION_UDR)input;
+    
+    // Check for location error
+    if(udr.exportParams.ES_LOCATION_ERR != null && udr.exportParams.ES_LOCATION_ERR.RETCODE != "0") {
+        string errorMessage = udr.exportParams.ES_LOCATION_ERR.ERRMSG;
+        //log.error("Location error - RETCODE: " + udr.exportParams.ES_LOCATION_ERR.RETCODE + ", Message: " + errorMessage);
+        
+        RequestCycle inputRequest = (RequestCycle)udr.context;         
+        string inputRequestBody = getRequestBody(inputRequest);
+        
+        
+        SurchargeDetailsRequest surchargeDetailsRequest = udrCreate(SurchargeDetailsRequest);
+        jsonDecodeUdr(inputRequestBody, surchargeDetailsRequest);
+        
+        SurchargeDetailsResponse errorResponse = buildErrorResponse(
+            surchargeDetailsRequest, 
+            resourceCode, 
+            !isEmpty(errorMessage) ? errorMessage : "An internal error occurred while processing the request."
+        );
+        sendResponse(inputRequest, errorResponse, 200);       
+         //Forwarding log request to Splunk
+        udrRoute(sendRfcToSplunk(inputRequest,(string)udr.exportParams,RFC_RESPONSE,API_STATUS_FAILURE,"ZFICAF_DETERMINE_JURISDICTION_UDR",splunkCtx),"toSplunk");      
+        return;
+        
+    } else if(udr.tableParams != null && udr.tableParams.TT_LOCATION_RESULTS != null && 
+              listSize(udr.tableParams.TT_LOCATION_RESULTS) > 0) {
+        
+        SAP_RFC.BRIMCM_APIs_Internal.RFC_REST.subUdr.COM_JUR judr = listGet(udr.tableParams.TT_LOCATION_RESULTS, 0);
+        string jurisdictionCode = judr.TXJCD;
+        //log.info("Jurisdiction code retrieved: " + jurisdictionCode);
+        debug("Jurisdiction code retrieved: " + jurisdictionCode);
+        RequestCycle inputRequest = (RequestCycle)udr.context;        
+        string inputRequestBody = getRequestBody(inputRequest);
+        any rec;
+         rec = jsonParse(inputRequestBody);
+         map<string,any> mapSurchargeDetailsRequest = (map<string,any>)rec;
+        SurchargeDetailsRequest surchargeDetailsRequest = udrCreate(SurchargeDetailsRequest);
+        jsonDecodeUdr(inputRequestBody, surchargeDetailsRequest);
+        
+        debug("surchargeDetailsRequest : "+surchargeDetailsRequest);
+        
+        SurchargeDetailsRequestInfo surchargeDetailsRequestInfo = surchargeDetailsRequest.requestInfo;
+        //headerInfo = surchargeDetailsRequest.headerInfo;
+      //  debug("Request amount: " + surchargeDetailsRequestInfo.amount + ", zipCode: " + surchargeDetailsRequestInfo.zipCode);
+        
+        // Skip processing for default jurisdiction code
+        if(strEqualsIgnoreCase("0100100000", jurisdictionCode)) {
+            //log.info("Skipping processing for default jurisdiction code: 0100100000");
+            SurchargeDetailsResponse errorResponse = buildErrorResponse(
+            surchargeDetailsRequest, 
+            resourceCode, 
+            "Invalid Zip code or state cannot be determined."
+            );
+            sendResponse(inputRequest, errorResponse, 200); 
+            //Forwarding log request to Splunk
+            udrRoute(sendRfcToSplunk(inputRequest,(string)udr.exportParams,RFC_RESPONSE,API_STATUS_FAILURE,"ZFICAF_DETERMINE_JURISDICTION_UDR",splunkCtx),"toSplunk");          
+            return;
+        } 
+        //Forwarding log request to Splunk 
+        udrRoute(sendRfcToSplunk(inputRequest,(string)udr.exportParams,RFC_RESPONSE,API_STATUS_SUCCESS,"ZFICAF_DETERMINE_JURISDICTION_UDR",splunkCtx),"toSplunk");
+        string stateCode = determineStateCode(jurisdictionCode);
+        //log.info("Determined state code: " + stateCode + " from jurisdiction: " + jurisdictionCode);
+         debug("Determined state code: " + stateCode + " from jurisdiction: " + jurisdictionCode);
+         callOdataForSurcharge(inputRequest, stateCode, surchargeDetailsRequestInfo.currencyCd, 
+         surchargeDetailsRequestInfo.billingAccountNumber, surchargeDetailsRequest.headerInfo.inputChannelCd);
+       /* double surchargePercent = calculateSurchargePercent(stateCode,surchargeDetailsRequest);
+        log.info("Surcharge percent for state " + stateCode + ": " + surchargePercent + "%");
+         debug("Surcharge percent for state " + stateCode + ": " + surchargePercent + "%");
+        SurchargeDetailsResponse surchargeDetailsResponse = buildSuccessResponse(
+            surchargeDetailsRequest,
+            surchargeDetailsRequestInfo,
+            stateCode,
+            surchargePercent,mapSurchargeDetailsRequest 
+        );
+        
+        debug("Sending success response - State: " + stateCode + ", Surcharge: " + surchargePercent + "%, Total: " );
+       // log.info("Sending success response - State: " + stateCode + ", Surcharge: " + surchargePercent + "%, Total: " + surchargeDetailsResponse.responseInfo.totalAmount);
+        sendResponse(inputRequest, surchargeDetailsResponse, 200);
+        return;*/
+    } else {
+        log.warn("No location results found in table parameters");
+    }
+}
+    }catch(ExceptionDetails e){ 
+        debug("exceptionDetails ::: "+e);       
+    }
+}
+
+// Helper function to extract request body
+string getRequestBody(RequestCycle inputRequest) {
+    debug("inputRequest.body : "+inputRequest.body);
+    if(inputRequest.body != null) {
+        return baToStr(inputRequest.body, "UTF-8");
+    }
+    return "";
+}
+
+void callOdataForSurcharge(RequestCycle cycleUdr, string stateCode, string currencyCode, string billingAccountNumber, string inputChannelCode){
+    string surchargeOdataUri = "/sap/opu/odata/SAP/ZGLB_DEVFICA_RTPSRCHRG_CONVFEE_SRV/SurgConvSet";
+    string surchargeOdataFilter = "?$filter=BAN%20eq%20'"+billingAccountNumber+"'%20and%20InputChannel%20eq%20'"
+                                   +inputChannelCode+"'%20and%20State%20eq%20'"+stateCode+"'%20and%20Currency%20eq%20'"
+                                   +currencyCode+"'&$format=json";
+    
+    if(isEmpty(stateCode))
+      surchargeOdataFilter = "?$filter=BAN%20eq%20'"+billingAccountNumber+"'%20and%20InputChannel%20eq%20'"
+                              +inputChannelCode+"'%20and%20Currency%20eq%20'"+currencyCode+"'&$format=json";
+    
+    string surchargeOdataUrl = surchargeOdataUri + surchargeOdataFilter;
+    http.RequestCycle reqUDR = accessTokenReq(surchargeOdataUrl);   
+    reqUDR.context = cycleUdr; 
+    udrRoute(reqUDR,"toS4");   
+     //Forwarding log request to Splunk
+    udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST, "",reqUDR.path,splunkCtx),"toSplunk");
+    
+}
+
+
+
+// Helper function to build error response
+SurchargeDetailsResponse buildErrorResponse(SurchargeDetailsRequest request, string resCode, string errMsg) {
+    SurchargeDetailsResponse response = udrCreate(SurchargeDetailsResponse);
+    response.headerInfo = request.headerInfo;
+    response.requestInfo = request.requestInfo;
+    
+    SurchargeDetailsResponseInfo responseInfo = udrCreate(SurchargeDetailsResponseInfo);
+    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+    errorInfo = buildError(resCode, errMsg);
+    
+    responseInfo.transactionStatus = "F";
+    responseInfo.errorInfo = errorInfo;
+    response.responseInfo = responseInfo;
+    
+    return response;
+}
+
+// Helper function to determine state code from jurisdiction
+string determineStateCode(string jurisdictionCode) {
+    string sGeoCd = "";
+    string stateCode = "";
+    
+    if(strLength(jurisdictionCode) >= 2) {
+        sGeoCd = strSubstring(jurisdictionCode, 0, 2);
+        debug("Extracted geo code: " + sGeoCd);
+    } else {
+        log.warn("Jurisdiction code too short: " + jurisdictionCode);
+        return "";
+    }
+    
+    if(isEmpty(sGeoCd)) {
+        return "";
+    }
+    
+    int iGeoCd;
+    strToInt(iGeoCd, sGeoCd);
+    
+    if(sGeoCd == "13") {
+        string tempStateCode = Common.APL_COMMON.getStateCodeUsingStateInp(jurisdictionCode, "-");
+        stateCode = (!isEmpty(tempStateCode)) ? tempStateCode : "ID";
+        debug("Geo code 13 - State code: " + stateCode);
+    } else if(iGeoCd > 0 && iGeoCd <= 51) {
+        stateCode = Common.APL_COMMON.getStateCodeUsingStateInp(sGeoCd, "-");
+        debug("Geo code " + iGeoCd + " (state range) - State code: " + stateCode);
+    } else if(iGeoCd >= 52 && iGeoCd <= 79) {
+        stateCode = Common.APL_COMMON.getStateCodeUsingCountryInp(sGeoCd, "-");
+        debug("Geo code " + iGeoCd + " (country range) - State code: " + stateCode);
+    } else {
+        log.warn("Geo code out of range: " + iGeoCd);
+    }
+    
+    return stateCode;
+}
+
+// Helper function to calculate surcharge percentage
+double calculateSurchargePercent(string stateCode, SurchargeDetailsRequest surchargeDetailsRequest) {
+    
+    //string surchargeDetailsUrl = "/sap/opu/odata/SAP/ZGLB_DEVFICA_RTPSRCHRG_CONVFEE_SRV/SurgConvSet?filter=BAN";
+    double surchargePercent;
+    if(isEmpty(stateCode)) {
+        log.warn("Empty state code, applying default surcharge: 2.26%");
+        return 2.26;
+    }
+    
+    if(strEqualsIgnoreCase(stateCode, "CO")) {
+        debug("Colorado rate applied: 2.00%");
+        return 2.00;
+    } else if(strEqualsIgnoreCase(stateCode, "CT") || 
+              strEqualsIgnoreCase(stateCode, "MA") || 
+              strEqualsIgnoreCase(stateCode, "PR")) {
+        debug("No surcharge state: " + stateCode);
+        return 0.00;
+    } else {
+        debug("Standard surcharge applied: 2.26%");
+        strToDouble(surchargePercent, Common.APL_RoundingFunctions.roundUpBigDecValue("2.26",2));
+        return surchargePercent;
+    }
+}
+
+// Helper function to build success response
+SurchargeDetailsResponse buildSuccessResponse(
+    SurchargeDetailsRequest request,
+    SurchargeDetailsRequestInfo requestInfo,
+    string stateCode,
+    double surchargePercent,map<string,any> mapSurchargeDetailsRequest
+) {
+    SurchargeDetailsResponse response = udrCreate(SurchargeDetailsResponse);
+    response.headerInfo = request.headerInfo;
+    response.requestInfo = request.requestInfo;
+    
+    SurchargeDetailsResponseInfo responseInfo = udrCreate(SurchargeDetailsResponseInfo);
+    responseInfo.surchargePercent = surchargePercent;
+    responseInfo.stateCode = stateCode;
+    
+   map<string,string> mapSurchargeReqInfo = (map<string,string>)mapGet(mapSurchargeDetailsRequest,"requestInfo");
+   
+    if(mapGet(mapSurchargeReqInfo,"amount") != null && requestInfo.amount > 0) {
+        double surchargeAmount ;
+       string surchargeAmountString = (string)(requestInfo.amount * (surchargePercent / 100));
+        
+        
+        strToDouble(surchargeAmount, Common.APL_RoundingFunctions.roundUpBigDecValue(surchargeAmountString,2));
+        double totalAmount;
+        string totalAmountString = (string)(requestInfo.amount + surchargeAmount);
+         strToDouble(totalAmount, Common.APL_RoundingFunctions.roundUpBigDecValue(totalAmountString,2));
+        responseInfo.surchargeAmount = surchargeAmount;
+        responseInfo.totalAmount = totalAmount;
+        responseInfo.amount = requestInfo.amount;
+        debug("Calculation - Amount: " + requestInfo.amount + ", Surcharge: " + surchargeAmount + ", Total: " + totalAmount);
+    }
+    
+    responseInfo.transactionStatus = "S";
+    response.responseInfo = responseInfo;
+    debug("Response : "+response);
+    return response;
+}
+
+// Helper function to send response
+void sendResponse(RequestCycle inputRequest, SurchargeDetailsResponse response, int statusCode) {
+    inputRequest.response.openAPIUDR = response;
+    inputRequest.response.statusCode = statusCode;
+    udrRoute(inputRequest, "toClient");
+    
+    //Forwarding log request to Splunk
+    udrRoute(sendToSplunk(inputRequest,null,API_RESPONSE,API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="3">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Internal.RFC_REST.ZFICAF_DETERMINE_JURISDICTION_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="request"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-C47096DB3390424214330B5B2BC35B9B"/>
+                  <int name="queueFullMaxRetries" value="10"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="true"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" null="true"/>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="false"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="BRIM_CM_REST"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="BRIM"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.Common.APL_COMMON;
+import apl.BRIMCM_APIs_Common.APL_CMAPIs;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OpenAPI_Collection_Misc;
+import ultra.BRIMCM_APIs_Collection.ULF_API_Collection_Misc;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("request" , "Agent Name");
+}
+
+consume {
+    try {
+        string resourceCode;
+        if(instanceOf(input, RequestCycle)) {
+            RequestCycle cycleUdr = (RequestCycle)input;
+            debug("The value of cycleUdr = " + (cycleUdr));
+            RequestCycle reqUdr = (RequestCycle)cycleUdr.context;
+            string sReqBody, sResponseBody;
+            if(null != reqUdr.body)
+                sReqBody = baToStr(reqUdr.body);
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, reqUdr.path);
+            
+            if(cycleUdr.path == "/sap/opu/odata/SAP/ZGLB_DEVFICA_ACCOUNT_STATUS_UP_SRV/$metadata" && cycleUdr.method == "GET") {
+                map<string, list<string>> mapToken = tokenReq(cycleUdr.response.headers);
+                map<string, map<string, string>> mapInputRequestDetails = (map<string, map<string, string>>)jsonParse(sReqBody);
+                http.RequestCycle udr = sendAgentDetails(mapToken, mapInputRequestDetails);
+                udr.context = reqUdr;
+                udrRoute(udr, "toS4");
+                udrRoute(sendToSplunk(reqUdr,udr,ODATA_REQUEST, "",udr.path,splunkCtx),"toSplunk");
+            } else if(cycleUdr.path == "/sap/opu/odata/SAP/ZGLB_DEVFICA_ACCOUNT_STATUS_UP_SRV/RequestInfoSet" && cycleUdr.method == "POST") {
+                try {
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);
+                } catch(ExceptionDetails e) {
+                    sResponseBody = (string)cycleUdr.response.body;
+                }
+                string status = API_STATUS_SUCCESS;
+                map<string, any> response = (map<string, any>)jsonParse(sResponseBody);
+                AgencyReturnReq agencyReq = udrCreate(AgencyReturnReq);
+                jsonDecodeUdr(sReqBody, agencyReq);
+                AgencyReturnResp agencyResp = udrCreate(AgencyReturnResp);
+                CreateReturnAgency_responseInfo responseUdr = udrCreate(CreateReturnAgency_responseInfo);
+                agencyResp.requestInfo = agencyReq.requestInfo;
+                agencyResp.headerInfo = agencyReq.headerInfo;
+                if(cycleUdr.response.statusCode == 201) {
+                    map<string, string> mapResponse = (map<string, string>)mapGet(response, "d");
+                    responseUdr.transactionStatus = "S";
+                    responseUdr.message = mapGet(mapResponse, "Message");
+                } else {
+                    string errorMessage;
+                    ErrorInfo errUdr = udrCreate(ErrorInfo);
+                    try {
+                        map<string, map<string, string>> mapCode = (map<string, map<string, string>>)mapGet(response, "error");
+                        map<string, string> mapErrorValue = mapGet(mapCode, "message");
+                        errorMessage = mapGet(mapErrorValue, "value");
+                    } catch(ExceptionDetails e) {
+                        if(cycleUdr.response.statusCode == 400) {
+                            errorMessage = sResponseBody;
+                        } else if(cycleUdr.response.statusCode == 401) {
+                            errorMessage = "Not Authorized";
+                        } else {
+                            errorMessage = "The OData request processing has been abnormally terminated";
+                        }
+                    }
+                    errUdr.errorMessage = errorMessage;
+                    errUdr.errorCd = cycleUdr.response.statusCode == 400 ? resourceCode + BRIM_ERROR : resourceCode + BRIM_ERROR;
+                    responseUdr.transactionStatus = "F";
+                    responseUdr.errorInfo = errUdr;
+                    status = API_STATUS_FAILURE;
+                }
+                agencyResp.responseInfo = responseUdr;
+                debug("The value of agencyResp = " + (agencyResp));
+                reqUdr.response.openAPIUDR = agencyResp;
+                reqUdr.response.statusCode = 200;
+                // logResponse(reqUdr, "");
+                udrRoute(reqUdr, "toClient");
+                udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, status,cycleUdr.path,splunkCtx),"toSplunk");
+                udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, status,null,splunkCtx),"toSplunk");
+            } else if(strREContains(cycleUdr.path, "sap/opu/odata/sap/ZGLB_DEVFI_CURRENCY_CONV_API_SRV/currencyConvSet")) {
+                CurrencyConversionResponse currencyConversionResponse = udrCreate(CurrencyConversionResponse);
+                CurrencyConversionResponseInfo currencyConversionResponseInfo = udrCreate(CurrencyConversionResponseInfo);
+                bigdec amountFromRequest;
+                any inputRequest;
+                try {
+                    if(cycleUdr.context != null) {
+                        RequestCycle inputRequestCycle = (RequestCycle)cycleUdr.context;                        
+                        string requestBody = baToStr(inputRequestCycle.body, "UTF-8");
+                        inputRequest = jsonParse(requestBody);
+                        
+                        string amountInString = (string)inputRequest.requestInfo.amount;
+                        if(strREContains(amountInString, "E")) {
+                            inputRequest.requestInfo.amount = (bigdec)inputRequest.requestInfo.amount;
+                        }
+                        //amountFromRequest = inputRequest.requestInfo.amount;
+                    }
+                    CurrencyConversionRequest requestUdr = udrCreate(CurrencyConversionRequest);
+                    jsonDecodeUdr(sReqBody, requestUdr);
+                    currencyConversionResponse.headerInfo = requestUdr.headerInfo;
+                    currencyConversionResponse.requestInfo = requestUdr.requestInfo;
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);                     
+                    CurrencyConversionODATAResponse currencyConversionODATAResponse = udrCreate(CurrencyConversionODATAResponse);
+                    jsonDecodeUdr(sResponseBody, currencyConversionODATAResponse);                   
+                    currencyConversionResponseInfo.transactionStatus = "S";
+                    
+                    // bigdec amountFromRequest;
+                    // strToBigDec(amountFromRequest,currencyConversionODATAResponse.d.amount);
+                    if(null != currencyConversionODATAResponse && null != currencyConversionODATAResponse.error && null != currencyConversionODATAResponse.error.message) {
+                        currencyConversionResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(currencyConversionODATAResponse.error.message.value) ? "Internal error occured from S4" : currencyConversionODATAResponse.error.message.value;
+                        currencyConversionResponseInfo.errorInfo = errorInfo;
+                        currencyConversionResponse.responseInfo = currencyConversionResponseInfo;
+                        string responseVal = jsonFormat(currencyConversionResponse);
+                        any payload = jsonParse(responseVal);
+                        payload.requestInfo.amount = inputRequest.requestInfo.amount;
+                        any resp = jsonFormat(payload);
+                        reqUdr.response.body = resp;
+                        //reqUdr.response.openAPIUDR = currencyConversionResponse;
+                        reqUdr.response.statusCode = 200;
+                        udrRoute(reqUdr, "toClient");
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                    
+                    string exchangeDate = currencyConversionODATAResponse.d.dateUsedForConversion;
+                    
+                    if(!isEmpty(exchangeDate))
+                        currencyConversionResponseInfo.dateOfExchangeRate = strSubstring(exchangeDate, 0, 4) + "-" + strSubstring(exchangeDate, 4, 6) + "-" + strSubstring(exchangeDate, 6, 8);
+                    else
+                        currencyConversionResponseInfo.dateOfExchangeRate = requestUdr.requestInfo.conversionDate;
+                    
+                    strToBigDec(currencyConversionResponseInfo.exchangeRate, currencyConversionODATAResponse.d.exchangeRate);
+                    currencyConversionResponse.responseInfo = currencyConversionResponseInfo;
+                    
+                    string responseVal = jsonFormat(currencyConversionResponse);
+                    any payload = jsonParse(responseVal);
+                    
+                    bigdec convertedAmountBigDec;
+                    strToBigDec(convertedAmountBigDec, currencyConversionODATAResponse.d.convertedAmount);
+                    
+                    payload.responseInfo.convertedAmount = convertedAmountBigDec;
+                    payload.requestInfo.amount = inputRequest.requestInfo.amount;
+                    
+                    any response = jsonFormat(payload);
+                    // reqUdr.response.openAPIUDR = currencyConversionResponse;
+                    reqUdr.response.body = response;
+                    reqUdr.response.statusCode = 200;
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_SUCCESS,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx),"toSplunk");
+                } catch(ExceptionDetails e) {
+                    debug("The value of e = " + (e));
+                    currencyConversionResponseInfo.transactionStatus = "F";
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR;
+                    errorInfo.errorMessage = e.message;
+                    currencyConversionResponseInfo.errorInfo = errorInfo;
+                    currencyConversionResponse.responseInfo = currencyConversionResponseInfo;
+                    string responseVal = jsonFormat(currencyConversionResponse);
+                    any payload = jsonParse(responseVal);
+                    payload.requestInfo.amount = amountFromRequest;
+                    any resp = jsonFormat(payload);
+                    reqUdr.response.body = resp;
+                    reqUdr.response.statusCode = 500;                  
+                    udrRoute(reqUdr, "toClient");
+                    
+                    //Forward logs to Splunk
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                }
+                
+            } else if(strREContains(cycleUdr.path, "sap/opu/odata/SAP/ZGLB_DEVFI_DUNNING_LOCKS_SRV/DunningAccountSet") && cycleUdr.method == "GET") {
+                debug("INSIDE dunning lock reason: ");
+                ODATAResponse dunningLockReasonODATAResponse = udrCreate(ODATAResponse);
+                DunningLockReasonResponse dunningLockReasonResponse = udrCreate(DunningLockReasonResponse);
+                DunningLockReasonResponseInfo dunningLockReasonResponseInfo = udrCreate(DunningLockReasonResponseInfo);
+                DunningLockReasonRequestInfo dunningLockReasonRequestInfo = udrCreate(DunningLockReasonRequestInfo);
+                try {
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);
+                    jsonDecodeUdr(sResponseBody, dunningLockReasonODATAResponse);
+                    // debug("Value of dunningLockReasonODATAResponse : "+dunningLockReasonODATAResponse);
+                    dunningLockReasonResponseInfo.transactionStatus = "S";
+                    string marketSegment = mapGet(reqUdr.parameters, "marketSegment");
+                    dunningLockReasonRequestInfo.marketSegment = marketSegment;
+                    dunningLockReasonResponse.requestInfo = dunningLockReasonRequestInfo;
+                    if(null != dunningLockReasonODATAResponse && null != dunningLockReasonODATAResponse.error && null != dunningLockReasonODATAResponse.error.message) {
+                        dunningLockReasonResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(dunningLockReasonODATAResponse.error.message.value) ? "Internal error occured from S4" : dunningLockReasonODATAResponse.error.message.value;
+                        dunningLockReasonResponseInfo.errorInfo = errorInfo;
+                        dunningLockReasonResponse.responseInfo = dunningLockReasonResponseInfo;
+                        reqUdr.response.openAPIUDR = dunningLockReasonResponse;
+                        reqUdr.response.statusCode = 500;
+                        // logResponse(reqUdr, "");
+                        udrRoute(reqUdr, "toClient");
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                    list<DunningLockResults> dunningLockResults = dunningLockReasonODATAResponse.d.To_LockReasonNav.results;
+                    DunningLockDetail dunningLockDetail = null;
+                    list<DunningLockDetail> dunningLockDetails = listCreate(DunningLockDetail);
+                    for(DunningLockResults dunningLockResult : dunningLockResults) {
+                        dunningLockDetail = udrCreate(DunningLockDetail);
+                        dunningLockDetail.lockReason = dunningLockResult.LockReason;
+                        dunningLockDetail.lockReasonCd = dunningLockResult.LockReasonCode;
+                        listAdd(dunningLockDetails, dunningLockDetail);
+                    }
+                    dunningLockReasonResponseInfo.dunningLockReasonDetails = dunningLockDetails;
+                    dunningLockReasonResponse.responseInfo = dunningLockReasonResponseInfo;
+                    
+                    reqUdr.response.openAPIUDR = dunningLockReasonResponse;
+                    reqUdr.response.statusCode = 200;
+                    // logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_SUCCESS,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx),"toSplunk");
+                } catch(ExceptionDetails e) {
+                    debug("Exception Occured in dunningLockReasons API : " + e.stackTrace);
+                    dunningLockReasonResponseInfo.transactionStatus = "F";
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR;
+                    errorInfo.errorMessage = e.message;
+                    dunningLockReasonResponseInfo.errorInfo = errorInfo;
+                    dunningLockReasonResponse.responseInfo = dunningLockReasonResponseInfo;
+                    reqUdr.response.openAPIUDR = dunningLockReasonResponse;
+                    reqUdr.response.statusCode = 500;
+                    // logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                }
+                
+            } else if(strREContains(cycleUdr.path, "/sap/opu/odata/sap/ZGLB_DEVFI_COUNTRY_STATE_SRV/CountrySet")) {
+                CountryAndStateCodesResponse countryAndStateCodesResponse = udrCreate(CountryAndStateCodesResponse);
+                CountryAndStateCodesResponseInfo countryAndStateCodesResponseInfo = udrCreate(CountryAndStateCodesResponseInfo);
+                CountryAndStateCodesRequestInfo countryAndStateCodesRequestInfo = udrCreate(CountryAndStateCodesRequestInfo);
+                try {
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);
+                    debug("Value of sResponseBody : " + sResponseBody);
+                    ODATAResponse countryAndStateCodeOdataResponse = udrCreate(ODATAResponse);
+                    jsonDecodeUdr(sResponseBody, countryAndStateCodeOdataResponse);
+                    debug("Value of CountryAndStateCodes Response : " + countryAndStateCodeOdataResponse);
+                    string countryCode = mapGet(reqUdr.parameters, "countryCd");
+                    
+                    if(!isEmpty(countryCode)) {
+                        countryAndStateCodesRequestInfo.countryCd = countryCode;
+                        countryAndStateCodesResponse.requestInfo = countryAndStateCodesRequestInfo;
+                    }
+                    if(null != countryAndStateCodeOdataResponse && null != countryAndStateCodeOdataResponse.error && null != countryAndStateCodeOdataResponse.error.message) {
+                        countryAndStateCodesResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(countryAndStateCodeOdataResponse.error.message.value) ? "Internal error occured from S4" : countryAndStateCodeOdataResponse.error.message.value;
+                        countryAndStateCodesResponseInfo.errorInfo = errorInfo;
+                        countryAndStateCodesResponse.responseInfo = countryAndStateCodesResponseInfo;
+                        reqUdr.response.openAPIUDR = countryAndStateCodesResponse;
+                        reqUdr.response.statusCode = 500;
+                        // logResponse(reqUdr, "");
+                        udrRoute(reqUdr, "toClient");
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                    
+                    list<Result> countryAndStateOdataDetails = countryAndStateCodeOdataResponse.d.results;
+                    if(isEmpty(countryCode)) {
+                        CountryCodeDetail countryCodeDetail = null;
+                        list<CountryCodeDetail> countryCodeDetails = listCreate(CountryCodeDetail);
+                        for(Result countryAndStateOdataDetail : countryAndStateOdataDetails) {
+                            countryCodeDetail = udrCreate(CountryCodeDetail);
+                            countryCodeDetail.countryCode = countryAndStateOdataDetail.CountryCd;
+                            countryCodeDetail.countryDesciption = countryAndStateOdataDetail.CountryDesc;
+                            listAdd(countryCodeDetails, countryCodeDetail);
+                        }
+                        countryAndStateCodesResponseInfo.countryCodeDetails = countryCodeDetails;
+                        countryAndStateCodesResponseInfo.transactionStatus = "S";
+                    } else {
+                        StateCodeDetail stateCodeDetail = null;
+                        list<StateCodeDetail> stateCodeDetails = listCreate(StateCodeDetail);
+                        
+                        for(Result countryAndStateOdataDetail : countryAndStateOdataDetails) {
+                            stateCodeDetail = udrCreate(StateCodeDetail);
+                            stateCodeDetail.stateCode = countryAndStateOdataDetail.RegionCd;
+                            stateCodeDetail.stateDesciption = countryAndStateOdataDetail.RegionDesc;
+                            listAdd(stateCodeDetails, stateCodeDetail);
+                        }
+                        countryAndStateCodesResponseInfo.stateCodeDetails = stateCodeDetails;
+                        countryAndStateCodesResponseInfo.transactionStatus = "S";
+                    }
+                    countryAndStateCodesResponse.responseInfo = countryAndStateCodesResponseInfo;
+                    
+                    reqUdr.response.openAPIUDR = countryAndStateCodesResponse;
+                    reqUdr.response.statusCode = 200;
+                    //logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_SUCCESS,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx),"toSplunk");
+                } catch(ExceptionDetails e) {
+                    debug("Exception occured in country and states API : " + e.stackTrace);
+                    
+                    countryAndStateCodesResponseInfo.transactionStatus = "F";
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR;
+                    errorInfo.errorMessage = e.message;
+                    countryAndStateCodesResponseInfo.errorInfo = errorInfo;
+                    countryAndStateCodesResponse.responseInfo = countryAndStateCodesResponseInfo;
+                    reqUdr.response.openAPIUDR = countryAndStateCodesResponse;
+                    reqUdr.response.statusCode = 500;
+                    // logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                }
+                
+            } else if(strREContains(cycleUdr.path, "/sap/opu/odata/SAP/ZGLB_DEVFI_ADJUSTMENT_REASON_SRV/ReasonSet") || strREContains(cycleUdr.path, "/sap/opu/odata/SAP/ZGLB_DEVFICA_MASS_ADJ_SRV/ReasonValueHelpSet")) {
+                debug("Response from Adjustment Reasons : " + cycleUdr);
+                AdjustmentReasonCodesResponse adjustmentReasonCodesResponse = udrCreate(AdjustmentReasonCodesResponse);
+                AdjustmentReasonCodesResponseInfo adjustmentReasonCodesResponseInfo = udrCreate(AdjustmentReasonCodesResponseInfo);
+                
+                try {
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);
+                    debug("Value of sResponseBody : " + sResponseBody);
+                    ODATAResponse adjustmentReasonCodesOdataResponse = udrCreate(ODATAResponse);
+                    jsonDecodeUdr(sResponseBody, adjustmentReasonCodesOdataResponse);
+                    debug("Value of adjustmentReasonCodesOdata Response : " + adjustmentReasonCodesOdataResponse);
+                    
+                    if(null != adjustmentReasonCodesOdataResponse && null != adjustmentReasonCodesOdataResponse.error && null != adjustmentReasonCodesOdataResponse.error.message) {
+                        adjustmentReasonCodesResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(adjustmentReasonCodesOdataResponse.error.message.value) ? "Internal error occured from S4" : adjustmentReasonCodesOdataResponse.error.message.value;
+                        adjustmentReasonCodesResponseInfo.errorInfo = errorInfo;
+                        adjustmentReasonCodesResponse.responseInfo = adjustmentReasonCodesResponseInfo;
+                        reqUdr.response.openAPIUDR = adjustmentReasonCodesResponse;
+                        reqUdr.response.statusCode = 500;
+                        //logResponse(reqUdr, "");
+                        udrRoute(reqUdr, "toClient");
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                    
+                    list<Result> adjustmentReasonCodeDetails = adjustmentReasonCodesOdataResponse.d.results;
+                    list<AdjustmentReasonCode> adjustmentReasonCodes = listCreate(AdjustmentReasonCode);
+                    
+                    for(Result adjustmentReasonCode : adjustmentReasonCodeDetails) {
+                        AdjustmentReasonCode adjustmentReason = udrCreate(AdjustmentReasonCode);
+                        adjustmentReason.adjustmentReasonCd = (!isEmpty(adjustmentReasonCode.ReasonCd)) ? adjustmentReasonCode.ReasonCd : adjustmentReasonCode.Reason;
+                        adjustmentReason.adjustmentReasonDescription = (!isEmpty(adjustmentReasonCode.ReasonDesc)) ? adjustmentReasonCode.ReasonDesc : adjustmentReasonCode.ReasonText;
+                        listAdd(adjustmentReasonCodes, adjustmentReason);
+                    }
+                    adjustmentReasonCodesResponseInfo.adjustmentReasonCodes = adjustmentReasonCodes;
+                    adjustmentReasonCodesResponseInfo.transactionStatus = "S";
+                    
+                    adjustmentReasonCodesResponse.responseInfo = adjustmentReasonCodesResponseInfo;
+                    
+                    reqUdr.response.openAPIUDR = adjustmentReasonCodesResponse;
+                    reqUdr.response.statusCode = 200;
+                    //logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_SUCCESS,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx),"toSplunk");
+                } catch(ExceptionDetails e) {
+                    debug("Exception occured in adjustmentReasonCodes API : " + e.stackTrace);
+                    
+                    adjustmentReasonCodesResponseInfo.transactionStatus = "F";
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR;
+                    errorInfo.errorMessage = e.message;
+                    adjustmentReasonCodesResponseInfo.errorInfo = errorInfo;
+                    adjustmentReasonCodesResponse.responseInfo = adjustmentReasonCodesResponseInfo;
+                    reqUdr.response.openAPIUDR = adjustmentReasonCodesResponse;
+                    reqUdr.response.statusCode = 500;
+                    //logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                }
+                
+            } else if(strREContains(cycleUdr.path, "/sap/opu/odata/sap/ZGLB_DEVFI_HOTLIST_IND_SRV/hotlistIndicatorSet")) {
+                debug("Response from HotlistIndicator service : " + cycleUdr);
+                HotlistIndicatorResponse hotlistIndicatorResponse = udrCreate(HotlistIndicatorResponse);
+                HotlistIndicatorResponseInfo hotlistIndicatorResponseInfo = udrCreate(HotlistIndicatorResponseInfo);
+                
+                try {
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);
+                    debug("Value of sResponseBody : " + sResponseBody);
+                    ODATAResponse hotlistIndicatorOdataResponse = udrCreate(ODATAResponse);
+                    jsonDecodeUdr(sResponseBody, hotlistIndicatorOdataResponse);
+                    debug("Value of hotlistIndicatorOdataResponse Response : " + hotlistIndicatorOdataResponse);
+                    
+                    if(null != hotlistIndicatorOdataResponse && null != hotlistIndicatorOdataResponse.error && null != hotlistIndicatorOdataResponse.error.message) {
+                        hotlistIndicatorResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(hotlistIndicatorOdataResponse.error.message.value) ? "Internal error occured from S4" : hotlistIndicatorOdataResponse.error.message.value;
+                        hotlistIndicatorResponseInfo.errorInfo = errorInfo;
+                        hotlistIndicatorResponse.responseInfo = hotlistIndicatorResponseInfo;
+                        reqUdr.response.openAPIUDR = hotlistIndicatorResponse;
+                        reqUdr.response.statusCode = 500;
+                        //logResponse(reqUdr, "");
+                        udrRoute(reqUdr, "toClient");
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                    
+                    list<Result> hotlistIndicatorDetails = hotlistIndicatorOdataResponse.d.results;
+                    list<HotlistIndicator> hotlistIndicators = listCreate(HotlistIndicator);
+                    
+                    for(Result hotlistIndicatorCode : hotlistIndicatorDetails) {
+                        HotlistIndicator hotlistIndicator = udrCreate(HotlistIndicator);
+                        hotlistIndicator.hotlistIndicatorCd = hotlistIndicatorCode.returnReasonCode;
+                        hotlistIndicator.hotlistIndicatorDescription = hotlistIndicatorCode.description;
+                        listAdd(hotlistIndicators, hotlistIndicator);
+                    }
+                    hotlistIndicatorResponseInfo.hotlistIndicators = hotlistIndicators;
+                    hotlistIndicatorResponseInfo.transactionStatus = "S";
+                    
+                    hotlistIndicatorResponse.responseInfo = hotlistIndicatorResponseInfo;
+                    
+                    reqUdr.response.openAPIUDR = hotlistIndicatorResponse;
+                    reqUdr.response.statusCode = 200;
+                    //logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_SUCCESS,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx),"toSplunk");
+                } catch(ExceptionDetails e) {
+                    debug("Exception occured in hotlistReasoncodes API : " + e.stackTrace);
+                    
+                    hotlistIndicatorResponseInfo.transactionStatus = "F";
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR;
+                    errorInfo.errorMessage = e.message;
+                    hotlistIndicatorResponseInfo.errorInfo = errorInfo;
+                    hotlistIndicatorResponse.responseInfo = hotlistIndicatorResponseInfo;
+                    reqUdr.response.openAPIUDR = hotlistIndicatorResponse;
+                    reqUdr.response.statusCode = 500;
+                    //logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                }
+                
+            } else if(strREContains(cycleUdr.path, "ZGLB_DEVFICA_WF_API_SRV/WF_API_IPSet")) {
+                debug("Response from workflow details service : " + cycleUdr);
+                log.info("Response from workflow details service : " + cycleUdr);
+                ApprovalDetailsResponse approvalDetailsResponse = udrCreate(ApprovalDetailsResponse);
+                ApprovalDetailsResponseInfo approvalDetailsResponseInfo = udrCreate(ApprovalDetailsResponseInfo);
+                try {
+                    ApprovalDetailsRequest approvalDetailsRequest = udrCreate(ApprovalDetailsRequest);
+                    jsonDecodeUdr(sReqBody, approvalDetailsRequest);
+                    
+                    approvalDetailsResponse.headerInfo = approvalDetailsRequest.headerInfo;
+                    approvalDetailsResponse.requestInfo = approvalDetailsRequest.requestInfo;
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);
+                    debug("Value of sResponseBody : " + sResponseBody);
+                    log.info("Value of sResponseBody : " + sResponseBody);
+                    ODATAResponse approvalDetailsOdataResponse = udrCreate(ODATAResponse);
+                    jsonDecodeUdr(sResponseBody, approvalDetailsOdataResponse);
+                    debug("Value of approvalDetailsOdataResponse Response : " + approvalDetailsOdataResponse);
+                    log.info("Value of approvalDetailsOdataResponse Response : " + approvalDetailsOdataResponse);
+                    
+                    if(null != approvalDetailsOdataResponse && null != approvalDetailsOdataResponse.error && null != approvalDetailsOdataResponse.error.message) {
+                        approvalDetailsResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(approvalDetailsOdataResponse.error.message.value) ? "Internal error occured from S4" : approvalDetailsOdataResponse.error.message.value;
+                        approvalDetailsResponseInfo.errorInfo = errorInfo;
+                        approvalDetailsResponse.responseInfo = approvalDetailsResponseInfo;
+                        reqUdr.response.openAPIUDR = approvalDetailsResponse;
+                        reqUdr.response.statusCode = 500;
+                        //logResponse(reqUdr, "");
+                        udrRoute(reqUdr, "toClient");
+                        
+                        //Forwarding log request to Splunk
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                    
+                    list<Result> workFlowResponse = approvalDetailsOdataResponse.d.results;
+                    list<WorkflowRequestDetails> workflowRequestDetails = listCreate(WorkflowRequestDetails);
+                    
+                    for(Result workflowResponseObj : workFlowResponse) {
+                        list<Result> workflowResponseDetails = workflowResponseObj.IP_RSLT_NAV.results;
+                        
+                        for(Result workflowResponseDetailsObj : workflowResponseDetails) {
+                            WorkflowRequestDetails workflowRequestDetail = udrCreate(WorkflowRequestDetails);
+                            
+                            workflowRequestDetail.billingAccountNumber = workflowResponseDetailsObj.billingAccountNumber;
+                            workflowRequestDetail.workflowId = workflowResponseDetailsObj.workflowId;
+                            workflowRequestDetail.requestId = workflowResponseDetailsObj.requestId;
+                            string requestType = "";
+                            
+                            if(strEqualsIgnoreCase("WS90300019", workflowResponseDetailsObj.requestType))
+                                requestType = "Invoice level Adjustment";
+                            else if(strEqualsIgnoreCase("WS90300012", workflowResponseDetailsObj.requestType))
+                                requestType = "Account level Adjustment";
+                            else if(strEqualsIgnoreCase("WS90300008", workflowResponseDetailsObj.requestType))
+                                requestType = "Refund";
+                            else if(strEqualsIgnoreCase("WS90300003", workflowResponseDetailsObj.requestType))
+                                requestType = "Write-Off";
+                            else if(strEqualsIgnoreCase("WS90300LPC", workflowResponseDetailsObj.requestType))
+                                requestType = "LPC Adjustment";
+                            
+                            workflowRequestDetail.requestType = requestType;
+                            workflowRequestDetail.requestStatus = workflowResponseDetailsObj.requestStatus;
+                            workflowRequestDetail.initiator = workflowResponseDetailsObj.initiatorCUID;
+                            workflowRequestDetail.createDate = getDateWithTS(workflowResponseDetailsObj.createDate);
+                            workflowRequestDetail.currentApprover = workflowResponseDetailsObj.currentApprover;
+                            workflowRequestDetail.notes = workflowResponseDetailsObj.notes;
+                            strToFloat(workflowRequestDetail.requestAmount, workflowResponseDetailsObj.requestAmount);
+                            workflowRequestDetail.currencyCd = workflowResponseDetailsObj.currencyCd;
+                            workflowRequestDetail.documentNumber = workflowResponseDetailsObj.documentNumber;
+                            
+                            list<ApprovalHistory> approvals = listCreate(ApprovalHistory);
+                            list<Result> approvalOdataDetails = workflowResponseDetailsObj.RSLT_APPR_NAV.results;
+                            
+                            for(Result approvalOdataDetail : approvalOdataDetails) {
+                                ApprovalHistory approvalHistory = udrCreate(ApprovalHistory);
+                                approvalHistory.approvedBy = approvalOdataDetail.approvedBy;
+                                approvalHistory.approvedDate = getDateWithTS(approvalOdataDetail.approvedDate);
+                                approvalHistory.notes = approvalOdataDetail.notes;
+                                listAdd(approvals, approvalHistory);
+                            }
+                            
+                            workflowRequestDetail.approvalHistory = approvals;
+                            listAdd(workflowRequestDetails, workflowRequestDetail);
+                        }
+                    }
+                    
+                    approvalDetailsResponseInfo.workflowRequestDetails = workflowRequestDetails;
+                    approvalDetailsResponseInfo.transactionStatus = "S";
+                    
+                    approvalDetailsResponse.responseInfo = approvalDetailsResponseInfo;
+                    reqUdr.response.openAPIUDR = approvalDetailsResponse;
+                    reqUdr.response.statusCode = 200;
+                    // logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    
+                    //Forwarding log request to Splunk
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_SUCCESS,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_SUCCESS,null,splunkCtx),"toSplunk");
+                    return;
+                } catch(ExceptionDetails e) {
+                    debug("Exception occured in approvalDetails API : " + e.message + e.stackTrace);
+                    
+                    approvalDetailsResponseInfo.transactionStatus = "F";
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR;
+                    errorInfo.errorMessage = e.message;
+                    approvalDetailsResponseInfo.errorInfo = errorInfo;
+                    approvalDetailsResponse.responseInfo = approvalDetailsResponseInfo;
+                    reqUdr.response.openAPIUDR = approvalDetailsResponse;
+                    reqUdr.response.statusCode = 500;
+                    //logResponse(reqUdr, "");
+                    udrRoute(reqUdr, "toClient");
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                    return;
+                }
+                
+            } else if(strREContains(cycleUdr.path, "ZGLB_DEVFICA_RTPSRCHRG_CONVFEE_SRV")) {
+                debug("Response from surcharge details service : " + cycleUdr);
+                //log.info("Response from surcharge details service : " + cycleUdr);
+                
+                SurchargeDetailsResponse surchargeDetailsResponse = udrCreate(SurchargeDetailsResponse);
+                SurchargeDetailsResponseInfo surchargeDetailsResponseInfo = udrCreate(SurchargeDetailsResponseInfo);
+                string splunkEvent;
+                try {    
+                    if(cycleUdr.context != null) {
+                        RequestCycle inputRequestCycle = (RequestCycle)cycleUdr.context;                        
+                    }
+                    SurchargeDetailsRequest surchargeDetailsRequest = udrCreate(SurchargeDetailsRequest);
+                    jsonDecodeUdr(sReqBody, surchargeDetailsRequest);
+                    
+                    surchargeDetailsResponse.headerInfo = surchargeDetailsRequest.headerInfo;
+                    surchargeDetailsResponse.requestInfo = surchargeDetailsRequest.requestInfo;
+                    
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);
+                    debug("Value of sResponseBody : " + sResponseBody);
+                    //log.info("Value of sResponseBody : " + sResponseBody);
+                    
+                    ODATAResponse surchargeDetailsOdataResponse = udrCreate(ODATAResponse);
+                    jsonDecodeUdr(sResponseBody, surchargeDetailsOdataResponse);
+                    debug("Value of surchargeDetailsOdataResponse Response : " + surchargeDetailsOdataResponse);
+                    //log.info("Value of surchargeDetailsOdataResponse Response : " + surchargeDetailsOdataResponse);
+                    
+                    // Check for errors from S4
+                    if(null != surchargeDetailsOdataResponse && null != surchargeDetailsOdataResponse.error && null != surchargeDetailsOdataResponse.error.message) {
+                        surchargeDetailsResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(surchargeDetailsOdataResponse.error.message.value) ? "Internal error occurred from S4" : surchargeDetailsOdataResponse.error.message.value;
+                        surchargeDetailsResponseInfo.errorInfo = errorInfo;
+                        surchargeDetailsResponse.responseInfo = surchargeDetailsResponseInfo;
+                        reqUdr.response.openAPIUDR = surchargeDetailsResponse;
+                        reqUdr.response.statusCode = 500;
+                        udrRoute(reqUdr, "toClient");
+                        
+                      //Forwarding log request to Splunk
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                    
+                    // Map successful response
+                    list<Result> results = surchargeDetailsOdataResponse.d.results;
+                    string status;
+                    if(results != null && listSize(results) > 0) {
+                        Result surchargeResult = listGet(results, 0);
+                        
+                       if(!isEmpty(surchargeResult.ErrorCd) || !isEmpty(surchargeResult.ErrorMessage)) {
+                        surchargeDetailsResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = isEmpty(surchargeResult.ErrorMessage) ? "Internal error occurred from S4" : surchargeResult.ErrorMessage;
+                        surchargeDetailsResponseInfo.errorInfo = errorInfo;
+                        surchargeDetailsResponse.responseInfo = surchargeDetailsResponseInfo;
+                        reqUdr.response.openAPIUDR = surchargeDetailsResponse;
+                        reqUdr.response.statusCode = 500;
+                        udrRoute(reqUdr, "toClient");
+                        
+                        //Forwarding log request to Splunk
+                        udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                        udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                        return;
+                    }
+                        
+                        
+                        surchargeDetailsResponseInfo.transactionStatus = "S";
+                        status = API_STATUS_SUCCESS;
+                        // Get amount from request (optional field)
+                        double requestAmount = 0.0;
+                        boolean hasRequestAmount = false;
+                        any rec;
+                        rec = jsonParse(sReqBody);
+                        map<string, any> mapSurchargeDetailsRequest = (map<string, any>)rec;
+                        map<string, string> mapSurchargeReqInfo = (map<string, string>)mapGet(mapSurchargeDetailsRequest, "requestInfo");
+                        if(mapGet(mapSurchargeReqInfo, "amount") != null) {
+                            requestAmount = surchargeDetailsRequest.requestInfo.amount;
+                            hasRequestAmount = true;
+                            surchargeDetailsResponseInfo.amount = requestAmount;
+                        }
+                        
+                        // Map state code
+                        surchargeDetailsResponseInfo.stateCode = surchargeResult.State;
+                        
+                        // Parse and map surcharge percent
+                        double surchargePercent = 0.0;
+                        //surchargeResult.SurChrg = "2.26%";
+                        if(!isEmpty(surchargeResult.SurChrg)) {
+                            string surcharge = strSubstring(surchargeResult.SurChrg, 0, strLength(surchargeResult.SurChrg) - 1);
+                            strToDouble(surchargePercent, Common.APL_RoundingFunctions.roundUpBigDecValue(surcharge, 2));
+                            surchargeDetailsResponseInfo.surchargePercent = surchargePercent;
+                        }
+                        
+                        if(!isEmpty(surchargeResult.Convfee)) {
+                            surchargeDetailsResponseInfo.convenienceFee = surchargeResult.Convfee;
+                        }
+                        
+                        // Calculate surcharge amount and total amount only if request amount was provided
+                        if(hasRequestAmount && requestAmount > 0) {
+                            double surchargeAmount;
+                            string surchargeAmountString = (string)(requestAmount * (surchargePercent / 100));
+                            strToDouble(surchargeAmount, Common.APL_RoundingFunctions.roundUpBigDecValue(surchargeAmountString, 2));
+                            
+                            double totalAmount;
+                            string totalAmountString = (string)(requestAmount + surchargeAmount);
+                            strToDouble(totalAmount, Common.APL_RoundingFunctions.roundUpBigDecValue(totalAmountString, 2));
+                            
+                            surchargeDetailsResponseInfo.totalAmount = totalAmount;
+                            surchargeDetailsResponseInfo.surchargeAmount = surchargeAmount;
+                            surchargeDetailsResponseInfo.surchargePercent = surchargePercent;
+                        } else {
+                            // If no amount provided, just return surcharge percentage
+                            // surchargeDetailsResponseInfo.surchargePercent = 0.0;
+                            // surchargeDetailsResponseInfo.totalAmount = 0.0;
+                        }
+                    } else {
+                        // No results found
+                        surchargeDetailsResponseInfo.transactionStatus = "F";
+                        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                        errorInfo.errorCd = resourceCode + BRIM_ERROR;
+                        errorInfo.errorMessage = "No surcharge details found for the given criteria";
+                        surchargeDetailsResponseInfo.errorInfo = errorInfo;
+                        status = API_STATUS_FAILURE;
+                    }
+                    
+                    surchargeDetailsResponse.responseInfo = surchargeDetailsResponseInfo;
+                    reqUdr.response.openAPIUDR = surchargeDetailsResponse;
+                    reqUdr.response.statusCode = 200;
+                    udrRoute(reqUdr, "toClient");
+                    
+                    //Forwarding log request to Splunk                    
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, status,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, status,null,splunkCtx),"toSplunk");
+                    return;
+                    
+                } catch(ExceptionDetails e) {
+                    debug("Exception occurred in surchargeDetails API : " + e.message + e.stackTrace);
+                    log.error("Exception occurred in surchargeDetails API : " + e.message);
+                    
+                    surchargeDetailsResponseInfo.transactionStatus = "F";
+                    ErrorInfo errorInfo = udrCreate(ErrorInfo);
+                    errorInfo.errorCd = resourceCode + CM_CONNECTION_ERROR;
+                    errorInfo.errorMessage = e.message;
+                    surchargeDetailsResponseInfo.errorInfo = errorInfo;
+                    surchargeDetailsResponse.responseInfo = surchargeDetailsResponseInfo;
+                    reqUdr.response.openAPIUDR = surchargeDetailsResponse;
+                    reqUdr.response.statusCode = 500;;                    
+                    udrRoute(reqUdr, "toClient");
+                    
+                    //Forwarding log request to Splunk
+                    udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, API_STATUS_FAILURE,cycleUdr.path,splunkCtx),"toSplunk");
+                    udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                    return;
+                }
+            }
+        } else {
+            debug("In else part : " + input);
+        }
+    } catch(ExceptionDetails e) {
+        debug("Exception occured : " + e.stackTrace);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.errorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="response"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.batchrt.forw.disk.BatchForwRtDiskInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="2">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.batchrt.forw.disk.BatchForwRtDiskInsp]]></string>
+               <storable name="Data" storable-id="dr.batchforwrt.BatchForwRtBaseData" ver="20.0">
+                  <storable name="agentData" storable-id="dr.DiskOutputData" ver="13.0">
+                     <string name="arguments" value=""/>
+                     <string name="command" value=""/>
+                     <enum name="compType" storable-id="dr.CompressionType" value="NONE"/>
+                     <boolean name="createEmpty" value="false"/>
+                     <boolean name="createNonExistingBaseDir" value="true"/>
+                     <string name="directory" value=""/>
+                     <enum name="inputType" storable-id="dr.InputType" value="MultiForwardingUDR"/>
+                  </storable>
+                  <int name="closingCriteriaByteCount" value="0"/>
+                  <int name="closingCriteriaDuration" value="60"/>
+                  <int name="closingCriteriaUdrCount" value="1"/>
+               </storable>
+            </storable>
+            <storable name="1" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.devkit.wf.DRFNTServiceInsp"/>
+               <storable name="Data" storable-id="dr.DRFNTServiceConfig" ver="11.0">
+                  <boolean name="createNonExistDirectories" value="true"/>
+                  <array classname="com.digitalroute.devkit.hidden.DRFNTServiceEntry" name="entries" size="0"/>
+                  <boolean name="fNTListEnabled" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Tax"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="11.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableExecutionThresholdLog" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executionThresholdTime" value="1"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="10"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Internal"/>
+                     <string name="Key" value="CMQ1736289634149"/>
+                     <string name="Name" value="RFC_REST"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="GetJurisdiction"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="Common"/>
+                     <string name="Key" value="CMD1779279436841"/>
+                     <string name="Name" value="PRF_WFB_LOGS"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Fwd_Logs"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+    debug("input");
+    
+    if(instanceOf(input,ErrorCycleUDR)){
+        ErrorCycleUDR udr = (ErrorCycleUDR)input;
+        log.info("ErrorCycleUDR Response from Splunk WorkflowBridge = " + udr);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ErrorCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="Request"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="responseFromS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="10" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_35"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="11" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="tax"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toRFC"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_32"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

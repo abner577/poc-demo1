@@ -1,0 +1,3614 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName"><![CDATA[CenturyLink_APIs-BRIMCM-APIs-0.3-oas3-resolved.yaml]]></string>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[---
+openapi: 3.0.1
+info:
+  title: BRIMCM_APIs
+  description: This is to document all the APIs that CM wil host to communicate between different portals and BRIM
+  version: 0.3-oas3
+servers:
+- url: https://api-test1.test.intranet
+- url: https://api-test2.test.intranet
+paths:
+  /brimcm/payment/createPayment:
+    post:
+      tags:
+      - payment
+      summary: To Capture Payment Information from Portals
+      description: "API to capture payment information from various Lumen portals (IVR, Control Centre, MyAccount, EPP etc) and send that information to BRIM"
+      operationId: Add payment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/transactions/post:
+    post:
+      tags:
+      - payment
+      summary: To Capture Payment Information from Portals
+      description: "API to capture payment information from various Lumen portals (IVR, Control Centre, MyAccount, EPP etc) and send that information to BRIM"
+      operationId: post payment operation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostPaymentReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPaymentResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostPaymentResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/autoPayManagement/enroll:
+    post:
+      tags:
+      - autopay
+      summary: API to enroll/update/de-enroll autopay with credit card or ACH
+      description: "API for Cash Apps analyst or an end customer using self-service portals, requires the ability to enroll in and manage autopay with credit card or ACH"
+      operationId: AutoPay Managemnent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnrollReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEnrollResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEnrollResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEnrollResp'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/cancel:
+    post:
+      tags:
+      - payment
+      summary: API to Cancel payments from Portal
+      description: API to capture cancel payment request from Portal and send back the response from BRIM
+      operationId: Payment Cancel
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCancelReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCancelResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCancelResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCancelResp'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/autoPayManagement/history:
+    post:
+      tags:
+      - autopay
+      summary: API to display the autopay details for the selected ban
+      description: API to get data related to changes in the payment profile/auto enrollment from BRIM  and display on portal
+      operationId: AutoPay History
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAutoPayHistoryReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAutoPayHistoryResponse'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAutoPayHistoryResponse'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAutoPayHistoryResponse'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/refund:
+    post:
+      tags:
+      - payment
+      summary: API to capture refund request from Portal
+      description: API to capture refund request from Portal and send back the response from BRIM
+      operationId: Refund API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRefundReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRefundResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRefundResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRefundResp'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/refundCheckStatus:
+    post:
+      tags:
+      - payment
+      summary: API to display Refund checks status issued on Portal
+      description: API to display Refund checks status issued by Lumen to Customers from BRIM to Portal
+      operationId: Refund Status API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRefundCheckReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRefundCheckResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRefundCheckResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRefundCheckResp'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/transfer/unapply:
+    post:
+      tags:
+      - payment
+      summary: API to unapply the transferred payments from one ban to another
+      description: API to quickly and easily move/transfer payments from one account to a different account or within the account itself
+      operationId: Unapply Payment API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUnapplyPaymentReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUnapplyPaymentResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUnapplyPaymentResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUnapplyPaymentResp'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/transfer/apply:
+    post:
+      tags:
+      - payment
+      summary: API to apply the transfer payment from one ban to another
+      description: API to quickly and easily move/transfer payments from one account to a different account or within the account itself
+      operationId: Apply Payment API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateApplyPaymentReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateApplyPaymentResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateApplyPaymentResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateApplyPaymentResp'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/transfer:
+    post:
+      tags:
+      - payment
+      summary: API to transfer payment from one ban to another
+      description: API to quickly and easily move/transfer payments from one account to a different account or within the account itself
+      operationId: Transfer Payment API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentTransferReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentTransferResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentTransferResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentTransferResp'
+      servers:
+      - url: http://148.155.130.78:8088
+    servers:
+    - url: http://148.155.130.78:8088
+  /brimcm/payment/paymentHistory:
+    post:
+      tags:
+      - payment
+      summary: API to to see payment history and pending payments on Portal
+      description: "API for users and customers able to see payment history (amount, date, invoice(s) paid, status, etc.) and any Pending Payments in Lumen's various portals (EPP, IVR, Control Center, etc)"
+      operationId: payment History
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentHistoryReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentHistoryResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentHistoryResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentHistoryResp'
+  /brimcm/payment/paymentPlan/create:
+    post:
+      tags:
+      - payment
+      summary: API to create a payment plan for the selected bans
+      description: API to store payment plan information in BRIM when payment plan is created
+      operationId: Payment Plan Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentPlanReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanResp'
+  /brimcm/payment/paymentPlan/cancel:
+    post:
+      tags:
+      - payment
+      summary: API to cancel a payment plan for the selected bans
+      description: API to cancel any payment plan information in BRIM when payment plan is cancelled
+      operationId: payment plan Cancel Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCancelPaymentPlanReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCancelPaymentPlanResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCancelPaymentPlanResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateCancelPaymentPlanResp'
+  /brimcm/payment/paymentPlan/history:
+    post:
+      tags:
+      - payment
+      summary: API to get all installment plans for the selected bans
+      description: API to read installment plan data from BRIM for selected BAN and send back to portal where it will be displayed
+      operationId: payment plan history Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentPlanHistoryReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanHistoryResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanHistoryResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanHistoryResp'
+  /brimcm/payment/paymentPlan/eligibilityDetails:
+    post:
+      tags:
+      - payment
+      summary: API to validate if the user is eligible or not for PaymentPlan
+      description: API to validate if the user is eligible or not for Payment Plan
+      operationId: payment plan Eligibility Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateReqPaymentPlanEligibilty'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRespPaymentPlanEligibilty'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanHistoryResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentPlanHistoryResp'
+  /brimcm/payment/customerPaymentInfo:
+    post:
+      tags:
+      - payment
+      summary: "API to get all customer,payment,autoPay details etc in a single serivice call for seleted bans"
+      description: "API to provide Customer Account details, Amount Due details, Autopay Enrollment details, Payment Arrangement details, and Last Payment details in a single service call"
+      operationId: Customer Payment Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CPIReq'
+      responses:
+        "200":
+          description: Auto generated using Swagger Inspector
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CPIResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CPIResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CPIResp'
+  /brimcm/billingInvoice:
+    post:
+      tags:
+      - invoice
+      summary: API to get all invoice details for the selected bans
+      description: API to get the invoice details of a customer
+      operationId: Invoice Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BillingInvReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvResp'
+  /brimcm/account/note/create:
+    post:
+      tags:
+      - account
+      summary: API to create Notes information for Automatic Clearing
+      description: API to create Notes information for Automatic Clearing
+      operationId: Notes Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNoteReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateNoteResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateNoteResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateNoteResp'
+  /brimcm/account/note/history:
+    post:
+      tags:
+      - account
+      summary: API to get all Notes information of Automatic Clearing from BRIM
+      description: API to get all Notes information of Automatic Clearing from BRIM
+      operationId: GET
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateHistoryNotesReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateHistoryNotesResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateHistoryNotesResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountNumber IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateHistoryNotesResp'
+  /brimcm/collection/agencyReturn:
+    post:
+      tags:
+      - collections
+      summary: Agency Return Details.
+      description: User to send the Agency Return Details
+      operationId: Agency Return Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgencyReturnReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgencyReturnResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgencyReturnResp'
+  /brimcm/collection/strategyworkitem/collectionSteps/retrieve:
+    post:
+      tags:
+      - collections
+      summary: Collection steps details API
+      description: API to display collection steps details to portals for BAN passed in input request.
+      operationId: Collection steps details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionStepsReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionStepsResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionStepsResp'
+  /brimcm/account/customerAccountInfo:
+    post:
+      tags:
+      - account
+      summary: "API to capture details of billing account, customer and ultimate customer data"
+      description: "API service that provides details of billing account, customer and ultimate customer data"
+      operationId: Master Data API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MasterDataReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterDataResp'
+        "405":
+          description: Method Not Allowed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        "400":
+          description: "CM will check for Mandatory fields, if the fields are not present then CM send error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterDataResp'
+              example:
+                transactionStatus: F
+                errorCd: 401
+                errorMessage: billingAccountName IS NULL
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterDataResp'
+  /brimcm/collection/dunning/:
+    post:
+      tags:
+      - collections
+      summary: API to display the dunning lock details based on BAN and BusOrg Id
+      description: API to capture BAN and BusOrg details to get dunning locks details from BRIM and display on Portal
+      operationId: Dunning Locks Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningDetailsReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningDetailsResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningDetailsResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningDetailsResp'
+  /brimcm/collection/dunning/update/:
+    post:
+      tags:
+      - collections
+      summary: Apply Dunning Locks based on authorization groups
+      description: "API to capture BAN, BusOrg and Dunning details to apply dunning locks based on authorization groups and send response back from BRIM to Portal"
+      operationId: Apply Dunning Locks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningLockReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningLockResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningLockResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningLockResp'
+  /brimcm/collection/writeoff/:
+    post:
+      tags:
+      - collections
+      summary: Write Offs Enterprise API
+      description: API to capture write off request initiated by fusion towards BRIM and send response back from BRIM to Portal
+      operationId: Write Offs API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteOffReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteOffResp'
+  /brimcm/adjustment/credit/:
+    post:
+      tags:
+      - adjustments
+      summary: Credit Adjustment from Fusion and Salesforce
+      description: API to give the end user ability to  create an adjustment for credits in BRIM using BAN Number
+      operationId: Credit Adjustment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreditAdjustmentReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAdjustmentResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAdjustmentResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditAdjustmentResp'
+  /brimcm/adjustment/writeoff/reverse:
+    post:
+      tags:
+      - adjustments
+      summary: Reverse Writeoff from Fusion and Salesforce
+      description: API to give the end user ability to reverse a writeoff in document number
+      operationId: Writeoff Reverse
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WriteoffReverseReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteoffReverseResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCode in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteoffReverseResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteoffReverseResp'
+  /brimcm/account/productMaster:
+    post:
+      tags:
+      - account
+      summary: Interface between Product Data Hub and BRIM to send the Material Master Records
+      description: API to create or update Material Master Records in SAP S4 System
+      operationId: Product Master API
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProductMasterReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProductMasterResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCode in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProductMasterResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProductMasterResp'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+    PaymentHistoryHeaderInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+        srcApplicationCd:
+          type: string
+        requestId:
+          type: string
+        inputChannelCd:
+          type: string
+        srcSysTransactionId:
+          type: string
+      example:
+        sendTimeStamp: 2022-01-19T15:47:01.151Z
+        srcApplicationCd: KENAN
+        requestId: 1234567890
+        inputChannelCd: CC_BMG
+        srcSysTransactionId: 2346245768
+    PaymentHistoryRequestInfo:
+      required:
+      - searchType
+      type: object
+      properties:
+        searchType:
+          type: string
+          enum:
+          - BillingAccountNumber
+          - MasterPaymentId
+          - InvoiceNumber
+          - TransactionConfirmationId
+        paymentScheduleType:
+          type: string
+          enum:
+          - OneTime
+          - Scheduled
+          - Recurring
+          - ALL
+        transactionStatus:
+          type: string
+          enum:
+          - Pending
+          - Completed
+          - Cancelled
+          - Error
+          - ALL
+        startDate:
+          type: string
+        transactionType:
+          type: string
+          enum:
+          - Payment
+          - Refund
+          - Chargeback
+          - ChargebackReversal
+          - ALL
+        endDate:
+          type: string
+        searchValue:
+          type: string
+      example:
+        searchType: BillingAccountNumber
+        searchValue: "16181-WIL,1-4321119"
+        transactionStatus: ALL
+        transactionType: ALL
+        paymentScheduleType: ALL
+        startDate: 2023-08-01
+        endDate: 2023-08-11
+    PaymentHistoryReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/PaymentHistoryHeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/PaymentHistoryRequestInfo'
+    PaymentHistoryResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/PaymentHistoryHeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/PaymentHistoryRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/PaymentHistoryTransactionList'
+    BillingInvReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/ReqInfo'
+    BillingInvResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/ReqInfo'
+        responseInfo:
+          $ref: '#/components/schemas/BillingInvResp_responseInfo_1'
+    BillingInvResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        billingAccountNumber:
+          type: string
+        financeAccountNumber:
+          type: string
+        accountName:
+          type: string
+        sourceSystem:
+          type: string
+        invoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingInvResp_invoiceDetailsInfo'
+    BillingInvResp_invoiceDetailsInfo:
+      type: object
+      properties:
+        invoiceDate:
+          type: string
+        invoiceDueDate:
+          type: string
+        invoiceNumber:
+          type: string
+        invoiceStatus:
+          type: string
+        invoiceDueAmount:
+          type: number
+          format: double
+        invoiceAmount:
+          type: number
+          format: double
+        invoiceCurrency:
+          type: string
+        sapInvoiceNumber:
+          type: string
+          example: "1234578"
+        documentNumber:
+          type: string
+        aggregatedPaymentAmount:
+          type: number
+          format: double
+        aggregatedCreditAmount:
+          type: number
+          format: double
+        invoiceClearedDate:
+          type: string
+    CreatePaymentReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        paymentsInfo:
+          $ref: '#/components/schemas/CreatePaymentReqInfo'
+    CreatePaymentReqInfo:
+      type: object
+      properties:
+        transactionConfirmationId:
+          type: string
+        customerPaymentDetails:
+          $ref: '#/components/schemas/CreateCustomerList'
+        paymentMethodDetails:
+          $ref: '#/components/schemas/CreatePaymentReqInfo_paymentMethodDetails'
+        ivrInteractionId:
+          type: string
+        userId:
+          type: string
+        paymentMethodCd:
+          type: string
+    CreateCustomerList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CreateCustomerDetails'
+    CreateCustomerDetails:
+      type: object
+      properties:
+        customerFirstName:
+          type: string
+          example: Test
+        customerLastName:
+          type: string
+          example: Test
+        businessName:
+          type: string
+        customerType:
+          type: string
+          example: CON
+        customerEmail:
+          type: string
+          example: test@gmail.com
+        billingApplicationCd:
+          type: string
+          example: ENS
+        billingAccountNumber:
+          type: string
+          example: "490258712"
+        addressDetails:
+          $ref: '#/components/schemas/CreateCustomerDetails_addressDetails'
+        currencyCd:
+          type: string
+        paymentScheduleCd:
+          type: string
+        paymentProcessedDate:
+          type: string
+        convenienceFeeAmount:
+          type: number
+          format: double
+        invoiceNumber:
+          type: string
+        paymentTypeCd:
+          type: string
+        paymentAmount:
+          type: number
+          format: double
+        consentMediumCd:
+          type: string
+        restoralInd:
+          type: string
+        productTypeCd:
+          type: string
+    CreatePaymentResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        paymentsInfo:
+          $ref: '#/components/schemas/CreatePaymentResponseInfo'
+    CreatePaymentResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        transactionConfirmationId:
+          type: string
+        customerPaymentDetails:
+          $ref: '#/components/schemas/CPaymenList'
+        paymentMethodDetails:
+          $ref: '#/components/schemas/CreatePaymentReqInfo_paymentMethodDetails'
+        ivrInteractionId:
+          type: string
+        userId:
+          type: string
+        paymentMethodCd:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    CPaymenList:
+      type: array
+      items:
+        $ref: '#/components/schemas/CPaymentResponse'
+    CPaymentResponse:
+      type: object
+      properties:
+        customerFirstName:
+          type: string
+          example: Test
+        customerLastName:
+          type: string
+          example: Test
+        businessName:
+          type: string
+        customerType:
+          type: string
+          example: CON
+        customerEmail:
+          type: string
+          example: test@gmail.com
+        billingApplicationCd:
+          type: string
+          example: ENS
+        billingAccountNumber:
+          type: string
+          example: "490258712"
+        addressDetails:
+          $ref: '#/components/schemas/AddressDetails'
+        currencyCd:
+          type: string
+        paymentScheduleCd:
+          type: string
+        paymentProcessedDate:
+          type: string
+        convenienceFeeAmount:
+          type: number
+          format: double
+        invoiceNumber:
+          type: string
+        paymentTypeCd:
+          type: string
+        paymentAmount:
+          type: number
+          format: double
+        consentMediumCd:
+          type: string
+        masterPaymentId:
+          type: string
+        vendorCd:
+          type: string
+        vendorConfirmationId:
+          type: string
+        paymentStatus:
+          type: string
+        cardType:
+          type: string
+        bankAccountType:
+          type: string
+        maskedAccountNumber:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        restoralInd:
+          type: string
+    ErrorInfo:
+      type: object
+      properties:
+        errorMessage:
+          type: string
+        errorCd:
+          type: string
+    CPIReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CPIReqInfo'
+    HeaderInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+        srcApplicationCd:
+          type: string
+        requestId:
+          type: string
+        inputChannelCd:
+          type: string
+        userId:
+          type: string
+        srcSysTransactionId: {}
+      example:
+        sendTimeStamp: 2022-01-19T15:47:01.151Z
+        srcApplicationCd: KENAN
+        requestId: 1234567890A
+        inputChannelCd: CC_BMG
+        userId: AD20987
+        srcSysTransactionId: 2346245768
+    ReqInfo:
+      type: object
+      properties:
+        requestParams:
+          type: array
+          example:
+          - requestParamType: BillingAccountNumber
+            requestParamValue: "16181-WIL,1-4321119,1-DI3B5U-A"
+          - requestParamType: Status
+            requestParamValue: CLOSED
+          items:
+            $ref: '#/components/schemas/RequestParamsDetails'
+    RequestParamsDetails:
+      type: object
+      properties:
+        requestParamType:
+          type: string
+          enum:
+          - BillingAccountNumber
+          - FinanceAccountNumber
+          - BusOrgId
+          - Status
+        requestParamValue:
+          type: string
+    CPIReqInfo:
+      type: object
+      properties:
+        billingApplicationCd:
+          type: string
+        requestParamType:
+          type: string
+          enum:
+          - BillingAccountNumber
+          - FinanceAccountNumber
+          - BusOrgId
+          - Status
+        requestParamValue:
+          type: string
+      example:
+        billingApplicationCd: KENAN
+        requestParamType: BillingAccountNumber
+        requestParamValue: "16181-WIL,1-4321119,1-DI3B5U-A"
+    CPIResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CPIReqInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CPIResp_responseInfo'
+    CPIResp_responseInfo:
+      type: object
+      properties:
+        accountDetailsResponseList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CPIResponseDetails'
+    CPIResponseDetails:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        accountInfo:
+          $ref: '#/components/schemas/CPIResp_accountDetails'
+        amountDueInfo:
+          $ref: '#/components/schemas/CPIResp_amountDueInfo'
+        paymentPlanInfo:
+          $ref: '#/components/schemas/CPIResp_paymentArrangementsInfo'
+        autopayEnrollmentInfo:
+          $ref: '#/components/schemas/CPIResp_autopayEnrollmentInfo'
+        lastPaymentInfo:
+          $ref: '#/components/schemas/CPIResp_lastPaymentInfo'
+    CPIResp_accountDetails:
+      type: object
+      properties:
+        convenienceFeeAmt:
+          type: string
+          format: double
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        financeAccountNumber:
+          type: string
+        contractAccountNumber:
+          type: string
+        businessPartner:
+          type: string
+        billDeliveryMethod:
+          type: string
+        billingApplicationCd:
+          type: string
+        businessName:
+          type: string
+        accountStatus:
+          type: string
+        customerType:
+          type: string
+        customerFirstName:
+          type: string
+        customerLastName:
+          type: string
+        billMedia:
+          type: string
+        invoiceFormat:
+          type: string
+        invoiceDisplay:
+          type: string
+        billState:
+          type: string
+        houseAccount:
+          type: string
+        emailSecurity:
+          type: string
+        region:
+          type: string
+        email:
+          type: string
+        invoiceEmailAddress:
+          type: string
+        cardAllowedFlag:
+          type: boolean
+        achAllowedFlag:
+          type: boolean
+        addressDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CPIAddressDetails'
+    CPIAddressDetails:
+      type: object
+      properties:
+        billingAddress:
+          $ref: '#/components/schemas/CPIResp_billingDetails'
+        serviceAddress:
+          $ref: '#/components/schemas/CPIResp_serviceDetails'
+    CPIResp_billingDetails:
+      type: object
+      properties:
+        city:
+          type: string
+        addressType:
+          type: string
+        postalCd:
+          type: string
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        countryCd:
+          type: string
+        stateProvince:
+          type: string
+    CPIResp_serviceDetails:
+      type: object
+      properties:
+        city:
+          type: string
+        addressType:
+          type: string
+        postalCd:
+          type: string
+        streetAddress1:
+          type: string
+        streetAddress2:
+          type: string
+        countryCd:
+          type: string
+        stateProvince:
+          type: string
+    CPIResp_amountDueInfo:
+      type: object
+      properties:
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        currentInvoiceId:
+          type: string
+        totalPastDueAmount:
+          type: number
+          format: double
+        currentInvoiceDate:
+          type: string
+        currentInvoiceDueDate:
+          type: string
+        currentInvoiceAmount:
+          type: number
+          format: double
+        currentInvoiceCycleStartDate:
+          type: string
+        currentInvoiceCycleEndDate:
+          type: string
+        totalDueAmount:
+          type: number
+          format: double
+        invoiceCurrency:
+          type: string
+    CPIResp_paymentArrangementsInfo:
+      type: object
+      properties:
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        planEligibility:
+          type: string
+        planOptions:
+          type: string
+        planOptionDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CPIResp_planOptions'
+    CPIResp_planOptions:
+      type: object
+      properties:
+        option:
+          type: string
+        noOfInstallments:
+          type: number
+        installments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CPIResp_installments'
+    CPIResp_installments:
+      type: object
+      properties:
+        installmentAmount:
+          type: number
+          format: double
+        installmentDate:
+          type: string
+        isAmtEditable:
+          type: string
+        isDateEditable:
+          type: string
+    CPIResp_autopayEnrollmentInfo:
+      type: object
+      properties:
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        autopayWalletId:
+          type: string
+        autopayStatus:
+          type: string
+        autopayLock:
+          type: string
+        autopayLockStartDate:
+          type: string
+        autopayLockEndDate:
+          type: string
+        autopayPaymentMethodCd:
+          type: string
+        lastUpdatedDate:
+          type: string
+        maskedAccountNumber:
+          type: string
+        bankAccountType:
+          type: string
+        bankRoutingNumber:
+          type: string
+        cardType:
+          type: string
+        cardExpirationDate:
+          type: string
+        cardBillingZipCd:
+          type: string
+    CPIResp_lastPaymentInfo:
+      type: object
+      properties:
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        lastPaymentDate:
+          type: string
+        lastPaymentMethodCd:
+          type: string
+        lastPaymentAmount:
+          type: number
+          format: double
+        lastPaymentConvenienceFeeAmt:
+          type: string
+        lastPaymentScheduleCd:
+          type: string
+        lastPaymentCreatedBy:
+          type: string
+        lastPaymentInputChannel:
+          type: string
+        lastPaymentConfirmationNumber:
+          type: string
+        maskedAccountNumber:
+          type: string
+        bankAccountType:
+          type: string
+        bankRoutingNumber:
+          type: string
+        cardType:
+          type: string
+    PaymentList:
+      type: object
+      properties:
+        masterPaymentId:
+          type: string
+        vendorConfirmationId:
+          type: string
+        associatedPaymentId:
+          type: string
+        transactionConfirmationId:
+          type: string
+        paymentAmount:
+          type: number
+          format: double
+        paymentMethodCd:
+          type: string
+        inputChannelCd:
+          type: string
+        bankAccountType:
+          type: string
+        paymentTypeCd:
+          type: string
+        transactionType:
+          type: string
+        totalTaxAmount:
+          type: number
+          format: double
+        customerType:
+          type: string
+        paymentScheduleCd:
+          type: string
+        paymentPostedDttm:
+          type: string
+        customerName:
+          type: string
+        paymentStatus:
+          type: string
+        customerEmail:
+          type: string
+        createdDttm:
+          type: string
+        srcApplicationCd:
+          type: string
+        maskedAccountNumber:
+          type: string
+        paymentProcessedDate:
+          type: string
+        vendorCd:
+          type: string
+        createdBy:
+          type: string
+        convenienceFeeAmount:
+          type: number
+          format: double
+        walletReferenceNumber:
+          type: string
+        consentMediumCd:
+          type: string
+        instrumentId:
+          type: number
+        cardType:
+          type: string
+        ivrInteractionId:
+          type: string
+        appliedAmount:
+          type: number
+          format: double
+        unAppliedAmount:
+          type: number
+          format: double
+        clearedInvoiceList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentList_clearedInvoiceList'
+        businessName:
+          type: string
+        checkNumber:
+          type: string
+        reason:
+          type: string
+        lastModifiedBy:
+          type: string
+        lastModifiedDttm:
+          type: string
+        documentNumber:
+          type: string
+        currencyCd:
+          type: string
+        companyCd:
+          type: string
+        sapInvoiceNumber:
+          type: string
+    PaymentHistoryTransactionList:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        transactionHistory:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionDetails'
+    TransactionDetails:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        billingApplicationCd:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        transactionsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentList'
+    AddressDetails:
+      type: object
+      properties:
+        city:
+          type: string
+        addressType:
+          type: string
+        postalCd:
+          type: string
+        streetAddress1:
+          type: string
+        stateProvince:
+          type: string
+        streetAddress2:
+          type: string
+      example:
+        streetAddress1: 1025 Eldardo Blvd
+        city: Broomfield
+        stateProvince: CO
+        postalCd: 80021
+        addressType: BLG
+        countryCd: US
+    CustomerDetails:
+      type: object
+      properties:
+        customerType:
+          type: string
+          example: CON
+        billingAccountNumber:
+          type: string
+          example: "490258712"
+        customerEmail:
+          type: string
+          example: test@gmail.com
+        customerFirstName:
+          type: string
+          example: Test
+        businessName:
+          type: string
+        customerLastName:
+          type: string
+          example: Test
+        billingApplicationCd:
+          type: string
+          example: ENS
+        addressDetails:
+          $ref: '#/components/schemas/AddressDetails'
+    BillingInvResp_responseInfo_1:
+      type: object
+      properties:
+        accountInvoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillingInvResp_responseInfo'
+    CreateEnrollReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/ReqEnrollInfo'
+    CreateEnrollResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/ReqEnrollInfo'
+        responseInfo:
+          $ref: '#/components/schemas/ResponseInfo'
+    ReqEnrollInfo:
+      type: object
+      properties:
+        customerDetailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CustomerDetails'
+        paymentMethodDetails:
+          $ref: '#/components/schemas/PaymentDetailsInfo'
+        paymentMethodCd:
+          type: string
+        currencyCd:
+          type: string
+        paperLessBillingInd:
+          type: string
+        enrollmentType:
+          type: string
+        userId:
+          type: string
+        ivrInteractionId:
+          type: string
+    PaymentDetailsInfo:
+      type: object
+      properties:
+        walletDetails:
+          $ref: '#/components/schemas/WalletIdInfo'
+        cardDetails:
+          $ref: '#/components/schemas/CardDetailsInfo'
+        bankAccountDetails:
+          $ref: '#/components/schemas/BankDetailsInfo'
+    WalletIdInfo:
+      type: object
+      properties:
+        walletReferenceNumber:
+          type: string
+          example: 490258712ACT
+        instrumentId:
+          type: string
+          example: "63546774"
+    CardDetailsInfo:
+      type: object
+      properties:
+        maskedAccountNumber:
+          type: string
+        cardType:
+          type: string
+          example: Visa
+        cardBillingZipCd:
+          type: string
+          example: "80021"
+        instrumentId:
+          type: string
+        cardExpirationDate:
+          type: string
+        cardToken:
+          type: string
+    BankDetailsInfo:
+      type: object
+      properties:
+        bankRoutingNumber:
+          type: string
+          example: "102001017"
+        bankAccountType:
+          type: string
+          example: Checking
+        bankAccountNumber:
+          type: string
+          example: "43265436"
+        maskedAccountNumber:
+          type: string
+        instrumentId:
+          type: string
+        default:
+          type: boolean
+    ResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        enrollConfirmationId:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    ReqAutoPayHistoryInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        billingApplicationCd:
+          type: string
+        userId:
+          type: string
+      example:
+        billingAccountNumber: 300001887
+        billingApplicationCd: ENS
+        userId: AC59752
+    AutoPayInfoDetails:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        lastUpdatedBy:
+          type: string
+        creationDate:
+          type: string
+        lastUpdateDate:
+          type: string
+        enrollmentType:
+          type: string
+        walletReferenceNumber:
+          type: string
+        srcApplicationCd:
+          type: string
+        inputChannelCd:
+          type: string
+        vendorCd:
+          type: string
+        maskedAccountNumber:
+          type: string
+        paymentMethodCd:
+          type: string
+        cardType:
+          type: string
+        bankAccountType:
+          type: string
+        status:
+          type: string
+        cardExpirationDate:
+          type: string
+    CreateAutoPayHistoryReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/ReqAutoPayHistoryInfo'
+    CreateAutoPayHistoryResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/ReqAutoPayHistoryInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateAutoPayHistoryResponse_responseInfo'
+    CreateAutoPayHistoryResponse_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        autopayEnrollmentInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/AutoPayInfoDetails'
+    RefundRequestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        billingApplicationCd:
+          type: string
+        paymentDocumentNumber:
+          type: string
+        refundAmount:
+          type: string
+        refundCurrency:
+          type: string
+        convFee:
+          type: string
+        paymentStatus:
+          type: string
+        paymentMethodCd:
+          type: string
+        bankId:
+          type: string
+        isNewAddress:
+          type: string
+        refundReason:
+          type: string
+        checkDeliveryAddress:
+          $ref: '#/components/schemas/DeliveryAddressDetails'
+    DeliveryAddressDetails:
+      type: object
+      properties:
+        addressId:
+          type: string
+        addressLine1:
+          type: string
+        addressLine2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+        country:
+          type: string
+    RefundResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        refundConfirmationId:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    CreateRefundReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/RefundRequestInfo'
+    CreateRefundResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/RefundRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/RefundResponseInfo'
+    CreateCancelReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelReqInfo'
+    CreateCancelResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelReqInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateCancelResponseInfo'
+    CreateCancelReqInfo:
+      type: object
+      properties:
+        masterPaymentId:
+          type: string
+        sourceSystem:
+          type: string
+    CreateCancelResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    PlanDetails:
+      type: object
+      properties:
+        paymentAmount:
+          type: number
+          format: double
+        paymentProcessedDate:
+          type: string
+    PaymentPlan:
+      type: array
+      items:
+        $ref: '#/components/schemas/PlanDetails'
+    PaymentPlanDetails:
+      type: object
+      properties:
+        paymentPlan:
+          $ref: '#/components/schemas/PaymentPlan'
+    PaymentPlanDetailsReq:
+      type: object
+      properties:
+        paymentMethodCd:
+          type: string
+        currencyCd:
+          type: string
+        paymentProcessedDate:
+          type: string
+        payerFirstName:
+          type: string
+        convenienceFeeAmount:
+          type: number
+          format: double
+        invoiceNumber:
+          type: string
+        paymentTypeCd:
+          type: string
+        paymentSubmittedBy:
+          type: string
+        paymentAmount:
+          type: number
+          format: double
+        payerLastName:
+          type: string
+        paymentPlanOption:
+          type: string
+        paymentPlanDetails:
+          $ref: '#/components/schemas/PaymentPlanDetails'
+    CreatePaymentPlanReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreatePaymentPlanReqData'
+    CreatePaymentPlanReqData:
+      type: object
+      properties:
+        userId:
+          type: string
+        customerDetails:
+          $ref: '#/components/schemas/CustomerDetails'
+        paymentDetails:
+          $ref: '#/components/schemas/PaymentPlanDetailsReq'
+        paymentMethodDetails:
+          $ref: '#/components/schemas/CreatePaymentReqInfo_paymentMethodDetails'
+    CreatepaymentPlanResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        masterPaymentId:
+          type: string
+        cardType:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        vendorConfirmationId:
+          type: string
+        maskedAccountNumber:
+          type: string
+        paymentStatus:
+          type: string
+    CreatePaymentPlanResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreatePaymentPlanReqData'
+        responseInfo:
+          $ref: '#/components/schemas/CreatepaymentPlanResponseInfo'
+    CreateCancelPaymentPlanReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelPaymentPlanReq_requestInfo'
+    CreateCancelPaymentPlanResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelPaymentPlanReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateCancelResponseInfo'
+    CreatePaymentPlanHistoryReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelPaymentPlanReq_requestInfo'
+    CreatePaymentPlanHistoryResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelPaymentPlanReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreatePaymentPlanHistoryResp_responseInfo'
+    InstallmentDetails:
+      type: object
+      properties:
+        status:
+          type: string
+          example: Completed
+        statusDate:
+          type: string
+          example: 2016-04-29
+        installNumber:
+          type: string
+          example: "1"
+        installDate:
+          type: string
+          example: 2016-06-02
+        installAmount:
+          type: number
+          format: double
+          example: 209.62
+        coveredAmount:
+          type: number
+          format: double
+          example: 209.62
+        expPastDueAmt:
+          type: number
+          format: double
+          example: 209.62
+    PaymentPlanHistoryDetails:
+      type: object
+      properties:
+        startDate:
+          type: string
+          example: 2016-04-29
+        status:
+          type: string
+          example: Completed
+        statusDate:
+          type: string
+          example: 2016-05-25
+        planConfirmationId:
+          type: string
+          example: "12345678"
+        userId:
+          type: string
+          example: AD00091
+        installments:
+          type: array
+          items:
+            $ref: '#/components/schemas/InstallmentDetails'
+    CreateRefundCheckReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateRefundCheckReq_requestInfo'
+    CreateRefundCheckResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateRefundCheckReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateRefundCheckResp_responseInfo'
+    CreateApplyPaymentResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateApplyPaymentResp_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateApplyPaymentResp_responseInfo'
+    CreateApplyPaymentReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateApplyPaymentResp_requestInfo'
+    ToApplyList:
+      type: object
+      properties:
+        reason:
+          type: string
+        sourceSystem:
+          type: string
+        currencyCd:
+          type: string
+        fromBillingAccountNumber:
+          type: string
+        fromFinanceAccountNumber:
+          type: string
+        fromMasterPaymentId:
+          type: string
+        toInvoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToApplyList_toInvoiceDetails'
+    CreatePaymentTransferReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreatePaymentTransferReq_requestInfo'
+    ToApplyTransferList:
+      type: object
+      properties:
+        reason:
+          type: string
+        sourceSystem:
+          type: string
+        currencyCd:
+          type: string
+        fromBillingAccountNumber:
+          type: string
+        fromFinanceAccountNumber:
+          type: string
+        fromPaymentId:
+          type: string
+        fromAccountDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToApplyTransferList_fromAccountDetails'
+        toAccountDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToApplyTransferList_toAccountDetails'
+    CreatePaymentTransferResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreatePaymentTransferResp_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateApplyPaymentResp_responseInfo'
+    CreateUnapplyPaymentReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateUnapplyPaymentReq_requestInfo'
+    CreateUnapplyPaymentResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateUnapplyPaymentReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateApplyPaymentResp_responseInfo'
+    ToUnapplyDetailsList:
+      type: object
+      properties:
+        reason:
+          type: string
+        currencyCd:
+          type: string
+        billingAccountNumber:
+          type: string
+        financeAccountNumber:
+          type: string
+        masterPaymentId:
+          type: string
+        invoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToUnapplyDetailsList_invoiceDetails'
+    CreateNoteReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateNoteReq_requestInfo'
+    CreateHistoryNotesReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateHistoryNotesReq_requestInfo'
+    CreateHistoryNotesResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateHistoryNotesReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateHistoryNotesResp_responseInfo'
+    CreateNoteResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateNoteReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateNoteResp_responseInfo'
+    AgencyReturnReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AgencyReturnReq_requestInfo'
+    AgencyReturnResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AgencyReturnReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateReturnAgency_responseInfo'
+    MasterDataReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/MasterDataReq_requestInfo'
+    MasterDataResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/MasterDataReq_requestInfo'
+        responseInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/MasterDataResp_responseInfo'
+    DunningDetailsReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningDetailsReq_requestInfo'
+    DunningDetailsResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningDetailsReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/DunningDetailsResp_responseInfo'
+    DunningLockReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningLockReq_requestInfo'
+    DunningLockResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningLockReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateApplyPaymentResp_responseInfo'
+    CreateReqPaymentPlanEligibilty:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelPaymentPlanReq_requestInfo'
+    CreateRespPaymentPlanEligibilty:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateCancelPaymentPlanReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateRespPaymentPlanEligibilty_responseInfo'
+    RuleExecDetails:
+      type: object
+      properties:
+        sequenceNo:
+          type: string
+        ruleName:
+          type: string
+        ruleValue:
+          type: string
+        ruleDescription:
+          type: string
+        ruleEligibilityStatus:
+          type: string
+    WriteOffReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReq_requestInfo'
+    WriteOffResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WriteOffReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WriteOffResp_responseInfo'
+    WriteoffFields:
+      type: object
+      properties:
+        invoiceDocNo:
+          type: string
+          example: "130000000038"
+        arDocumentNo:
+          type: string
+          example: "130000000038"
+        itemNo:
+          type: string
+          example: "0001"
+        writeOffAmount:
+          type: string
+          example: "1000.00"
+        WriteOffReason:
+          type: string
+          example: "05"
+        userId:
+          type: string
+          example: AD99999
+        designation:
+          type: string
+          example: Consultant
+    CreditAdjustmentReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditAdjustmentReq_requestInfo'
+    CreditAdjustmentResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreditAdjustmentReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateApplyPaymentResp_responseInfo'
+    documentResponse:
+      type: object
+      properties:
+        documentNo:
+          type: string
+        message:
+          type: string
+    CreatePaymentReqInfo_paymentMethodDetails:
+      type: object
+      properties:
+        walletDetails:
+          $ref: '#/components/schemas/WalletIdInfo'
+        cardDetails:
+          $ref: '#/components/schemas/CardDetailsInfo'
+        bankAccountDetails:
+          $ref: '#/components/schemas/BankDetailsInfo'
+    CreateCustomerDetails_addressDetails:
+      type: object
+      properties:
+        city:
+          type: string
+        addressType:
+          type: string
+        postalCd:
+          type: string
+        streetAddress1:
+          type: string
+        stateProvince:
+          type: string
+        streetAddress2:
+          type: string
+    CreateCancelPaymentPlanReq_requestInfo:
+      type: object
+      properties:
+        billingApplicationCd:
+          type: string
+        billingAccountNumber:
+          type: string
+        userId:
+          type: string
+    CreatePaymentPlanHistoryResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        paymentPlans:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentPlanHistoryDetails'
+    CreateRefundCheckReq_requestInfo:
+      type: object
+      properties:
+        checkNumber:
+          type: string
+        action:
+          type: string
+          enum:
+          - Lookup
+          - ReIssue
+          - Void
+        reasonCd:
+          type: string
+        userId:
+          type: string
+    CreateRefundCheckResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        billingAccountNumber:
+          type: string
+        refundAmount:
+          type: string
+        checkStatus:
+          type: string
+        newCheckNumber:
+          type: string
+        checkDate:
+          type: string
+        checkAmount:
+          type: string
+        createdBy:
+          type: string
+        lastModifiedBy:
+          type: string
+        lastModifiedDate:
+          type: string
+        paymentDocumentReferenceNumber:
+          type: string
+        paymentCurrency:
+          type: string
+        refundAddress:
+          type: string
+        refundPaymentMethod:
+          type: string
+        justificationForRefund:
+          type: string
+        refundStatus:
+          type: string
+    CreateApplyPaymentResp_requestInfo:
+      type: object
+      properties:
+        applyDetailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToApplyList'
+    CreateApplyPaymentResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    CreateReturnAgency_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        message:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    ToApplyList_toInvoiceDetails:
+      type: object
+      properties:
+        toBillingAccountNumber:
+          type: string
+        toFinanceAccountNumber:
+          type: string
+        toInvoiceNumber:
+          type: string
+        amount:
+          type: number
+    CreatePaymentTransferReq_requestInfo:
+      type: object
+      properties:
+        transferDetailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToApplyTransferList'
+    ToApplyTransferList_fromAccountDetails:
+      type: object
+      properties:
+        fromInvoiceNumber:
+          type: string
+        unapplyAmount:
+          type: string
+    ToApplyTransferList_toAccountDetails:
+      type: object
+      properties:
+        toBillingAccountNumber:
+          type: string
+        toFinanceAccountNumber:
+          type: string
+        toInvoiceNumber:
+          type: string
+        applyAmount:
+          type: string
+    CreatePaymentTransferResp_requestInfo:
+      type: object
+      properties:
+        transferDetailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToApplyList'
+    CreateUnapplyPaymentReq_requestInfo:
+      type: object
+      properties:
+        unapplyDetailsList:
+          type: array
+          items:
+            $ref: '#/components/schemas/ToUnapplyDetailsList'
+    ToUnapplyDetailsList_invoiceDetails:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+        amount:
+          type: number
+    CreateNoteReq_requestInfo:
+      type: object
+      properties:
+        billingApplicationCd:
+          type: string
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        noteText:
+          type: string
+        noteType:
+          type: string
+        noteLevel:
+          type: string
+        createdBy:
+          type: string
+    CreateHistoryNotesReq_requestInfo:
+      type: object
+      properties:
+        billingApplicationCd:
+          type: string
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        noteType:
+          type: string
+        fromDate:
+          type: string
+          example: 2024-01-18
+        toDate:
+          type: string
+          example: 2024-02-18
+    CreateHistoryNotesResp_responseInfo_notesList:
+      type: object
+      properties:
+        noteId:
+          type: string
+        noteText:
+          type: string
+        noteType:
+          type: string
+        noteLevel:
+          type: string
+        noteSource:
+          type: string
+        createDate:
+          type: string
+        createdBy:
+          type: string
+        lastModifiedDate:
+          type: string
+        lastModifiedBy:
+          type: string
+    CreateHistoryNotesResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        notesList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreateHistoryNotesResp_responseInfo_notesList'
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    CreateNoteResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        noteId:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    AgencyReturnReq_requestInfo:
+      type: object
+      properties:
+        busOrgId:
+          type: string
+        billingAccountNumber:
+          type: string
+        code:
+          type: string
+        text:
+          type: string
+        fromDate:
+          type: string
+        toDate:
+          type: string
+        dateOfDeath:
+          type: string
+    MasterDataReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        financeAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        busOrgName:
+          type: string
+        billingAccountName:
+          type: string
+        ultimateCustomerId:
+          type: string
+        ultimateCustomerName:
+          type: string
+    MasterDataResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        contractAccountNumber:
+          type: string
+        billingAccountNumber:
+          type: string
+        financeAccountNumber:
+          type: string
+        billingAccountName:
+          type: string
+        billingAddress:
+          $ref: '#/components/schemas/CPIResp_billingDetails'
+        paymentTerm:
+          type: string
+        financeCharge:
+          type: string
+        billMediaType:
+          type: string
+        highRiskCategory:
+          type: string
+        blitzIndicator:
+          type: string
+        returnedMailIndicator:
+          type: string
+        dunningLockIndicator:
+          type: string
+        collectionStrategy:
+          type: string
+        collector:
+          type: string
+        consolidatedBillIndicator:
+          type: string
+        paymentsHotlistIndicator:
+          type: string
+        businessPartnerNumber:
+          type: string
+        busOrgId:
+          type: string
+        busOrgName:
+          type: string
+        ultimateCustomerId:
+          type: string
+        ultimateCustomerName:
+          type: string
+        region:
+          type: string
+        creditRiskRating:
+          type: string
+        availableCredit:
+          type: string
+        bankruptcyIndicator:
+          type: string
+        creditBlockReason:
+          type: string
+        crditAnalyst:
+          type: string
+        billingSourceSystem:
+          type: string
+        companyCode:
+          type: string
+        legacyBillCycle:
+          type: string
+        sapBillCycle:
+          type: string
+        sapBillCycleDescription:
+          type: string
+        dunningLockReasonDesc:
+          type: string
+        dunningLockReasonCd:
+          type: string
+        hotListReasonDesc:
+          type: string
+        collectorCUID:
+          type: string
+        specialIndicatorCollection:
+          type: string
+        outsideCollectionAgency:
+          type: string
+        blitzStatus:
+          type: string
+        bankAccountNumber:
+          type: string
+    DunningDetailsReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: A-1200121
+        busOrgId:
+          type: string
+          example: A-1000672
+    DunningDetailsResp_responseInfo_lockDetails:
+      properties:
+        lockReason:
+          type: string
+        lockReasonCd:
+          type: string
+    DunningDetailsResp_responseInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        contractAccount:
+          type: string
+        businessPartner:
+          type: string
+        lockDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningDetailsResp_responseInfo_lockDetails'
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    DunningLockReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: A-1200121
+        busOrgId:
+          type: string
+          example: A-1000672
+        contractAccount:
+          type: string
+          example: "120000000000"
+        businessPartner:
+          type: string
+          example: "1400000000"
+        lockPeriodNumber:
+          type: number
+          example: 5
+        lockReasonCd:
+          type: string
+          example: D
+    CreateRespPaymentPlanEligibilty_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        ruleExecutionDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/RuleExecDetails'
+        eligiblePlanOptions:
+          type: string
+        planOptionDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CPIResp_planOptions'
+    WriteOffReq_requestInfo:
+      type: object
+      properties:
+        busOrgId:
+          type: string
+          example: 1-13M1K0
+        billingAccountNumber:
+          type: string
+          example: 0205171586-GC
+        SourceSystem:
+          type: string
+          example: FUSION
+        writeOffItem:
+          type: array
+          items:
+            $ref: '#/components/schemas/WriteoffFields'
+    WriteOffResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        documentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/documentResponse'
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    CreditAdjustmentReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: 0205171586-GC
+        amount:
+          type: number
+          format: double
+          example: 6
+        currency:
+          type: string
+        reasonCd:
+          type: string
+    WriteoffReverseReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/WriteoffReverseReq_requestInfo'
+    WriteoffReverseResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/WriteoffReverseReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WriteoffReverseResp_responseInfo'
+    WriteoffReverseReq_requestInfo:
+      type: object
+      properties:
+        notes:
+          type: string
+        customerInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/documentResponse'
+    WriteoffReverseResp_responseInfo:
+      type: object
+      properties:
+        notes:
+          type: string
+        customerInfo:
+          type: array
+          items:
+            $ref: '#/components/schemas/documentResponse'
+    CreateProductMasterReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateProductMasterReq_requestInfo'
+    CreateProductMasterResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CreateProductMasterReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CreateProductMasterResp_responseInfo'
+    PostPaymentReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        paymentsInfo:
+          $ref: '#/components/schemas/PostPaymentReq_paymentsInfo'
+    PostPaymentResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        paymentsInfo:
+          $ref: '#/components/schemas/PostPaymentResp_paymentsInfo'
+    PostPaymentReqDetails:
+      type: object
+      properties:
+        customerFirstName:
+          type: string
+          example: Test
+        customerLastName:
+          type: string
+          example: Test
+        businessName:
+          type: string
+        customerType:
+          type: string
+          example: CON
+        customerEmail:
+          type: string
+          example: test@gmail.com
+        billingApplicationCd:
+          type: string
+          example: ENS
+        billingAccountNumber:
+          type: string
+          example: "490258712"
+        addressDetails:
+          $ref: '#/components/schemas/CreateCustomerDetails_addressDetails'
+        currencyCd:
+          type: string
+        paymentScheduleCd:
+          type: string
+        paymentProcessedDate:
+          type: string
+        convenienceFeeAmount:
+          type: number
+          format: double
+        invoiceNumber:
+          type: string
+        paymentTypeCd:
+          type: string
+        paymentMethodCd:
+          type: string
+        paymentAmount:
+          type: number
+          format: double
+        vendorCd:
+          type: string
+        vendorConfirmationId:
+          type: string
+        cardType:
+          type: string
+        bankAccountType:
+          type: string
+        maskedAccountNumber:
+          type: string
+        checkId:
+          type: string
+        restoralInd:
+          type: string
+        productTypeCd:
+          type: string
+    PostPaymentRespDetails:
+      type: object
+      properties:
+        customerFirstName:
+          type: string
+          example: Test
+        customerLastName:
+          type: string
+          example: Test
+        businessName:
+          type: string
+        customerType:
+          type: string
+          example: CON
+        customerEmail:
+          type: string
+          example: test@gmail.com
+        billingApplicationCd:
+          type: string
+          example: ENS
+        billingAccountNumber:
+          type: string
+          example: "490258712"
+        addressDetails:
+          $ref: '#/components/schemas/CreateCustomerDetails_addressDetails'
+        currencyCd:
+          type: string
+        paymentScheduleCd:
+          type: string
+        paymentProcessedDate:
+          type: string
+        convenienceFeeAmount:
+          type: number
+          format: double
+        invoiceNumber:
+          type: string
+        paymentTypeCd:
+          type: string
+        paymentAmount:
+          type: number
+          format: double
+        vendorCd:
+          type: string
+        vendorConfirmationId:
+          type: string
+        cardType:
+          type: string
+        bankAccountType:
+          type: string
+        maskedAccountNumber:
+          type: string
+        checkId:
+          type: string
+        restoralInd:
+          type: string
+        productTypeCd:
+          type: string
+        masterPaymentId:
+          type: string
+        paymentMethodCd:
+          type: string
+        consentMediumCd:
+          type: string
+        paymentStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    PaymentList_clearedInvoiceList:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+        invoiceAmount:
+          type: number
+          format: double
+        invoiceDate:
+          type: string
+        invoiceDueDate:
+          type: string
+        clearedAmount:
+          type: number
+          format: double
+    CreateProductMasterReq_requestInfo:
+      type: object
+      properties:
+        action:
+          type: string
+          example: C/U
+        productNumber:
+          type: string
+        productDescription:
+          type: string
+        sourceSystemCd:
+          type: string
+        sourceProductComponent1:
+          type: string
+        sourceProductComponent2:
+          type: string
+        sourceProductComponent3:
+          type: string
+        sourceProductComponent4:
+          type: string
+        sourceProductComponent5:
+          type: string
+        sourceBandwidthCd:
+          type: string
+        derivedBandwidthCd:
+          type: string
+        derivedAccessTechCd:
+          type: string
+        massMarketInd:
+          type: string
+        mastProductCd:
+          type: string
+        derivedProductAttr1:
+          type: string
+        derivedProductAttr2:
+          type: string
+        derivedProductAttr3:
+          type: string
+        derivedProductAttr4:
+          type: string
+        derivedProductAttr5:
+          type: string
+        derivedProductAttr6:
+          type: string
+        productTier1Cd:
+          type: string
+        productTier2Cd:
+          type: string
+        productTier3Cd:
+          type: string
+        productTier4Cd:
+          type: string
+        sapProfitCenter:
+          type: string
+        userId:
+          type: string
+    CreateProductMasterResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        productId:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    PostPaymentReq_paymentsInfo:
+      type: object
+      properties:
+        customerPaymentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostPaymentReqDetails'
+    PostPaymentResp_paymentsInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        transactionConfirmationId:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        customerPaymentDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PostPaymentRespDetails'
+    CollectionStepsReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CollectionStepsReq_requestInfo'
+    CollectionStepsResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/CollectionStepsReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/CollectionStepsResp_responseInfo'
+    CollectionStepsReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: A-1200121
+    CollectionStepsResp_responseInfo:
+      type: object
+      properties:
+        startegyName:
+          type: string
+        startegyId:
+          type: string
+        regulatedCollectionStepList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionStepsResp_responseInfo_regulatedCollectionStepList'
+        nonRegulatedCollectionStepList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionStepsResp_responseInfo_nonRegulatedCollectionStepList'
+        collectionStepList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CollectionStepsResp_responseInfo_collectionStepList'
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    CollectionStepsResp_responseInfo_regulatedCollectionStepList:
+      properties:
+        sequenceNumber:
+          type: string
+        collectionStepId:
+          type: string
+        collectionStepName:
+          type: string
+        dueDate:
+          type: string
+        isCurrentStep:
+          type: string
+    CollectionStepsResp_responseInfo_nonRegulatedCollectionStepList:
+      properties:
+        sequenceNumber:
+          type: string
+        collectionStepId:
+          type: string
+        collectionStepName:
+          type: string
+        dueDate:
+          type: string
+        isCurrentStep:
+          type: string
+    CollectionStepsResp_responseInfo_collectionStepList:
+      properties:
+        sequenceNumber:
+          type: string
+        collectionStepId:
+          type: string
+        collectionStepName:
+          type: string
+        dueDate:
+          type: string
+        isCurrentStep:
+          type: string
+]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1718267215949"/>
+      <string name="Modified By" value="AD42690"/>
+      <long name="Modified Date" value="1718267215949"/>
+      <string name="Name" value="PRF_CMAPIs"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

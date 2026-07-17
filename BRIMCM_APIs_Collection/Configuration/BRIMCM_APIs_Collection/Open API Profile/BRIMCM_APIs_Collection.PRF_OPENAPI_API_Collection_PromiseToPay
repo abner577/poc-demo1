@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="PRF_OpenAPI_promiseToPay.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[---
+openapi: 3.0.3
+info:
+  title: BRIM OpenAPI definition
+  description: Description for AutoDailer
+  version: v1.0.0-dev
+servers:
+- url: https://virtserver.swaggerhub.com/YUANCHEN_1/BRIMCM-API-Staging/v1.0.0-dev
+  description: SwaggerHub API Auto Mocking
+- url: http://148.155.130.78:8088
+  description: CM Host
+- url: "https://{apigeehost}/{apigeeproxyuri}"
+  description: Apigee Hosts
+paths:
+  /brimcm/collection/promisetopay/withdraw:
+    post:
+      tags:
+        - collection
+      operationId: withdrawPromiseToPay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawPromiseToPayRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawPromiseToPayResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: '1234567890'
+                      inputChannelCd: ENT
+                      srcSysTransactionId: '2346245768'
+                    requestInfo:
+                      notes: Customer missing hence withdrawing P2P
+                      promiseToPayConfirmationId: '10000000352'
+                    responseInfo:
+                      transactionStatus: S
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawPromiseToPayResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: '1234567890'
+                      inputChannelCd: ENT
+                      srcSysTransactionId: '2346245768'
+                    requestInfo:
+                      notes: Customer missing hence withdrawing P2P
+                      promiseToPayConfirmationId: '10000000352'
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawPromiseToPayResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: '1234567890'
+                      inputChannelCd: ENT
+                      srcSysTransactionId: '2346245768'
+                    requestInfo:
+                      notes: Customer missing hence withdrawing P2P
+                      promiseToPayConfirmationId: '10000000352'
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/collection/promisetopay/create:
+    post:
+      tags:
+        - collection
+      operationId: createPromiseToPay
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePromiseToPayRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePromiseToPayResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    promiseToPay:
+                      transactionStatus: S
+                      promiseToPayDetails:
+                        - billingAccountNumber: BAN1111111
+                          promiseToPayConfirmationId: string
+                          currencyCd: USD
+                          busOrgId: '123214332'
+                          noteText: Customer unable to make payment.
+                          promiseToPayDate: '2024-05-25T00:00:00.000Z'
+                          totalPromiseAmount: 223.56
+                          invoiceDetails:
+                            - invoiceNumber: '123453'
+                              promiseAmount: 100
+                            - invoiceNumber: '123454'
+                              promiseAmount: 123.56
+                      paymentMethodCd: ACH
+                      paymentMethodDetails:
+                        walletDetails:
+                          walletReferenceNumber: 490258712ACT
+                          instrumentId: '63546774'
+                        cardDetails:
+                          maskedAccountNumber: '****2345'
+                          cardType: Visa
+                          cardBillingZipCd: '80021'
+                          instrumentId: string
+                          cardExpirationDate: string
+                          cardToken: string
+                        bankAccountDetails:
+                          bankRoutingNumber: '102001017'
+                          bankAccountType: Checking
+                          bankAccountNumber: '43265436'
+                          maskedAccountNumber: string
+                          instrumentId: string
+                          default: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePromiseToPayResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    promiseToPay:
+                      transactionStatus: S/F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      promiseToPayDetails:
+                        - billingAccountNumber: BAN1111111
+                          promiseToPayConfirmationId: string
+                          errorInfo:
+                            errorMessage: string
+                            errorCd: string
+                          currencyCd: USD
+                          busOrgId: '123214332'
+                          noteText: Customer unable to make payment.
+                          promiseToPayDate: '2024-05-25T00:00:00.000Z'
+                          totalPromiseAmount: 223.56
+                          invoiceDetails:
+                            - invoiceNumber: '123453'
+                              promiseAmount: 100
+                            - invoiceNumber: '123454'
+                              promiseAmount: 123.56
+                      paymentMethodCd: ACH
+                      paymentMethodDetails:
+                        walletDetails:
+                          walletReferenceNumber: 490258712ACT
+                          instrumentId: '63546774'
+                        cardDetails:
+                          maskedAccountNumber: '****2345'
+                          cardType: Visa
+                          cardBillingZipCd: '80021'
+                          instrumentId: string
+                          cardExpirationDate: string
+                          cardToken: string
+                        bankAccountDetails:
+                          bankRoutingNumber: '102001017'
+                          bankAccountType: Checking
+                          bankAccountNumber: '43265436'
+                          maskedAccountNumber: string
+                          instrumentId: string
+                          default: true
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePromiseToPayResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    promiseToPay:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      promiseToPayDetails:
+                        - billingAccountNumber: BAN1111111
+                          promiseToPayConfirmationId: string
+                          errorInfo:
+                            errorMessage: string
+                            errorCd: string
+                          currencyCd: USD
+                          busOrgId: '123214332'
+                          noteText: Customer unable to make payment.
+                          promiseToPayDate: '2024-05-25T00:00:00.000Z'
+                          totalPromiseAmount: 223.56
+                          invoiceDetails:
+                            - invoiceNumber: '123453'
+                              promiseAmount: 100
+                            - invoiceNumber: '123454'
+                              promiseAmount: 123.56
+                      paymentMethodCd: ACH
+                      paymentMethodDetails:
+                        walletDetails:
+                          walletReferenceNumber: 490258712ACT
+                          instrumentId: '63546774'
+                        cardDetails:
+                          maskedAccountNumber: '****2345'
+                          cardType: Visa
+                          cardBillingZipCd: '80021'
+                          instrumentId: string
+                          cardExpirationDate: string
+                          cardToken: string
+                        bankAccountDetails:
+                          bankRoutingNumber: '102001017'
+                          bankAccountType: Checking
+                          bankAccountNumber: '43265436'
+                          maskedAccountNumber: string
+                          instrumentId: string
+                          default: true
+  "/brimcm/collection/promisetopay/history":
+    post:
+      tags:
+      - collection
+      operationId: getP2p
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PromiseToPayRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PromiseToPayHistoryResponse"
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: S
+                      billingAccountNumber: BAN1111111
+                      financeAccountNumber: 589698754-ENS
+                      busOrgId: '123214332'
+                      currencyCd: USD
+                      promiseToPayDetails:
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: '2024-05-25'
+                        promiseToPayConfirmationId: '235234543'
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: "****2354"
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        brokenAmount: 
+                        invoiceDetails:
+                        - invoiceNumber: '123453'
+                          invoiceDate: '2024-03-25'
+                          invoiceDueDate: '2024-03-25'
+                          promiseAmount: 100
+                        - invoiceNumber: '123454'
+                          invoiceDate: '2024-03-25'
+                          invoiceDueDate: '2024-03-25'
+                          promiseAmount: 123.56
+                      - createdBy: AC59752
+                        createdDttm: 2024-05-25 HH:mm:ssS
+                        lastModifiedBy: AC59752
+                        lastModifiedDttm: 2024-05-25 HH:mm:ssS
+                        noteText: Customer unable to make payment.
+                        promiseToPayDate: '2024-05-25'
+                        promiseToPayConfirmationId: '235234543'
+                        status: Open
+                        paymentMethodCd: ACH
+                        maskedAccountNumber: "****2354"
+                        bankAccountType: Checking
+                        cardType: Visa
+                        totalPromiseAmount: 223.56
+                        brokenAmount: 
+                        invoiceDetails:
+                        - invoiceNumber: '123453'
+                          invoiceDate: '2024-03-25'
+                          invoiceDueDate: '2024-03-25'
+                          promiseAmount: 100
+                        - invoiceNumber: '123454'
+                          invoiceDate: '2024-03-25'
+                          invoiceDueDate: '2024-03-25'
+                          promiseAmount: 123.56
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PromiseToPayHistoryResponse"
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: S/F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PromiseToPayHistoryResponse"
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: EPP
+                      requestId: 1234567890A
+                      inputChannelCd: EPP
+                      userId: AD20987
+                      srcSysTransactionId: 2346245768
+                    requestInfo:
+                      billingAccountNumber: string
+                      busOrgId: string
+                    responseInfo:
+                      transactionStatus: S/F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+
+components:
+  schemas:
+    HeaderInfo:
+      required:
+        - inputChannelCd
+        - srcApplicationCd
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+          description: sendTimeStamp
+          example: '2022-01-19T15:47:01.151Z'
+        srcApplicationCd:
+          type: string
+          description: srcApplicationCd
+          example: EPP
+        requestId:
+          type: string
+          description: requestId
+          example: 1234567KM
+        inputChannelCd:
+          type: string
+          description: inputChannelCd
+          example: EPP
+        srcSysTransactionId:
+          type: string
+          description: srcSysTransactionId
+          example: 1234567MN
+        userId:
+          type: string
+          description: userId
+          example: '123456789'
+      description: Header of the request
+    WithdrawPromiseToPayRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WithdrawPromiseToPayRequestInfo'
+    WithdrawPromiseToPayRequestInfo:
+      type: object
+      properties:
+        notes:
+          type: string
+        promiseToPayConfirmationId:
+          type: string
+    WithdrawPromiseToPayResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/WithdrawPromiseToPayRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/WithdrawPromiseToPayResponseInfo'
+    WithdrawPromiseToPayResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    PromiseToPayRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/PromiseToPayRequestInfo'
+    PromiseToPayRequestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+    InvoiceDetail:
+      type: object
+      properties:
+        invoiceNumber:
+          type: string
+        invoiceDate:
+          type: string
+        invoiceDueDate:
+          type: string
+        promiseAmount:
+          type: number
+          format: double
+    PromiseToPayDetail:
+      type: object
+      properties:
+        createdBy:
+          type: string
+        createdDttm:
+          type: string
+        lastModifiedBy:
+          type: string
+        lastModifiedDttm:
+          type: string
+        noteText:
+          type: string
+        promiseToPayDate:
+          type: string
+        promiseToPayReason:
+          type: string
+        promiseToPayConfirmationId:
+          type: string
+        status:
+          type: string
+        paymentMethodCd:
+          type: string
+        maskedAccountNumber:
+          type: string
+        bankAccountType:
+          type: string
+        cardType:
+          type: string
+        totalPromiseAmount:
+          type: number
+          format: double
+        brokenAmount:
+          type: number
+          format: double
+        convenienceFeeAmount:
+          type: number
+          format: double 
+        surchargeFeeAmt:
+          type: number
+          format: double          
+        invoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceDetail'
+    PromiseToPayResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        promiseToPayDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/PromiseToPayDetailResponse'
+        paymentMethodCd:
+          type: string
+        paymentMethodDetails:
+          $ref: '#/components/schemas/PaymentMethodDetails'
+    BankAccountDetails:
+      required:
+        - bankAccountNumber
+        - bankAccountType
+        - bankRoutingNumber
+      type: object
+      properties:
+        bankRoutingNumber:
+          type: string
+          description: Routing number of bank account.Required when Create or Update ACH wallet
+          example: '021000021'
+        bankAccountType:
+          type: string
+          description: Type of Bank account.Required when Create or Update ACH wallet
+          example: Checking, Savings
+        bankAccountNumber:
+          type: string
+          description: Bank account Number.Required when Create or Update ACH wallet
+          example: '12345689'
+        maskedAccountNumber:
+          type: string
+          description: Masked Bank account Number
+          example: '****5689'
+        instrumentId:
+          type: string
+          description: Instrument id of the wallet. Required only for update.
+          example: '22142506'
+        achToken:
+          type: string
+          description: Token to create ACH wallet.
+          example: LPS8345PFVWWUR
+        default:
+          type: boolean
+      description: Customer Bank account details
+    CardDetails:
+      required:
+        - cardToken
+      type: object
+      properties:
+        cardToken:
+          type: string
+          description: Token to create card wallet. Only for internal purpose.
+          example: '021000021'
+        maskedAccountNumber:
+          type: string
+          description: Masked account Number.
+          example: '****5689'
+        cardExpirationDate:
+          type: string
+          description: Expiration date of the card.Required when updating card wallet.
+          example: 04-2025
+        cardType:
+          type: string
+          description: Type of Card.
+          example: VISA,DISCOVER
+        cardBillingZipCd:
+          type: string
+          description: Billing Zip code of the card.
+          example: '80126'
+        instrumentId:
+          type: string
+          description: Instrument id of the wallet. Required for update.
+          example: '22142506'
+      description: Customer Card Details like card token
+    PaymentMethodDetails:
+      type: object
+      properties:
+        walletDetails:
+          $ref: '#/components/schemas/WalletDetails'
+        cardDetails:
+          $ref: '#/components/schemas/CardDetails'
+        bankAccountDetails:
+          $ref: '#/components/schemas/BankAccountDetails'
+    WalletDetails:
+      required:
+        - instrumentId
+        - walletReferenceNumber
+      type: object
+      properties:
+        walletReferenceNumber:
+          type: string
+          description: If savePaymentMethod is Y,need walletReferenceNumber. Required if walletPayment.
+          example: KM4qTnEmJytMFLWF6p8cnpGu4
+        instrumentId:
+          type: string
+          description: 'Instrument Id: Can be used instead of wallet reference value too'
+          example: '22138295'
+      description: 'Customer wallet information '
+    CreatePromiseToPayRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        promiseToPay:
+          $ref: '#/components/schemas/PromiseToPayInfo'
+    PromiseToPayInfo:
+      type: object
+      properties:
+        promiseToPayDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatePromiseToPayDetail'
+        paymentMethodCd:
+          type: string
+        paymentMethodDetails:
+          $ref: '#/components/schemas/PaymentMethodDetails'
+    CreatePromiseToPayResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        promiseToPay:
+          $ref: '#/components/schemas/PromiseToPayResponseInfo'
+    CreatePromiseToPayDetail:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        currencyCd:
+          type: string
+        busOrgId:
+          type: string
+        noteText:
+          type: string
+        promiseToPayDate:
+          type: string
+        promiseToPayReason:
+          type: string
+        totalPromiseAmount:
+          type: number
+          format: double
+        surchargeAmount:
+          type: number
+          format: double
+        convenienceFeeAmount:
+          type: number
+          format: double
+        invoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceDetail'
+    PromiseToPayDetailResponse:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        promiseToPayConfirmationId:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        currencyCd:
+          type: string
+        busOrgId:
+          type: string
+        noteText:
+          type: string
+        promiseToPayDate:
+          type: string
+        PromiseToPayReason:
+          type: string
+        totalPromiseAmount:
+          type: number
+          format: double
+        surchargeAmount:
+          type: number
+          format: double
+        convenienceFeeAmount:
+          type: number
+          format: double
+        invoiceDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvoiceDetail'
+    ErrorInfo:
+      required:
+        - errorCd
+        - errorMessage
+      type: object
+      properties:
+        errorCd:
+          type: string
+          description: Unique error code for each type of error
+          example: '10083'
+        errorMessage:
+          type: string
+          description: Error message
+          example: No Account Available
+      description: errorInfo
+    PromiseToPayHistoryResponse:
+      type: object
+      properties:
+        headerInfo:
+          "$ref": "#/components/schemas/HeaderInfo"
+        requestInfo:
+          "$ref": "#/components/schemas/PromiseToPayRequestInfo"
+        responseInfo:
+          "$ref": "#/components/schemas/PromiseToPayHistoryResponseInfo"
+    PromiseToPayHistoryResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          "$ref": "#/components/schemas/ErrorInfo"
+        billingAccountNumber:
+          type: string
+        financeAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        currencyCd:
+          type: string
+        promiseToPayDetails:
+          type: array
+          items:
+            "$ref": "#/components/schemas/PromiseToPayDetail"]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1718438021185"/>
+      <string name="Modified By" value="AD29754"/>
+      <long name="Modified Date" value="1781603854296"/>
+      <string name="Name" value="PRF_OPENAPI_API_Collection_PromiseToPay"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="6"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="Auto.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[---
+openapi: 3.0.1
+info:
+  title: BRIMCM_APIs_InfoSys
+  description: Description for AutoDailer
+  version: ver-1.3-ReviewedWithLumen
+servers:
+- url: http://148.155.130.78:8088
+paths:
+  /brimcm/collection/dunning/autoDailerCallStatus:
+    post:
+      tags:
+      - collections
+      summary: Get AutoDailer information updated in BRIM to send to Fusion
+      description: to get the AutoDailer with BAN
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoDailerCallStatusRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: '1234'
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: S
+                      telephoneNumber: '1080887679'
+                      ivrInteractionId: 5dc62fe961b518c7b785c1d29a14e3f5
+                      contactListId: c397387f-068b-4e3f-8b7c-57e639a4ea52
+                      lastAttemptedOn: '2024-01-08T17:46:03.654Z'
+                      autoDialerCallStatus: NO ANSWER
+                      autoDialerErrorCode: ''
+                      autoDialerErrorDescription: ''
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: '1234'
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      telephoneNumber: '1080887679'
+                      ivrInteractionId: 5dc62fe961b518c7b785c1d29a14e3f5
+                      contactListId: c397387f-068b-4e3f-8b7c-57e639a4ea52
+                      lastAttemptedOn: '2024-01-08T17:46:03.654Z'
+                      autoDialerCallStatus: NO ANSWER
+                      autoDialerErrorCode: ''
+                      autoDialerErrorDescription: ''
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: '1234'
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+                      telephoneNumber: '1080887679'
+                      ivrInteractionId: 5dc62fe961b518c7b785c1d29a14e3f5
+                      contactListId: c397387f-068b-4e3f-8b7c-57e639a4ea52
+                      lastAttemptedOn: '2024-01-08T17:46:03.654Z'
+                      autoDialerCallStatus: NO ANSWER
+                      autoDialerErrorCode: ''
+                      autoDialerErrorDescription: ''
+
+components:
+  schemas:
+    HeaderInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+          description: sendTimeStamp
+          example: '123456789'
+        srcApplicationCd:
+          type: string
+          description: srcApplicationCd
+          example: '123456789'
+        requestId:
+          type: integer
+          description: requestId
+          format: int32
+          example: 123456789
+        inputChannelCd:
+          type: string
+          description: inputChannelCd
+          example: '123456789'
+        srcSysTransactionId:
+          type: integer
+          description: srcSysTransactionId
+          format: int32
+          example: 123456789
+        userId:
+          type: string
+          description: userId
+          example: '123456789'
+      description: Header of the request
+    ErrorInfo:
+      required:
+        - errorCd
+        - errorMessage
+      type: object
+      properties:
+        errorCd:
+          type: string
+          description: Unique error code for each type of error
+          example: '10083'
+        errorMessage:
+          type: string
+          description: Error message
+          example: No Account Available
+      description: errorInfo
+    AutoDailerCallStatusRequest:
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AutoDailerRequestInfo'
+    AutoDailerCallStatusResponse:
+      required:
+        - headerInfo
+        - requestInfo
+        - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AutoDailerRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/AutoDailerResponseInfo'
+    AutoDailerRequestInfo:
+      required:
+      - billingAccountNumber
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: "1234"
+        billingApplicationCd:
+          type: string
+          example: ENS
+        busOrgId:
+          type: string
+          example: ABCD
+      anyOf:
+      - required:
+        - billingAccountNumber
+        - billingApplicationCd
+      - required:
+        - billingAccountNumber
+        - busOrgId
+    AutoDailerResponseInfo:
+      required:
+        - autoDialerCallStatus
+        - autoDialerErrorCode
+        - autoDialerErrorDescription
+        - contactListId
+        - ivrInteractionId
+        - lastAttemptedOn
+        - telephoneNumber
+        - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        telephoneNumber:
+          type: string
+          description: telephoneNumber
+        ivrInteractionId:
+          type: string
+          description: ivrInteractionId
+        contactListId:
+          type: string
+          description: contactListId
+        lastAttemptedOn:
+          type: string
+          description: lastAttemptedOn
+        autoDialerCallStatus:
+          type: string
+          description: Response
+        autoDialerErrorCode:
+          type: string
+          description: autoDialerErrorCode
+        autoDialerErrorDescription:
+          type: string
+          description: autoDialerErrorDescription
+      description: ResponseD]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1721997605630"/>
+      <string name="Modified By" value="AD44305"/>
+      <long name="Modified Date" value="1721997605630"/>
+      <string name="Name" value="PRF_OPENAPI_AutoDailer"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="1"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

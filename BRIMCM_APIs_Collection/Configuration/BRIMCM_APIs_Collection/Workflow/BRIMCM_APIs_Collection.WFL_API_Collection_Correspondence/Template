@@ -1,0 +1,1076 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="11.0">
+         <boolean name="enabled" value="false"/>
+         <storable name="kafka" null="true"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Local Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Port"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="HTTP2_Client"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ServerData" ver="12.2">
+                  <enum classname="com.digitalroute.http2.server.auth.AuthLevel" name="authLevel" value="NONE"/>
+                  <string name="authPublicKey" null="true"/>
+                  <int name="averagePeriod" value="10"/>
+                  <string name="characterEncoding" value="UTF-8"/>
+                  <int name="clientTimeout" value="10"/>
+                  <boolean name="enableTooManyRequests" value="false"/>
+                  <int name="gzipLevel" value="7"/>
+                  <string name="host" value=""/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <int name="maxCacheSize" value="1000"/>
+                  <int name="maxCacheTime" value="1000"/>
+                  <int name="maxConcurrentStreams" value="500"/>
+                  <int name="numberOfRequests" value="1000"/>
+                  <int name="port" value="8402"/>
+                  <boolean name="routeToApl" value="false"/>
+                  <storable name="securityProfile" null="true"/>
+                  <int name="serverTimeout" value="0"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" storable-id="dr.DRConfiguration" ver="2.0">
+                           <set name="Dynamic Parameters" null="true"/>
+                           <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                           <string name="Key" value="CMD1719080015313"/>
+                           <string name="Name" value="PRF_Collection_Correspondence"/>
+                           <string name="Type" value="Open API Profile"/>
+                        </storable>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList">
+                           <storable name="0" storable-id="dr.DRConfiguration" ver="2.0">
+                              <set name="Dynamic Parameters" null="true"/>
+                              <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                              <string name="Key" value="CMD1719080015313"/>
+                              <string name="Name" value="PRF_Collection_Correspondence"/>
+                              <string name="Type" value="Open API Profile"/>
+                           </storable>
+                        </list>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="true"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.HTTP2.Support5G" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <boolean name="enableFallBack" value="false"/>
+                        <boolean name="enableRegistrationRetry" value="false"/>
+                        <string name="nrfAddress" value=""/>
+                        <array classname="java.lang.String" name="nrfAddresses" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="numberOfRegistrationRetry" value="0"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList"/>
+                        <array classname="java.lang.String" name="secondaryAddress" size="0"/>
+                        <array classname="java.lang.String" name="secondaryAddressList" size="0"/>
+                        <int name="timeIntervalForRegistrationRetry" value="0"/>
+                        <boolean name="use5g" value="false"/>
+                     </storable>
+                  </list>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useCache" value="false"/>
+                  <boolean name="useSSL" value="false"/>
+                  <int name="waitDuration" value="10"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="HTTP2_Server"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[// import apl.BRIMCM_APIs_EXTENSIONS.APL_Functions_Collection;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.subUdr;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_Collection_Correspondence;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+
+
+/*
+// This agent handles 4 transaction lifecycle stages:
+//
+// 1. REQUEST
+//    - Initial client HTTP request processing
+//    - Request validation
+//    - Early error response handling (BAN & BusOrg missing)
+//
+// 2. RFC_REQUEST
+//
+// 3. RFC_RESPONSE
+//
+// 4. ODATA_REQUEST
+//
+// NOTE:
+// ODATA_RESPONSE and final RESPONSE processing occur downstream
+// in the Analysis_Response agent.
+// ============================================================================
+*/
+
+string PATH_COLLECTION_CORRESPONDENCE;
+SplunkContext splunkCtx;
+
+initialize {
+    PATH_COLLECTION_CORRESPONDENCE = externalReferenceGet("Common.DB_External_Reference","PATH_COLLECTION_CORRESPONDENCE");
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Analysis_Request" , "Agent Name");
+}
+
+consume {
+    try {
+
+        string resourceCode;
+        string str_tagId;
+        
+        // STAGE 1: REQUEST STAGE -- Initial client request received 
+        if (instanceOf(input, RequestCycle)) {
+            RequestCycle clientCycleUdr = (RequestCycle) input;
+            str_tagId = setTagId(clientCycleUdr);
+            
+            debug("The value of str_tagId = " + (str_tagId));
+            debug("inside Request Cycle instance[Analysis_Request]");
+            debug("###clientCycleUdr## " + clientCycleUdr);
+            
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, clientCycleUdr.path);
+            
+            // Log REQUEST
+            ConsumeCycleUDR clientRequestLog = sendToSplunk(clientCycleUdr, null, API_REQUEST, "", null, splunkCtx);
+            udrRoute(clientRequestLog, "toSplunk");
+            
+             // Response Header Structure Setup 
+            map<string,list<string>> mapHeaders = mapCreate(string,list<string>);
+            list<string> lHeader = listCreate(string);
+            listAdd(lHeader, "application/json");
+            mapSet(mapHeaders, "Content-Type", lHeader);
+            clientCycleUdr.response.headers = mapHeaders;
+            
+            string sBody;
+            any Rec;
+            
+            if (clientCycleUdr.body != null) {
+                sBody = baToStr(clientCycleUdr.body);
+                Rec = jsonParse(sBody);
+                
+                debug("sBody : " + sBody);
+                debug("Rec : " + Rec);
+            }
+            
+            string BAN = mapGet(clientCycleUdr.parameters,"billingAccountNumber");
+            string BussOrg = mapGet(clientCycleUdr.parameters,"busOrgId");
+            
+            // Check which API path this request is hitting
+            if (clientCycleUdr.path == PATH_COLLECTION_CORRESPONDENCE) {
+
+                debug("BAN = " + (BAN));
+                debug("BussOrg = " + (BussOrg));
+                
+                if(isEmpty(BAN) && isEmpty(BussOrg)){
+                     CorrespondenceHistoryResponse errResponseToClient = buildErrResponseForCorr("40101", "Both billingAccountNumber and busOrgId missing", BAN, BussOrg);
+                     clientCycleUdr.response.openAPIUDR = errResponseToClient;  
+                     clientCycleUdr.response.statusCode = 400;
+                     
+                     udrRoute(clientCycleUdr, "responseToClient");
+                     
+                     ConsumeCycleUDR errorResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                     udrRoute(errorResponseLog, "toSplunk");  
+                     return;                                                                                  
+                }
+                // STAGE 2: Sending RFC_REQUEST
+                else {
+                    // SAP RFC needs at least one of BAN (I_VKONA) or BussOrg (I_BPEXT) in Request Params
+                    ZFICAF_GPART_VKONT_DERIVE_UDR rfcRequestUdr = udrCreate(ZFICAF_GPART_VKONT_DERIVE_UDR);
+                    rfcRequestUdr.importParams = udrCreate(importParams_ZFICAF_GPART_VKONT_DERIVE);
+
+                    if (!isEmpty(BAN)) {
+                        rfcRequestUdr.importParams.I_VKONA = BAN;
+                    } 
+                    if (!isEmpty(BussOrg)) {
+                        rfcRequestUdr.importParams.I_BPEXT = BussOrg;
+                    }
+                    
+                    rfcRequestUdr.context = clientCycleUdr; // ###Preserve original HTTP request context###
+                    
+                    // Send request to RFC and toSplunk
+                    udrRoute(rfcRequestUdr, "rfcRequest");
+                    
+                    ConsumeCycleUDR rfcRequestLog = sendRfcToSplunk(clientCycleUdr, (string) rfcRequestUdr.importParams, RFC_REQUEST, "", "ZFICAF_GPART_VKONT_DERIVE_UDR", splunkCtx);
+                    udrRoute(rfcRequestLog, "toSplunk");
+                }  
+            }
+            // CM received an HTTP request routed into this workflow, but this workflow doesnt recognize this path
+            else {
+
+                debug("Inside unknown or unsupported API path condition");
+                
+                CorrespondenceHistoryResponse errResponseToClient = buildErrResponseForCorr("40101", "Unknown or unsupported API path", BAN, BussOrg);
+                clientCycleUdr.response.openAPIUDR = errResponseToClient;  
+                clientCycleUdr.response.statusCode = 404;
+                     
+                udrRoute(clientCycleUdr, "responseToClient");
+                ConsumeCycleUDR errorResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(errorResponseLog, "toSplunk");
+                return;
+            }
+        }
+        // STAGE 3: Receive RFC_RESPONSE
+        else if (instanceOf(input,ZFICAF_GPART_VKONT_DERIVE_UDR)) {
+
+                debug("###Response from RFC = " + (input));
+                log.info("###Response from RFC = " + (input));
+                
+                ZFICAF_GPART_VKONT_DERIVE_UDR rfcResponseUdr = (ZFICAF_GPART_VKONT_DERIVE_UDR) input;
+                
+                if (rfcResponseUdr.context == null) {
+                    debug("FATAL: Missing RequestCycle context in RFC response processing");
+                    log.error("FATAL: Missing RequestCycle context in RFC response processing");
+                    return;
+                }
+                
+                RequestCycle originalClientReqUdr = (RequestCycle) rfcResponseUdr.context;
+                
+                string BussOrg = rfcResponseUdr.importParams.I_BPEXT;
+                string BAN = rfcResponseUdr.importParams.I_VKONA;
+                
+                if (originalClientReqUdr.path == PATH_COLLECTION_CORRESPONDENCE) { 
+
+                    debug("The value of rfcResponseUdr [Analysis_Request] = " + (rfcResponseUdr));
+                    string busPartner, contractAcc, sURI;
+                    
+                    /* 
+                     The RFC response (exportParams) contains: ET_GPART_VKONT --> 
+                     which is an object that within it, contains the BusinessOrg / BusinessPartner and the VKONT / CA
+                     
+                     So all we are doing here is just extracting the busOrg and the CA from the result that we got from RFC.
+                    */
+                    list<FKKVKP_KEY_T> listOfBP_CA = listCreate(FKKVKP_KEY_T);
+                    listOfBP_CA = rfcResponseUdr.exportParams.ET_GPART_VKONT;
+                    
+                    if (listSize(listOfBP_CA) > 0) {
+                        busPartner = listOfBP_CA[0].GPART;
+                        
+                        if(listSize(listOfBP_CA) == 1) {
+                            contractAcc = listOfBP_CA[0].VKONT;
+                        }
+                        else {
+                            contractAcc = null;
+                        }
+
+                        // Log RFC_RESPONSE
+                        ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientReqUdr, (string) rfcResponseUdr.exportParams, RFC_RESPONSE, API_STATUS_SUCCESS, "ZFICAF_GPART_VKONT_DERIVE_UDR", splunkCtx);
+                        udrRoute(rfcResponseLog, "toSplunk");
+
+                        debug("busPartner = " + busPartner + "::contractAcc = " + contractAcc + "::busOrg = " + BussOrg + "::BAN = " + BAN);
+                        log.info("busPartner = " + busPartner + "::contractAcc = " + contractAcc + "::busOrg = " + BussOrg + "::BAN = " + BAN);
+                    }
+                    // SAP didnt return data --> send error
+                    else {
+
+                        debug("###ERROR: No Data found in BRIM for billingAccountNumber or busOrgId");
+
+                        string sBAN = mapGet((map<string,string>)rfcResponseUdr.context.parameters,"billingAccountNumber");
+                        string sBussOrg = mapGet((map<string,string>)rfcResponseUdr.context.parameters,"busOrgId");
+                        resourceCode = getXrefValue(RESOURCE_CODE_TABLE, originalClientReqUdr.path);
+
+                        CorrespondenceHistoryResponse errResponseToClient = buildErrResponseForCorr(resourceCode + BRIM_ERROR, "No Data found in BRIM for billingAccountNumber or busOrgId", sBAN, sBussOrg);
+                        originalClientReqUdr.response.openAPIUDR = errResponseToClient;  
+                        originalClientReqUdr.response.statusCode = 400;
+
+                        // Send error response back to client + Splunk
+                        udrRoute(originalClientReqUdr, "responseToClient");
+
+                        ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientReqUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                        ConsumeCycleUDR failedRfcResponseLog = sendRfcToSplunk(originalClientReqUdr, (string) rfcResponseUdr.exportParams, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_GPART_VKONT_DERIVE_UDR", splunkCtx);
+                        
+                        udrRoute(errorResponseLog, "toSplunk");
+                        udrRoute(failedRfcResponseLog, "toSplunk");
+                        return; 
+                    }
+                    // STAGE 4: Call S4 --> ODATA_REQUEST
+                    // Build URLs to call ODATA (CA is preferred, busPartner as fallback)
+                     string sURICA= "/sap/opu/odata/sap/ZGLB_DEVFI_DISPLAYCORR_SRV/C_CACorrespondenceHistory?$filter=ContractAccount"+"%20"+"eq"+"%20"+"'"+contractAcc+"'&$format=json";
+                     string sURIBP= "/sap/opu/odata/sap/ZGLB_DEVFI_DISPLAYCORR_SRV/C_CACorrespondenceHistory?$filter=BusinessPartner"+"%20"+"eq"+"%20"+"'"+busPartner+"'&$format=json";
+                     
+                      if(!isEmpty(contractAcc)) {
+                        sURI = sURICA;
+                     }
+                     else {
+                        sURI = sURIBP;
+                     }
+                        
+                     // Build outbound ODATA RequestCycle object.
+                    // Actual HTTP call occurs when routed to requestToS4.
+                     http.RequestCycle requestToOdataUDR = requestTokenDetails(sURI);                                      
+                     requestToOdataUDR.context = rfcResponseUdr.context;
+                     
+                     udrRoute(requestToOdataUDR, "requestToS4");
+                     
+                     ConsumeCycleUDR odataRequestLog = sendToSplunk(originalClientReqUdr, requestToOdataUDR, ODATA_REQUEST, "", requestToOdataUDR.path, splunkCtx);
+                     udrRoute(odataRequestLog, "toSplunk");
+             }
+             // CM received an HTTP request routed into this workflow, but this workflow doesnt recognize this path
+             else {
+
+                 debug("Inside Unknown or unsupported API path condition");
+                 log.info("Inside Unknown or unsupported API path condition");
+
+                 CorrespondenceHistoryResponse errResponseToClient = buildErrResponseForCorr("40101", "Unknown or unsupported API path", BAN, BussOrg);
+                 originalClientReqUdr.response.openAPIUDR = errResponseToClient;  
+                 originalClientReqUdr.response.statusCode = 404;
+                     
+                 udrRoute(originalClientReqUdr, "responseToClient");
+                 ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientReqUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                 udrRoute(errorResponseLog, "toSplunk");
+                 return;
+            }
+        }
+        // Case where input type is one that we are not expecting
+        else {
+            log.info("Inside case where input type is one that we are not expecting");
+            log.info("Input value: " + input);
+        }
+    } catch (ExceptionDetails exception) {
+
+        debug("Exception:: " + exception);
+        log.info("Exception:: " + exception);
+
+        RequestCycle clientCycleUdr = null;
+
+        if (instanceOf(input, RequestCycle)) {
+            clientCycleUdr = (RequestCycle) input;
+
+        } 
+        else if (instanceOf(input, ZFICAF_GPART_VKONT_DERIVE_UDR)) {
+            clientCycleUdr = (RequestCycle) ((ZFICAF_GPART_VKONT_DERIVE_UDR) input).context;
+
+        } else {
+            
+            // Cannot safely return HTTP response or send normal error Splunk log
+            // because RequestCycle context is unavailable.
+            debug("FATAL: Unable to resolve RequestCycle " + "during exception handling. " + "Original exception: " + exception.message);
+            log.info("FATAL: Unable to resolve RequestCycle " + "during exception handling. " + "Original exception: " + exception.message);
+            return;
+        }
+
+        string BAN = mapGet(clientCycleUdr.parameters, "billingAccountNumber");
+        string BussOrg = mapGet(clientCycleUdr.parameters, "busOrgId");
+
+        CorrespondenceHistoryResponse exceptionResponseToClient = buildErrResponseForCorr("50001", "Internal processing error", BAN, BussOrg);
+        clientCycleUdr.response.openAPIUDR = exceptionResponseToClient;  
+        clientCycleUdr.response.statusCode = 500;
+
+        udrRoute(clientCycleUdr, "responseToClient");
+        
+        ConsumeCycleUDR exceptionResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+        udrRoute(exceptionResponseLog, "toSplunk");
+    }
+}
+/**
+ * Builds a standardized Collection Correspondence error response object.
+ *
+ * The returned response includes:
+ *
+ * - Original request identifiers (BAN / BUSSORG)
+ * - Error code and error message
+ * - Failed transaction status ("F")
+ *
+ * @param errorCode
+ *        Standardized workflow/business error code.
+ *
+ * @param errorMessage
+ *        Human-readable failure description.
+ *
+ * @param BAN
+ *        Billing Account Number associated with the request.
+ *
+ * @param BussOrg
+ *        Business Organization identifier associated with the request.
+ *
+ * @return
+ *        Fully populated failed CorrespondenceHistoryResponse object
+ *        ready to attach to the HTTP response lifecycle.
+ */
+CorrespondenceHistoryResponse buildErrResponseForCorr(string errorCode, string errorMessage, string BAN, string BussOrg) {
+   CorrespondenceHistoryResponse response = udrCreate(CorrespondenceHistoryResponse);
+   CorrespondenceHistoryRequestInfo requestInfo = udrCreate(CorrespondenceHistoryRequestInfo);
+
+   requestInfo.billingAccountNumber = BAN; // Info represents the request that is throwing this error
+   requestInfo.busOrgId = BussOrg;
+   response.requestInfo = requestInfo;
+
+   ErrorInfo errUdr = udrCreate(ErrorInfo);
+
+   errUdr.errorCd = errorCode;
+   errUdr.errorMessage = errorMessage;
+
+   CorrespondenceHistoryResponseInfo responseInfo = udrCreate(CorrespondenceHistoryResponseInfo);
+   responseInfo.transactionStatus = "F";
+   responseInfo.errorInfo = errUdr;
+
+   response.responseInfo = responseInfo; // What we are sending back to client
+   return response;
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="12">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.BAPI_CTRACCONTRACTACCOUNT_GD1_UDR]]></string>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                     <storable name="10" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_NOTIF_UPD_UDR]]></string>
+                     </storable>
+                     <storable name="11" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFIF_FM_VKONA_TO_BP_UDR]]></string>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICA_FKK_UPDATE_SUSPENDED_BIT_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICA_GET_BUSI_SEG_UDR]]></string>
+                     </storable>
+                     <storable name="5" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_BIT_CREATE_API_UDR]]></string>
+                     </storable>
+                     <storable name="6" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_BUPABANK_UPDATE_UDR]]></string>
+                     </storable>
+                     <storable name="7" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_CA_ACC_CREATE_API_UDR]]></string>
+                     </storable>
+                     <storable name="8" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR]]></string>
+                     </storable>
+                     <storable name="9" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.ZFICAF_GPART_VKONT_DERIVE_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_Request"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-C47096DB3390424214330B5B2BC35B9B"/>
+                  <int name="queueFullMaxRetries" value="10"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="true"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Common"/>
+                     <string name="Key" value="CMD1718267260229"/>
+                     <string name="Name" value="PRF_TLS"/>
+                     <string name="Type" value="Security Profile"/>
+                  </storable>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="true"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="BRIM_CM_REST"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="HTTP2_Client"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_LUMN.subUdr;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_Collection_Correspondence;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+
+/*
+// ============================================================================
+// This agent handles the final 2 transaction lifecycle stages:
+//
+// 5. ODATA_RESPONSE
+//    - Receives the HTTP/OData response returned from S4
+//    - Transforms S4/OData response into client-facing API response format
+//
+// 6. RESPONSE
+//    - Routes final response back through the original HTTP request cycle
+//
+// NOTE:
+// Earlier transaction stages occur upstream in Analysis_Request:
+
+// - REQUEST
+// - RFC_REQUEST
+// - RFC_RESPONSE
+// - ODATA_REQUEST
+//
+// IMPORTANT:
+// Some early error responses never reach this agent.
+// Validation failures and some RFC failures are handled directly
+// inside Analysis_Request.
+// ============================================================================
+*/
+
+SplunkContext splunkCtx;
+
+initialize {
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Analysis_Response" , "Agent Name");
+}
+
+consume {
+    
+    try {
+        string resourceCode;
+
+        // STAGE 5: Receive ODATA_RESPONSE from S4/OData
+        if (instanceOf(input,RequestCycle)) {
+            
+            RequestCycle s4CycleUdr = (RequestCycle) input; // Response back from S4
+
+            // Cannot log properly because RequestCycle context is lost
+            if (s4CycleUdr.context == null) {
+                debug("FATAL: Missing RequestCycle context in ODATA response processing");
+                log.error("FATAL: Missing RequestCycle context in ODATA response processing");
+                return;
+            }
+
+            RequestCycle originalClientReqUdr = (RequestCycle) s4CycleUdr.context; // Original client RequestCycle
+
+            string BAN = mapGet(originalClientReqUdr.parameters, "billingAccountNumber");
+            string BussOrg = mapGet(originalClientReqUdr.parameters, "busOrgId");
+             
+            map<string, list<string>> mapToken = tokenReq(s4CycleUdr.response.headers);
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, originalClientReqUdr.path);
+
+            debug("The value of s4CycleUdr: " + s4CycleUdr);
+            debug("mapToken in consume : " + mapToken);
+
+            // Confirm this is the expected OData response
+            if (strREContains(s4CycleUdr.path,"/sap/opu/odata/sap/ZGLB_DEVFI_DISPLAYCORR_SRV/C_CACorrespondenceHistory") && s4CycleUdr.method == "GET") {
+                debug("Inside GET Call to GET Correspondence details");
+                debug("s4CycleUdr For Correspondence = " + s4CycleUdr);
+
+                // Parse response body. Body --> bytearray --> string --> json
+                bytearray baRecord = (bytearray)s4CycleUdr.response.body;
+                string sResponseBody = baToStr(baRecord);
+                map<string,any> response = (map<string,any>)jsonParse(sResponseBody);
+
+                // Final client-facing API response objects.
+                CorrespondenceHistoryResponse responseToClientFinal = udrCreate(CorrespondenceHistoryResponse);
+                CorrespondenceHistoryResponseInfo responseToClientInfo = udrCreate(CorrespondenceHistoryResponseInfo);
+                list<CorrespondenceList> listOfAllCorrespondenceRecords = listCreate(CorrespondenceList);
+
+                debug("s4CycleUdr.response.statusCode: " + s4CycleUdr.response.statusCode);
+
+                // Successful ODATA response received 
+                if (s4CycleUdr.response.statusCode == 200) {
+                   debug("Inside 200 success condition");
+                   debug("response inside 200 condition: " + response);
+                   
+                   responseToClientInfo.transactionStatus = "S";
+                   
+                   // So we have d --> and inside d we have results --> And then inside results we have actual values, 
+                   // which is why we are progressively drilling deeper into the JSON structure. 
+                   map<string,list<any>> mapCorrespondenceDetails = (map<string,list<any>>)mapGet(response,"d");
+                   list <any> results = listCreate(any);
+                   results = mapGet(mapCorrespondenceDetails, "results");
+                   
+                   debug("mapCorrespondenceDetails: " + mapCorrespondenceDetails);
+                   debug("results: "+ results);
+
+                   string CorrespondenceIssueDate, epocDateInMillisec, responseDate;
+                   date resDate; 
+                   long longMillisec;
+
+                   if (listSize(results) > 0) { 
+                       
+                       for (any correspondenceRecord : results) {
+                           
+                           CorrespondenceList correspondenceRecordItems = udrCreate(CorrespondenceList);
+                           CorrespondenceIssueDate = (string)correspondenceRecord.CorrespondenceIssueDate; // Extract raw date
+
+                           // From raw date, extract epoch number and convert into YYYY-MM-DD
+                           if (CorrespondenceIssueDate != null) {
+                               epocDateInMillisec = strSubstring(CorrespondenceIssueDate, 6, strLength(CorrespondenceIssueDate)-2);
+                             // debug ("epocDate - "+ epocDateInMillisec);
+                               if (epocDateInMillisec != null) {
+                                   strToLong(longMillisec, epocDateInMillisec);
+                                   resDate = dateCreateFromMilliseconds (longMillisec); 
+                                   responseDate = strSubstring((string) resDate, 0, 10);
+                                 // debug ("responseDate - "+ responseDate);  
+                               }
+                           }
+                           
+                           // Map raw S4 fields --> API fields client expects 
+                           correspondenceRecordItems.correspondenceType = (string) correspondenceRecord.CACorrespncDispatchControlName;                                   
+                           correspondenceRecordItems.recipientName = (string) correspondenceRecord.CorrespondenceRecipientName;
+                           correspondenceRecordItems.sentOrReceivedOn = responseDate;
+                           correspondenceRecordItems.initiatedByUserName = (string) correspondenceRecord.CorrespondenceIssuedByUserName;
+                           correspondenceRecordItems.correspondenceURL = (string) correspondenceRecord.CorrespondenceUrl;
+                           
+                           debug("CorrespondenceURL: " + correspondenceRecordItems.correspondenceURL);
+                          
+                          // Sometimes S4 returns placeholder URLs
+                          if (strStartsWith(correspondenceRecordItems.correspondenceURL,"00000") || strStartsWith(correspondenceRecordItems.correspondenceURL,"0000000000")) {
+                            correspondenceRecordItems.correspondenceURL = "";
+                          }
+                          listAdd(listOfAllCorrespondenceRecords, correspondenceRecordItems);
+                        }
+
+                       responseToClientInfo.correspondenceList = listOfAllCorrespondenceRecords; 
+                       originalClientReqUdr.response.statusCode = 200;
+
+                       ConsumeCycleUDR successfulOdataResponseLog  = sendToSplunk(originalClientReqUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_SUCCESS, s4CycleUdr.path, splunkCtx);
+                       udrRoute(successfulOdataResponseLog , "toSplunk");
+                   }
+                   // S4/OData request succeeded technically, but no correspondence data exists
+                   else {
+
+                    debug("Inside case where S4/OData request succeeded technically, but no correspondence data exists");                    
+                    responseToClientInfo.transactionStatus = "F";
+
+                    // Build response for client
+                    CorrespondenceHistoryResponse errResponseToClient = buildErrResponseForCorr(resourceCode + BRIM_ERROR, "No Correspondence details Found in BRIM for input billingAccountNumber or busOrgId", BAN, BussOrg);
+                    originalClientReqUdr.response.openAPIUDR = errResponseToClient;
+                    originalClientReqUdr.response.statusCode = 404;
+                    
+                    udrRoute(originalClientReqUdr, "responseToClient");
+
+                    // Log failed RESPONSE back to client
+                    ConsumeCycleUDR failedResponseLog = sendToSplunk(originalClientReqUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+
+                    // Log failed ODATA_RESPONSE
+                    ConsumeCycleUDR failedOdataResponseLog = sendToSplunk(originalClientReqUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_FAILURE, s4CycleUdr.path, splunkCtx);
+                    
+                    udrRoute(failedOdataResponseLog, "toSplunk");
+                    udrRoute(failedResponseLog, "toSplunk");
+                    
+                    return;
+                   }    
+                }
+                // S4 returned non-200 HTTP response
+                else {
+                    
+                    debug("Inside case where S4/OData returns non-200 HTTP response");                    
+
+                    // Build response for client
+                    map<string,string> mapCode = (map<string,string>)mapGet(response,"error");
+                    string errorMessage = mapGet(mapCode,"message");
+
+                    CorrespondenceHistoryResponse errResponseToClient = buildErrResponseForCorr(resourceCode + BRIM_ERROR, errorMessage, BAN, BussOrg);
+                    originalClientReqUdr.response.openAPIUDR = errResponseToClient;
+                    originalClientReqUdr.response.statusCode = 400;
+
+                    udrRoute(originalClientReqUdr, "responseToClient");
+                    
+                    // Log failed ODATA_RESPONSE
+                    ConsumeCycleUDR failedOdataResponseLog = sendToSplunk(originalClientReqUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_FAILURE, s4CycleUdr.path, splunkCtx);
+                    // Log failed RESPONSE back to client
+                    ConsumeCycleUDR failedResponseLog = sendToSplunk(originalClientReqUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+
+                    udrRoute(failedOdataResponseLog, "toSplunk");
+                    udrRoute(failedResponseLog, "toSplunk");
+                    return;
+                }
+                
+                // Preparing final response payload for client
+                CorrespondenceHistoryRequestInfo requestInfoFromClient = udrCreate(CorrespondenceHistoryRequestInfo);
+                requestInfoFromClient.billingAccountNumber = BAN;
+                requestInfoFromClient.busOrgId = BussOrg;
+
+                responseToClientFinal.responseInfo = responseToClientInfo; 
+                responseToClientFinal.requestInfo = requestInfoFromClient;
+                originalClientReqUdr.response.openAPIUDR = responseToClientFinal;
+
+                debug("####originalClientReqUdr Towards Client = " + originalClientReqUdr);
+                
+                ConsumeCycleUDR successfulResponseLog = sendToSplunk(originalClientReqUdr, null, API_RESPONSE, API_STATUS_SUCCESS, null, splunkCtx);
+
+                udrRoute(originalClientReqUdr, "responseToClient");
+                udrRoute(successfulResponseLog, "toSplunk");
+            }
+            // CM received an HTTP response from S4 but path isnt what it expected
+           else {
+            
+            debug("Unexpected ODATA response path or method");
+
+            // Build response for client
+            CorrespondenceHistoryResponse errResponseToClient = buildErrResponseForCorr(resourceCode + "50001", "Unexpected ODATA response path", BAN, BussOrg);
+            originalClientReqUdr.response.openAPIUDR = errResponseToClient;
+            originalClientReqUdr.response.statusCode = 500;
+
+            udrRoute(originalClientReqUdr, "responseToClient");
+            
+            // Log failed ODATA_RESPONSE
+            ConsumeCycleUDR failedOdataResponseLog = sendToSplunk(originalClientReqUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_FAILURE, s4CycleUdr.path, splunkCtx);
+            // Log failed RESPONSE back to client
+            ConsumeCycleUDR failedResponseLog = sendToSplunk(originalClientReqUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+
+            udrRoute(failedOdataResponseLog, "toSplunk");
+            udrRoute(failedResponseLog, "toSplunk");
+            return;
+        }
+        }
+        // Input type isnt RequestCycle cant do much here because we dont have access to RequestCycle context
+        else {
+            log.info("Inside case where Input type is one that we are not expecting");
+            log.info("Input value: " + input);
+        }
+    } catch (ExceptionDetails exception) {
+
+        debug("Exception: " + exception.message);
+        RequestCycle originalClientReqUdr = null;
+        RequestCycle s4CycleUdr = null;
+
+            if (instanceOf(input, RequestCycle)) {
+                s4CycleUdr = (RequestCycle) input;
+                originalClientReqUdr = (RequestCycle) s4CycleUdr.context;
+            }
+            else {
+                debug("FATAL: Unable to resolve RequestCycle during exception handling. Original exception: " + exception.message);
+                log.error("FATAL: Unable to resolve RequestCycle during exception handling. Original exception: " + exception.message);
+            }
+
+            if (originalClientReqUdr != null) {
+
+                string BAN = mapGet(originalClientReqUdr.parameters, "billingAccountNumber");
+                string BussOrg = mapGet(originalClientReqUdr.parameters, "busOrgId");
+
+                CorrespondenceHistoryResponse exceptionResponseToClient = buildErrResponseForCorr("50001","Internal processing error", BAN, BussOrg);
+
+                originalClientReqUdr.response.openAPIUDR = exceptionResponseToClient;
+                originalClientReqUdr.response.statusCode = 500;
+
+                udrRoute(originalClientReqUdr, "responseToClient");
+
+                // Log failed RESPONSE
+                ConsumeCycleUDR exceptionResponseLog = sendToSplunk(originalClientReqUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(exceptionResponseLog, "toSplunk");
+    }
+}
+}
+
+/**
+ * Builds a standardized Collection Correspondence error response object.
+ *
+ * The returned response includes:
+ *
+ * - Original request identifiers (BAN / BUSSORG)
+ * - Error code and error message
+ * - Failed transaction status ("F")
+ *
+ * @param errorCode
+ *        Standardized workflow/business error code.
+ *
+ * @param errorMessage
+ *        Human-readable failure description.
+ *
+ * @param BAN
+ *        Billing Account Number associated with the request.
+ *
+ * @param BussOrg
+ *        Business Organization identifier associated with the request.
+ *
+ * @return
+ *        Fully populated failed CorrespondenceHistoryResponse object
+ *        ready to attach to the HTTP response lifecycle.
+ */
+CorrespondenceHistoryResponse buildErrResponseForCorr(string errorCode, string errorMessage, string BAN, string BussOrg) {
+   CorrespondenceHistoryResponse response = udrCreate(CorrespondenceHistoryResponse);
+   CorrespondenceHistoryRequestInfo requestInfo = udrCreate(CorrespondenceHistoryRequestInfo);
+
+   requestInfo.billingAccountNumber = BAN; // Info represents the request that is throwing this error
+   requestInfo.busOrgId = BussOrg;
+   response.requestInfo = requestInfo;
+
+   ErrorInfo errUdr = udrCreate(ErrorInfo);
+
+   errUdr.errorCd = errorCode;
+   errUdr.errorMessage = errorMessage;
+
+   CorrespondenceHistoryResponseInfo responseInfo = udrCreate(CorrespondenceHistoryResponseInfo);
+   responseInfo.transactionStatus = "F";
+   responseInfo.errorInfo = errUdr;
+
+   response.responseInfo = responseInfo; // What we are sending back to client
+   return response;
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.errorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_Response"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="11.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableExecutionThresholdLog" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executionThresholdTime" value="1"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="10"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                     <string name="Key" value="CMD1718267125289"/>
+                     <string name="Name" value="RFC_LUMN"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_RFC"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="Common"/>
+                     <string name="Key" value="CMD1779279436841"/>
+                     <string name="Name" value="PRF_WFB_LOGS"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="fwd_logs"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+
+if (instanceOf(input, ErrorCycleUDR)) {
+    ErrorCycleUDR errorCycleUdr = (ErrorCycleUDR) input;
+    log.info("ErrorCycleUDR Response from Splunk WorkflowBridge = " + errorCycleUdr);    
+}
+
+debug(input);
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ErrorCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="requestFromClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="responseFromS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="requestToS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="responseToClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="responseToClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="rfcRequest"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="rfcResponse"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="debug"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

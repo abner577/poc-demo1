@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.openapi.BRIMCM_APIs_Collection.PRF_API_Collection_WriteOff;
+import ultra.BRIMCM_APIs_Common.ULF_PAYMENT_APIS; 
+import ultra.http;
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.Common.APL_CONSTANTS;
+
+string GO_LIVE_DATE = externalReferenceGet("Common.DB_External_Reference","GO_LIVE_DATE");
+string CDW_FLAG = externalReferenceGet("Common.DB_External_Reference","CDW_FLAG");
+
+boolean getCDW_FLAG(){
+    //send boolean
+    if(CDW_FLAG == "true")
+        return true;
+    return false;
+}
+//Create Error Response for dunning details API
+WriteOffResp errResponseForWriteOffDetails(string resourceCode, string sErrorMessage,string sRequestBody){
+    WriteOffReq writeOffReq = udrCreate(WriteOffReq);
+    jsonDecodeUdr(sRequestBody,writeOffReq);
+    debug("writeOffReq in error mapping : "+writeOffReq);
+    WriteOffResp WriteOffResp = udrCreate(WriteOffResp);
+    WriteOffResp.headerInfo = writeOffReq.headerInfo;
+    WriteOffResp.requestInfo =  writeOffReq.requestInfo;
+    ErrorInfo errUdr = udrCreate(ErrorInfo);
+    errUdr.errorCd = resourceCode;
+    errUdr.errorMessage = sErrorMessage;
+    WriteOffResp_responseInfo respInfo = udrCreate(WriteOffResp_responseInfo);                    
+    respInfo.transactionStatus = "F";
+    respInfo.errorInfo = errUdr; 
+    WriteOffResp.responseInfo = respInfo;
+    return WriteOffResp;
+}
+
+
+RequestCycle accessTokenReqDunning(string sURI){
+    RequestCycle udr = udrCreate(RequestCycle);
+    map<string,list<string> > mapToken = mapCreate(string,list<string>);
+    list<string> lToken = listCreate(string);
+    listAdd(lToken,"fetch");
+    mapSet(mapToken,"x-csrf-token",lToken) ;
+    //mapSet(mapToken,"Accept",lContentType) ;
+    
+    map<string,string> mapParams = mapCreate(string,string);;
+    mapSet(mapParams,"sap-client",getSystemValue(SAP_CLIENT));
+   // mapSet(mapParams,"format","json");
+    udr.host = getSystemValue(REST_HOSTNAME);
+    udr.secure = true;
+    udr.port = getSystemValue(REST_PORT);
+    udr.path =  sURI;
+    udr.headers = mapToken;
+    udr.method = "GET";
+    udr.parameters = mapParams;
+    return udr;     
+}
+
+//History
+
+RequestCycle sendHistoryErrorResponse(WriteOffHistoryResponse respItem, RequestCycle cycleUdr, string errMsg,string resourceCode, string context) {
+        WriteOffHistoryResponseInfo respInfo = udrCreate(WriteOffHistoryResponseInfo);
+        
+        ErrorInfo errorInfo = udrCreate(ErrorInfo);
+        if(context!=null && strLength(context) == 3){
+            //for different scenarios
+            respInfo.transactionStatus = strSubstring(context,0,1);
+            context = context + " ";
+            errorInfo.errorCd = strSubstring(resourceCode,0,3)+strSubstring(context,1,3);
+        }else{
+            errorInfo.errorCd = resourceCode;
+        }
+          
+          errorInfo.errorMessage = errMsg;
+          respInfo.errorInfo = errorInfo;
+          respItem.responseInfo = respInfo;
+          if(respInfo.transactionStatus == "S")
+            cycleUdr.response.statusCode = 200;
+          else
+            cycleUdr.response.statusCode = 400;
+          respInfo.transactionStatus = "F";
+          cycleUdr.response.headers=getHeader();
+          cycleUdr.response.openAPIUDR = respItem;
+          debug("##Error Response :" + cycleUdr);
+          return cycleUdr;
+}
+
+RequestCycle requestGetTokenDetails(string sURI){
+    RequestCycle udr = udrCreate(RequestCycle);
+    map<string,list<string> > mapToken = mapCreate(string,list<string>);
+    list<string> lContentType = listCreate(string);
+    listAdd(lContentType,"application/json");
+    mapSet(mapToken,"Accept",lContentType) ;
+    
+    map<string,string> mapParams = mapCreate(string,string);;
+    mapSet(mapParams,"sap-client",getSystemValue(SAP_CLIENT));
+    
+   // mapSet(mapParams,"format","json");
+    udr.host = getSystemValue(REST_HOSTNAME);
+    udr.secure = true;
+    udr.port = getSystemValue(REST_PORT);
+    udr.path =  sURI;
+    udr.headers = mapToken;
+    udr.method = "GET";
+    udr.parameters = mapParams;
+    return udr;     
+}
+
+
+boolean itemLevelHistoryRequired(string histRequired){
+    if(!isEmpty(histRequired)){
+        if(histRequired == "Y")
+            return true;
+    }
+    return false;
+}
+
+string getURI(string CA,string BP, WriteOffHistoryRequest reqUdr, BRIMCM_APIs_Common.ULF_PAYMENT_APIS.autopayAgg session){
+    //
+    string URI = "/sap/opu/odata/sap/ZGLB_DEVFI_WRITEOFF_INFO_SRV/writeOffInputSet?$filter=contractAccount%20eq%20'"+CA+"'%20and%20businessPartner%20eq%20'"+BP+"'";
+    WriteOffHistoryRequestInfo reqInfo = (WriteOffHistoryRequestInfo)reqUdr.requestInfo;
+    HeaderInfo headerInfo = reqUdr.headerInfo;
+    
+    if(null != headerInfo && !isEmpty(headerInfo.userId))
+      URI = URI + "%20and%20userId%20eq%20'"+headerInfo.userId+"'";
+    if(!isEmpty(reqInfo.isWriteOffReversed))
+        URI = URI + "%20and%20isWriteoffReversed%20eq%20'"+reqInfo.isWriteOffReversed+"'";
+    if(!isEmpty(reqInfo.itemLevelHistoryRequired))
+        URI = URI + "%20and%20itemLevelHistoryRequired%20eq%20'"+reqInfo.itemLevelHistoryRequired+"'";
+    if(session.isItemLevelHistoryRequired){
+        //go-live compare
+        if(session.isBeforeGoLive)
+            URI = URI + "%20and%20fromDate%20eq%20'"+formatPayloadDate(GO_LIVE_DATE)+"'";
+        else
+            URI = URI + "%20and%20fromDate%20eq%20'"+formatPayloadDate(session.derivedFromDate)+"'";
+            
+        URI = URI + "%20and%20toDate%20eq%20'"+formatPayloadDate(session.derivedToDate)+"'";
+    }else{
+        if(!isEmpty(reqInfo.fromDate))
+            URI = URI + "%20and%20fromDate%20eq%20'"+formatPayloadDate(reqInfo.fromDate)+"'";
+        if(!isEmpty(reqInfo.toDate))
+            URI = URI + "%20and%20toDate%20eq%20'"+formatPayloadDate(reqInfo.toDate)+"'";
+    }
+   
+    URI = URI + "&$expand=WO_IP_HDR_NAV/WO_HDR_INV_NAV&$format=json";
+   return URI;
+}
+
+string formatPayloadDate(string st){
+     string str = "";
+   if(st !=null || strLength(strTrim(st)) != 0){   
+       list<string> listSt = strSplit(st,"-");
+       for(string value : listSt){
+           str=str+value;
+       }
+    }
+   return str;   
+}
+
+string dateConversionFromEPOCToNormalWithTime(string epocDate){
+   long lMilliSec;
+   debug ("epocDate = " + epocDate);
+   if (!isEmpty(epocDate)&& strLength(epocDate) > 0){
+       debug("length -- "+strLength(epocDate));
+       string eDateInMilliSec = strSubstring(epocDate, 6, strLength(epocDate)-2 );
+       //debug ("eDateInMilliSec: "+ eDateInMilliSec);
+       strToLong(lMilliSec, eDateInMilliSec);
+       string sFormattedDate = (string)dateCreateFromMilliseconds(lMilliSec); 
+       //debug ("sFormattedDate: "+ sFormattedDate);
+       sFormattedDate = strSubstring(sFormattedDate,0,10)+"T"+strSubstring(sFormattedDate,11,strLength(sFormattedDate));
+       return sFormattedDate;
+    }
+    else{
+        return null;
+    }
+}
+
+date convertStringToDate(string dateString,string format){
+    date result;
+    strToDate(result, dateString, format);
+    return result;
+}
+
+synchronized table getWriteOffHistoryFromDWH(string BAN,string bussOrgId,date dFromDT,date dToDT,date dGoLiveDT){  
+    string sql = "SELECT WRITE_OFF_DOC_NBR,WRITE_OFF_DT,WRITE_OFF_REASON_CD,WRITE_OFF_AMT,CURRENCY_CD,INVOICE_NBR,BILL_ACCOUNT_NBR,BUS_ORG_ID,PARTIAL_PAID_IND,SOURCE_CREATE_USER_ID,SOURCE_LAST_MODIFY_DT,INVOICE_DUE_AMT,ESSENTIAL_IND,DW_CREATE_DT,DW_LAST_MODIFY_DT from DSL_ERP.WRITE_OFF_DETAILS_HISTORY";
+    sql = sql  + " where BILL_ACCOUNT_NBR IN (?) ";
+    list <any> parameters = listCreate(any,BAN );
+    if(!(bussOrgId == null || strLength(strTrim(bussOrgId)) == 0)){
+        sql = sql + " AND BUS_ORG_ID IN (?) ";
+        listAdd(parameters, bussOrgId);
+    }
+    sql = sql + " AND WRITE_OFF_DT BETWEEN ? ";
+    listAdd(parameters, dFromDT);
+    sql = sql + " AND ? ";
+    long diffToDateToGoLiveDate = dateDiff(dToDT,dGoLiveDT);
+    if(diffToDateToGoLiveDate < 0)
+        listAdd(parameters, dToDT);
+    else
+        listAdd(parameters, dGoLiveDT);
+    debug("The value of sql = " + (sql));
+    debug("The value of parameters = " + (parameters));
+    table cdwWriteOffHistoryView = sqlPrepDynamicSelect(sql,parameters,"BRIMCM_APIs.PRF_DWH");
+    //debug("The value of cdwWriteOffHistoryView = " + (cdwWriteOffHistoryView));
+    return cdwWriteOffHistoryView;
+}
+void processWriteOffHistory(table cdwWriteOffHistoryView,list<WriteOffDetail> listDetails){
+    for (int index = 0; index < tableRowCount(cdwWriteOffHistoryView); index++) {
+        string writeoffDocumentNumber = (string) tableGet(cdwWriteOffHistoryView, index, 0);
+        WriteOffDetail existingDetail = findWriteOffDetailByDocNumber(listDetails, writeoffDocumentNumber); // Check if it is already existing or new
+        WriteOffDetail detailUdr;
+
+        if (existingDetail == null) {
+          detailUdr = udrCreate(WriteOffDetail);
+          detailUdr.writeOffDocumentNumber = writeoffDocumentNumber;
+          detailUdr.createDttm = (string) tableGet(cdwWriteOffHistoryView, index, 1); // dateConversion if needed
+          detailUdr.createdBy = (string) tableGet(cdwWriteOffHistoryView, index, 9);
+          detailUdr.currencyCd = (string) tableGet(cdwWriteOffHistoryView, index, 4);
+          detailUdr.isPartialWriteOff = (string) tableGet(cdwWriteOffHistoryView, index, 8);
+          detailUdr.lastModifiedBy = (string) tableGet(cdwWriteOffHistoryView, index, 10);
+          detailUdr.lastModifiedDttm = (string) tableGet(cdwWriteOffHistoryView, index, 14); // dateConversion if needed
+          detailUdr.writeOffReasonCd = (string) tableGet(cdwWriteOffHistoryView, index, 2);
+          detailUdr.invoiceDetails = listCreate(WriteOffInvoiceDetail);
+          detailUdr.writeOffAmount = 0.0;
+          listAdd(listDetails, detailUdr);
+        } else {
+          detailUdr = existingDetail;
+        }
+
+        string invoiceNumber = (string) tableGet(cdwWriteOffHistoryView, index, 5);
+        WriteOffInvoiceDetail existingInvoiceDetail = findInvoiceDetailByNumber(detailUdr.invoiceDetails, invoiceNumber); // Check if existing or new
+        WriteOffInvoiceDetail invoiceUdr;
+        if (existingInvoiceDetail == null) {
+          invoiceUdr = udrCreate(WriteOffInvoiceDetail);
+          invoiceUdr.invoiceNumber = invoiceNumber;
+          double invoiceAmount; 
+          if(isEmpty((string) tableGet(cdwWriteOffHistoryView, index, 11))){
+            invoiceAmount = 0.0;
+          }else{
+            strToDouble(invoiceAmount,(string) tableGet(cdwWriteOffHistoryView, index, 11));
+          }
+          invoiceUdr.invoiceAmount =  invoiceAmount;// Assuming we need to initialize it to 0.0
+          invoiceUdr.invoiceWriteOffAmount = 0.0;
+          invoiceUdr.essentialWriteOffAmount = 0.0;
+          invoiceUdr.nonEssentialWriteOffAmount = 0.0;
+          listAdd(detailUdr.invoiceDetails, invoiceUdr);
+        } else {
+          invoiceUdr = existingInvoiceDetail;
+        }
+
+        double writeOffAmount; 
+        if(isEmpty((string) tableGet(cdwWriteOffHistoryView, index, 3))){
+            writeOffAmount = 0.0;
+        }else{
+            strToDouble(writeOffAmount, (string) tableGet(cdwWriteOffHistoryView, index, 3));
+        }
+        string isEssential = (string) tableGet(cdwWriteOffHistoryView, index, 12);
+        debug("The value of isEssential = " + (isEssential));
+        if (isEssential != "Y") {
+          invoiceUdr.nonEssentialWriteOffAmount = writeOffAmount;
+        } else {
+          invoiceUdr.essentialWriteOffAmount = writeOffAmount;
+        }
+        detailUdr.writeOffAmount = detailUdr.writeOffAmount+writeOffAmount;
+      }
+}
+WriteOffDetail findWriteOffDetailByDocNumber(list<WriteOffDetail> listDetails, string writeOffDocNum) {
+  for (WriteOffDetail detail : listDetails) {
+    if (detail.writeOffDocumentNumber == writeOffDocNum) {
+      return detail;
+    }
+  }
+  return null;
+}
+WriteOffInvoiceDetail findInvoiceDetailByNumber(list<WriteOffInvoiceDetail> listInvoiceDetails, string invoiceNumber) {
+  for (WriteOffInvoiceDetail invoiceDetail : listInvoiceDetails) {
+    if (invoiceDetail.invoiceNumber == invoiceNumber) {
+      return invoiceDetail;
+    }
+  }
+  return null;
+}
+
+WriteOffHistoryResponse writeOffHisGet_ResponseToSourceMapping(bytearray sbody,string transStatus,string resourceCode,string errMsg){
+    WriteOffHistoryResponse writeoffHisResp = udrCreate(WriteOffHistoryResponse);
+    WriteOffHistoryRequest  writeoffHisReqUDR = udrCreate(WriteOffHistoryRequest);
+    jsonDecodeUdr(baToStr(sbody), writeoffHisResp );
+    writeoffHisResp.headerInfo = writeoffHisReqUDR.headerInfo;
+    writeoffHisResp.requestInfo = writeoffHisReqUDR.requestInfo;
+    WriteOffHistoryResponseInfo writeOffRespInfo = udrCreate(WriteOffHistoryResponseInfo);
+    if(transStatus == "F"){
+        ErrorInfo errInfo = udrCreate(ErrorInfo);
+        errInfo.errorCd = resourceCode;
+        errInfo.errorMessage = errMsg;
+        writeOffRespInfo.errorInfo = errInfo;
+    }
+    writeOffRespInfo.transactionStatus = transStatus;
+    writeoffHisResp.responseInfo = writeOffRespInfo;
+    return writeoffHisResp;
+}]]></string>
+</exportmultiplex>

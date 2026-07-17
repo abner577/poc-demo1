@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[
+internal promiseToPayWithdraw {
+   string PromiseNumber;
+   string Notes;
+   string InputChannelcd;
+   string UserId;
+};
+
+
+////P2P GET
+internal p2pGetUltra{
+    list<BrimRespResultsL1> resultsL1;
+};
+
+internal BrimRespResultsL1{
+    string ContractAccount;
+    string BusinessPartner;
+    ultra_P2P_HEAD2BAN_NAV obj_P2P_HEAD2BAN_NAV;
+};
+
+internal ultra_P2P_HEAD2BAN_NAV{
+    list<BrimRespResultsL2> resultsL2;
+};
+
+internal BrimRespResultsL2{
+    string BillingAccountNumber;
+    string FinanceAccountNumber;
+    string BusOrgId;
+    string ContractAccount;
+    string CurrencyCd;
+    ultra_P2P_BAN2PAYD_NAV obj_P2P_BAN2PAYD_NAV;
+};
+
+internal ultra_P2P_BAN2PAYD_NAV{
+    string createdBy;
+    string createdDttm;
+    string lastModifiedBy;
+    string lastModifiedDttm;
+    string promiseToPayConfirmationId;
+    string promiseToPayDate;
+    string status;
+    string paymentMethodCd;
+    string maskedAccountNumber;
+    string bankAccountType;
+    string cardType;
+    string totalPromiseAmount;
+    string brokenAmount;
+    ultra_P2P_PAYD2INV_NAV obj_P2P_PAYD2INV_NAV;
+};
+
+internal ultra_P2P_PAYD2INV_NAV{
+    list<BrimRespResultsL3> resultsL3;
+};
+// Modified from TestBranch
+internal BrimRespResultsL3{
+    string InvoiceNo;
+    string InvoiceDt;
+    string InvoiceDueDt;
+    string PromiseAmount;
+};
+
+// Generic Promise To Pay error response used for unexpected technical errors.
+// This is mainly intended for catch-block failures where we may not safely know
+// whether the request was create, history, or withdraw.
+internal p2pGeneralErrorResponse {
+    p2pGeneralErrorRequestInfo requestInfo;
+    p2pGeneralErrorResponseInfo responseInfo;
+};
+
+internal p2pGeneralErrorRequestInfo {
+    string billingAccountNumber;
+    string busOrgId;
+};
+
+internal p2pGeneralErrorResponseInfo {
+    string transactionStatus;
+    p2pGeneralErrorInfo errorInfo;
+};
+
+internal p2pGeneralErrorInfo {
+    string errorCd;
+    string errorMessage;
+};]]></string>
+</exportmultiplex>

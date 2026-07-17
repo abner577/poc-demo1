@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[internal int_bankruptcy
+{
+    string BusinessPartner;
+    string BankruptInd;
+    string Comments;
+    string StartDate;
+    string UserId;
+};
+
+internal int_CA{
+    int_bankruptcy bankruptcyParamUDR;
+    string ContractAcc;
+};
+
+internal updateCollectorInternal{
+    list<collectorUpdateitems> collUpInputUdr;
+};
+
+internal collectorUpdateitems{
+    string ban;
+    string collector;
+    string initialReqBody;
+    http.RequestCycle requestUDR;
+};
+
+internal requestBodyInternal{
+    string finalRequestBody;
+};
+
+internal promiseToPayWithdraw {
+   string PromiseNumber;
+   string WithdrawalReason;
+   string WithdrawalInitiator;
+   string WithdrawalDate;
+   string Notes;
+};
+
+// Request Object for Dispute Management CreateCase
+internal C_CADisputeCaseTP {
+    
+    string CaseUUID;  // only valid for update, if caseUUID is non-empty the request will create a case.
+    string BusinessPartner;
+    string ContractAccount;
+    string DisputedAmount;
+    string CARemainingDisputedAmount;
+    string DisputeCaseCurrency;
+    string CADisputeTypeText;
+    string ContactPersonFullName;
+    string ContactPersonEmailAddress;
+    string ContactPersonPhoneNumber;
+    string DisputeCaseInformationText;
+    string DisputeCaseTransactionDate;
+    string CaseType;
+    string CaseExternalReference;
+    string CasePlannedCloseDate;
+    string CaseTitle;
+    string CaseStatus;
+    string CasePriority;
+    string CaseCreatedBy;
+    string CaseProcessor;
+    string CaseResponsible;
+    string DisputeCaseCoordinator;
+    boolean IsActiveEntity;  // only valid for Create request.    
+};
+
+internal C_CADisputeCaseNotesUpdate {
+    string ObjectNodeType;
+    string ObjectID;
+    string NoteType;
+    string Language;
+    string Title;
+    string MimeType;
+    int Length;
+    string Content;
+};
+
+internal RefundRequestODataPost{
+    string Businesspartner;
+    string Contractaccount;
+    string Billappcode;
+    string UserId;
+    string Amount;
+    string Currency;
+    string PaymentMethod;
+    //string AddressNumber;
+    string BankId;
+    string RefundReason;
+    string SoxComplianceOptionSelected;
+    //string PaymentDocumentNumber;
+    //string ConvenienceFee;
+    string IsAddressNew;
+    RFD_H2A_Nav_Int RFD_H2A_Nav;
+    RFD_H2I_Nav_Int RFD_H2I_Nav;
+};
+
+internal RFD_H2I_Nav_Int{
+    string Type;
+    string Id;
+    string Msg;
+    string MsgNumber;
+    string Messagev1;
+};
+
+internal RFD_H2A_Nav_Int{
+    string AddressNum;
+    string AddressLine1;
+    string AddressLine2;
+    string City;
+    string State;
+    string Zipcode;
+    string Country;
+};
+
+internal CreateContact{
+    string ContactId;
+    string TransStatus;
+    string Message;
+    string creatorId;
+    Nav_CP_BP Nav_CP_BP;
+    
+};
+internal Nav_CP_BP{
+    string contactType;
+    string contractAccountNumber;
+    string contactFirstName;
+    string contactLastName;
+    string contactEmail;
+    string contactPhoneNumber;
+    Nav_BP_Address Nav_BP_Address;
+};
+internal Nav_BP_Address{
+    string addressLine1;
+    string addressLine2;
+    string city;
+    string stateCd;
+    string zipCode;
+    string countryCd;
+};
+]]></string>
+</exportmultiplex>

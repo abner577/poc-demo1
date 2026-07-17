@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="PRF_OpenAPI_Dunning.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[---
+openapi: 3.0.1
+info:
+  title: BRIMCM_APIs_Dunning
+  description: Description for Dunning APIs
+  version: ver-1.3-ReviewedWithLumen
+servers:
+- url: http://148.155.130.78:8088
+paths:
+  /brimcm/collection/dunning/autoDailerCallStatus:
+    post:
+      tags:
+      - collection
+      summary: Get AutoDailer information updated in BRIM to send to Fusion
+      description: to get the AutoDailer with BAN
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AutoDailerCallStatusRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                success response:
+                  description: success response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: '1234'
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                       transactionStatus: "S"
+                       errorInfo: null
+                       autoDailerDetails:
+                        - ivrInteractionId: "06bf5ff2540b44119d9bd864d6f208e9"
+                          autoDialerErrorCode: ""
+                          telephoneNumber: "+18636550451"
+                          contactListId: "411adc72-e0fc-4731-a0b4-bce8ea1a4190"
+                          autoDialerCallStatus: "ININ-OUTBOUND-NOT-CALLABLE-TIME"
+                          autoDialerErrorDescription: ""
+                        - ivrInteractionId: "06bf5ff2540b44119d9bd864d6f208e9"
+                          autoDialerErrorCode: ""
+                          telephoneNumber: "+18636550451"
+                          contactListId: "411adc72-e0fc-4731-a0b4-bce8ea1a4190"
+                          autoDialerCallStatus: "ININ-OUTBOUND-NOT-CALLABLE-TIME"
+                          autoDialerErrorDescription: ""
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: '1234'
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutoDailerCallStatusResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: '2022-01-19T15:47:01.151Z'
+                      srcApplicationCd: FUSION
+                      requestId: 1234567890
+                      inputChannelCd: FUSION_APP
+                      srcSysTransactionId: 2346245768
+                      userId: AD78389
+                    requestInfo:
+                      billingAccountNumber: '1234'
+                      billingApplicationCd: ENS
+                      busOrgId: abcd
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorMessage: string
+                        errorCd: string
+  /brimcm/collection/dunning/history:
+    post:
+      tags:
+      - collection
+      summary: API to display the dunning lock details based on BAN and BusOrg Id.
+      description: API to capture BAN and BusOrg details to get dunning locks details from BRIM and display on Portal.
+      operationId: Dunning Locks Details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningDetailsReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningDetailsResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningDetailsResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningDetailsResp'
+  /brimcm/collection/dunning/update:
+    post:
+      tags:
+      - collection
+      summary: Apply Dunning Locks based on authorization groups.
+      description: "API to capture BAN, BusOrg and Dunning details to apply dunning locks based on authorization groups and send response back from BRIM to Portal."
+      operationId: Apply Dunning Locks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DunningLockReq'
+      responses:
+        "200":
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningLockResp'
+        "400":
+          description: "CM will check for Mandatory fields in input request, if the mandatory fields are not present, then CM will send the error Message along with errorCd in the Response Payload"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningLockResp'
+        "500":
+          description: Failure Response from S4
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DunningLockResp'                      
+
+components:
+  schemas:
+    HeaderInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+          description: sendTimeStamp
+          example: 2022-01-19T15:47:01.151Z
+        srcApplicationCd:
+          type: string
+          description: srcApplicationCd
+          example: EPP
+        requestId:
+          type: string
+          description: requestId
+          example: 1234567KM
+        inputChannelCd:
+          type: string
+          description: inputChannelCd
+          example: EPP
+        srcSysTransactionId:
+          type: string
+          description: srcSysTransactionId
+          example: 1234567MN
+        userId:
+          type: string
+          description: userId
+          example: "123456789"
+      description: Header of the request
+    ErrorInfo:
+      required:
+        - errorCd
+        - errorMessage
+      type: object
+      properties:
+        errorCd:
+          type: string
+          description: Unique error code for each type of error
+          example: '10083'
+        errorMessage:
+          type: string
+          description: Error message
+          example: No Account Available
+      description: errorInfo
+    AutoDailerCallStatusRequest:
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AutoDailerRequestInfo'
+    AutoDailerCallStatusResponse:
+      required:
+        - headerInfo
+        - requestInfo
+        - responseInfo
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/AutoDailerRequestInfo'
+        responseInfo:
+
+          $ref: '#/components/schemas/AutoDailerResponseInfo'
+    AutoDialerDetails:
+      type: object
+      properties:
+        ivrInteractionId:
+          type: string
+          description: Unique identifier for the IVR interaction.
+          example: "06bf5ff2540b44119d9bd864d6f208e9"
+        autoDialerErrorCode:
+          type: string
+          description: Error code for the AutoDialer call.
+          example: ""
+        telephoneNumber:
+          type: string
+          description: Telephone number associated with the AutoDialer call.
+          example: "+18636550451"
+        contactListId:
+          type: string
+          description: Unique identifier for the contact list.
+          example: "411adc72-e0fc-4731-a0b4-bce8ea1a4190"
+        autoDialerCallStatus:
+          type: string
+          description: Status of the AutoDialer call.
+          example: "ININ-OUTBOUND-NOT-CALLABLE-TIME"
+        autoDialerErrorDescription:
+          type: string
+          description: Description of the AutoDialer error.
+          example: ""
+        lastAttemptedOn:
+          type: string
+          description: lastAttemptedOn.
+          example: ""
+ 
+    AutoDailerRequestInfo:
+      required:
+      - billingAccountNumber
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: "1234"
+        billingApplicationCd:
+          type: string
+          example: ENS
+        busOrgId:
+          type: string
+          example: ABCD
+      anyOf:
+      - required:
+        - billingAccountNumber
+        - billingApplicationCd
+      - required:
+        - billingAccountNumber
+        - busOrgId
+    AutoDailerResponseInfo:
+      required:
+        - transactionStatus
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+          description: transactionStatus
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        autoDailerDetails:
+          type: array
+          description: List of AutoDialer call details.
+          items:
+            $ref: '#/components/schemas/AutoDialerDetails'
+    DunningDetailsReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningDetailsReq_requestInfo'
+    DunningDetailsResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningDetailsReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/DunningDetailsResp_responseInfo'
+    DunningLockReq:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningLockReq_requestInfo'
+    DunningLockResp:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DunningLockReq_requestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/DunningLockResp_responseInfo'      
+    DunningDetailsReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: A-1200121
+        busOrgId:
+          type: string
+          example: A-1000672
+    DunningDetailsResp_responseInfo_lockDetails:
+      properties:
+        lockReason:
+          type: string
+        lockReasonCd:
+          type: string
+    DunningDetailsResp_responseInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+        busOrgId:
+          type: string
+        contractAccount:
+          type: string
+        businessPartner:
+          type: string
+        lockDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/DunningDetailsResp_responseInfo_lockDetails'
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    DunningLockReq_requestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+          example: A-1200121
+        busOrgId:
+          type: string
+          example: A-1000672
+        contractAccount:
+          type: string
+          example: "120000000000"
+        businessPartner:
+          type: string
+          example: "1400000000"
+        lockPeriodNumber:
+          type: number
+          example: 5
+        lockReasonCd:
+          type: string
+          example: D          
+    DunningLockResp_responseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'          ]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1719084475013"/>
+      <string name="Modified By" value="AC65919"/>
+      <long name="Modified Date" value="1746647523971"/>
+      <string name="Name" value="PRF_OPENAPI_Collection_Dunning"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="6"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>

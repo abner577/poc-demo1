@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.http;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Deposit;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.BRIMCM_APIs_Common.APL_CMAPIs;
+import apl.Common.APL_CONSTANTS;
+
+//Validations for deposit history request
+DepositHistoryResponse checkDepositHistoryReq(map<string,any> Rec,string req,string resourceCode){
+    map<string,string> mapReqInfo = (map<string,string>)mapGet(Rec,"requestInfo");
+    map<string,string> mapHeaderInfo = (map<string,string>)mapGet(Rec,"headerInfo");
+    
+    DepositHistoryResponse respUdr = udrCreate(DepositHistoryResponse);
+    DepositHistoryRequest reqUdr = udrCreate(DepositHistoryRequest);
+    jsonDecodeUdr(req,reqUdr);
+    
+    if(mapGet(mapHeaderInfo,"inputChannelCd") == "" || mapGet(mapHeaderInfo,"inputChannelCd") == null){
+        DepositHistoryResponseInfo responseUdr = udrCreate(DepositHistoryResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "inputChannelCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapHeaderInfo,"srcApplicationCd") == "" || mapGet(mapHeaderInfo,"srcApplicationCd") == null){
+        DepositHistoryResponseInfo responseUdr = udrCreate(DepositHistoryResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "srcApplicationCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapHeaderInfo,"userId") == "" || mapGet(mapHeaderInfo,"userId") == null){
+        DepositHistoryResponseInfo responseUdr = udrCreate(DepositHistoryResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "userId IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapReqInfo,"billingAccountNumber") == "" || mapGet(mapReqInfo,"billingAccountNumber") == null){
+        DepositHistoryResponseInfo responseUdr = udrCreate(DepositHistoryResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "billingAccountNumber IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }
+    
+    respUdr.requestInfo = reqUdr.requestInfo;
+    respUdr.headerInfo = reqUdr.headerInfo;
+    return respUdr;
+}
+
+//function to retrieve deposit history details
+RequestCycle getDepositHistoryDetails(string sURI, string ban, string inputChannelCd, string srcApplicationCd){
+    RequestCycle udr = udrCreate(RequestCycle);
+    map<string,list<string> > mapToken = mapCreate(string,list<string>);
+    list<string> lContentType = listCreate(string);
+    listAdd(lContentType,"application/json");
+    mapSet(mapToken,"Accept",lContentType) ;
+    
+    map<string,string> mapParams = mapCreate(string,string);;
+    mapSet(mapParams,"sap-client",getSystemValue(SAP_CLIENT));
+    mapSet(mapParams,"$expand","responseInfo/depositList,responseInfo/errorInfo");
+    mapSet(mapParams,"$filter","billingAccountNumber eq '"+ban+"' and inputChannelCd eq '"+inputChannelCd+"' and srcApplicationCd eq '"+srcApplicationCd+"'");
+    mapSet(mapParams,"format","json");
+    udr.host = getSystemValue(REST_HOSTNAME);
+    udr.secure = true;
+    udr.port = getSystemValue(REST_PORT);
+    udr.path =  sURI;
+    udr.headers = mapToken;
+    udr.method = "GET";
+    udr.parameters = mapParams;
+    return udr;     
+}
+
+//function to map success response for deposit history API
+DepositHistoryResponse mapDepositHistorySuccessResponse (map<string,any> response, DepositHistoryRequest depositHistoryReq, string resourceCode){
+    DepositHistoryResponse depositHistoryResp = udrCreate(DepositHistoryResponse);
+    
+    map<string,any> mapDepositHistoryDetails = (map<string,any>)mapGet(response,"d");                   
+    debug("mapDepositHistoryDetails : "+mapDepositHistoryDetails);
+    
+    list<map<string,any>> resultsList = (list<map<string,any>>) mapGet(mapDepositHistoryDetails,"results");
+    //debug("resultsList : "+resultsList);
+    
+    map<string,any> resultsOut = (map<string,any>) listGet(resultsList,0);
+    //debug("resultsOut : "+resultsOut);
+    
+    map<string,any> mapDepositHistoryDetailsResp = (map<string,any>)mapGet(resultsOut,"responseInfo");                   
+    //debug("mapDepositHistoryDetailsResp : "+mapDepositHistoryDetailsResp);
+    
+    list<map<string,any>> responseList = (list<map<string,any>>) mapGet(mapDepositHistoryDetailsResp,"results");
+    //debug("responseList : "+responseList);
+    
+    map<string,any> respOut = (map<string,any>) listGet(responseList,0);
+    //debug("respOut : "+respOut);
+    
+    string transactionStatus = (string) mapGet(respOut,"transactionStatus");
+    debug("transactionStatus : "+transactionStatus);
+    
+    DepositHistoryResponseInfo respInfo = udrCreate(DepositHistoryResponseInfo);
+    
+    if(transactionStatus == "E") {
+        debug("Inside transactionStatus E condition");
+        
+        respInfo.transactionStatus = "F"; 
+        
+        map<string,any> errorInfoMap = (map<string,any>)mapGet(respOut,"errorInfo");
+        //debug("errorInfoMap : "+errorInfoMap);
+        
+        list<map<string,string>> errorInfoList = (list<map<string,string>>)mapGet(errorInfoMap,"results");
+        //debug("errorInfoList : "+errorInfoList);
+        
+        map<string,string> errorInfoResult = (map<string,string>) listGet(errorInfoList,0);
+        //debug("errorInfoResult : "+errorInfoResult);
+        
+        ErrorInfo errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode + BRIM_ERROR;
+        errUdr.errorMessage = mapGet(errorInfoResult,"errorMessage");
+        
+        respInfo.errorInfo = errUdr;
+    } else if(transactionStatus == "S"){ 
+        debug("Inside transaction status S condition");
+        
+        respInfo.transactionStatus = "S"; 
+    
+        map<string,string> mapTotalHeld = (map<string,string>)mapGet(respOut,"totalHeld");
+        //debug("mapTotalHeld : "+mapTotalHeld);
+        
+        TotalHeld totalHeld = udrCreate(TotalHeld);        
+        totalHeld.totalHeldCurrency = mapGet(mapTotalHeld,"totalHeldCurrency");
+        string sTotalHeldAmount = !isEmpty(mapGet(mapTotalHeld,"totalHeldAmount")) ? getAmount(mapGet(mapTotalHeld,"totalHeldAmount")): "";
+        //debug("sTotalHeldAmount : "+sTotalHeldAmount);
+        double dTotalHeldAmount;
+        if(!isEmpty(sTotalHeldAmount)) {
+            strToDouble(dTotalHeldAmount,sTotalHeldAmount);
+        }
+        //debug("dTotalHeldAmount : "+dTotalHeldAmount);
+        totalHeld.totalHeldAmount = dTotalHeldAmount;
+        
+        respInfo.totalHeld = totalHeld;
+                    
+        map<string,string> mapInterestTotal = (map<string,string>)mapGet(respOut,"interestTotal");
+        
+        InterestTotal interestTotal = udrCreate(InterestTotal);
+        interestTotal.units = mapGet(mapInterestTotal,"units");
+        string sAmount = !isEmpty(mapGet(mapInterestTotal,"amount")) ? getAmount(mapGet(mapInterestTotal,"amount")) : "";
+        double dAmount;
+        if(!isEmpty(sAmount)){
+            strToDouble(dAmount,sAmount);
+        }
+        interestTotal.amount = dAmount;
+        respInfo.interestTotal = interestTotal;
+        
+        map<string,any> depositListsMap = (map<string,any>)mapGet(respOut, "depositList");
+        
+        list<map<string,string>> depositList = (list<map<string,string>>) mapGet(depositListsMap,"results");
+        //debug("listSize(depositList) : "+listSize(depositList));
+        
+        list<DepositDetail> depositDetailList = listCreate(DepositDetail);
+        for(int i=0 ; i < listSize(depositList); i++){
+            map<string,string> depositListMap = listGet(depositList,i);
+            DepositDetail depositDetail = udrCreate(DepositDetail);
+            
+            depositDetail.depositId	= mapGet(depositListMap,"depositId");
+            depositDetail.depositReturnDue = mapGet(depositListMap,"depositReturnDue");
+            depositDetail.requestDate = mapGet(depositListMap,"requestDate");
+            depositDetail.productType = mapGet(depositListMap,"productType");
+            depositDetail.billingAccountNumber = mapGet(depositListMap,"billingAccountNumber");
+            double depositRequestedAmount;
+            if(!isEmpty(mapGet(depositListMap,"depositRequestedAmount"))){
+                string sdepositRequestedAmount = getAmount(mapGet(depositListMap,"depositRequestedAmount"));
+                strToDouble(depositRequestedAmount,sdepositRequestedAmount);
+            }
+            depositDetail.depositRequestedAmount = depositRequestedAmount;
+            depositDetail.depositRequestedCurrency = mapGet(depositListMap,"depositRequestedCurrency");
+            depositDetail.depositStatus = mapGet(depositListMap,"depositStatus");
+            depositDetail.depositPaidOn = mapGet(depositListMap,"depositPaidOn");
+            depositDetail.depositPaidCurrency = mapGet(depositListMap,"depositPaidCurrency");
+            double depositPaidAmount;
+            if(!isEmpty(mapGet(depositListMap,"depositPaidAmount"))){
+                string sDepositpaidAmount = getAmount(mapGet(depositListMap,"depositPaidAmount"));
+                strToDouble(depositPaidAmount,sDepositpaidAmount); 
+            }
+            depositDetail.depositPaidAmount = depositPaidAmount;
+            double depositNotReturned;
+            if(!isEmpty(mapGet(depositListMap,"depositNotReturned"))){
+                string sDepositNotReturned = getAmount(mapGet(depositListMap,"depositNotReturned"));
+                strToDouble(depositNotReturned,sDepositNotReturned);
+            }
+            depositDetail.depositNotReturned = depositNotReturned;
+            double refundAmount;
+            if(!isEmpty(mapGet(depositListMap,"refundAmount"))){
+                string sRefundAmount = getAmount(mapGet(depositListMap,"refundAmount"));
+                strToDouble(refundAmount, sRefundAmount);
+            }
+            depositDetail.refundAmount = refundAmount;
+            depositDetail.refundCurrency = mapGet(depositListMap,"refundCurrency");
+            depositDetail.dateRefunded = mapGet(depositListMap,"dateRefunded");
+            depositDetail.refundMethod = mapGet(depositListMap,"refundMethod");
+            double billAdjutsmentAmount;
+            if(!isEmpty(mapGet(depositListMap,"billAdjutsmentAmount"))){
+                string sBillAdjutsmentAmount = getAmount(mapGet(depositListMap,"billAdjutsmentAmount"));
+                strToDouble(billAdjutsmentAmount,sBillAdjutsmentAmount);
+            }
+            depositDetail.billAdjutsmentAmount = billAdjutsmentAmount;
+            depositDetail.billAdjustmentAmountCurrency = mapGet(depositListMap,"billAdjustmentAmountCurrency");
+            depositDetail.billAdjustmentDate = mapGet(depositListMap,"billAdjustmentDate");
+            depositDetail.billAdjustmentMethod = mapGet(depositListMap,"billAdjustmentMethod");
+            depositDetail.interestCodeText = mapGet(depositListMap,"interestCodeText");
+            double dInterestCalculated;
+            if(!isEmpty(mapGet(depositListMap,"interestCalculated"))) {
+                string sInterestCalculated = getAmount(mapGet(depositListMap,"interestCalculated"));
+                strToDouble(dInterestCalculated,sInterestCalculated);
+            }
+            depositDetail.interestCalculated = dInterestCalculated;
+            double dInterestAmountOpen;
+            if(!isEmpty(mapGet(depositListMap,"interestAmountOpen"))){
+                string sInterestAmountOpen = getAmount(mapGet(depositListMap,"interestAmountOpen"));
+                strToDouble(dInterestAmountOpen,sInterestAmountOpen);
+            }
+            depositDetail.interestAmountOpen = dInterestAmountOpen;
+
+            listAdd(depositDetailList,depositDetail);           
+        }
+        respInfo.depositList = depositDetailList;
+    }
+    
+    depositHistoryResp.headerInfo = depositHistoryReq.headerInfo;
+    depositHistoryResp.requestInfo = depositHistoryReq.requestInfo;
+    depositHistoryResp.responseInfo = respInfo;
+
+    return depositHistoryResp;
+}
+
+DepositHistoryResponse mapDepositHistoryFailureResponse (map<string,any> response, DepositHistoryRequest depositHistoryReq, string resourceCode){
+   DepositHistoryResponse depositHistoryResp = udrCreate(DepositHistoryResponse);
+                      
+    depositHistoryResp.headerInfo = depositHistoryReq.headerInfo;
+    depositHistoryResp.requestInfo = depositHistoryReq.requestInfo;
+                    
+   DepositHistoryResponseInfo respInfo = udrCreate(DepositHistoryResponseInfo);
+   
+   map<string,map<string,string>> mapMessage = (map<string,map<string,string>>)mapGet(response,"error");
+   map<string,string> mapErrorCode = mapGet(mapMessage,"message");
+                    
+   ErrorInfo errUdr = udrCreate(ErrorInfo);
+   errUdr.errorCd = resourceCode + BRIM_ERROR;
+   errUdr.errorMessage = mapGet(mapErrorCode,"value");
+                    
+   respInfo.transactionStatus = "F";
+   respInfo.errorInfo = errUdr; 
+                    
+   depositHistoryResp.responseInfo = respInfo;
+   
+   return depositHistoryResp; 
+}
+
+//Validations for deposit release request
+DepositReleaseResponse checkDepositReleaseReq(map<string,any> Rec,string req,string resourceCode){
+    map<string,string> mapReqInfo = (map<string,string>)mapGet(Rec,"requestInfo");
+    map<string,string> mapHeaderInfo = (map<string,string>)mapGet(Rec,"headerInfo");
+    
+    DepositReleaseResponse respUdr = udrCreate(DepositReleaseResponse);
+    DepositReleaseRequest reqUdr = udrCreate(DepositReleaseRequest);
+    jsonDecodeUdr(req,reqUdr);
+    
+    if(mapGet(mapHeaderInfo,"inputChannelCd") == "" || mapGet(mapHeaderInfo,"inputChannelCd") == null){
+        DepositReleaseResponseInfo responseUdr = udrCreate(DepositReleaseResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "inputChannelCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapHeaderInfo,"srcApplicationCd") == "" || mapGet(mapHeaderInfo,"srcApplicationCd") == null){
+        DepositReleaseResponseInfo responseUdr = udrCreate(DepositReleaseResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "srcApplicationCd IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapHeaderInfo,"userId") == "" || mapGet(mapHeaderInfo,"userId") == null){
+        DepositReleaseResponseInfo responseUdr = udrCreate(DepositReleaseResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "userId IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapReqInfo,"isPartial") == "" || mapGet(mapReqInfo,"isPartial") == null){
+        DepositReleaseResponseInfo responseUdr = udrCreate(DepositReleaseResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "isPartial IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }else if(mapGet(mapReqInfo,"depositId") == "" || mapGet(mapReqInfo,"depositId") == null){
+        DepositReleaseResponseInfo responseUdr = udrCreate(DepositReleaseResponseInfo);
+        ErrorInfo  errUdr = udrCreate(ErrorInfo);
+        errUdr.errorCd = resourceCode+CM_DATA_VALIDATION_ERROR_CODE;
+        errUdr.errorMessage =  "depositId IS NULL";
+        responseUdr.errorInfo = errUdr;
+        responseUdr.transactionStatus = "F";
+        respUdr.responseInfo = responseUdr;
+    }
+    
+    respUdr.requestInfo = reqUdr.requestInfo;
+    respUdr.headerInfo = reqUdr.headerInfo;
+    return respUdr;
+}
+
+//function to call partial release or full release for security deposit towards S4
+http.RequestCycle mapDepositReleaseDetails(map<string,list<string>> mapheaders, map<string, map<string,string>> depositReleaseDetails){
+    DepositReleaseRequestInfo releaseUdr = udrCreate(DepositReleaseRequestInfo);
+    http.RequestCycle udr = udrCreate(http.RequestCycle);
+
+    map<string,string> mapReqInfo = (map<string,string>) mapGet(depositReleaseDetails,"requestInfo");
+    
+    string isPartial = mapGet(mapReqInfo,"isPartial");
+    string depositId = mapGet(mapReqInfo,"depositId");
+    
+    //debug("isPartial : "+isPartial);
+    //debug("depositId : "+depositId);
+    
+    if(isPartial == "Y"){
+        debug("Inside isPartial Y condition");
+        string depositAmount = !isEmpty(mapGet(mapReqInfo,"toBeReleasedDepositAmt")) ? getAmount(mapGet(mapReqInfo,"toBeReleasedDepositAmt")):"";
+        double dDepositAmount;
+        if(!isEmpty(depositAmount)) {
+            strToDouble(dDepositAmount,depositAmount);
+        }
+        string currency = mapGet(mapReqInfo,"currencyCd");
+        
+        map<string,any> partialMap = mapCreate(string,any);
+        
+        mapSet(partialMap,"CAToBeReldAmtInPaymentCurrency",dDepositAmount);
+        mapSet(partialMap,"TransactionCurrency",currency);
+        mapSet(partialMap,"CAPaymentMethod","");
+        //debug("partialMap : "+partialMap);
+        
+        udr.host = getSystemValue(REST_HOSTNAME);
+        udr.secure = true;
+        udr.port = getSystemValue(REST_PORT);
+        udr.path = "/sap/opu/odata4/sap/api_casecuritydeposit/srvd_a2x/sap/casecuritydeposit/0002/CASecurityDeposit('"+depositId+"')/SAP__self.ReleasePartially";
+        udr.headers = mapheaders;
+        udr.method = "POST";
+        string sRequest =  jsonEncodeMap(partialMap);
+        strToBA(udr.body,sRequest);
+        map<string,string> mapParams = mapCreate(string,string);
+        mapSet(mapParams,"sap-client",getSystemValue(SAP_CLIENT));
+        mapSet(mapParams,"format","json");
+    } else if(isPartial == "N"){
+        debug("Inside isPartial N condition");
+        
+        udr.host = getSystemValue(REST_HOSTNAME);
+        udr.secure = true;
+        udr.port = getSystemValue(REST_PORT);
+        udr.path = "/sap/opu/odata4/sap/api_casecuritydeposit/srvd_a2x/sap/casecuritydeposit/0002/CASecurityDeposit('"+depositId+"')/SAP__self.Release";
+        udr.headers = mapheaders;
+        udr.method = "POST";
+        string sRequest = "";
+        strToBA(udr.body,sRequest);
+        map<string,string> mapParams = mapCreate(string,string);
+        mapSet(mapParams,"sap-client",getSystemValue(SAP_CLIENT));
+        mapSet(mapParams,"format","json");
+    }
+    
+   return udr;
+
+}]]></string>
+</exportmultiplex>

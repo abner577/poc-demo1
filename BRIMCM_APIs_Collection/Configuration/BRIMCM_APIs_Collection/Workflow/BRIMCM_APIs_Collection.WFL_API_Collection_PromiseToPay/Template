@@ -1,0 +1,2542 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="11.0">
+         <boolean name="enabled" value="false"/>
+         <storable name="kafka" null="true"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Local Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-570870208"/>
+         <string name="Node Name" value="Incoming_request"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Port"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-570870208"/>
+         <string name="Node Name" value="Incoming_request"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1060956910"/>
+         <string name="Node Name" value="BRIM_Connection"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="1060956910"/>
+         <string name="Node Name" value="BRIM_Connection"/>
+      </storable>
+      <storable name="4" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-24566530"/>
+         <string name="Node Name" value="BRIM_Connection_1"/>
+      </storable>
+      <storable name="5" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-24566530"/>
+         <string name="Node Name" value="BRIM_Connection_1"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ServerData" ver="12.2">
+                  <enum classname="com.digitalroute.http2.server.auth.AuthLevel" name="authLevel" value="NONE"/>
+                  <string name="authPublicKey" null="true"/>
+                  <int name="averagePeriod" value="10"/>
+                  <string name="characterEncoding" value="UTF-8"/>
+                  <int name="clientTimeout" value="10"/>
+                  <boolean name="enableTooManyRequests" value="false"/>
+                  <int name="gzipLevel" value="7"/>
+                  <string name="host" value="ns2cmdapp2.saperp.corp.intranet"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <int name="maxCacheSize" value="1000"/>
+                  <int name="maxCacheTime" value="1000"/>
+                  <int name="maxConcurrentStreams" value="500"/>
+                  <int name="numberOfRequests" value="1000"/>
+                  <int name="port" value="8401"/>
+                  <boolean name="routeToApl" value="false"/>
+                  <storable name="securityProfile" null="true"/>
+                  <int name="serverTimeout" value="0"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" storable-id="dr.DRConfiguration" ver="2.0">
+                           <set name="Dynamic Parameters" null="true"/>
+                           <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                           <string name="Key" value="CMD1718438021185"/>
+                           <string name="Name" value="PRF_OPENAPI_API_Collection_PromiseToPay"/>
+                           <string name="Type" value="Open API Profile"/>
+                        </storable>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList">
+                           <storable name="0" storable-id="dr.DRConfiguration" ver="2.0">
+                              <set name="Dynamic Parameters" null="true"/>
+                              <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                              <string name="Key" value="CMD1718438021185"/>
+                              <string name="Name" value="PRF_OPENAPI_API_Collection_PromiseToPay"/>
+                              <string name="Type" value="Open API Profile"/>
+                           </storable>
+                        </list>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="true"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.HTTP2.Support5G" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <boolean name="enableFallBack" value="false"/>
+                        <boolean name="enableRegistrationRetry" value="false"/>
+                        <string name="nrfAddress" value=""/>
+                        <array classname="java.lang.String" name="nrfAddresses" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="numberOfRegistrationRetry" value="0"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList"/>
+                        <array classname="java.lang.String" name="secondaryAddress" size="0"/>
+                        <array classname="java.lang.String" name="secondaryAddressList" size="0"/>
+                        <int name="timeIntervalForRegistrationRetry" value="0"/>
+                        <boolean name="use5g" value="false"/>
+                     </storable>
+                  </list>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useCache" value="false"/>
+                  <boolean name="useSSL" value="false"/>
+                  <int name="waitDuration" value="10"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Incoming_request"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="11.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableExecutionThresholdLog" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executionThresholdTime" value="1"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="10"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                     <string name="Key" value="CMD1719036763113"/>
+                     <string name="Name" value="RFC_SAP_BRIM_WORKITEM"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_RFC"/>
+      </storable>
+      <storable name="10" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-C47096DB3390424214330B5B2BC35B9B"/>
+                  <int name="queueFullMaxRetries" value="10"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="true"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs"/>
+                     <string name="Key" value="MZ1696863427327"/>
+                     <string name="Name" value="PRF_TLS"/>
+                     <string name="Type" value="Security Profile"/>
+                  </storable>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="true"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="BRIM_CM_REST"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="BRIM_Connection_1"/>
+      </storable>
+      <storable name="11" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+if (instanceOf(input, ErrorCycleUDR)) {
+    ErrorCycleUDR errorCycleUdr = (ErrorCycleUDR) input;
+    log.info("ErrorCycleUDR Response from Splunk WorkflowBridge = " + errorCycleUdr);    
+}
+
+debug(input);
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="3">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ErrorCycleUDR"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.WorkflowStateUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_Splunk_Debug"/>
+      </storable>
+      <storable name="12" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="Common"/>
+                     <string name="Key" value="CMD1779279436841"/>
+                     <string name="Name" value="PRF_WFB_LOGS"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Fwd_Logs"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-C47096DB3390424214330B5B2BC35B9B"/>
+                  <int name="queueFullMaxRetries" value="10"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="false"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs"/>
+                     <string name="Key" value="MZ1696863427327"/>
+                     <string name="Name" value="PRF_TLS"/>
+                     <string name="Type" value="Security Profile"/>
+                  </storable>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="true"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="BRIM_CM_REST"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="BRIM_Connection"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.http;
+import ultra.json;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_API_Collection_PromiseToPay;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import apl.BRIMCM_APIs_Collection.APL_Collection_PromiseToPay;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+import ultra.BRIMCM_APIs_Collection.ULF_Collection_PromiseToPay;
+
+/*
+============================================================================
+Collect Agent
+
+This agent is the first processing point after the client HTTP request enters
+the workflow. It identifies which Promise To Pay endpoint was called and routes
+the request to the correct workflow branch.
+
+This agent handles these transaction lifeclientCycleUdr stages:
+
+1. REQUEST
+   - Logs the original client HTTP request.
+   - Routes /create requests to the Aggregation path.
+   - Routes /history and /withdraw requests to the top/direct path.
+
+2. RESPONSE
+   - Handles early validation error responses for create requests before the
+     request is sent downstream.
+============================================================================
+*/
+
+
+string PATH_COLLECTION_P2P_WITHDRAW;
+string PATH_COLLECTION_P2P_CREATE;
+string PATH_COLLECTION_P2P_HISTORY;
+SplunkContext splunkCtx;
+
+initialize {
+    PATH_COLLECTION_P2P_WITHDRAW = "/brimcm/collection/promisetopay/withdraw";
+    PATH_COLLECTION_P2P_CREATE = "/brimcm/collection/promisetopay/create";
+    PATH_COLLECTION_P2P_HISTORY = "/brimcm/collection/promisetopay/history";
+   
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow", "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Collect", "Agent Name");    
+}
+
+consume {
+
+    try {
+       
+        string resourceCode;
+        string str_tagId;
+           
+        if (instanceOf(input,RequestCycle)) {
+            RequestCycle clientCycleUdr = (RequestCycle) input;
+            
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, clientCycleUdr.path);
+            str_tagId = setTagId(clientCycleUdr);
+
+            ConsumeCycleUDR clientRequestLog = sendToSplunk(clientCycleUdr, null, API_REQUEST, "", null, splunkCtx);
+            udrRoute(clientRequestLog, "toSplunk");
+
+            debug("The value of str_tagId = " + (str_tagId));
+            string sBody;
+
+            if(clientCycleUdr.body != null) {
+                sBody = baToStr(clientCycleUdr.body);
+                any Rec = jsonParse(sBody);
+                debug("Rec: " + Rec);
+
+                /******Create P2P Path******/
+                if (clientCycleUdr.path == PATH_COLLECTION_P2P_CREATE) {
+                    debug("###Inside Create P2P path");
+
+                    CreatePromiseToPayRequest p2pUdr = udrCreate(CreatePromiseToPayRequest);
+                    jsonDecodeUdr(sBody, p2pUdr);
+
+                    CreatePromiseToPayResponse respUdr = toCreateResponsePayload(p2pUdr);
+                    
+                    if (!isValidHeader(p2pUdr.headerInfo)) {
+                        clientCycleUdr = sendP2PCreateErrorResponse(respUdr, clientCycleUdr, "Missing Header field value", resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                        udrRoute(clientCycleUdr, "respToClient");
+                         
+                        ConsumeCycleUDR errorResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                        udrRoute(errorResponseLog, "toSplunk"); 
+                         
+                        return; 
+                    }
+                    // In else case where we have a valid header now we need to check if we have a valid Request  
+                    else {
+                        respUdr = isValidRequest(respUdr, resourceCode+CM_DATA_VALIDATION_ERROR_CODE);
+
+                         if (respUdr.promiseToPay.transactionStatus == "F") {
+                             clientCycleUdr = sendP2PCreateErrorResponse(respUdr, clientCycleUdr, respUdr.promiseToPay.errorInfo.errorMessage, resourceCode + CM_DATA_VALIDATION_ERROR_CODE);
+                             udrRoute(clientCycleUdr, "respToClient");
+                     
+                             ConsumeCycleUDR errorResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                             udrRoute(errorResponseLog, "toSplunk");  
+                           
+                             return;
+                             
+                         }
+                         // In else case where we have a valid request, sending toAgg
+                         else {
+                             string uuidKey = uuidString(uuidCreateRandom());
+
+                             /* 
+                             sessionUdr.request
+                            - original HTTP requestm needed to respond back to the client and preserve headers/tagId/context
+                            
+                            sessionUdr.requestObj
+                            - decoded client business request, needed to build RFC/S4 requests
+                            
+                            sessionUdr.responseObj
+                            - client response being built, then at the end when we return back to client we will set originalRequest.someField equal to this final response object
+                             */
+                             promiseToPay_session sessionUdr = udrCreate(promiseToPay_session);
+                             sessionUdr.uuidKey = uuidKey;
+                             sessionUdr.timeReceived = dateCreateNowMilliseconds();
+                             sessionUdr.request = clientCycleUdr;
+                             sessionUdr.status = "RECEIVED";
+                             sessionUdr.requestObj = p2pUdr;
+                             sessionUdr.responseObj = respUdr;
+
+                             debug("Session Key: " + uuidKey);
+                             debug("Session for P2P Create has been created");
+                             debug("Session request value:" + sessionUdr.request);
+                             debug("Session requestObj value:" + sessionUdr.requestObj);
+                             debug("Session responseObj value:" + sessionUdr.responseObj);
+                             udrRoute(sessionUdr, "toAgg");
+                         }
+                    } 
+                }
+     /******Withdraw / History P2P path******/
+                else if (clientCycleUdr.path == PATH_COLLECTION_P2P_HISTORY || clientCycleUdr.path == PATH_COLLECTION_P2P_WITHDRAW) {
+                    debug("###Withdraw or History P2P path, sending toRequestAgent");
+
+                    udrRoute(clientCycleUdr, "toRequestAgent");
+                }
+                // CM received an HTTP request routed into this workflow, but this workflow doesnt recognize this path
+                else {
+                 clientCycleUdr = setP2PGeneralErrorResponse(clientCycleUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE, "Unsupported Promise To Pay request path", 400);
+                 udrRoute(clientCycleUdr, "respToClient");
+                
+                 ConsumeCycleUDR errorResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                 udrRoute(errorResponseLog, "toSplunk");
+                 
+                 return;
+                }
+            }
+            // In the case where clientCycleUdr.body == null
+            // Dont have access to BAN or busOrgId, so need to leave these blank.
+            else {
+                clientCycleUdr = setP2PGeneralErrorResponse(clientCycleUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE, "Missing request body", 400);
+                udrRoute(clientCycleUdr, "respToClient");
+                
+                ConsumeCycleUDR errorResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(errorResponseLog, "toSplunk");
+                 
+                return;
+            }       
+     /******End of Withdraw / History P2P path******/
+        }
+        // Case where input type is one that we are not expecting
+        else {
+            debug("Inside case where input type is one that we are not expecting");
+            debug("Input value: " + input);
+
+            log.info("Inside case where input type is one that we are not expecting");
+            log.info("Input value: " + input);
+        }
+    } catch(ExceptionDetails exception) {
+        debug("Exception :: " + exception);
+        log.info("Exception :: " + exception);
+    
+        if (instanceOf(input, RequestCycle)) {
+            RequestCycle clientCycleUdr = (RequestCycle) input;
+
+        string resourceCode = getXrefValue(RESOURCE_CODE_TABLE, clientCycleUdr.path);
+        
+        clientCycleUdr = setP2PGeneralErrorResponse(clientCycleUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE, 
+        "Internal error while processing Promise To Pay request", 500);
+        udrRoute(clientCycleUdr, "respToClient");
+        
+        ConsumeCycleUDR errorResponseLog = sendToSplunk(clientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+        udrRoute(errorResponseLog, "toSplunk");
+        
+        return;
+    } 
+    // Some unexpected UDR that we cant handle because it isnt a RequestCycle
+    else {
+        debug("FATAL: Unable to resolve RequestCycle " + "during exception handling. " + "Original exception: " + exception.message);
+        log.info("FATAL: Unable to resolve RequestCycle " + "during exception handling. " + "Original exception: " + exception.message);
+        return;         
+    }
+}
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Collect"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.wfc.aggregation.AggregationRealtimeInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.wfc.aggregation.AggregationRealtimeInsp]]></string>
+               <storable name="Data" storable-id="dr.AggregationConfig" ver="11.0">
+                  <int name="commitCount" value="1"/>
+                  <int name="commitTimeout" value="1"/>
+                  <int name="defaultTimeout" value="-1"/>
+                  <int name="defragAfterNumberOfBatches" value="1"/>
+                  <int name="defragEachBatchTimeLimit" value="5"/>
+                  <int name="defragFileAgeLimit" value="5"/>
+                  <string name="defragFileAgeLimit_TimeUnit" value="MINUTES"/>
+                  <enum name="defragTrigger" storable-id="dr.DefragType" value="NONE"/>
+                  <int name="intervalTimeout" value="1"/>
+                  <string name="mainScript"><![CDATA[import ultra.http;
+import ultra.json;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_API_Collection_PromiseToPay;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.BRIMCM_APIs_Collection.APL_Collection_PromiseToPay;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.subUdr;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM;
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+
+/*
+============================================================================
+Aggregation Agent
+
+This agent coordinates the /create Promise To Pay path. It keeps the original
+client request in session memory, sends the RFC and S4/OData requests, receives
+session updates from the inspect agents, and builds the final client response.
+
+This agent handles these transaction lifecycle stages:
+
+1. RFC_REQUEST
+   - Builds and sends the RFC request used to derive CA and BP details for the create request.
+
+2. ODATA_REQUEST
+   - Sends the S4 GET request used to fetch the CSRF token/header.
+   - Sends the final S4 POST request used to create the Promise To Pay record.
+
+3. RESPONSE
+   - Builds the final client response for successful create processing.
+   - Builds error responses when RFC or S4/OData processing fails.
+
+Important session statuses handled in this agent:
+
+- RECEIVED
+  - A new create request has entered the aggregation path and the session has
+    been initialized.
+
+- REQUESTING_RFC
+  - The agent has started downstream lookup processing and is preparing the RFC
+    request.
+
+- RFC_RESPONSE
+  - The RFC response was received and mapped by Inspect_RFC_Resp, so the agent
+    can now build the S4 CSRF-token GET request.
+
+- RFC_ERROR_RESPONSE
+  - The RFC returned an error, so the agent stops normal processing and builds
+    an error response back to the client.
+
+- CSRF_TOKEN_RECEIVED
+  - The S4 GET token response was received, so the agent can now build and send
+    the actual S4 POST create request.
+
+- P2P_CREATE_RESPONSE
+  - The final S4 POST create response was received, so the agent can map the S4
+    result into the final client response.
+
+- ODATA_ERROR_RESPONSE
+  - An S4/OData error occurred, so the agent builds an error response back to
+    the client.
+============================================================================
+*/
+
+
+SplunkContext splunkCtx;
+
+
+initialize {
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string )mimGet("Workflow", "Execution Context");
+    splunkCtx.workflowName = (string) mimGet("Workflow", "Workflow Name");
+    splunkCtx.agentName = (string) mimGet("Aggregation", "Agent Name");    
+}
+
+
+sessionInit {
+
+    session.status = "RECEIVED";
+    session.request = input.request;
+    session.timeReceived = input.timeReceived;
+    session.uuidKey = input.uuidKey;
+    session.requestObj = input.requestObj;
+    session.responseObj = input.responseObj;
+    session.counter = 0;
+
+    debug("Step 1: Initiated Session for the below request---->>");
+    debug("Session Id :: " + session.uuidKey + " Status:: " + session.status); 
+
+    sessionTimeout(session, 1000);
+}
+
+// Consume block is mainly used to advance the session through the downstream steps
+// sessionTimeout(session, -1); --> Means to stop waiting and immediately jump to the timeout block so we can finish this session and send the final response
+consume {
+    debug("Input -- " + input);
+
+    session.status = input.status;
+
+    RequestCycle originalClientCycleUdr = (RequestCycle) session.request;
+
+    /******STAGE 2: Build and send RFC_REQUEST for create Promise to Pay******/
+    if (input.status == "RECEIVED") {
+        session.status = "REQUESTING_RFC";
+
+        /************START OF DEVELOPMENT OF CREATE P2P****************/
+        if (instanceOf(session.requestObj, CreatePromiseToPayRequest)) {
+            CreatePromiseToPayResponse respItem = (CreatePromiseToPayResponse) session.responseObj;
+
+            debug("###p2p respItem object ------ >> " + respItem);
+
+            list<PromiseToPayDetailResponse> p2pResList = respItem.promiseToPay.promiseToPayDetails;
+
+            // Preparing request object for RFC_REQUEST
+            ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr = udrCreate(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR);
+            rfcUdr.importParams = udrCreate(importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT);
+            rfcUdr.context = session.uuidKey;
+            rfcUdr.importParams.IT_VKONA = listCreate(ZFITT_VKONA);
+
+            debug("### listSize(p2pResList: " + listSize(p2pResList));
+
+            for (int i = 0; i < listSize(p2pResList); i++) {
+                PromiseToPayDetailResponse resUdr = listGet(p2pResList, i);
+
+                if (isEmpty(resUdr.errorInfo.errorMessage)) {
+                    debug("###Inside resUdr.errorInfo != null - ");
+
+                    ZFITT_VKONA bill = udrCreate(ZFITT_VKONA);
+                    bill.VKONA = resUdr.billingAccountNumber;
+
+                    listAdd(rfcUdr.importParams.IT_VKONA, bill);
+                }
+            }
+
+            debug("request to RFC: " + rfcUdr);
+            udrRoute(rfcUdr, "reqToRfc");
+
+            // Splunk log RFC_REQUEST before sending account lookup request to BRIM
+            ConsumeCycleUDR rfcRequestLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcUdr.importParams, RFC_REQUEST, "", "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+            udrRoute(rfcRequestLog, "toSplunk");
+        }
+        /************END OF DEVELOPMENT OF CREATE P2P****************/
+    }
+
+    /******STAGE 3: Handle RFC error response state******/
+    if (input.status == "RFC_ERROR_RESPONSE") {
+        session.rfcRequestResponse = input.rfcRequestResponse;
+        session.rfcErrors = input.rfcErrors;
+        session.inputError = true;
+ 
+        // Splunk log RFC_RESPONSE failure after receiving the processed RFC error response from Inspect_RFC_Resp
+        ConsumeCycleUDR rfcErrorResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) session.rfcErrors, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+        udrRoute(rfcErrorResponseLog, "toSplunk");
+
+        sessionTimeout(session, -1);
+    }
+
+    /******STAGE 3: Receive RFC_RESPONSE and build ODATA CSRF-token GET request******/
+    if (input.status == "RFC_RESPONSE") {
+        debug("###Session : " + session);
+        debug("Step 3: Response received from RFC ---->>> ");
+
+        if (instanceOf(session.requestObj, CreatePromiseToPayRequest)) {
+            session.DetailList = input.DetailList;
+            session.caBAN = input.caBAN;
+            session.rfcRequestResponse = input.rfcRequestResponse;
+
+            // Splunk log RFC_RESPONSE success after receiving the processed RFC response from Inspect_RFC_Resp
+            ConsumeCycleUDR rfcSuccessResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) session.rfcRequestResponse, RFC_RESPONSE, API_STATUS_SUCCESS, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+            udrRoute(rfcSuccessResponseLog, "toSplunk");
+
+            string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/CR_P2P_HEADSet";
+            RequestCycle request = sendToGetCSRF(sURI, session.request, session.uuidKey);
+
+            udrRoute(request, "reqToS4");
+            log.info("Calling ODATA for CSRF Token");
+        }
+    }
+
+    /******STAGE 4: Receive CSRF token and build ODATA create POST request******/
+    if (input.status == "CSRF_TOKEN_RECEIVED") {
+        session.responseHeader = input.responseHeader;
+
+        if (instanceOf(session.requestObj, CreatePromiseToPayRequest)) {
+            string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/CR_P2P_HEADSet";
+
+            RequestCycle odataGetResponseCycle = udrCreate(RequestCycle);
+            odataGetResponseCycle.path = sURI;
+            odataGetResponseCycle.method = "GET";
+            odataGetResponseCycle.context = session.uuidKey;
+            odataGetResponseCycle.body = input.s4ResponseBody;
+            odataGetResponseCycle.response.body = input.s4ResponseBody;
+            odataGetResponseCycle.response.headers = input.responseHeader;
+           
+           if (input.s4ResponseStatus == "200") {
+                log.info("Received 200 for ODATA CSRF call");
+
+                CreatePromiseToPayResponse respUdr = (CreatePromiseToPayResponse) session.responseObj;
+
+                // Build the create POST payload from the prepared response object and RFC detail list
+                string payload = getCreatePayload(respUdr.headerInfo, respUdr.promiseToPay, session.DetailList);
+
+                debug("payload - " + payload);
+
+                RequestCycle request = sendToCreateP2P(sURI, session.request, payload, session.responseHeader);
+                request.context = session.uuidKey;
+
+                debug("###request for Post call :" + request);
+                udrRoute(request, "reqToS4");
+
+                // Splunk log ODATA_REQUEST before sending the actual create POST request to S4
+                ConsumeCycleUDR odataPostRequestLog = sendToSplunk(originalClientCycleUdr, request, ODATA_REQUEST, "", sURI, splunkCtx);
+                udrRoute(odataPostRequestLog, "toSplunk");
+
+            // Error case where the CSRF-token GET response was not successful
+            } else {
+                session.responseDescription = "Unknown Error while fetching CSRF token from S4";
+                session.status = "ODATA_ERROR_RESPONSE";
+
+                log.info("Received non-200 for ODATA CSRF call");
+
+                sessionTimeout(session, -1);
+            }
+        }
+    }
+
+    /******STAGE 5: Receive ODATA_RESPONSE for create Promise to Pay POST******/
+    if (input.status == "P2P_CREATE_RESPONSE") {
+        string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/CR_P2P_HEADSet";
+
+        RequestCycle odataPostResponseCycle = udrCreate(RequestCycle);
+        odataPostResponseCycle.path = sURI;
+        odataPostResponseCycle.method = "POST";
+        odataPostResponseCycle.context = session.uuidKey;
+        odataPostResponseCycle.body = input.s4ResponseBody;
+        odataPostResponseCycle.response.body = input.s4ResponseBody;
+
+        if (input.s4ResponseStatus == "200" || input.s4ResponseStatus == "201") {
+            // send success -- mapping each CA with BAN
+            session.status = input.status;
+            session.s4ResponseStatus = input.s4ResponseStatus != null ? input.s4ResponseStatus : "";
+            session.s4ResponseBody = input.s4ResponseBody;
+
+            // Splunk log ODATA_RESPONSE SUCCESS (POST)
+            ConsumeCycleUDR odataPostResponseLog = sendToSplunk(originalClientCycleUdr, odataPostResponseCycle, ODATA_RESPONSE, API_STATUS_SUCCESS, sURI, splunkCtx);
+            udrRoute(odataPostResponseLog, "toSplunk");
+
+            // Once you receive the final response we timeout, in the timeout handle the client response.
+            sessionTimeout(session, -1);
+
+        // Error case where S4 did not return a successful create response
+        } else {
+            session.responseDescription = "Unknown Error while creating P2P in S4";
+            session.status = "ODATA_ERROR_RESPONSE";
+
+            // Splunk log ODATA_RESPONSE FAILURE (POST)
+            ConsumeCycleUDR odataPostResponseLog = sendToSplunk(originalClientCycleUdr, odataPostResponseCycle, ODATA_RESPONSE, API_STATUS_FAILURE, sURI, splunkCtx);
+            udrRoute(odataPostResponseLog, "toSplunk");
+        }
+
+        sessionTimeout(session, -1);
+    }
+
+    /******STAGE 5: Handle ODATA error response state******/
+    if (input.status == "ODATA_ERROR_RESPONSE") {
+        session.status = "ODATA_ERROR_RESPONSE";
+        session.responseDescription = input.responseDescription;
+        session.inputError = true;
+
+        string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/CR_P2P_HEADSet";
+
+        RequestCycle odataErrorResponseCycle = udrCreate(RequestCycle);
+        odataErrorResponseCycle.path = sURI;
+        odataErrorResponseCycle.context = session.uuidKey;
+        odataErrorResponseCycle.body = input.s4ResponseBody;
+        odataErrorResponseCycle.response.body = input.s4ResponseBody;
+
+        // Splunk log ODATA_RESPONSE failure
+        ConsumeCycleUDR odataErrorResponseLog = sendToSplunk(originalClientCycleUdr, odataErrorResponseCycle, ODATA_RESPONSE, API_STATUS_FAILURE, sURI, splunkCtx);
+        udrRoute(odataErrorResponseLog, "toSplunk");
+
+        sessionTimeout(session, -1);
+    }
+}
+
+// Timeout block is where the session gets finalized and the response is sent back to the client.
+timeout {
+    debug("Step 6: Timeout block");
+    debug("Session Id :: " + session.uuidKey + " Status:: " + session.status);
+
+    string sBody;
+    string resourceCode;
+
+    RequestCycle cycleUdr = (RequestCycle) session.request;
+    resourceCode = getXrefValue(RESOURCE_CODE_TABLE, cycleUdr.path);
+
+    /******STAGE 6: Send final RESPONSE for RFC error******/
+    if (session.status == "RFC_ERROR_RESPONSE") {
+        RFCRequestResponse requestRes = udrCreate(RFCRequestResponse);
+        requestRes = listGet(session.rfcErrors, 0);
+
+        string errorMsg = requestRes.errorMsg;
+
+        if (instanceOf(session.requestObj, CreatePromiseToPayRequest)) {
+            CreatePromiseToPayResponse respUdr = (CreatePromiseToPayResponse) session.responseObj;
+
+            debug("###respUdr object ------>> " + respUdr);
+
+            cycleUdr = sendP2PCreateErrorResponse(respUdr, cycleUdr, errorMsg, resourceCode + BRIM_ERROR);
+
+            udrRoute(cycleUdr, "respToClient");
+
+            // Splunk log RESPONSE failure after the client-facing RFC error response is populated
+            ConsumeCycleUDR errorResponseLog = sendToSplunk(cycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+            udrRoute(errorResponseLog, "toSplunk");
+        }
+    }
+
+    /******STAGE 6: Send final RESPONSE for ODATA error******/
+    if (session.status == "ODATA_ERROR_RESPONSE") {
+        debug("###Inside timeout ODATA response");
+
+        if (instanceOf(session.requestObj, CreatePromiseToPayRequest)) {
+            CreatePromiseToPayResponse respUdr = (CreatePromiseToPayResponse) session.responseObj;
+
+            debug("###respUdr object ------>> " + respUdr);
+
+            cycleUdr = sendP2PCreateErrorResponse(respUdr, cycleUdr, session.responseDescription, resourceCode + BRIM_ERROR);
+
+            udrRoute(cycleUdr, "respToClient");
+
+            // Splunk log RESPONSE failure after the client-facing ODATA error response is populated
+            ConsumeCycleUDR errorResponseLog = sendToSplunk(cycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+            udrRoute(errorResponseLog, "toSplunk");
+        }
+    }
+
+    /******STAGE 6: Build and send final RESPONSE for create Promise to Pay******/
+    if (session.status == "P2P_CREATE_RESPONSE") {
+        CreatePromiseToPayResponse respUdr = (CreatePromiseToPayResponse) session.responseObj;
+        string sResponseBody = baToStr(session.s4ResponseBody);
+
+        // Parse the S4 response body so the final client response can be mapped by contract account and Promise To Pay date
+        map<string, any> response = (map<string, any>) jsonParse(sResponseBody);
+        map<string, any> mapD = (map<string, any>) mapGet(response, "d");
+
+        debug("###Coverted Map -->" + mapD);
+
+        map<string, any> mapItemsmsg = (map<string, any>) mapGet(mapD, "Itemsmsg");
+        list<any> listResult = (list<any>) mapGet(mapItemsmsg, "results");
+
+        debug("###Converted Results to List -->" + listResult);
+
+        map<string, list<string>> outMap = mapCreate(string, list<string>);
+
+        for (any value : listResult) {
+            list<string> stList = listCreate(string);
+
+            listInsert(stList, 0, (string) value.PromiseToPayId);
+            listInsert(stList, 1, (string) value.MsgId);
+            listInsert(stList, 2, (string) value.Message);
+
+            mapSet(outMap, ((string) value.ContractAccount + (string) value.PromiseToPayDate), stList);
+        }
+
+        respUdr = finalCreateResponsePayload(respUdr, session.DetailList, outMap, resourceCode + BRIM_ERROR);
+
+        // If all success, then only transanction status as S, else F
+        if (allSuccess(respUdr.promiseToPay.promiseToPayDetails)) {
+            respUdr.promiseToPay.transactionStatus = "S";
+            cycleUdr.response.statusCode = 200;
+
+        // Error case where at least one Promise to Pay detail did not succeed
+        } else {
+            respUdr.promiseToPay.transactionStatus = "F";
+            cycleUdr.response.statusCode = 400;
+        }
+
+        cycleUdr.response.openAPIUDR = respUdr;
+        cycleUdr.response.headers = APL_FUNCTIONS.getHeader();
+        cycleUdr.response.openAPIUDR = respUdr;
+
+        udrRoute(cycleUdr, "respToClient");
+
+        // Splunk log RESPONSE success/failure based on the final client response status
+        if (cycleUdr.response.statusCode == 200) {
+            ConsumeCycleUDR successResponseLog = sendToSplunk(cycleUdr, null, API_RESPONSE, API_STATUS_SUCCESS, null, splunkCtx);
+            udrRoute(successResponseLog, "toSplunk");
+
+        // Error case where the final client response status is not successful
+        } else {
+            ConsumeCycleUDR failureResponseLog = sendToSplunk(cycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+            udrRoute(failureResponseLog, "toSplunk");
+        }
+    }
+
+    // Finally remove the session from memory INC7413761
+    sessionRemove(session);
+}]]></string>
+                  <int name="noMatchBehaviour" value="0"/>
+                  <string name="noMatchRouter" value="reqToRfc"/>
+                  <int name="noStorageBehaviour" value="0"/>
+                  <string name="noStorageRouter" null="true"/>
+                  <int name="nullTimeoutBehaviour" value="1"/>
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                     <string name="Key" value="CMD1718821042696"/>
+                     <string name="Name" value="PRF_AGG_Collection_PromiseToPay"/>
+                     <string name="Type" value="Aggregation Profile"/>
+                  </storable>
+                  <boolean name="readonly" value="false"/>
+                  <boolean name="timeoutDisable" value="false"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Aggregation"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[//InspectRFC Response
+
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.subUdr;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM;
+import ultra.http;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+
+/*
+============================================================================
+Inspect_RFC_Resp Agent
+
+This agent handles RFC responses for the /create Promise To Pay aggregation
+path. It inspects the SAP RFC result, maps the returned account data or errors,
+and sends a session update back to the Aggregation agent.
+
+This agent handles this transaction lifecycle stage:
+
+1. RFC_RESPONSE
+   - Receives the RFC response from SAP_RFC.
+   - Checks whether RFC returned account mapping data or error data.
+
+Session statuses produced by this agent:
+
+- RFC_RESPONSE
+  - RFC returned usable account mapping data and Aggregation can continue to
+    the S4/OData token request.
+
+- RFC_ERROR_RESPONSE
+  - RFC returned an error and Aggregation should build an error response back
+    to the client.
+
+NOTE:
+This agent does not build the final client response. It only prepares the
+RFC result as a session update and routes it back to Aggregation.
+============================================================================
+*/
+
+SplunkContext splunkCtx;
+
+initialize {
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string) mimGet("Workflow", "Execution Context");
+    splunkCtx.workflowName = (string) mimGet("Workflow", "Workflow Name");
+    splunkCtx.agentName = (string) mimGet("Inspect_RFC_Resp", "Agent Name");
+}
+
+consume {
+    debug("[Inspect_RFC_Resp][PROCESSING] Received response for inspection.");
+
+    if (instanceOf(input, ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR)) {
+        debug("[Inspect_RFC_Resp][RFC_RESPONSE] RFC response input received: " + input);
+
+        /******STAGE 1: Receive RFC_RESPONSE******/
+
+        ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcUdr = (ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR) input;
+        exportParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT tableParams = rfcUdr.exportParams;
+
+        debug("[Inspect_RFC_Resp][SESSION] RFC UDR context value: " + rfcUdr.context);
+        debug("[Inspect_RFC_Resp][RFC_RESPONSE] Input object being inspected: " + input);
+
+        promiseToPay_session sessionUdr = udrCreate(promiseToPay_session);
+        sessionUdr.uuidKey = (string) rfcUdr.context;
+        sessionUdr.rfcRequestResponse = listCreate(RFCRequestResponse);
+
+        debug("[Inspect_RFC_Resp][SESSION] Created Promise To Pay session UDR.");
+        debug("[Inspect_RFC_Resp][SESSION] Session UUID key: " + sessionUdr.uuidKey);
+        debug("[Inspect_RFC_Resp][RFC_RESPONSE] RFC ET_ERROR row count: " + listSize(tableParams.ET_ERROR));
+        debug("[Inspect_RFC_Resp][RFC_RESPONSE] RFC ET_GPART_VKONT row count: " + listSize(tableParams.ET_GPART_VKONT));
+        debug("[Inspect_RFC_Resp][SESSION] Initialized RFC request-response list on session UDR.");
+        debug("[Inspect_RFC_Resp][RFC_RESPONSE] Determining RFC response status.");
+
+        sessionUdr.status = listSize(tableParams.ET_ERROR) == 0 ? "RFC_RESPONSE" : "RFC_ERROR_RESPONSE";
+
+        debug("[Inspect_RFC_Resp][SESSION] Session status after RFC inspection: " + sessionUdr.status);
+
+        /******STAGE 2: Map RFC error rows when present******/
+
+        if (listSize(tableParams.ET_ERROR) > 0) {
+            debug("[Inspect_RFC_Resp][ERROR] RFC response contains error rows.");
+
+            for (ZFIT_VKONA_ERR_MSG item : tableParams.ET_ERROR) {
+                debug("[Inspect_RFC_Resp][ERROR] Processing RFC error row: " + item);
+
+                RFCRequestResponse requestRes = udrCreate(RFCRequestResponse);
+                requestRes.ban = item.VKONA;
+                requestRes.errorMsg = item.E_ERROR_MSG;
+
+                debug("[Inspect_RFC_Resp][ERROR] Built RFC error response entry: " + requestRes);
+                debug("[Inspect_RFC_Resp][ERROR] Adding RFC error response entry to session UDR.");
+
+                listAdd(sessionUdr.rfcErrors, requestRes);
+
+                debug("[Inspect_RFC_Resp][ERROR] Added RFC error response entry to session UDR.");
+            }
+
+            debug("[Inspect_RFC_Resp][ERROR] Finished processing RFC error rows.");
+        }
+
+        /******STAGE 3: Map successful RFC account rows when present******/
+
+        if (listSize(tableParams.ET_GPART_VKONT) > 0) {
+            sessionUdr.caBAN = mapCreate(string, string);
+            sessionUdr.DetailList = mapCreate(string, list<string>);
+
+            for (ZFITT_OUTPUT_BILL item : tableParams.ET_GPART_VKONT) {
+                debug("[Inspect_RFC_Resp][RFC_RESPONSE] Processing RFC account detail row: " + item);
+
+                RFCRequestResponse requestRes = udrCreate(RFCRequestResponse);
+                requestRes.ban = item.BAN;
+                requestRes.contractAccount = item.VKONT;
+                requestRes.bussOrg = item.BUSS_ORG;
+                requestRes.businessPartner = item.GPART;
+
+                listAdd(sessionUdr.rfcRequestResponse, requestRes);
+
+                // Store contract account and business partner details by BAN for downstream processing
+                list<string> caBP = listCreate(string);
+                listInsert(caBP, 0, requestRes.contractAccount);
+                listInsert(caBP, 1, requestRes.businessPartner);
+                mapSet(sessionUdr.DetailList, requestRes.ban, caBP);
+            }
+        }
+
+        /******STAGE 4: Route updated session back to Aggregation******/
+
+        debug("[Inspect_RFC_Resp][SESSION] Final session UDR before routing to Aggregation: " + sessionUdr);
+        debug("[Inspect_RFC_Resp][SESSION] Routing session UDR toAgg with status: " + sessionUdr.status);
+
+        udrRoute(sessionUdr, "toAgg");
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="5">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICA_GET_BUSI_SEG_UDR]]></string>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR]]></string>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICAF_GPART_VKONT_DERIVE_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFIF_FM_VKONA_TO_BP_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Inspect_RFC_Resp"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import ultra.http;
+import ultra.json;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+
+/*
+============================================================================
+Inspect_S4_Resp Agent
+
+This agent handles S4/OData responses for the /create Promise To Pay aggregation
+path. It inspects both the CSRF-token GET response and the final POST create
+response, then sends a session update back to the Aggregation agent.
+
+This agent handles this transaction lifecycle stage:
+
+1. ODATA_RESPONSE
+   - Receives the S4 GET response used to fetch the CSRF token/header.
+   - Receives the S4 POST response from the actual Promise To Pay create call.
+
+Session statuses produced by this agent:
+
+- CSRF_TOKEN_RECEIVED
+  - The S4 GET token response was received, and Aggregation can now build the
+    actual S4 POST create request.
+
+- P2P_CREATE_RESPONSE
+  - The final S4 POST create response was received, and Aggregation can now
+    build the final client response.
+
+- ODATA_ERROR_RESPONSE
+  - The S4/OData call failed or timed out, and Aggregation should build an
+    error response back to the client.
+
+NOTE:
+This agent does not send the final response to the client. It only inspects
+S4/OData responses and routes the result back to Aggregation.
+============================================================================
+*/
+
+SplunkContext splunkCtx;
+
+initialize {
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string) mimGet("Workflow", "Execution Context");
+    splunkCtx.workflowName = (string) mimGet("Workflow", "Workflow Name");
+    splunkCtx.agentName = (string) mimGet("Inspect_S4_Resp", "Agent Name");    
+}
+
+consume {
+    debug("[Inspect_S4_Resp][PROCESSING] Input received: " + input);
+
+    if (instanceOf(input, RequestCycle)) {
+        RequestCycle cycleUdr = (RequestCycle) input;
+
+        debug("[Inspect_S4_Resp][ODATA_RESPONSE] Response path received from S4: " + cycleUdr.path);
+
+        if (strREContains(cycleUdr.path, "ZGLB_DEVFI_PROMISE_TO_PAY_SRV/CR_P2P_HEADSet")) {
+
+            /******STAGE 1: Receive S4 ODATA_RESPONSE******/
+            promiseToPay_session sessionUdr = udrCreate(promiseToPay_session);
+            sessionUdr.uuidKey = (string) cycleUdr.context;
+            sessionUdr.s4ResponseStatus = (string) cycleUdr.response.statusCode;
+
+            if (instanceOf(cycleUdr.response.body, bytearray)) {
+                sessionUdr.s4ResponseBody = (bytearray) cycleUdr.response.body;
+            }
+
+            debug("[Inspect_S4_Resp][ODATA_RESPONSE] Response body received from S4: " + baToStr((bytearray) cycleUdr.response.body));
+
+            /******STAGE 2: Update session status from S4 response method******/
+
+            if (cycleUdr.method == "GET") {
+                sessionUdr.status = "CSRF_TOKEN_RECEIVED";
+                sessionUdr.responseHeader = cycleUdr.response.headers;
+
+            } else if (cycleUdr.method == "POST") {
+                sessionUdr.status = "P2P_CREATE_RESPONSE";
+            }
+
+            /******STAGE 3: Handle S4 ODATA error response******/
+
+            if (cycleUdr.response.body != null) {
+                // Error case where S4 returned a timeout message
+                if (strREContains((string) cycleUdr.response.body, "Total timeout 30000 ms elapsed")) {
+                    debug("[Inspect_S4_Resp][ERROR] S4 ODATA response failed because the request timed out.");
+                    log.warn("[Inspect_S4_Resp][ERROR] S4 ODATA response failed because the request timed out.");
+
+                    sessionUdr.responseDescription = (string) cycleUdr.body;
+                    sessionUdr.status = "ODATA_ERROR_RESPONSE";
+
+                // Error case where S4 returned a non-success status
+                } else if (!(cycleUdr.response.statusCode == 200 || cycleUdr.response.statusCode == 201)) {
+                    debug("[Inspect_S4_Resp][ERROR] S4 ODATA response returned a non-success status, mapping error message.");
+                    log.warn("[Inspect_S4_Resp][ERROR] S4 ODATA response returned a non-success status, mapping error message.");
+
+                    // Decode the S4 error body and pull the nested error.message.value field
+                    JsonObject json = (JsonObject) jsonDecode(baToStr((bytearray) cycleUdr.response.body));
+                    map<string, any> responseMap = json.asMap;
+
+                    json = (JsonObject) mapGet(responseMap, "error");
+                    responseMap = json.asMap;
+
+                    json = (JsonObject) mapGet(responseMap, "message");
+                    responseMap = json.asMap;
+
+                    string errMsg = (string) mapGet(responseMap, "value");
+
+                    sessionUdr.responseDescription = errMsg;
+                    sessionUdr.status = "ODATA_ERROR_RESPONSE";
+                }
+            }
+
+            /******STAGE 4: Route updated session back to Aggregation******/
+
+            udrRoute(sessionUdr, "toAgg");
+
+            debug("[Inspect_S4_Resp][SESSION] Session UDR routed to Aggregation: " + sessionUdr);
+            debug("[Inspect_S4_Resp][SESSION] Sent session object toAgg.");
+        }
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.errorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Inspect_S4_Resp"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.rfc.agent.SAPJCoRFCAgentInsp"/>
+               <storable name="Data" storable-id="rfc.agent.contract" ver="11.0">
+                  <int name="cacheExpiry" value="120"/>
+                  <int name="cacheSize" value="1000"/>
+                  <boolean name="enableConnectionPool" value="false"/>
+                  <boolean name="enableExecutionThresholdLog" value="false"/>
+                  <boolean name="enableImmediateStop" value="false"/>
+                  <int name="executionThresholdTime" value="1"/>
+                  <int name="executorSize" value="5"/>
+                  <int name="jCoPeakLimit" value="10"/>
+                  <int name="jCoPoolCapacity" value="2"/>
+                  <int name="queueSize" value="1000"/>
+                  <storable name="rfcProfile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                     <string name="Key" value="CMD1719036763113"/>
+                     <string name="Name" value="RFC_SAP_BRIM_WORKITEM"/>
+                     <string name="Type" value="SAP RFC Profile"/>
+                  </storable>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="SAP_RFC_1"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.http;
+import ultra.json;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_API_Collection_PromiseToPay;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import apl.BRIMCM_APIs_Collection.APL_Collection_PromiseToPay;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+import apl.Common.APL_CONSTANTS;
+
+/*
+============================================================================
+Analysis_Response Agent
+
+This agent handles S4/OData responses for the /history and /withdraw endpoints.
+
+This agent handles these transaction lifecycle stages:
+
+1. ODATA_RESPONSE
+   - For /history, receives the S4 GET response containing Promise To Pay
+     history data.
+   - For /withdraw, receives the S4 GET token response.
+   - For /withdraw, receives the final S4 POST response after the withdraw
+     request is submitted.
+
+2. ODATA_REQUEST
+   - For /withdraw, builds the actual S4 POST request after the CSRF token/header
+     has been received from the first GET call.
+
+3. RESPONSE
+   - Builds the final client response for /history.
+   - Builds the final client response for /withdraw.
+   - Handles S4/OData error responses and maps them back to the client response.
+============================================================================
+*/
+
+
+string PATH_COLLECTION_P2P_WITHDRAW_ODATA_GET;
+string PATH_COLLECTION_P2P_HISTORY_ODATA_GET;
+SplunkContext splunkCtx;
+
+
+initialize {
+    PATH_COLLECTION_P2P_WITHDRAW_ODATA_GET = "/sap/opu/odata/sap/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/WITHDRAWN_P2PSet";
+    PATH_COLLECTION_P2P_HISTORY_ODATA_GET = "/sap/opu/odata/sap/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/GET_P2P_HEADSet";
+    
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow", "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("Analysis_Response", "Agent Name");    
+}
+
+
+consume {
+    try {
+        if (instanceOf(input, RequestCycle)) {
+            RequestCycle s4CycleUdr = (RequestCycle) input;
+            RequestCycle originalClientRequestUdr = (RequestCycle) s4CycleUdr.context;
+
+            debug("Analysis_Response received S4/OData RequestCycle response: " + s4CycleUdr);
+            
+            /*****P2P Withdraw ODATA CSRF GET Call Response*****/
+            if (strREContains(s4CycleUdr.path, PATH_COLLECTION_P2P_WITHDRAW_ODATA_GET) && s4CycleUdr.method == "GET") {
+                debug("Processing Promise To Pay withdraw CSRF-token GET response from S4.");
+                debug("Withdraw CSRF-token GET response status code: " + s4CycleUdr.response.statusCode);
+
+                if ((string) s4CycleUdr.response.statusCode == "200") {
+                    debug("Promise To Pay withdraw CSRF-token GET response succeeded. Preparing withdraw POST request.");
+
+                    if (s4CycleUdr.context == null ) {
+                        debug("Promise To Pay withdraw CSRF-token GET response is missing original client request context: " + s4CycleUdr);
+                        log.info("Promise To Pay withdraw CSRF-token GET response is missing original client request context.");
+                    }
+
+                    // We are pulling the CSRF token values from the GET response headers and attaching it to the POST request
+                    map <string, list<string>> mapToken = APL_Collection_PromiseToPay.tokenReq(s4CycleUdr.response.headers);
+
+                    // Builds the S4 POST request for withdraw
+                    http.RequestCycle reqUDRForPost = APL_Collection_PromiseToPay.prepareWithdrawPostCall(PATH_COLLECTION_P2P_WITHDRAW_ODATA_GET, (RequestCycle) s4CycleUdr.context, mapToken);
+                    reqUDRForPost.context = s4CycleUdr.context;
+
+                    debug("Prepared Promise To Pay withdraw POST request for S4: " + reqUDRForPost);
+                    udrRoute(reqUDRForPost, "postReqToS4");
+
+                    // Splunk log ODATA_REQUEST for withdraw actual POST request
+                    ConsumeCycleUDR odataPostRequestLog = sendToSplunk(originalClientRequestUdr, reqUDRForPost, ODATA_REQUEST, "", reqUDRForPost.path, splunkCtx);
+                    udrRoute(odataPostRequestLog, "toSplunk");
+
+                    return;
+                } 
+                // Error case for token request. ODATA responded with non-200 status
+                else {
+                    debug("Promise To Pay withdraw CSRF-token GET request failed. Status code: " + s4CycleUdr.response.statusCode);
+                    log.info("Promise To Pay withdraw CSRF-token GET request failed. Status code: " + s4CycleUdr.response.statusCode);
+
+                    bytearray bArespBody = (bytearray) s4CycleUdr.response.body;
+                    ErrorInfo errInfo = udrCreate(ErrorInfo);
+
+                    map<string,map<string,map<string,string>>> mapErrorInfo = (map<string,map<string,map<string,string>>>)jsonParse((string)bArespBody);
+                    map<string,any> mapCode = mapGet(mapErrorInfo, "error");
+                    map<string,string> mapErrorValue = (map<string,string>) mapGet(mapCode, "message");
+
+                    string sErrorMesssage = mapGet(mapErrorValue, "value");
+
+                    debug("Promise To Pay withdraw CSRF-token GET error message from S4: " + sErrorMesssage);
+                    log.info("Promise To Pay withdraw CSRF-token GET error message from S4: " + sErrorMesssage);
+
+                    errInfo.errorCd = "40621";
+                    errInfo.errorMessage = sErrorMesssage;
+                    
+                    WithdrawPromiseToPayRequest request = udrCreate(WithdrawPromiseToPayRequest) ;
+                    jsonDecodeUdr(baToStr(originalClientRequestUdr.body), request);
+
+                    WithdrawPromiseToPayResponse finalResponse = udrCreate(WithdrawPromiseToPayResponse);
+                    WithdrawPromiseToPayResponseInfo status = udrCreate(WithdrawPromiseToPayResponseInfo);
+                    
+                    status.transactionStatus = "F";
+                    status.errorInfo = errInfo;
+
+                    finalResponse.headerInfo = request.headerInfo;
+                    finalResponse.requestInfo = request.requestInfo;
+                    finalResponse.responseInfo = status;
+
+                    originalClientRequestUdr.response.openAPIUDR = finalResponse;
+                    originalClientRequestUdr.response.statusCode = 400;
+
+                    debug("Returning Promise To Pay withdraw failure response to client because CSRF-token GET request failed.");
+                    log.info("Returning Promise To Pay withdraw failure response to client because CSRF-token GET request failed.");
+
+                    udrRoute(originalClientRequestUdr, "respToClient");
+
+                    // Splunk logging for ODATA_RESPONSE and RESPONSE FAILURE cases
+
+                    ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientRequestUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                    udrRoute(errorResponseLog, "toSplunk");
+
+                    return;
+                }
+            } 
+            /*****P2P Withdraw ODATA POST Call Response*****/
+            else if (strREContains(s4CycleUdr.path, PATH_COLLECTION_P2P_WITHDRAW_ODATA_GET) && s4CycleUdr.method == "POST") {
+                    debug("Processing Promise To Pay withdraw POST response from S4.");
+                    debug("Withdraw POST response status code: " + s4CycleUdr.response.statusCode);
+
+                    originalClientRequestUdr = (RequestCycle) s4CycleUdr.context;
+                    WithdrawPromiseToPayRequest request = udrCreate(WithdrawPromiseToPayRequest);
+                    jsonDecodeUdr(baToStr(originalClientRequestUdr.body), request);
+
+                    debug("Original Promise To Pay withdraw client request body: " + baToStr(originalClientRequestUdr.body));
+                    debug("Promise To Pay withdraw POST response body from S4: " + baToStr(s4CycleUdr.body));
+                   
+                    WithdrawPromiseToPayResponse finalResponse  = udrCreate(WithdrawPromiseToPayResponse);
+
+                    finalResponse.headerInfo = request.headerInfo;
+                    finalResponse.requestInfo = request.requestInfo;
+                    
+                    WithdrawPromiseToPayResponseInfo status = udrCreate(WithdrawPromiseToPayResponseInfo);
+
+                    status.transactionStatus = strStartsWith((string)s4CycleUdr.response.statusCode, "2")? "S":"F";
+
+                    if (status.transactionStatus == "F") {
+                        debug("Promise To Pay withdraw POST request failed. Status code: " + s4CycleUdr.response.statusCode);
+                        log.info("Promise To Pay withdraw POST request failed. Status code: " + s4CycleUdr.response.statusCode);
+
+                        bytearray bArespBody = (bytearray) s4CycleUdr.response.body;
+                        ErrorInfo errInfo = udrCreate(ErrorInfo);
+
+                        map<string,map<string,map<string,string>>> mapErrorInfo = (map<string,map<string,map<string,string>>>)jsonParse((string)bArespBody);
+                        map<string,any> mapCode = mapGet(mapErrorInfo, "error");
+                        map<string,string> mapErrorValue = (map<string,string>) mapGet(mapCode,"message");
+
+                        string sErrorMesssage = mapGet(mapErrorValue, "value");
+
+                        debug("Promise To Pay withdraw POST error message from S4: " + sErrorMesssage);
+                        log.info("Promise To Pay withdraw POST error message from S4: " + sErrorMesssage);
+
+                        if (strREContains(sErrorMesssage, "already Withdrawn")) {
+                            errInfo.errorCd = "40621";//P2P already withdrawn
+                        } else {
+                            errInfo.errorCd = "40621";//unknown error
+                        }
+
+                        errInfo.errorMessage = sErrorMesssage;
+                        status.errorInfo = errInfo;
+                        
+                        finalResponse.responseInfo = status;
+                        originalClientRequestUdr.response.openAPIUDR = finalResponse;
+                        originalClientRequestUdr.response.statusCode = 400;
+
+                        debug("Returning Promise To Pay withdraw failure response to client because POST request failed.");
+                        log.info("Returning Promise To Pay withdraw failure response to client because POST request failed.");
+
+                        udrRoute(originalClientRequestUdr, "respToClient");
+
+                        // Splunk log ODATA_RESPONSE failure for withdraw POST response
+                        ConsumeCycleUDR odataPostResponseLog = sendToSplunk(originalClientRequestUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_FAILURE, s4CycleUdr.path, splunkCtx);
+                        udrRoute(odataPostResponseLog, "toSplunk");
+
+                        // Splunk log RESPONSE failure for final withdraw response
+                        ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientRequestUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                        udrRoute(errorResponseLog, "toSplunk");
+
+                        return;
+                    }
+
+                    originalClientRequestUdr.response.statusCode = 200;
+                    finalResponse.responseInfo = status;
+                    originalClientRequestUdr.response.openAPIUDR = finalResponse;
+
+                    debug("Promise To Pay withdraw POST request succeeded. Returning success response to client.");
+                    debug("Final Promise To Pay withdraw response: " + originalClientRequestUdr.response);
+
+                    udrRoute(originalClientRequestUdr, "respToClient");
+
+                    // Splunk log ODATA_RESPONSE success for withdraw POST response
+                    ConsumeCycleUDR odataPostResponseLog = sendToSplunk(originalClientRequestUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_SUCCESS, s4CycleUdr.path, splunkCtx);
+                    udrRoute(odataPostResponseLog, "toSplunk");
+
+                    // Splunk log RESPONSE success for final withdraw response
+                    ConsumeCycleUDR successResponseLog = sendToSplunk(originalClientRequestUdr, null, API_RESPONSE, API_STATUS_SUCCESS, null, splunkCtx);
+                    udrRoute(successResponseLog, "toSplunk");
+
+                    return;
+
+            } 
+            /*****P2P History ODATA GET Call Response*****/
+            else if (strREContains(s4CycleUdr.path, PATH_COLLECTION_P2P_HISTORY_ODATA_GET) && s4CycleUdr.method == "GET") {
+                debug("Processing Promise To Pay history GET response from S4.");
+                debug("Promise To Pay history GET response RequestCycle: " + s4CycleUdr);
+
+                bytearray baRecord = (bytearray) s4CycleUdr.response.body;
+                string sResponseBody = baToStr(baRecord);
+
+                debug("Promise To Pay history GET response status code: " + s4CycleUdr.response.statusCode);
+
+                if (strStartsWith((string)s4CycleUdr.response.statusCode, "2")) {
+                    debug("Promise To Pay history GET request succeeded. Mapping S4 response to client response.");
+
+                    // Splunk log ODATA_RESPONSE SUCCESS as soon as we know the S4 GET history response succeeded
+                    ConsumeCycleUDR odataHistoryResponseLog = sendToSplunk(originalClientRequestUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_SUCCESS, s4CycleUdr.path, splunkCtx);
+                    udrRoute(odataHistoryResponseLog, "toSplunk");
+ 
+                    map <string, any> response = (map <string, any>) jsonParse(sResponseBody);
+                    debug("Parsed Promise To Pay history S4 response payload: " + response);
+
+                    PromiseToPayHistoryResponse p2pFinalResponse = udrCreate(PromiseToPayHistoryResponse);
+                    PromiseToPayHistoryResponseInfo p2pGetRespInfo = udrCreate(PromiseToPayHistoryResponseInfo);
+                    list<PromiseToPayDetail> promiseToPayDetails = listCreate(PromiseToPayDetail);
+
+                    map<string,list<any>> odataPayloadMap = (map<string,list<any>>) mapGet(response, "d");
+                    list<any> p2pHeaderResults = mapGet(odataPayloadMap, "results");
+
+                    debug("Promise To Pay history top-level OData payload map: " + odataPayloadMap);
+
+                    /** Response structure
+                     * response
+                            └── d
+                                └── results[]
+                                    └── P2P_HEAD2BAN_NAV
+                                        └── results[]
+                                            └── account-level info
+                                            └── P2P_BAN2PAYD_NAV
+                                                └── results[]
+                                                    └── promise-to-pay-level info
+                                                    └── P2P_PAYD2INV_NAV
+                                                        └── results[]
+                                                            └── invoice detail
+                    */
+
+                    /**
+                     * d.results[] = top-level OData result wrapper.\
+                     * P2P_HEAD2BAN_NAV.results[] = billing-account-level records.
+                     * P2P_BAN2PAYD_NAV.results[] = Promise To Pay detail records under that account.
+                     * P2P_PAYD2INV_NAV.results[] = invoice records attached to each Promise To Pay detail.
+                     */ 
+
+                    for (any p2pHeaderRecord : p2pHeaderResults) {
+                        if (p2pHeaderRecord.P2P_HEAD2BAN_NAV != null) {
+                            map<string,any> billingAccountNavMap = (map<string,any>) p2pHeaderRecord.P2P_HEAD2BAN_NAV;
+
+                            // Then in here we are getting the billing-account level results.
+                            list<any> billingAccountResults = (list<any>)mapGet(billingAccountNavMap, "results");
+
+                            for (any billingAccountRecord : billingAccountResults) {
+                               
+                                p2pGetRespInfo.billingAccountNumber = (string) billingAccountRecord.BillingAccountNumber;
+                                p2pGetRespInfo.busOrgId = (string) billingAccountRecord.BusOrgId;
+                                p2pGetRespInfo.currencyCd = (string) billingAccountRecord.CurrencyCd;
+                                p2pGetRespInfo.financeAccountNumber = (string) billingAccountRecord.FinanceAccountNumber;
+                                p2pGetRespInfo.transactionStatus = "S";
+                                
+                                // Checks whether there are actual Promise To Pay details under a billing account.
+                                if (billingAccountRecord.P2P_BAN2PAYD_NAV != null) {
+                                  map<string,any> promiseDetailNavMap = (map<string,any>) billingAccountRecord.P2P_BAN2PAYD_NAV;
+
+                                  debug("Promise To Pay history detail navigation map: " + promiseDetailNavMap);
+
+                                  list<any> promiseDetailResults = (list<any>)mapGet(promiseDetailNavMap, "results");
+
+                                  // Level 4: Promise to Pay details
+                                  // Each promiseDetailRecord appears to be one Promise To Pay detail record
+                                  for (any promiseDetailRecord : promiseDetailResults) {
+                                          PromiseToPayDetail p2pDetailUDR = udrCreate(PromiseToPayDetail);
+                                          double dBrokenAmount;
+
+                                          p2pDetailUDR.bankAccountType = (string) promiseDetailRecord.bankAccountType;
+                                          strToDouble(dBrokenAmount,(string) promiseDetailRecord.brokenAmount);
+                                          p2pDetailUDR.brokenAmount = dBrokenAmount;
+                                          p2pDetailUDR.cardType = (string) promiseDetailRecord.cardType;
+                                          p2pDetailUDR.createdBy = (string) promiseDetailRecord.createdBy;
+                                          p2pDetailUDR.createdDttm = convertSapDateToFormattedDate((string) promiseDetailRecord.createdDttm, false);
+                                          p2pDetailUDR.lastModifiedBy = (string) promiseDetailRecord.lastModifiedBy;
+                                          p2pDetailUDR.lastModifiedDttm = convertSapDateToFormattedDate((string)promiseDetailRecord.lastModifiedDttm, false);
+                                          p2pDetailUDR.maskedAccountNumber = (string) promiseDetailRecord.maskedAccountNumber;
+                                          
+                                          if ((string)promiseDetailRecord.ConvFeeAmount != null) {
+                                              strToDouble(p2pDetailUDR.convenienceFeeAmount, (string) promiseDetailRecord.ConvFeeAmount);
+                                          }
+                                          
+                                          if ((string)promiseDetailRecord.SurchargeFeeAmt != null) {
+                                              strToDouble(p2pDetailUDR.surchargeFeeAmt, (string) promiseDetailRecord.SurchargeFeeAmt);
+                                          }
+                                        
+                                        // Converting SAPs values into client expected values
+                                          if ((string)promiseDetailRecord.paymentMethodCd == "A") {
+                                            p2pDetailUDR.paymentMethodCd = "ACH";
+                                          }
+                                          else if ((string)promiseDetailRecord.paymentMethodCd == "C") {
+                                            p2pDetailUDR.paymentMethodCd = "CARD";
+                                          }
+                                          else if ((string)promiseDetailRecord.paymentMethodCd == "P") {
+                                            p2pDetailUDR.paymentMethodCd = "PAYPAL";
+                                          }
+                                          else {
+                                            p2pDetailUDR.paymentMethodCd = (string)promiseDetailRecord.paymentMethodCd;
+                                          }
+
+                                          double dTotalPromiseAmount;
+
+                                          p2pDetailUDR.promiseToPayConfirmationId = (string) promiseDetailRecord.promiseToPayConfirmationId;
+                                          p2pDetailUDR.promiseToPayReason = (string) promiseDetailRecord.promiseToPayReason;
+                                          p2pDetailUDR.promiseToPayDate = convertSapDateToFormattedDate((string) promiseDetailRecord.promiseToPayDate, true);
+                                          p2pDetailUDR.status = (string) promiseDetailRecord.status;
+                                          strToDouble(dTotalPromiseAmount,(string) promiseDetailRecord.totalPromiseAmount);
+                                          p2pDetailUDR.totalPromiseAmount = dTotalPromiseAmount;
+
+                                      // Checks whether the Promise to Pay detail has invoive records attached
+                                      if (promiseDetailRecord.P2P_PAYD2INV_NAV != null) {
+                                          map<string,any> invoiceDetailNavMap = (map<string,any>) promiseDetailRecord.P2P_PAYD2INV_NAV;
+                                          list<any> invoiceDetailResults = (list<any>) mapGet(invoiceDetailNavMap, "results");
+                                          list<InvoiceDetail> invoiceDetails = listCreate(InvoiceDetail);
+
+                                          for (any invoiceDetailRecord : invoiceDetailResults) {
+                                              InvoiceDetail p2pInvoiceDetailUDR = udrCreate(InvoiceDetail);
+
+                                              p2pInvoiceDetailUDR.invoiceDate = convertSapDateToFormattedDate((string) invoiceDetailRecord.InvoiceDt, true);
+                                              p2pInvoiceDetailUDR.invoiceDueDate = convertSapDateToFormattedDate((string) invoiceDetailRecord.InvoiceDueDt, true);
+                                              p2pInvoiceDetailUDR.invoiceNumber = (string) invoiceDetailRecord.InvoiceNo;
+
+                                              double dPromiseAmount;
+                                              strToDouble(dPromiseAmount, (string) invoiceDetailRecord.PromiseAmount);
+                                              p2pInvoiceDetailUDR.promiseAmount = dPromiseAmount;
+
+                                              listAdd(invoiceDetails, p2pInvoiceDetailUDR);
+                                          }
+                                          p2pDetailUDR.invoiceDetails = invoiceDetails;
+                                      } 
+                                    listAdd(promiseToPayDetails, p2pDetailUDR);
+                                  }
+                                }
+                                p2pGetRespInfo.promiseToPayDetails = promiseToPayDetails;
+                            }
+                        }
+                    }
+
+                    p2pFinalResponse = p2pGet_ResponseToSourceMapping(originalClientRequestUdr.body, "S", "", "");
+                    p2pFinalResponse.responseInfo = p2pGetRespInfo;
+
+                    originalClientRequestUdr.response.openAPIUDR = p2pFinalResponse;  
+                    originalClientRequestUdr.response.statusCode = 200;
+
+                    debug("Returning Promise To Pay history success response to client: " + originalClientRequestUdr);
+
+                    udrRoute(originalClientRequestUdr, "respToClient");
+
+                    // Splunk logging for final RESPONSE SUCCESS status
+                    ConsumeCycleUDR successResponseLog = sendToSplunk(originalClientRequestUdr, null, API_RESPONSE, API_STATUS_SUCCESS, null, splunkCtx);
+                    udrRoute(successResponseLog, "toSplunk");
+
+                    return; 
+                } 
+                // Error case where if the response back from ODATA wasnt a 200, this a failure 
+                else {
+                    debug("Promise To Pay history GET request failed. Status code: " + s4CycleUdr.response.statusCode);
+                    log.info("Promise To Pay history GET request failed. Status code: " + s4CycleUdr.response.statusCode);
+
+                    map<string,map<string,map<string,string>>> mapErrorInfo = (map<string,map<string,map<string,string>>>)jsonParse(sResponseBody);
+                    map<string,any> mapCode = mapGet(mapErrorInfo, "error");
+                    map<string,string> mapErrorValue = (map<string,string>) mapGet(mapCode, "message");
+
+                    string sErrorMesssage = mapGet(mapErrorValue, "value");
+
+                    debug("Promise To Pay history GET error message from S4: " + sErrorMesssage);
+                    log.info("Promise To Pay history GET error message from S4: " + sErrorMesssage);
+
+                    PromiseToPayHistoryResponse p2pFinalResp = p2pGet_ResponseToSourceMapping(originalClientRequestUdr.body, "F", "40321", sErrorMesssage);
+
+                    originalClientRequestUdr.response.openAPIUDR = p2pFinalResp;  
+                    originalClientRequestUdr.response.statusCode = 400;
+
+                    debug("Returning Promise To Pay history failure response to client: " + originalClientRequestUdr);
+                    log.info("Returning Promise To Pay history failure response to client.");
+
+                    udrRoute(originalClientRequestUdr,"respToClient");
+
+                    // Splunk logging for ODATA_RESPONSE and RESPONSE FAILURE STATUS
+                    ConsumeCycleUDR odataHistoryResponseLog = sendToSplunk(originalClientRequestUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_FAILURE, s4CycleUdr.path, splunkCtx);
+                    udrRoute(odataHistoryResponseLog, "toSplunk");
+
+                    ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientRequestUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                    udrRoute(errorResponseLog, "toSplunk");
+
+                    return; 
+                }
+            } 
+            // Error case where we have an unknown path, CM wasnt expecting this
+            else {
+                debug("Unexpected S4/OData response path received in Analysis_Response: " + s4CycleUdr.path);
+                log.info("Unexpected S4/OData response path received in Analysis_Response: " + s4CycleUdr.path);
+
+                bytearray baRecord = (bytearray) s4CycleUdr.response.body;
+                string sResponseBody = baToStr(baRecord);
+
+                map<string,map<string,map<string,string>>> mapErrorInfo = (map<string,map<string,map<string,string>>>)jsonParse(sResponseBody);
+                map<string,any> mapCode = mapGet(mapErrorInfo, "error");
+                map<string,string> mapErrorValue = (map<string,string>) mapGet(mapCode, "message");
+
+                string sErrorMesssage = mapGet(mapErrorValue, "value");
+
+                debug("Unexpected S4/OData response error message: " + sErrorMesssage);
+                log.info("Unexpected S4/OData response error message: " + sErrorMesssage);
+
+                ErrorInfo errInfo = udrCreate(ErrorInfo);
+                errInfo.errorCd = "NA";// as this is not specific to any uri
+                errInfo.errorMessage = sErrorMesssage;
+
+                originalClientRequestUdr.response.openAPIUDR = errInfo;// as this is not a specific error
+                originalClientRequestUdr.response.statusCode = 500;
+
+                debug("Returning failure response to client because Analysis_Response received an unexpected S4/OData path: " + originalClientRequestUdr);
+                log.info("Returning failure response to client because Analysis_Response received an unexpected S4/OData path.");
+
+                udrRoute(originalClientRequestUdr, "respToClient");
+                
+                // Splunk logging: ODATA_RESPONSE and RESPONSE failure case
+                ConsumeCycleUDR odataUnknownResponseLog = sendToSplunk(originalClientRequestUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_FAILURE, s4CycleUdr.path, splunkCtx);
+                udrRoute(odataUnknownResponseLog, "toSplunk");
+
+                ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientRequestUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(errorResponseLog, "toSplunk");
+
+                return;
+            }
+        } 
+        // Error case where input isnt a type CM was expecting
+        else {
+            debug("Analysis_Response received unsupported input type.");
+            debug("Unsupported input value: " + input);
+
+            log.info("Analysis_Response received unsupported input type.");
+            log.info("Unsupported input value: " + input);
+        }
+    } catch (ExceptionDetails exception) {
+        debug("Exception in Analysis_Response while processing Promise To Pay response :: " + exception);
+        log.info("Exception in Analysis_Response while processing Promise To Pay response :: " + exception);
+
+        // If the exception happened while handling an S4/OData RequestCycle response,
+        // recover the original client RequestCycle from context and send a general failure response.
+        if (instanceOf(input, RequestCycle)) {
+            RequestCycle s4CycleUdr = (RequestCycle) input;
+
+            if (instanceOf(s4CycleUdr.context, RequestCycle)) {
+                RequestCycle originalClientRequestUdr = (RequestCycle) s4CycleUdr.context;
+
+                string resourceCode = getXrefValue(RESOURCE_CODE_TABLE, originalClientRequestUdr.path);
+
+                originalClientRequestUdr = setP2PGeneralErrorResponse(originalClientRequestUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE, "Internal error while processing Promise To Pay S4 response", 500);
+
+                debug("Returning general Promise To Pay failure response to client after Analysis_Response exception.");
+                log.info("Returning general Promise To Pay failure response to client after Analysis_Response exception.");
+
+                udrRoute(originalClientRequestUdr, "respToClient");
+
+                // Log ODATA_RESPONSE failure because Analysis_Response was processing an S4/OData response when the exception happened.
+                ConsumeCycleUDR odataResponseLog = sendToSplunk(originalClientRequestUdr, s4CycleUdr, ODATA_RESPONSE, API_STATUS_FAILURE, s4CycleUdr.path, splunkCtx);
+                udrRoute(odataResponseLog, "toSplunk");
+
+                // Log final RESPONSE failure sent back to the client.
+                ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientRequestUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(errorResponseLog, "toSplunk");
+
+                return;
+            }
+
+            debug("FATAL: Unable to resolve original RequestCycle from S4 response context during Analysis_Response exception handling. Original exception: " + exception.message);
+            log.info("FATAL: Unable to resolve original RequestCycle from S4 response context during Analysis_Response exception handling. Original exception: " + exception.message);
+            return;
+        }
+        // Some unexpected UDR reached this catch block. Since we do not have a RequestCycle, we cannot build a client response or Splunk RESPONSE log.
+        else {
+            debug("FATAL: Unable to resolve RequestCycle during Analysis_Response exception handling. Original exception: " + exception.message);
+            log.info("FATAL: Unable to resolve RequestCycle during Analysis_Response exception handling. Original exception: " + exception.message);
+
+            return;
+        }
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.errorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_Response"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.http;
+import ultra.json;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_API_Collection_PromiseToPay;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import ultra.BRIMCM_APIs_Common.ULF_CMAPIs;
+import apl.BRIMCM_APIs_Collection.APL_Collection_PromiseToPay;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.subUdr;
+import ultra.SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.Common.ULF_Logging;
+import ultra.wfb;
+
+/*
+============================================================================
+Analysis_Request Agent
+
+This agent handles request preparation for the /history and /withdraw endpoints.
+
+This agent handles these transaction lifecycle stages:
+
+1. RFC_REQUEST
+   - For /history, builds the RFC request
+
+2. RFC_RESPONSE
+   - For /history, receives the RFC response and validates the returned
+     CA and BP
+
+3. ODATA_REQUEST
+   - For /history, builds the S4 GET request used to retrieve Promise To Pay
+     history.
+   - For /withdraw, builds the first S4 GET request used to fetch the CSRF
+     token/header before the actual withdraw POST.
+
+4. RESPONSE
+   - Handles early validation or RFC error responses before the request reaches
+     Analysis_Response.
+============================================================================
+*/
+
+
+string PATH_COLLECTION_P2P_WITHDRAW;
+string PATH_COLLECTION_P2P_HISTORY;
+SplunkContext splunkCtx;
+
+
+initialize {
+    PATH_COLLECTION_P2P_WITHDRAW = "/brimcm/collection/promisetopay/withdraw";
+    PATH_COLLECTION_P2P_HISTORY = "/brimcm/collection/promisetopay/history";
+    
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string) mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string) mimGet("Workflow", "Workflow Name");
+    splunkCtx.agentName = (string) mimGet("Analysis_Request", "Agent Name");    
+}
+
+
+consume {
+    
+    try {
+        
+        string resourceCode;
+        
+        /******STAGE 1: Receive client REQUEST******/
+        if (instanceOf(input,RequestCycle)) {
+            debug("inside Request Cycle instance[Analysis_Request]");
+
+            RequestCycle originalClientCycleUdr = (RequestCycle) input;
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, originalClientCycleUdr.path);
+
+            debug("originalClientCycleUdr [Analysis_Request]: " + originalClientCycleUdr);
+
+            map<string,list<string>> mapHeaders = mapCreate(string,list<string>);
+            list<string> lHeader = listCreate(string);
+
+            listAdd(lHeader, "application/json");
+            mapSet(mapHeaders, "Content-Type", lHeader);
+
+            originalClientCycleUdr.response.headers = mapHeaders;
+
+            string sBody;
+            any Rec;
+
+            if(originalClientCycleUdr.body != null) {
+                sBody = baToStr(originalClientCycleUdr.body);
+                Rec = jsonParse(sBody);
+
+                debug("sBody : " + sBody);
+                debug("Rec : " + Rec);
+            }
+
+            debug("originalClientCycleUdr.path in consume [Analysis_Request]: " + originalClientCycleUdr.path);
+            
+             // Promise To Pay BRMI0112
+            if (originalClientCycleUdr.path == PATH_COLLECTION_P2P_WITHDRAW) {
+                debug("Processing request for Promise To Pay BRMI0112 Withdraw");
+
+                // Validation missing
+                string promiseToPayConfirmationId = (string) (Rec.requestInfo.promiseToPayConfirmationId);
+
+                if (!isEmpty(promiseToPayConfirmationId)) {
+                     string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/WITHDRAWN_P2PSet";
+                     http.RequestCycle odataTokenReqUdr = APL_Collection_PromiseToPay.accessTokenReq(sURI);                       
+
+                     odataTokenReqUdr.context = originalClientCycleUdr;
+
+                     debug("odataTokenReqUdr in getPromisetoPay Call [Analysis_Request]:: " + odataTokenReqUdr);
+                     udrRoute(odataTokenReqUdr, "getReqToS4"); 
+
+                     log.info("Calling ODATA for CSRF Token");
+                 } 
+                 // Error case where confirmationId is missing
+                 else {
+                    WithdrawPromiseToPayResponse finalResponse = udrCreate(WithdrawPromiseToPayResponse);
+                    WithdrawPromiseToPayResponseInfo status = udrCreate(WithdrawPromiseToPayResponseInfo);
+                    ErrorInfo errInfo = udrCreate(ErrorInfo);
+
+                    string sErrorMesssage = "Missing mandatory field: promiseToPayConfirmationId";
+
+                    errInfo.errorCd = resourceCode + CM_DATA_VALIDATION_ERROR_CODE;
+                    errInfo.errorMessage = sErrorMesssage;
+
+                    WithdrawPromiseToPayRequest request = udrCreate(WithdrawPromiseToPayRequest) ;
+                    jsonDecodeUdr(baToStr(originalClientCycleUdr.body), request);
+
+                    status.transactionStatus = "F";
+                    status.errorInfo = errInfo;
+
+                    finalResponse.headerInfo = request.headerInfo;
+                    finalResponse.requestInfo = request.requestInfo;
+                    finalResponse.responseInfo = status;
+
+                    originalClientCycleUdr.response.openAPIUDR = finalResponse;
+                    originalClientCycleUdr.response.statusCode = 400;
+
+                    debug("Promise To Pay withdraw request failed validation: missing promiseToPayConfirmationId.");
+                    log.info("Promise To Pay withdraw request failed validation: missing promiseToPayConfirmationId.");
+
+                    udrRoute(originalClientCycleUdr, "respToClient");
+
+                    // Splunk log here RESPONSE with a status of FAILURE
+                    ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                    udrRoute(errorResponseLog, "toSplunk");
+
+                    return;
+                 }
+            }
+            else if (originalClientCycleUdr.path == PATH_COLLECTION_P2P_HISTORY) {
+                PromiseToPayRequest request = udrCreate(PromiseToPayRequest);
+                jsonDecodeUdr(baToStr(originalClientCycleUdr.body), request);
+
+                debug("The value of request.requestInfo = " + (request.requestInfo));
+
+                string BAN = request.requestInfo.billingAccountNumber;
+                string busOrg = request.requestInfo.busOrgId;
+
+                /******STAGE 2: Sending RFC_REQUEST******/
+                if (!isEmpty(BAN)) {
+                    
+                    // Take the billing account number from the API request, put it into RFC request format RFC expects, and attach original client request as context
+                    ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcCycleUdr = udrCreate(ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR);
+                    importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT importParams = udrCreate(importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT);                      
+                   
+                    list<ZFITT_VKONA> liGetP2P = listCreate(ZFITT_VKONA); 
+                    ZFITT_VKONA getP2P = udrCreate(ZFITT_VKONA);
+                    getP2P.VKONA = BAN;
+
+                    listAdd(liGetP2P, getP2P); 
+
+                    importParams.IT_VKONA = liGetP2P;
+                    rfcCycleUdr.importParams = importParams;
+                    rfcCycleUdr.context = originalClientCycleUdr;
+
+                    udrRoute(rfcCycleUdr, "reqToRfc");
+
+                    // Splunk log here RFC_REQUEST
+                    ConsumeCycleUDR rfcRequestLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcCycleUdr.importParams, RFC_REQUEST, "", "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                    udrRoute(rfcRequestLog, "toSplunk");
+                } 
+                // Else error case where BAN is empty
+                else {
+                    debug("Promise To Pay history request failed validation: missing billingAccountNumber.");
+                    log.info("Promise To Pay history request failed validation: missing billingAccountNumber.");
+
+                    debug("originalClientCycleUdr being sent to Client as FAILURE");
+                    log.info("originalClientCycleUdr being sent to Client as FAILURE");
+
+                    PromiseToPayHistoryResponse p2pFinalResp = p2pGet_ResponseToSourceMapping(originalClientCycleUdr.body, "F", resourceCode + CM_DATA_VALIDATION_ERROR_CODE, "Missing mandatory field: billingAccountNumber");
+                    originalClientCycleUdr.response.openAPIUDR = p2pFinalResp;  
+                    originalClientCycleUdr.response.statusCode = 400;
+                    
+                    udrRoute(originalClientCycleUdr,"respToClient");
+
+                    // Splunk logging here for RESPONSE FAILURE
+                    ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                    udrRoute(errorResponseLog, "toSplunk");
+                    return; 
+                }
+               
+            }
+            // Error case where CM received an HTTP request routed into this workflow, but this workflow doesnt recognize this path
+            else {
+                debug("Unsupported Promise To Pay request path received in Analysis_Request: " + originalClientCycleUdr.path);
+                log.info("Unsupported Promise To Pay request path received in Analysis_Request: " + originalClientCycleUdr.path);
+
+                originalClientCycleUdr = setP2PGeneralErrorResponse(originalClientCycleUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE, "Unsupported Promise To Pay request path", 400);
+                udrRoute(originalClientCycleUdr, "respToClient");
+
+                ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(errorResponseLog, "toSplunk");
+
+                return;
+            }
+        }
+        /******STAGE 3: Receive RFC_RESPONSE******/
+        else if (instanceOf(input, ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR)) {
+            debug("INPUT in ZFIF_FM_VKONA_TO_BP_UDR = " + (input));    
+
+            ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcCycleUdr = (ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR) input;
+
+            string sBody;
+            any Rec;
+
+            RequestCycle originalClientCycleUdr = (RequestCycle) rfcCycleUdr.context;
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE, originalClientCycleUdr.path);
+
+            if(originalClientCycleUdr.body != null) {
+                sBody = baToStr(originalClientCycleUdr.body);
+                Rec = jsonParse(sBody);
+
+                debug("sBody: " + sBody);
+                debug("Rec: " + Rec);
+            }
+
+            if (originalClientCycleUdr.path == PATH_COLLECTION_P2P_HISTORY) {
+                debug("The value of rfcCycleUdr [Analysis_Request] = " + (rfcCycleUdr));
+
+                string busPartner, contractAcc, bussOrg, BAN, sURI;
+
+                if (udrIsPresent(rfcCycleUdr.exportParams.ET_GPART_VKONT)) {
+                    list<ZFITT_OUTPUT_BILL> liBill = rfcCycleUdr.exportParams.ET_GPART_VKONT;
+
+                    for (ZFITT_OUTPUT_BILL bill : liBill) {
+                            busPartner = bill.GPART;
+                            contractAcc = bill.VKONT;
+                            bussOrg = bill.BUSS_ORG;
+                        }
+
+                        // Error case where CA is empty
+                        if (isEmpty(contractAcc)) {
+                            debug("Promise To Pay history request failed: RFC response did not return a contract account.");
+                            log.info("Promise To Pay history request failed: RFC response did not return a contract account.");
+
+                            PromiseToPayHistoryResponse p2pFinalResp = p2pGet_ResponseToSourceMapping(originalClientCycleUdr.body, "F", resourceCode + BRIM_ERROR, "Contract account was not returned by BRIM for the provided billingAccountNumber.");
+
+                            originalClientCycleUdr.response.openAPIUDR = p2pFinalResp;  
+                            originalClientCycleUdr.response.statusCode = 400;
+
+                            debug("Returning Promise To Pay history failure response to client because contract account was missing from RFC response.");
+                            log.info("Returning Promise To Pay history failure response to client because contract account was missing from RFC response.");
+
+                            udrRoute(originalClientCycleUdr, "respToClient");
+
+                            // Splunk logging for RFC_RESPONSE Failure case and RESPONSE Failure case
+                            ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcCycleUdr.exportParams, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                            udrRoute(rfcResponseLog, "toSplunk");
+
+                            ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                            udrRoute(errorResponseLog, "toSplunk");
+
+                            return; 
+                        }
+                        
+                        PromiseToPayRequest  p2pRequestUDR = udrCreate(PromiseToPayRequest);
+                        jsonDecodeUdr(baToStr(originalClientCycleUdr.body), p2pRequestUDR);
+                       
+                        PromiseToPayRequestInfo p2pRequestInfo = p2pRequestUDR.requestInfo;
+                        BRIMCM_APIs_Collection.PRF_OPENAPI_API_Collection_PromiseToPay.HeaderInfo headerInfo = p2pRequestUDR.headerInfo;
+
+                        debug("busPartner = " + busPartner + "::contractAcc = " + contractAcc + "::busOrg = " + bussOrg + "::BAN = " + BAN);
+
+                        // Checking if client busOrgId matches with business org returned by RFC
+                        if (!isEmpty(p2pRequestInfo.busOrgId) && !strEqualsIgnoreCase(p2pRequestInfo.busOrgId, bussOrg)) {
+                            PromiseToPayHistoryResponse p2pFinalResp = p2pGet_ResponseToSourceMapping(originalClientCycleUdr.body, "F", resourceCode + BRIM_ERROR, "Invalid billingAccountNumber: " + p2pRequestInfo.billingAccountNumber + " and busOrgId: " + p2pRequestInfo.busOrgId + " combination.");
+                                
+                            originalClientCycleUdr.response.openAPIUDR = p2pFinalResp;  
+                            originalClientCycleUdr.response.statusCode = 400;
+
+                            debug("Promise To Pay history request failed validation: billingAccountNumber and busOrgId combination did not match RFC response.");
+                            log.info("Promise To Pay history request failed validation: billingAccountNumber and busOrgId combination did not match RFC response.");
+
+                            udrRoute(originalClientCycleUdr, "respToClient");
+
+                            // Splunk logging for RFC_RESPONSE Failure case and RESPONSE Failure case
+                            ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcCycleUdr.exportParams, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                            udrRoute(rfcResponseLog, "toSplunk");
+
+                            ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                            udrRoute(errorResponseLog, "toSplunk");
+
+                            debug("originalClientCycleUdr being sent to Client as FAILURE = " + (originalClientCycleUdr));
+                            return;     
+                            
+                        }
+                        // In success case since CA != null && busOrgId matches
+                        /******STAGE 4: Preparing & Sending ODATA_REQUEST (GET HISTORY)******/
+                        else {
+                            ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcCycleUdr.exportParams, RFC_RESPONSE, API_STATUS_SUCCESS, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                            udrRoute(rfcResponseLog, "toSplunk");
+
+                            string sURIBPandCA = "";
+                            string sURICA = "";
+                         
+                         // If request has a user ID, include in S4 uri, if not, build the URI without user ID
+                         if (!isEmpty(headerInfo.userId)) {
+                             sURIBPandCA  = "/sap/opu/odata/sap/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/GET_P2P_HEADSet?$filter=userId"+"%20"+"eq"+"%20"+"'"+headerInfo.userId+"'"+"%20"+"and"+"%20"+"BusinessPartner"+"%20"+"eq"+"%20"+"'"+busPartner+"'"+"%20"+"and"+"%20"+"ContractAccount"+"%20"+"eq"+"%20"+"'"+contractAcc+"'&$expand=P2P_HEAD2BAN_NAV/P2P_BAN2PAYD_NAV/P2P_PAYD2INV_NAV&$format=json";
+                             sURICA= "/sap/opu/odata/sap/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/GET_P2P_HEADSet?$filter=userId"+"%20"+"eq"+"%20"+"'"+headerInfo.userId+"'"+"%20"+"and"+"%20"+"ContractAccount"+"%20"+"eq"+"%20"+"'"+contractAcc+"'&$expand=P2P_HEAD2BAN_NAV/P2P_BAN2PAYD_NAV/P2P_PAYD2INV_NAV&$format=json";
+                         } else { 
+                             sURIBPandCA  = "/sap/opu/odata/sap/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/GET_P2P_HEADSet?$filter=BusinessPartner"+"%20"+"eq"+"%20"+"'"+busPartner+"'"+"%20"+"and"+"%20"+"ContractAccount"+"%20"+"eq"+"%20"+"'"+contractAcc+"'&$expand=P2P_HEAD2BAN_NAV/P2P_BAN2PAYD_NAV/P2P_PAYD2INV_NAV&$format=json";
+                             sURICA= "/sap/opu/odata/sap/ZGLB_DEVFI_PROMISE_TO_PAY_SRV/GET_P2P_HEADSet?$filter=ContractAccount"+"%20"+"eq"+"%20"+"'"+contractAcc+"'&$expand=P2P_HEAD2BAN_NAV/P2P_BAN2PAYD_NAV/P2P_PAYD2INV_NAV&$format=json";
+                         }
+
+                         if (!isEmpty(contractAcc) && !isEmpty(busPartner)) {
+                            sURI = sURIBPandCA;
+                         }
+                         else if(!isEmpty(contractAcc)) {
+                            sURI = sURICA;
+                         }
+
+                        debug("URI to ODATA : " + sURI);
+
+                         http.RequestCycle odataGetHistoryUdr = APL_Collection_PromiseToPay.requestTokenDetails(sURI);                       
+                         odataGetHistoryUdr.context = rfcCycleUdr.context;
+
+                        // ODATA_REQUEST Route and Log
+                         udrRoute(odataGetHistoryUdr, "getReqToS4");
+                         ConsumeCycleUDR odataRequestLog = sendToSplunk(originalClientCycleUdr, odataGetHistoryUdr, ODATA_REQUEST, "", sURI, splunkCtx);
+                         udrRoute(odataRequestLog, "toSplunk");
+                        }
+                }
+                // Error case where we get an error response back from RFC
+                else if (udrIsPresent(rfcCycleUdr.exportParams.ET_ERROR)) {
+                    Response resp = udrCreate(Response);
+                    
+                    string ErrorMsg = "BRIM account lookup returned an error while processing Promise To Pay history.";
+                    list<ZFIT_VKONA_ERR_MSG> etError = rfcCycleUdr.exportParams.ET_ERROR; 
+
+                    if (!isEmpty(etError[0].E_ERROR_MSG)) {
+                        ErrorMsg = etError[0].E_ERROR_MSG;  
+                    }               
+
+                    debug("Promise To Pay history request failed: RFC returned ET_ERROR. etError = " + etError);
+                    debug("Promise To Pay history RFC error message: " + ErrorMsg);
+                    log.info("Promise To Pay history request failed: RFC returned ET_ERROR. etError = " + etError);
+                    log.info("Promise To Pay history RFC error message: " + ErrorMsg);
+
+                    PromiseToPayHistoryResponse p2pFinalResp = p2pGet_ResponseToSourceMapping(originalClientCycleUdr.body, "F", resourceCode + BRIM_ERROR,ErrorMsg);
+
+                    originalClientCycleUdr.response.openAPIUDR = p2pFinalResp;  
+                    originalClientCycleUdr.response.statusCode = 400;
+
+                    udrRoute(originalClientCycleUdr, "respToClient");
+
+                    // Splunk logging for RESPONSE Failure and RFC_RESPONSE Failure
+                    ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string)rfcCycleUdr.exportParams, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                    udrRoute(rfcResponseLog, "toSplunk");
+
+                    ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                    udrRoute(errorResponseLog, "toSplunk");
+
+                    debug("originalClientCycleUdr being sent to Client as FAILURE = " + (originalClientCycleUdr));
+                    return;                         
+                }
+                // Will not execute as it will be either ET_OUT or ET_ERROR
+                else {
+                    debug("Promise To Pay history request failed: RFC response did not contain ET_GPART_VKONT or ET_ERROR.");
+                    log.info("Promise To Pay history request failed: RFC response did not contain ET_GPART_VKONT or ET_ERROR.");
+
+                    PromiseToPayHistoryResponse p2pFinalResp = p2pGet_ResponseToSourceMapping(originalClientCycleUdr.body, "F", resourceCode + BRIM_ERROR, "No account data was returned by BRIM for the provided billingAccountNumber and busOrgId.");
+
+                    originalClientCycleUdr.response.openAPIUDR = p2pFinalResp;  
+                    originalClientCycleUdr.response.statusCode = 400;
+
+                    debug("Returning Promise To Pay history failure response to client because RFC response did not contain account data or error details.");
+                    log.info("Returning Promise To Pay history failure response to client because RFC response did not contain account data or error details.");
+
+                    udrRoute(originalClientCycleUdr, "respToClient");
+
+                    // Splunk logging for RESPONSE Failure and RFC_RESPONSE Failure
+                    ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcCycleUdr.exportParams, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                    udrRoute(rfcResponseLog, "toSplunk");
+
+                    ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                    udrRoute(errorResponseLog, "toSplunk");
+
+                    return;
+                }
+            }
+            // RFC Response returned an unsupported Promise To Pay path
+            else {
+                debug("Unexpected RFC response received in Analysis_Request for unsupported Promise To Pay path: " + originalClientCycleUdr.path);
+                log.info("Unexpected RFC response received in Analysis_Request for unsupported Promise To Pay path: " + originalClientCycleUdr.path);
+
+                originalClientCycleUdr = setP2PGeneralErrorResponse(originalClientCycleUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE,
+                    "Unexpected account lookup response received for unsupported Promise To Pay request path", 500);
+                udrRoute(originalClientCycleUdr, "respToClient");
+
+                ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcCycleUdr.exportParams, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                udrRoute(rfcResponseLog, "toSplunk");
+
+                ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(errorResponseLog, "toSplunk");
+
+                return;
+            }          
+        }       
+     }
+     // Encountered some unknown error in some unknown state
+      catch (ExceptionDetails exception) {
+        debug("Exception in Analysis_Request while processing Promise To Pay request :: " + exception);
+        log.info("Exception in Analysis_Request while processing Promise To Pay request :: " + exception);
+
+
+        if (instanceOf(input, RequestCycle)) {
+            RequestCycle originalClientCycleUdr = (RequestCycle) input;
+
+            string resourceCode = getXrefValue(RESOURCE_CODE_TABLE, originalClientCycleUdr.path);
+
+            originalClientCycleUdr = setP2PGeneralErrorResponse(originalClientCycleUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE, 
+            "Internal error while processing Promise To Pay request", 500);
+            udrRoute(originalClientCycleUdr, "respToClient");
+
+            ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+            udrRoute(errorResponseLog, "toSplunk");
+
+            return;
+        }
+
+        // If the exception happened while handling the RFC response UDR, recover the original client RequestCycle from context.
+        else if (instanceOf(input, ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR)) {
+            ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR rfcCycleUdr = (ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR) input;
+
+            if (instanceOf(rfcCycleUdr.context, RequestCycle)) {
+                RequestCycle originalClientCycleUdr = (RequestCycle) rfcCycleUdr.context;
+
+                string resourceCode = getXrefValue(RESOURCE_CODE_TABLE, originalClientCycleUdr.path);
+
+                originalClientCycleUdr = setP2PGeneralErrorResponse(originalClientCycleUdr, resourceCode + CM_DATA_VALIDATION_ERROR_CODE,
+                    "Internal error while processing Promise To Pay RFC response", 500);
+                udrRoute(originalClientCycleUdr, "respToClient");
+
+                ConsumeCycleUDR rfcResponseLog = sendRfcToSplunk(originalClientCycleUdr, (string) rfcCycleUdr.exportParams, RFC_RESPONSE, API_STATUS_FAILURE, "ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR", splunkCtx);
+                udrRoute(rfcResponseLog, "toSplunk");
+
+                ConsumeCycleUDR errorResponseLog = sendToSplunk(originalClientCycleUdr, null, API_RESPONSE, API_STATUS_FAILURE, null, splunkCtx);
+                udrRoute(errorResponseLog, "toSplunk");
+
+                return;
+            }
+            debug("FATAL: Unable to resolve original RequestCycle from RFC context during Analysis_Request exception handling. Original exception: " + exception.message);
+            log.info("FATAL: Unable to resolve original RequestCycle from RFC context during Analysis_Request exception handling. Original exception: " + exception.message);
+            return;
+        }
+
+        /*
+        Some unexpected UDR reached this catch block. Since we do not have a
+        RequestCycle, we cannot safely build a client response or Splunk RESPONSE log.
+        */
+        else {
+            debug("FATAL: Unable to resolve RequestCycle during Analysis_Request exception handling. Original exception: " + exception.message);
+            log.info("FATAL: Unable to resolve RequestCycle during Analysis_Request exception handling. Original exception: " + exception.message);
+
+            return;
+        }
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="6">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="RfcErrorUDR"/>
+                     </storable>
+                     <storable name="2" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICA_GET_BUSI_SEG_UDR]]></string>
+                     </storable>
+                     <storable name="3" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICAF_DERIVE_ACTIVE_ACCOUNT_UDR]]></string>
+                     </storable>
+                     <storable name="4" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFICAF_GPART_VKONT_DERIVE_UDR]]></string>
+                     </storable>
+                     <storable name="5" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName"><![CDATA[SAP_RFC.BRIMCM_APIs_Collection.RFC_SAP_BRIM_WORKITEM.ZFIF_FM_VKONA_TO_BP_UDR]]></string>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_Request"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respFromRfc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respFromS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="10" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="postReqToS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="11" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="reqToRfc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="12" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respFromRfc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="13" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respToClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="14" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respToClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="15" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="reqFromClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="16" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respToClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="17" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respFromS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="18" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="19" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAgg"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="20" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respFromSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="21" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="22" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="reqToRfc"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAgg"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toAgg"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="reqToS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="getReqToS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toRequestAgent"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="9" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="respToClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

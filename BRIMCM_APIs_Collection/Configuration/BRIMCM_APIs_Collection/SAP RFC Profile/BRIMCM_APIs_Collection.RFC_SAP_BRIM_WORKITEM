@@ -1,0 +1,1067 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rfc_profile category="Internal">
+   <storable name="rfc_profile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1719036763113"/>
+      <string name="Modified By" value="AC65919"/>
+      <long name="Modified Date" value="1771967433594"/>
+      <string name="Name" value="RFC_SAP_BRIM_WORKITEM"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="SAP RFC Profile"/>
+      <int name="Version" value="8"/>
+      <storable classname="com.digitalroute.mz.rfc.profile.RfcProfileData" name="Data" ver="1.4">
+         <string name="CLIENT" value="100"/>
+         <string name="CONFIGHASH" value="-1235416525"/>
+         <string name="DEST" null="true"/>
+         <boolean name="ENABLE_LOADBALANCE" value="false"/>
+         <boolean name="ENABLE_SNC_MODE" value="false"/>
+         <boolean name="ENABLE_SNC_SSO" value="false"/>
+         <map classname="java.util.HashMap" name="ExtRef Map" size="4">
+            <string name="key_0" value="Host"/>
+            <string name="key_1" value="Password"/>
+            <string name="key_2" value="SAP Client Number"/>
+            <string name="key_3" value="Username"/>
+            <string name="value_0" value="RFC_HOST"/>
+            <string name="value_1" value="RFC_PASSWORD"/>
+            <string name="value_2" value="RFC_CLIENTID"/>
+            <string name="value_3" value="RFC_USER"/>
+         </map>
+         <string name="ExtRef Profile" value="MZ1701725341726"/>
+         <float name="ExtRef Version" value="1.0"/>
+         <array classname="java.lang.String" name="FUNCTIONS" size="4">
+            <string name="0" value="ZFIF_FM_VKONA_TO_BP"/>
+            <string name="1" value="ZFICAF_GPART_VKONT_DERIVE"/>
+            <string name="2" value="ZFICA_GET_BUSI_SEG"/>
+            <string name="3" value="ZFICAF_DERIVE_ACTIVE_ACCOUNT"/>
+         </array>
+         <string name="GROUPNAME" value=""/>
+         <string name="HOST" value="ns2s3tapp1.saperp.corp.intranet"/>
+         <string name="MESSAGESERVERHOST" value=""/>
+         <int name="MESSAGESERVERPORT" value="0"/>
+         <storable name="PASSWORD" storable-id="dr.DRSecret" ver="1.0">
+            <password name="password" value="DR-4-9FDE500393BF7E1B22EB4F2CB558CC52"/>
+            <string name="secrets_alias" value=""/>
+            <storable name="secrets_profile" null="true"/>
+         </storable>
+         <list classname="java.util.ArrayList" name="RFCDATA">
+            <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+               <string name="Name" value="ZFIF_FM_VKONA_TO_BP"/>
+               <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                     <string name="NAME" value="context"/>
+                     <string name="ORIGINAL_NAME" value="context"/>
+                     <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                        <boolean name="IsPrimitive" value="true"/>
+                        <byte name="PrimitiveType" value="101"/>
+                     </storable>
+                  </storable>
+               </list>
+               <list classname="java.util.ArrayList" name="childField">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                     <string name="Name" value="importParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo"/>
+                     <list classname="java.util.ArrayList" name="childField">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                           <string name="Name" value="IT_AGING_MD"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="BUSS_ORG_UT"/>
+                                 <string name="ORIGINAL_NAME" value="BUSS_ORG_UT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="BAN"/>
+                                 <string name="ORIGINAL_NAME" value="BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="CUID"/>
+                                 <string name="ORIGINAL_NAME" value="CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_AGING_MD"/>
+                           <string name="udrName" value="ZFITT_AGING_MD"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+                           <string name="Name" value="IT_BAN"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="BAN"/>
+                                 <string name="ORIGINAL_NAME" value="BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_BAN"/>
+                           <string name="udrName" value="ZFITT_BAN"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="2" ver="1.1">
+                           <string name="Name" value="IT_BAN_BILLAPPCODE"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BAN"/>
+                                 <string name="ORIGINAL_NAME" value="BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="BILLAPPCODE"/>
+                                 <string name="ORIGINAL_NAME" value="BILLAPPCODE"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_BAN_BILLAPPCODE"/>
+                           <string name="udrName" value="ZFITT_REFUND_GET"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="3" ver="1.1">
+                           <string name="Name" value="IT_BAN_CUID"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BAN"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BILLAPPCODE"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BILLAPPCODE"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="ERROR_MSG"/>
+                                 <string name="ORIGINAL_NAME" value="ERROR_MSG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_BAN_CUID"/>
+                           <string name="udrName" value="ZFITT_BAN_CUID"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="4" ver="1.1">
+                           <string name="Name" value="IT_BAN_CUID2"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BAN"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BILLAPPCODE"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BILLAPPCODE"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="ERROR_MSG"/>
+                                 <string name="ORIGINAL_NAME" value="ERROR_MSG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_BAN_CUID2"/>
+                           <string name="udrName" value="ZFITT_BAN_CUID"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="5" ver="1.1">
+                           <string name="Name" value="IT_BUSS_ORG"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_BUSS_ORG"/>
+                           <string name="udrName" value="ZFITT_BUSS_ORG"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="6" ver="1.1">
+                           <string name="Name" value="IT_CUID"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="CUID"/>
+                                 <string name="ORIGINAL_NAME" value="CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_CUID"/>
+                           <string name="udrName" value="ZFITT_CUID"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="7" ver="1.1">
+                           <string name="Name" value="IT_MASTER_DATA"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="ZBAN"/>
+                                 <string name="ORIGINAL_NAME" value="ZBAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BPEXT"/>
+                                 <string name="ORIGINAL_NAME" value="BPEXT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="VKONT"/>
+                                 <string name="ORIGINAL_NAME" value="VKONT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GPART"/>
+                                 <string name="ORIGINAL_NAME" value="GPART"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_MASTER_DATA"/>
+                           <string name="udrName" value="ZFITT_MASTER_ALL"/>
+                        </storable>
+                     </list>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="importParams_ZFIF_FM_VKONA_TO_BP"/>
+                  </storable>
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+                     <string name="Name" value="tableParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo"/>
+                     <list classname="java.util.ArrayList" name="childField">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                           <string name="Name" value="ET_ERROR"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BAN"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BILLAPPCODE"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BILLAPPCODE"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="ERROR_MSG"/>
+                                 <string name="ORIGINAL_NAME" value="ERROR_MSG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_ERROR"/>
+                           <string name="udrName" value="ZFITT_BAN_CUID"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+                           <string name="Name" value="ET_OUT"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BAN"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CONTRACT_ACC"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CONTRACT_ACC"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BP_ID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BP_ID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_OUT"/>
+                           <string name="udrName" value="ZFITT_EX_VKONA_BP_FM"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="2" ver="1.1">
+                           <string name="Name" value="ET_OUT_BILLAPP"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BAN"/>
+                                 <string name="ORIGINAL_NAME" value="BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="BILLAPPCODE"/>
+                                 <string name="ORIGINAL_NAME" value="BILLAPPCODE"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="VKONT"/>
+                                 <string name="ORIGINAL_NAME" value="VKONT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="GPART"/>
+                                 <string name="ORIGINAL_NAME" value="GPART"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_OUT_BILLAPP"/>
+                           <string name="udrName" value="ZFITT_OUTPUT_BILL"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="3" ver="1.1">
+                           <string name="Name" value="ET_OUT_CUID"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID_PARTNER"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID_PARTNER"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_OUT_CUID"/>
+                           <string name="udrName" value="ZFITT_EX_CUID_FM"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="4" ver="1.1">
+                           <string name="Name" value="ET_OUT_FINAL"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BAN"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CONTRACT_ACC"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CONTRACT_ACC"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BP_ID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BP_ID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="5" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID_PARTNER"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID_PARTNER"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_OUT_FINAL"/>
+                           <string name="udrName" value="ZFITT_BAN_CUID_ALL"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="5" ver="1.1">
+                           <string name="Name" value="ET_OUT_FINAL2"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BAN"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CONTRACT_ACC"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CONTRACT_ACC"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GTY_V_BP_ID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_BP_ID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="5" ver="1.1">
+                                 <string name="NAME" value="GTY_V_CUID_PARTNER"/>
+                                 <string name="ORIGINAL_NAME" value="GTY_V_CUID_PARTNER"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_OUT_FINAL2"/>
+                           <string name="udrName" value="ZFITT_BAN_CUID_ALL"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="6" ver="1.1">
+                           <string name="Name" value="ET_OUT_MASTER_ALL"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="ZBAN"/>
+                                 <string name="ORIGINAL_NAME" value="ZBAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BPEXT"/>
+                                 <string name="ORIGINAL_NAME" value="BPEXT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="VKONT"/>
+                                 <string name="ORIGINAL_NAME" value="VKONT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GPART"/>
+                                 <string name="ORIGINAL_NAME" value="GPART"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_OUT_MASTER_ALL"/>
+                           <string name="udrName" value="ZFITT_MASTER_ALL"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="7" ver="1.1">
+                           <string name="Name" value="ET_OUT_MASTER_ERROR"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="ZBAN"/>
+                                 <string name="ORIGINAL_NAME" value="ZBAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BPEXT"/>
+                                 <string name="ORIGINAL_NAME" value="BPEXT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="VKONT"/>
+                                 <string name="ORIGINAL_NAME" value="VKONT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="GPART"/>
+                                 <string name="ORIGINAL_NAME" value="GPART"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="ERROR_MSG"/>
+                                 <string name="ORIGINAL_NAME" value="ERROR_MSG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_OUT_MASTER_ERROR"/>
+                           <string name="udrName" value="ZFITT_MASTER_ALL_OUT"/>
+                        </storable>
+                     </list>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="tableParams_ZFIF_FM_VKONA_TO_BP"/>
+                  </storable>
+               </list>
+               <boolean name="isParent" value="true"/>
+               <boolean name="isTable" value="false"/>
+               <string name="sanitizedName" value="ZFIF_FM_VKONA_TO_BP"/>
+               <string name="udrName" null="true"/>
+            </storable>
+            <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+               <string name="Name" value="ZFICAF_GPART_VKONT_DERIVE"/>
+               <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                     <string name="NAME" value="context"/>
+                     <string name="ORIGINAL_NAME" value="context"/>
+                     <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                        <boolean name="IsPrimitive" value="true"/>
+                        <byte name="PrimitiveType" value="101"/>
+                     </storable>
+                  </storable>
+               </list>
+               <list classname="java.util.ArrayList" name="childField">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                     <string name="Name" value="importParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                           <string name="NAME" value="I_ACC_HOLDER_ONLY"/>
+                           <string name="ORIGINAL_NAME" value="I_ACC_HOLDER_ONLY"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                           <string name="NAME" value="I_BPEXT"/>
+                           <string name="ORIGINAL_NAME" value="I_BPEXT"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                           <string name="NAME" value="I_GPART"/>
+                           <string name="ORIGINAL_NAME" value="I_GPART"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                           <string name="NAME" value="I_VKONA"/>
+                           <string name="ORIGINAL_NAME" value="I_VKONA"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                           <string name="NAME" value="I_VKONT"/>
+                           <string name="ORIGINAL_NAME" value="I_VKONT"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                     </list>
+                     <list classname="java.util.ArrayList" name="childField"/>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="importParams_ZFICAF_GPART_VKONT_DERIVE"/>
+                  </storable>
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+                     <string name="Name" value="exportParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                           <string name="NAME" value="E_ERROR_MSG"/>
+                           <string name="ORIGINAL_NAME" value="E_ERROR_MSG"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                     </list>
+                     <list classname="java.util.ArrayList" name="childField">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                           <string name="Name" value="ET_GPART_VKONT"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="VKONT"/>
+                                 <string name="ORIGINAL_NAME" value="VKONT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="GPART"/>
+                                 <string name="ORIGINAL_NAME" value="GPART"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_GPART_VKONT"/>
+                           <string name="udrName" value="FKKVKP_KEY_T"/>
+                        </storable>
+                     </list>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="exportParams_ZFICAF_GPART_VKONT_DERIVE"/>
+                  </storable>
+               </list>
+               <boolean name="isParent" value="true"/>
+               <boolean name="isTable" value="false"/>
+               <string name="sanitizedName" value="ZFICAF_GPART_VKONT_DERIVE"/>
+               <string name="udrName" null="true"/>
+            </storable>
+            <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="2" ver="1.1">
+               <string name="Name" value="ZFICA_GET_BUSI_SEG"/>
+               <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                     <string name="NAME" value="context"/>
+                     <string name="ORIGINAL_NAME" value="context"/>
+                     <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                        <boolean name="IsPrimitive" value="true"/>
+                        <byte name="PrimitiveType" value="101"/>
+                     </storable>
+                  </storable>
+               </list>
+               <list classname="java.util.ArrayList" name="childField">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                     <string name="Name" value="importParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                           <string name="NAME" value="IV_BAN"/>
+                           <string name="ORIGINAL_NAME" value="IV_BAN"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                     </list>
+                     <list classname="java.util.ArrayList" name="childField"/>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="importParams_ZFICA_GET_BUSI_SEG"/>
+                  </storable>
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+                     <string name="Name" value="exportParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                           <string name="NAME" value="EV_CUST_TYPE"/>
+                           <string name="ORIGINAL_NAME" value="EV_CUST_TYPE"/>
+                           <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                              <boolean name="IsPrimitive" value="true"/>
+                              <byte name="PrimitiveType" value="9"/>
+                           </storable>
+                        </storable>
+                     </list>
+                     <list classname="java.util.ArrayList" name="childField"/>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="exportParams_ZFICA_GET_BUSI_SEG"/>
+                  </storable>
+               </list>
+               <boolean name="isParent" value="true"/>
+               <boolean name="isTable" value="false"/>
+               <string name="sanitizedName" value="ZFICA_GET_BUSI_SEG"/>
+               <string name="udrName" null="true"/>
+            </storable>
+            <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="3" ver="1.1">
+               <string name="Name" value="ZFICAF_DERIVE_ACTIVE_ACCOUNT"/>
+               <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                     <string name="NAME" value="context"/>
+                     <string name="ORIGINAL_NAME" value="context"/>
+                     <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                        <boolean name="IsPrimitive" value="true"/>
+                        <byte name="PrimitiveType" value="101"/>
+                     </storable>
+                  </storable>
+               </list>
+               <list classname="java.util.ArrayList" name="childField">
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                     <string name="Name" value="importParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo"/>
+                     <list classname="java.util.ArrayList" name="childField">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                           <string name="Name" value="IT_VKONA"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="VKONA"/>
+                                 <string name="ORIGINAL_NAME" value="VKONA"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="IT_VKONA"/>
+                           <string name="udrName" value="ZFITT_VKONA"/>
+                        </storable>
+                     </list>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="importParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT"/>
+                  </storable>
+                  <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+                     <string name="Name" value="exportParams"/>
+                     <list classname="java.util.ArrayList" name="RfcFieldInfo"/>
+                     <list classname="java.util.ArrayList" name="childField">
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="0" ver="1.1">
+                           <string name="Name" value="ET_ERROR"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="VKONA"/>
+                                 <string name="ORIGINAL_NAME" value="VKONA"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="E_ERROR_MSG"/>
+                                 <string name="ORIGINAL_NAME" value="E_ERROR_MSG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_ERROR"/>
+                           <string name="udrName" value="ZFIT_VKONA_ERR_MSG"/>
+                        </storable>
+                        <storable classname="com.digitalroute.mz.rfc.profile.RfcDataStructure" name="1" ver="1.1">
+                           <string name="Name" value="ET_GPART_VKONT"/>
+                           <list classname="java.util.ArrayList" name="RfcFieldInfo">
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="0" ver="1.1">
+                                 <string name="NAME" value="BUSS_ORG"/>
+                                 <string name="ORIGINAL_NAME" value="BUSS_ORG"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="1" ver="1.1">
+                                 <string name="NAME" value="BAN"/>
+                                 <string name="ORIGINAL_NAME" value="BAN"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="2" ver="1.1">
+                                 <string name="NAME" value="BILLAPPCODE"/>
+                                 <string name="ORIGINAL_NAME" value="BILLAPPCODE"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="3" ver="1.1">
+                                 <string name="NAME" value="VKONT"/>
+                                 <string name="ORIGINAL_NAME" value="VKONT"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                              <storable classname="com.digitalroute.mz.rfc.profile.RfcFieldInfo" name="4" ver="1.1">
+                                 <string name="NAME" value="GPART"/>
+                                 <string name="ORIGINAL_NAME" value="GPART"/>
+                                 <storable name="TYPE" storable-id="dr.DRUDRType" ver="1.0">
+                                    <boolean name="IsPrimitive" value="true"/>
+                                    <byte name="PrimitiveType" value="9"/>
+                                 </storable>
+                              </storable>
+                           </list>
+                           <list classname="java.util.ArrayList" name="childField"/>
+                           <boolean name="isParent" value="false"/>
+                           <boolean name="isTable" value="true"/>
+                           <string name="sanitizedName" value="ET_GPART_VKONT"/>
+                           <string name="udrName" value="ZFITT_OUTPUT_BILL"/>
+                        </storable>
+                     </list>
+                     <boolean name="isParent" value="false"/>
+                     <boolean name="isTable" value="false"/>
+                     <string name="sanitizedName" null="true"/>
+                     <string name="udrName" value="exportParams_ZFICAF_DERIVE_ACTIVE_ACCOUNT"/>
+                  </storable>
+               </list>
+               <boolean name="isParent" value="true"/>
+               <boolean name="isTable" value="false"/>
+               <string name="sanitizedName" value="ZFICAF_DERIVE_ACTIVE_ACCOUNT"/>
+               <string name="udrName" null="true"/>
+            </storable>
+         </list>
+         <string name="SNC_LIB_PATH" value=""/>
+         <int name="SNC_LVL_PROTECTION" value="3"/>
+         <string name="SNC_NAME" value=""/>
+         <string name="SNC_PARTNER_NAME" value=""/>
+         <int name="SYSTEM" value="0"/>
+         <string name="SYSTEMID" value=""/>
+         <string name="USERNAME" value="BRIM_CM_RFC"/>
+      </storable>
+      <string name="documentation" value=""/>
+   </storable>
+</rfc_profile>

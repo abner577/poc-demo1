@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[internal CurrencyConversionODATAResponse{
+    CurrencyConversionODATAResponseInfo d;
+    Error error;
+    
+};
+
+internal CurrencyConversionODATAResponseInfo{
+   Metadata __metadata;
+     string fromCurrencyCd;
+     string toCurrencyCd;
+     string amount;
+     string conversionDate;
+     string convertedAmount;
+     string exchangeRate;
+     string dateUsedForConversion;
+};
+
+internal Metadata{
+     string id;
+     string uri;
+     string type;
+};
+
+internal Error{
+     string code;
+     Message message;
+};
+
+internal  Message{
+    string lang;
+    string value;
+};
+
+internal ODATAResponse{
+    ODATAResponseInfo d;
+    Error error;
+    
+};
+
+internal ODATAResponseInfo{
+     
+     DunningLockDetails To_LockReasonNav;
+     list<Result> results;
+};
+
+internal DunningLockDetails{
+    list<DunningLockResults> results;
+};
+
+internal DunningLockResults{
+    string LockReasonCode;
+    string LockReason;
+};
+
+internal Result{
+    
+     string CountryCd;
+     string CountryDesc;
+     string RegionCd;
+     string RegionDesc;
+     string ReasonCd;
+     string ReasonDesc;
+     string returnReasonCode;
+     string description;
+     
+     string billingAccountNumber;
+     string initiatorCUID;
+     string requestId;
+     string requestType;
+     string approverCUID;
+     string requestStatus;
+     string createDateFrom;
+     string createDateTo;
+     IPRSLTNAV IP_RSLT_NAV;
+     string workflowId;
+     string createDate;
+     string currentApprover;
+     string notes;
+     string requestAmount;
+     string currencyCd;
+     string documentNumber;
+     RSLTAPPRNAV RSLT_APPR_NAV;
+     string approvedBy;
+     string approvedDate;
+     string Reason;
+     string ReasonText;
+     
+     string BAN;
+     string ContractAccount;
+     string Partner;
+     string InputChannel;
+     string State;
+     string Currency;
+     string Convfee;
+     string SurChrg;
+     string ErrorCd;
+     string ErrorMessage;
+};
+
+
+internal IPRSLTNAV{
+    list<Result> results;
+};
+internal RSLTAPPRNAV{
+    list<Result> results;
+};]]></string>
+</exportmultiplex>

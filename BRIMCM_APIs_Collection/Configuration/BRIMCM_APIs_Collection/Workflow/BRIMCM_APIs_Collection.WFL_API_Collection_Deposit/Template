@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Template" ref_path="workflow_data[Internal]/storable[workflow_data]/storable[Data]">
+   <list classname="java.util.ArrayList" name="Comments"/>
+   <storable name="Execution Config" storable-id="dr.WorkflowExecutionConfig" ver="10.0">
+      <enum name="debugType" storable-id="dr.DebugType" value="EVENT"/>
+      <storable name="executionSettings" storable-id="dr.ExecutionSettings" ver="11.0">
+         <boolean name="enabled" value="false"/>
+         <storable name="kafka" null="true"/>
+      </storable>
+      <int name="noOfFilesToKeep" value="0"/>
+      <string name="throughputMIM" null="true"/>
+      <string name="txnHandler" value="Default Handler"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Field Types">
+      <storable name="0" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Local Address"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="IncomingRequest"/>
+      </storable>
+      <storable name="1" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Http2 - Port"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="608952228"/>
+         <string name="Node Name" value="IncomingRequest"/>
+      </storable>
+      <storable name="2" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Password"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="BRIM"/>
+      </storable>
+      <storable name="3" storable-id="dr.WorkflowData$FieldAndType" ver="1.3">
+         <string name="Exported Alias" value=""/>
+         <string name="Exported Description" value=""/>
+         <string name="Field Name" value="Authentication - Username"/>
+         <enum name="Field Type" storable-id="dr.DRFieldInstanceType" value="INSTANCE"/>
+         <int name="Node Id" value="-1215655667"/>
+         <string name="Node Name" value="BRIM"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Logged error MIM"/>
+   <list classname="java.util.ArrayList" name="Nodes">
+      <storable name="0" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.server.agent.Http2ServerInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ServerData" ver="12.2">
+                  <enum classname="com.digitalroute.http2.server.auth.AuthLevel" name="authLevel" value="NONE"/>
+                  <string name="authPublicKey" null="true"/>
+                  <int name="averagePeriod" value="10"/>
+                  <string name="characterEncoding" value="UTF-8"/>
+                  <int name="clientTimeout" value="10"/>
+                  <boolean name="enableTooManyRequests" value="false"/>
+                  <int name="gzipLevel" value="7"/>
+                  <string name="host" value="dummy"/>
+                  <boolean name="isTwoWayAuth" value="false"/>
+                  <int name="maxCacheSize" value="1000"/>
+                  <int name="maxCacheTime" value="1000"/>
+                  <int name="maxConcurrentStreams" value="500"/>
+                  <int name="numberOfRequests" value="1000"/>
+                  <int name="port" value="0"/>
+                  <boolean name="routeToApl" value="false"/>
+                  <storable name="securityProfile" null="true"/>
+                  <int name="serverTimeout" value="0"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" storable-id="dr.DRConfiguration" ver="2.0">
+                           <set name="Dynamic Parameters" null="true"/>
+                           <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                           <string name="Key" value="CMD1730713974676"/>
+                           <string name="Name" value="PRF_OPENAPI_Collection_Deposit"/>
+                           <string name="Type" value="Open API Profile"/>
+                        </storable>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList">
+                           <storable name="0" storable-id="dr.DRConfiguration" ver="2.0">
+                              <set name="Dynamic Parameters" null="true"/>
+                              <string name="Folder" value="BRIMCM_APIs_Collection"/>
+                              <string name="Key" value="CMD1730713974676"/>
+                              <string name="Name" value="PRF_OPENAPI_Collection_Deposit"/>
+                              <string name="Type" value="Open API Profile"/>
+                           </storable>
+                        </list>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="true"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.HTTP2.Support5G" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <boolean name="enableFallBack" value="false"/>
+                        <boolean name="enableRegistrationRetry" value="false"/>
+                        <string name="nrfAddress" value=""/>
+                        <array classname="java.lang.String" name="nrfAddresses" size="1">
+                           <string name="0" value=""/>
+                        </array>
+                        <int name="numberOfRegistrationRetry" value="0"/>
+                        <list classname="java.util.ArrayList" name="openApiProfileList"/>
+                        <array classname="java.lang.String" name="secondaryAddress" size="0"/>
+                        <array classname="java.lang.String" name="secondaryAddressList" size="0"/>
+                        <int name="timeIntervalForRegistrationRetry" value="0"/>
+                        <boolean name="use5g" value="false"/>
+                     </storable>
+                  </list>
+                  <storable name="udrType" null="true"/>
+                  <boolean name="useCache" value="false"/>
+                  <boolean name="useSSL" value="false"/>
+                  <int name="waitDuration" value="10"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="IncomingRequest"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Deposit;
+import apl.BRIMCM_APIs_Collection.APL_Collection_Deposit;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+import apl.Common.APL_CONSTANTS;
+import apl.Common.APL_LOGGING;
+import apl.Common.APL_CONSTANTS;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("request" , "Agent Name");
+}
+
+consume {
+    try{
+        string resourceCode;
+        if(instanceOf(input,RequestCycle)){
+            debug("inside Request Cycle instance");
+            RequestCycle cycleUdr = (RequestCycle)input;
+            string tagId = setTagId(cycleUdr);
+            //logRequest(cycleUdr, "");
+            debug("cycleUdr : "+cycleUdr);
+            map<string,list<string>> mapHeaders = mapCreate(string,list<string>);
+            list<string> lHeader = listCreate(string);
+            listAdd(lHeader, "application/json");
+            mapSet(mapHeaders, "Content-Type", lHeader);
+            cycleUdr.response.headers = mapHeaders;
+            string sBody;
+            any Rec;
+            if(cycleUdr.body != null){
+              sBody=  baToStr(cycleUdr.body,"UTF-8");
+              Rec = jsonParse(sBody);
+            }
+            //Forwarding request log to splunk
+            udrRoute( sendToSplunk(cycleUdr,null,API_REQUEST, "",null,splunkCtx), "toSplunk");
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE,cycleUdr.path);
+            debug("VALUE of resourceCode : "+resourceCode);
+            if(cycleUdr.path == "/brimcm/collection/deposit/history"){
+                map<string,any> mapRec = (map<string,any>)Rec;
+                DepositHistoryResponse respUdr = checkDepositHistoryReq(mapRec,sBody,resourceCode);
+                if(respUdr.responseInfo != null){
+                     cycleUdr.response.openAPIUDR = respUdr;  
+                     cycleUdr.response.statusCode = 200;
+                     //logResponse(cycleUdr, "");
+                     udrRoute(cycleUdr,"toClient");
+                     //Forwarding response log to splunk
+                     udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                     return; 
+                }else{
+                    //debug("BAN : "+Rec.requestInfo.billingAccountNumber);
+                    string ban = (string) Rec.requestInfo.billingAccountNumber;
+                    string inputChannelCd = (string) Rec.headerInfo.inputChannelCd;
+                    string srcApplicationCd = (string) Rec.headerInfo.srcApplicationCd;
+                    string sURI = "/sap/opu/odata/SAP/ZGLB_DEVFI_SECURITY_DEPOSIT_SRV/requestInfoSet";
+                    http.RequestCycle reqUDR = getDepositHistoryDetails(sURI,ban,inputChannelCd,srcApplicationCd);
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                    //Forwarding ODATA request log towards Splunk
+                    udrRoute(sendToSplunk(cycleUdr,reqUDR,ODATA_REQUEST,"",reqUDR.path,splunkCtx),"toSplunk"); 
+                }
+            } else if(cycleUdr.path == "/brimcm/collection/deposit/release"){
+                map<string,any> mapRec = (map<string,any>)Rec;
+                DepositReleaseResponse respUdr = checkDepositReleaseReq(mapRec,sBody,resourceCode);
+                if(respUdr.responseInfo != null){
+                     cycleUdr.response.openAPIUDR = respUdr;  
+                     cycleUdr.response.statusCode = 200;
+                     //logResponse(cycleUdr, "");
+                     udrRoute(cycleUdr,"toClient");
+                     udrRoute(sendToSplunk(cycleUdr,null,API_RESPONSE, API_STATUS_FAILURE,null,splunkCtx),"toSplunk");
+                     return; 
+                }else{
+                    string sURI = "/sap/opu/odata4/sap/api_casecuritydeposit/srvd_a2x/sap/casecuritydeposit/0002/$metadata";
+                    http.RequestCycle reqUDR = accessTokenReq(sURI);
+                    reqUDR.context = cycleUdr;
+                    udrRoute(reqUDR,"toS4");
+                }
+            }
+            else{
+                debug("inside unknown path condition");
+            }
+        }
+    }catch(ExceptionDetails e){        
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="1">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="request"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.http2.client.agent.Http2ClientInsp]]></string>
+               <storable name="Data" storable-id="dr.HTTP2ClientData" ver="24.0">
+                  <string name="accessTokenUri" null="true"/>
+                  <boolean name="addCookiesToRequestHeaders" value="true"/>
+                  <list name="additionalParametersList" null="true"/>
+                  <enum name="authenticationType" storable-id="dr.AuthenticationType" value="BASIC"/>
+                  <enum name="clientAuthType" storable-id="dr.OAuthClientAuthType" value="CLIENT_SECRET_BASICS"/>
+                  <string name="clientId" null="true"/>
+                  <password name="clientSecret" null="true"/>
+                  <int name="expirationOverride" value="0"/>
+                  <enum name="grantType" storable-id="dr.GrantType" value="CREDENTIALS"/>
+                  <string name="hnrfAccessTokenUri" null="true"/>
+                  <int name="maxPushedConcurrentStreams" value="1000"/>
+                  <int name="maxRequestsQueuedPerDestination" value="20000"/>
+                  <int name="maxResponseContentLength" value="8"/>
+                  <int name="minConnectionCheckInterval" value="30"/>
+                  <int name="minConnections" value="0"/>
+                  <int name="monitorPingInterval" value="10"/>
+                  <string name="nfInstanceId" null="true"/>
+                  <string name="nfType" null="true"/>
+                  <string name="nrfTokenEndpointURI" null="true"/>
+                  <string name="overrideBaseURL" null="true"/>
+                  <password name="password" value="DR-4-C47096DB3390424214330B5B2BC35B9B"/>
+                  <int name="queueFullMaxRetries" value="10"/>
+                  <int name="queueFullRetryInterval" value="50"/>
+                  <int name="requestTimeout" value="30"/>
+                  <string name="requesterFqdn" null="true"/>
+                  <storable name="requesterPlmn" null="true"/>
+                  <string name="requesterPlmnCustomized" null="true"/>
+                  <list name="requesterPlmnList" null="true"/>
+                  <string name="requesterPlmnListCustomized" null="true"/>
+                  <list name="requesterSnpnList" null="true"/>
+                  <string name="requesterSnpnListCustomized" null="true"/>
+                  <list name="requesterSnssaiList" null="true"/>
+                  <string name="requesterSnssaiListCustomized" null="true"/>
+                  <boolean name="routeErrorUdr" value="true"/>
+                  <string name="scope" null="true"/>
+                  <storable name="securityProfile" null="true"/>
+                  <storable name="securityProfileNRF" null="true"/>
+                  <string name="sourceNfInstanceId" null="true"/>
+                  <list classname="java.util.ArrayList" name="strategies">
+                     <storable name="0" storable-id="dr.HTTP2.OpenAPI" ver="10.4">
+                        <storable name="configuration" null="true"/>
+                        <string name="contentType429" value="application/problem+json"/>
+                        <string name="contentType503" value="application/problem+json"/>
+                        <list name="openApiProfileList" null="true"/>
+                        <boolean name="overrideError429" value="false"/>
+                        <boolean name="overrideError503" value="false"/>
+                        <int name="statusCode429" value="429"/>
+                        <int name="statusCode503" value="503"/>
+                        <list name="udrFieldsMap429" null="true"/>
+                        <list name="udrFieldsMap503" null="true"/>
+                        <storable name="udrTypeIdentifier429" null="true"/>
+                        <storable name="udrTypeIdentifier503" null="true"/>
+                        <boolean name="useOpenApi" value="false"/>
+                        <boolean name="validate" value="false"/>
+                     </storable>
+                  </list>
+                  <string name="targetNfInstanceId" null="true"/>
+                  <string name="targetNfServiceSetId" null="true"/>
+                  <string name="targetNfSetId" null="true"/>
+                  <string name="targetNfType" null="true"/>
+                  <list name="targetNsiList" null="true"/>
+                  <string name="targetNsiListCustomized" null="true"/>
+                  <storable name="targetPlmn" null="true"/>
+                  <string name="targetPlmnCustomized" null="true"/>
+                  <storable name="targetSnpn" null="true"/>
+                  <string name="targetSnpnCustomized" null="true"/>
+                  <list name="targetSnssaiList" null="true"/>
+                  <string name="targetSnssaiListCustomized" null="true"/>
+                  <boolean name="useSSL" value="false"/>
+                  <boolean name="useSSLNRF" value="false"/>
+                  <boolean name="useServerMonitor" value="false"/>
+                  <string name="username" value="BRIM_CM_REST"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="BRIM"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[import apl.Common.APL_COMMON;
+import apl.BRIMCM_APIs_Common.APL_CMAPIs;
+import ultra.openapi.BRIMCM_APIs_Collection.PRF_OPENAPI_Collection_Deposit;
+import apl.BRIMCM_APIs_Collection.APL_Collection_Deposit;
+import apl.Common.APL_LOGGING;
+import ultra.Common.UFL_API_LogFormat;
+import apl.Common.APL_CONSTANTS;
+import ultra.wfb;
+import ultra.Common.ULF_Logging;
+
+SplunkContext splunkCtx;
+
+initialize{
+    splunkCtx = udrCreate(SplunkContext);
+    splunkCtx.pico = (string)mimGet("Workflow","Execution Context");
+    splunkCtx.workflowName = (string)mimGet("Workflow" , "Workflow Name");
+    splunkCtx.agentName = (string)mimGet("response" , "Agent Name");
+}
+
+consume {
+    try{
+        string resourceCode;
+        if(instanceOf(input,RequestCycle)){
+            RequestCycle cycleUdr = (RequestCycle)input;
+            debug("The value of cycleUdr = " + (cycleUdr));
+            RequestCycle reqUdr = (RequestCycle)cycleUdr.context;
+            string sReqBody,sResponseBody;
+            if(reqUdr.body != null){
+                sReqBody = baToStr(reqUdr.body);
+            }
+            
+            resourceCode = getXrefValue(RESOURCE_CODE_TABLE,reqUdr.path);
+            if(strREContains(cycleUdr.path, "/sap/opu/odata/SAP/ZGLB_DEVFI_SECURITY_DEPOSIT_SRV/requestInfoSet") && cycleUdr.method == "GET"){
+                debug("Inside deposit history API GET call");
+                try{
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);   
+                }catch(ExceptionDetails e){
+                    sResponseBody = "Timeout Occured in BRIM";
+                }               
+                map<string,any> response = (map<string,any>)jsonParse(sResponseBody);
+                DepositHistoryRequest depositHistoryReq = udrCreate(DepositHistoryRequest);
+                jsonDecodeUdr(sReqBody,depositHistoryReq);
+                DepositHistoryResponse depositHistoryResp = udrCreate(DepositHistoryResponse);
+                DepositHistoryResponseInfo responseUdr = udrCreate(DepositHistoryResponseInfo);                
+                depositHistoryResp.headerInfo = depositHistoryReq.headerInfo;
+                depositHistoryResp.requestInfo = depositHistoryReq.requestInfo;
+                //debug("cycleUdr.response.statusCode : "+cycleUdr.response.statusCode);
+                string status;
+                if(cycleUdr.response.statusCode == 200){
+                    debug("Inside 200 success condition");
+                    depositHistoryResp = mapDepositHistorySuccessResponse(response,depositHistoryReq,resourceCode);
+                    debug("depositHistoryResp.responseInfo.transactionStatus : "+depositHistoryResp.responseInfo.transactionStatus);
+                    //Added extra condition to check Success or Failure in statusCode 200 condition as its expected to receive RFC errors too under statusCode 200
+                    if(depositHistoryResp.responseInfo.transactionStatus == "S") {
+                        status = API_STATUS_SUCCESS;
+                    } else {
+                        status = API_STATUS_FAILURE;
+                    }
+                } else {
+                    debug("inside else condition of status code 200");
+                    depositHistoryResp = mapDepositHistoryFailureResponse(response, depositHistoryReq, resourceCode);  
+                    status = API_STATUS_FAILURE;                   
+                }
+                reqUdr.response.openAPIUDR = depositHistoryResp;
+                reqUdr.response.statusCode = 200;
+                //logResponse(reqUdr, ""); 
+                udrRoute(reqUdr,"toClient");
+                //Forwarding ODATA response log towards Splunk
+                udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, status,cycleUdr.path,splunkCtx),"toSplunk");
+                //Forwarding response log towards Splunk
+                udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, status,null,splunkCtx),"toSplunk");
+            } else if(cycleUdr.path == "/sap/opu/odata4/sap/api_casecuritydeposit/srvd_a2x/sap/casecuritydeposit/0002/$metadata" && cycleUdr.method == "GET"){
+                  debug("Inside POST call for deposit release API");
+                  map<string,list<string> > mapToken = tokenReq(cycleUdr.response.headers); //Creating Headers request with token for POST API CALL  
+                  map<string, map<string,string>> mapInputRequestDetails = (map<string, map<string,string>>)jsonParse(sReqBody);
+                  http.RequestCycle udr = mapDepositReleaseDetails(mapToken,mapInputRequestDetails);
+                  udr.context = reqUdr;
+                  udrRoute(udr,"toS4");
+                  //Forwarding ODATA request log towards Splunk
+                  udrRoute(sendToSplunk(reqUdr,udr,ODATA_REQUEST,"",udr.path,splunkCtx),"toSplunk"); 
+            } else if(strREContains(cycleUdr.path, "/sap/opu/odata4/sap/api_casecuritydeposit/srvd_a2x/sap/casecuritydeposit/0002") && cycleUdr.method == "POST"){
+                debug("Inside response for deposit release API POST call");
+                try{
+                    bytearray baRecord = (bytearray)cycleUdr.response.body;
+                    sResponseBody = baToStr(baRecord);   
+                }catch(ExceptionDetails e){
+                    sResponseBody = (string)cycleUdr.response.body;
+                }
+                
+                map<string,any> response = (map<string,any>)jsonParse(sResponseBody);
+                DepositReleaseRequest releaseReq = udrCreate(DepositReleaseRequest); 
+                jsonDecodeUdr(sReqBody,releaseReq);
+                DepositReleaseResponse releaseResp = udrCreate(DepositReleaseResponse);
+                
+                DepositReleaseResponseInfo responseUdr = udrCreate(DepositReleaseResponseInfo);
+                releaseResp.requestInfo = releaseReq.requestInfo;
+                releaseResp.headerInfo = releaseReq.headerInfo;
+                debug("cycleUdr.response.statusCode : "+cycleUdr.response.statusCode);
+                string status;
+                if(cycleUdr.response.statusCode == 200  ){
+                    responseUdr.transactionStatus = "S";
+                    status = API_STATUS_SUCCESS;
+                }else{
+                    status = API_STATUS_FAILURE;
+                    ErrorInfo errUdr = udrCreate(ErrorInfo);
+                    
+                    map<string,string> mapCode = (map<string,string>)mapGet(response,"error");
+                    //debug("mapCode : "+mapCode);
+  
+                    //debug("error Message : "+mapGet(mapCode,"message"));
+                    errUdr.errorMessage = mapGet(mapCode,"message");
+                    //debug("errUdr.errorMessage after assigning : "+errUdr.errorMessage);
+                    errUdr.errorCd = resourceCode + BRIM_ERROR;
+                    responseUdr.transactionStatus = "F";
+                    responseUdr.errorInfo = errUdr;
+                }
+                releaseResp.responseInfo = responseUdr;
+                //debug("The value of releaseResp = " + (releaseResp));
+                reqUdr.response.openAPIUDR = releaseResp;
+                reqUdr.response.statusCode = 200;
+               // logResponse(reqUdr, "");
+                udrRoute(reqUdr,"toClient");
+                //Forwarding ODATA response log towards Splunk
+                udrRoute(sendToSplunk(reqUdr,cycleUdr,ODATA_RESPONSE, status,cycleUdr.path,splunkCtx),"toSplunk");
+                //Forwarding response log towards Splunk
+                udrRoute(sendToSplunk(reqUdr,null,API_RESPONSE, status,null,splunkCtx),"toSplunk");                
+            }
+        }else{
+             debug("In else part : "+input);
+        }
+    }catch(ExceptionDetails e){
+        debug("Exception occured : "+e.stackTrace);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.errorUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="http.RequestCycle"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="response"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname"><![CDATA[com.digitalroute.workflowbridge.rt.fwd.WfbRTFwdInsp]]></string>
+               <storable name="Data" storable-id="dr.WfBridgeFwdData" ver="10.0">
+                  <storable name="profile" storable-id="dr.DRConfiguration" ver="2.0">
+                     <set name="Dynamic Parameters" null="true"/>
+                     <string name="Folder" value="Common"/>
+                     <string name="Key" value="CMD1779279436841"/>
+                     <string name="Name" value="PRF_WFB_LOGS"/>
+                     <string name="Type" value="Workflow Bridge Profile"/>
+                  </storable>
+                  <string name="streamId" value="default"/>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Fwd_Logs"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfNode" ver="2.0">
+         <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+         <array classname="com.digitalroute.wf.WfNodeConfig" name="Configuration" size="1">
+            <storable name="0" storable-id="dr.WfNodeConfig" ver="1.0">
+               <string name="Classname" value="com.digitalroute.wfc.analysis.AnalysisRealtimeInsp"/>
+               <storable name="Data" storable-id="dr.StuffyMapperData" ver="10.0">
+                  <string name="sourceCode"><![CDATA[consume {
+    debug("input" + input);
+    if(instanceOf(input,ErrorCycleUDR)){
+        log.info("ErrorCycleUDR : "+input);
+    }
+}]]></string>
+                  <array classname="com.digitalroute.devkit.drudr.DRTypeInfo" name="udrTypes" size="2">
+                     <storable name="0" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ConsumeCycleUDR"/>
+                     </storable>
+                     <storable name="1" storable-id="dr.DRTypeInfo" ver="1.0">
+                        <string name="TypeName" value="wfb.ErrorCycleUDR"/>
+                     </storable>
+                  </array>
+               </storable>
+            </storable>
+         </array>
+         <string name="Name" value="Analysis_1"/>
+      </storable>
+   </list>
+   <storable name="Persistent" storable-id="dr.WorkflowPersistentConfig" ver="10.0">
+      <string name="persistentInspector" null="true"/>
+      <storable name="persistentStorageConfig" null="true"/>
+      <string name="persistentTimeoutHandler" null="true"/>
+   </storable>
+   <list classname="java.util.ArrayList" name="Routes">
+      <storable name="0" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="Request"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="1" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="responseFromS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="2" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="3" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toClient"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="4" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="5" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toS4"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="6" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="r_54"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="7" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+      <storable name="8" storable-id="dr.WfRoute" ver="2.0">
+         <string name="Name" value="toSplunk"/>
+         <int name="Realtime mode" value="0"/>
+      </storable>
+   </list>
+   <list classname="java.util.ArrayList" name="Service"/>
+   <boolean name="Template Valid" value="true"/>
+   <storable name="Thread data" storable-id="dr.WorkflowExecutionRealtimeConfig" ver="10.0">
+      <int name="countInterval" value="1"/>
+      <int name="queueSize" value="1000"/>
+      <string name="queueStrategy" value="Blocking queue"/>
+      <string name="queueWorkerStrategy" value="RoundRobin"/>
+      <boolean name="standalone" value="false"/>
+      <int name="threads" value="8"/>
+   </storable>
+</exportmultiplex>

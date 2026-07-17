@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="Ultra_Format" ref_path="ultra_format[Internal]/storable[ultra_format]/storable[Data]">
+   <string name="Definition"><![CDATA[internal httpd: extends_class("com.digitalroute.wfc.http.HttpdUDR") {
+};
+
+internal json{
+    any payload;
+};
+
+internal dataInt{
+    string name;
+    string value;    
+};
+
+internal dataListInternal{
+    string notificationName;
+    list <list<dataInt>> dataList;
+};
+
+
+
+//payment notification structure start
+
+internal notification{
+    string messageId;
+    string messageTime;
+    string messageType;
+    string messageName;
+    string responseName;
+    string pattern;
+    string version;
+    string source;
+    string uniqueId;
+    string correlationId;
+    eventDetails payload;
+};
+
+internal eventDetails{
+    string notificationName;
+    list<data> dataList;
+    list<contactDetails> contacts;
+    list<info> details;
+};
+
+internal data{
+    string name;
+    string value;
+};
+
+internal contactDetails{
+    string contactId;
+    string firstName;
+    string lastName;
+    string timeZoneOffset;
+    string phone;
+    string cellPhone;
+    string IsEmployee;
+    list<string> notifPreference;
+    list<rolesDetails> roles;
+    list<methodDetails> methods;
+};
+
+internal emailPref{
+    string Email;
+};
+
+internal rolesDetails{
+    string application;
+    string entityType;
+    string entityKey;
+    any roleId;
+};
+
+internal methodDetails{
+    string type;
+    string subType;
+    string address;
+};
+
+internal info{
+    list<itemList> items;
+    string name;
+};
+
+internal itemList{
+    string billingAccountNumber;
+    string billingApplicationCd;
+    string masterPaymentId;
+    string paymentAmount;
+    string convenienceFeeAmount;
+    string businessName;
+    string paymentStatus;
+};
+
+//payment notification structure send]]></string>
+</exportmultiplex>

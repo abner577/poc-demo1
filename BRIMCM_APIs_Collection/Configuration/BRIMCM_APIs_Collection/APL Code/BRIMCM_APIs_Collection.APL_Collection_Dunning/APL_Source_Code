@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<exportmultiplex category="APL_Source_Code" ref_path="apl_script[Internal]/storable[apl_script]/storable[Data]">
+   <string name="Definition"><![CDATA[import ultra.http;
+import ultra.BRIMCM_APIs_Collection.ULF_BRIMCM_SESSION_ULTRA;
+import apl.BRIMCM_APIs_Common.APL_FUNCTIONS;
+   RequestCycle accessTokenRequest(AutoDialerSession autoDailerSession){
+       string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_AUTODIALER_SRV/CallerInformationSet?$format=json&$filter=(BusinessPartner%20eq%20'<BA>')";
+     //string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_AUTODIALER_SRV/CallerInformationSet?$format=json&$filter=((BusinessPartner%20eq%20'<BA>')%20and%20(ContractAccount%20eq%20'<CA>'))";
+
+     //string sURI = "/sap/opu/odata/sap/ZGLB_DEVFI_AUTODIALER_SRV/CallerInformationSet";
+     RFCRequestResponse requestResponse = (RFCRequestResponse)listGet(autoDailerSession.rfcRequestResponse, 0);     
+     sURI = strREReplaceAll(sURI, "<BA>", requestResponse.businessPartnerId);
+     sURI = strREReplaceAll(sURI, "<CA>", requestResponse.contractAccount);
+     
+     debug("final URI:: "+sURI);
+    RequestCycle udr = udrCreate(RequestCycle);
+    
+    map<string,list<string> > mapToken = mapCreate(string,list<string>);
+    if(autoDailerSession.responseHeader != null && mapSize(autoDailerSession.responseHeader) > 0) {
+        mapToken = autoDailerSession.responseHeader;
+        debug("Tokens from CSRF response :: "+mapToken);
+     } else {
+        list<string> lContentType = listCreate(string);
+        listAdd(lContentType,"application/json");
+        list<string> lToken = listCreate(string);
+        listAdd(lToken,"fetch");
+        mapSet(mapToken,"x-csrf-token",lToken) ;        
+    }
+    
+    map<string,string> mapParams = mapCreate(string,string);;
+    mapSet(mapParams,"sap-client",getSystemValue(SAP_CLIENT));
+   // mapSet(mapParams,"$format","json");
+    //mapSet(mapParams, "$filter", "(BusinessPartner%20eq%20'"+requestResponse.businessPartnerId+"')");
+    udr.host = getSystemValue(REST_HOSTNAME);
+    udr.secure = true;
+    udr.port = getSystemValue(REST_PORT);
+    udr.path =  sURI;
+    udr.headers = mapToken;
+    udr.method = "GET";
+    udr.parameters = mapParams;
+    return udr;     
+}
+]]></string>
+</exportmultiplex>

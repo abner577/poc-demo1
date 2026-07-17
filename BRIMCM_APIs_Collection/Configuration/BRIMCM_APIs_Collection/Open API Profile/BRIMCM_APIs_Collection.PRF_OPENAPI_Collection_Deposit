@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<openapiprofile category="Internal">
+   <storable name="openapiprofile" storable-id="dr.Configuration" ver="10.1">
+      <array classname="java.lang.String" name="Access Groups -read -write -execute" size="3">
+         <string name="0" value="Cust_Support"/>
+         <string name="1" value="Cust_Admin"/>
+         <string name="2" value="Cust_Admin"/>
+      </array>
+      <storable name="Auxiliary Data" null="true"/>
+      <storable name="Data" storable-id="dr.OpenApiProfileData" ver="1.2">
+         <boolean name="enable_additional_properties" value="false"/>
+         <list classname="java.util.ArrayList" name="ext_refs_files"/>
+         <string name="fileName" value="OpenAPI_Deposit.yaml"/>
+         <boolean name="ignore_readonly" value="false"/>
+         <string name="scheme"><![CDATA[---
+openapi: 3.0.3
+info:
+  title: BRIM OpenAPI definition
+  description: Description for BRIM APIs
+  version: v1.0.0-dev
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/YUANCHEN_1/BRIMCM-API-Staging/v1.0.0-dev
+  - url: http://ns2c1tapp2.saperp.corp.intranet:8443
+    description: CM Host - 1
+  - url: http://ns2c1tapp3.saperp.corp.intranet:8443
+    description: CM Host - 2
+  - url: https://ns2wd1app1.saperp.corp.intranet:44302
+    description: Dispatcher Host CMD
+  - url: https://ns2wq1app1.saperp.corp.intranet:44301
+    description: Dispatcher Host CMQ
+  - url: https://ns2wx1app1.saperp.corp.intranet:44301
+    description: Dispatcher Host C1T
+  - url: https://api-dev1.test.intranet
+    description: Apigee Internal Dev1
+  - url: https://api-test1.test.intranet
+    description: Apigee Internal Test1
+  - url: https://api.corp.intranet
+    description: Apigee Internal Prod
+paths:
+ "/brimcm/collection/deposit/history":
+    post:
+      tags:
+        - collection
+      summary: Retrieve deposit history
+      description: API to retrieve deposit history for a billing account
+      operationId: getDepositHistory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepositHistoryRequest'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositHistoryResponse'
+              examples:
+                Success:
+                  description: Successful response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: "2022-08-14T15:47:01.151Z"
+                      srcApplicationCd: "EPP"
+                      requestId: "1234567KM"
+                      inputChannelCd: "EPP"
+                      srcSysTransactionId: "1234567MN"
+                      userId: "AD29751"
+                    requestInfo:
+                      billingAccountNumber: "123456AUSWE01"
+                    responseInfo:
+                      transactionStatus: "S"
+                      depositList:
+                        - depositId: ""
+                          depositReturnDue: ""
+                          requestDate: ""
+                          productType: "WA"
+                          billingAccountNumber: "507650442"
+                          depositRequestedAmount: 100.00
+                          depositRequestedCurrency: "USD"
+                          depositStatus: "Requested"
+                          depositPaidOn: ""
+                          depositPaidCurrency: "USD"
+                          depositPaidAmount: 50.0
+                          depositNotReturned: 50.0
+                          refundAmount: 0.0
+                          refundCurrency: "USD"
+                          dateRefunded: ""
+                          refundMethod: ""
+                          billAdjutsmentAmount: 0.0
+                          billAdjustmentAmountCurrency: "USD"
+                          billAdjustmentDate: ""
+                          billAdjustmentMethod: ""
+                          interestCodeText: ""
+                          interestCalculated: 11.00
+                          interestAmountOpen: 23.21
+                      totalHeld:
+                        totalHeldCurrency: "USD"
+                        totalHeldAmount: 50.0
+                      interestTotal:
+                        units: "USD"
+                        amount: 0.0
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositHistoryResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: "2022-08-14T15:47:01.151Z"
+                      srcApplicationCd: "EPP"
+                      requestId: "1234567KM"
+                      inputChannelCd: "EPP"
+                      srcSysTransactionId: "1234567MN"
+                      userId: "AD29751"
+                    requestInfo:
+                      billingAccountNumber: "123456AUSWE01"
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorCd: '10083'
+                        errorMessage: "Validation error message"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositHistoryResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: "2022-08-14T15:47:01.151Z"
+                      srcApplicationCd: "EPP"
+                      requestId: "1234567KM"
+                      inputChannelCd: "EPP"
+                      srcSysTransactionId: "1234567MN"
+                      userId: "AD29751"
+                    requestInfo:
+                      billingAccountNumber: "123456AUSWE01"
+                    responseInfo:
+                      transactionStatus: F
+                      errorInfo:
+                        errorCd: '10083'
+                        errorMessage: "Internal server error message"
+ "/brimcm/collection/deposit/release":
+    post:
+      tags:
+        - collection
+      summary: Release deposit
+      description: API to release deposit for a billing account
+      operationId: releaseDeposit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DepositReleaseRequest'
+      responses:
+        '200':
+          description: Success Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositReleaseResponse'
+              examples:
+                Success:
+                  description: Successful response
+                  value:
+                    headerInfo:
+                      sendTimeStamp: "2022-08-14T15:47:01.151Z"
+                      srcApplicationCd: "EPP"
+                      requestId: "1234567KM"
+                      inputChannelCd: "EPP"
+                      srcSysTransactionId: "1234567MN"
+                      userId: "AD29751"
+                    requestInfo:
+                      isPartial: "Y"
+                      billingAccountNumber: ""
+                      toBeReleasedDepositAmt: 1
+                      currencyCd: "USD"
+                    responseInfo:
+                      transactionStatus: "S"
+        '400':
+          description: Validation errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositReleaseResponse'
+              examples:
+                Validation errors:
+                  description: Validation errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: "2022-08-14T15:47:01.151Z"
+                      srcApplicationCd: "EPP"
+                      requestId: "1234567KM"
+                      inputChannelCd: "EPP"
+                      srcSysTransactionId: "1234567MN"
+                      userId: "AD29751"
+                    requestInfo:
+                      isPartial: "Y"
+                      billingAccountNumber: ""
+                      toBeReleasedDepositAmt: 1
+                      currencyCd: "USD"
+                    responseInfo:
+                      transactionStatus: "F"
+                      errorInfo:
+                        errorCd: '10083'
+                        errorMessage: "Validation error message"
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositReleaseResponse'
+              examples:
+                Application level exceptions/errors:
+                  description: Application level exceptions/errors
+                  value:
+                    headerInfo:
+                      sendTimeStamp: "2022-08-14T15:47:01.151Z"
+                      srcApplicationCd: "EPP"
+                      requestId: "1234567KM"
+                      inputChannelCd: "EPP"
+                      srcSysTransactionId: "1234567MN"
+                      userId: "AD29751"
+                    requestInfo:
+                      isPartial: "Y"
+                      billingAccountNumber: ""
+                      toBeReleasedDepositAmt: 1
+                      currencyCd: "USD"
+                    responseInfo:
+                      transactionStatus: "F"
+                      errorInfo:
+                        errorCd: '10083'
+                        errorMessage: "Internal server error message"
+components:
+  schemas:
+    DepositHistoryRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DepositHistoryRequestInfo'
+      required:
+        - headerInfo
+        - requestInfo
+
+    DepositHistoryRequestInfo:
+      type: object
+      properties:
+        billingAccountNumber:
+          type: string
+
+    DepositHistoryResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DepositHistoryRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/DepositHistoryResponseInfo'
+      required:
+        - headerInfo
+        - requestInfo
+        - responseInfo
+
+    DepositHistoryResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+        depositList:
+          type: array
+          items:
+            $ref: '#/components/schemas/DepositDetail'
+        totalHeld:
+          $ref: '#/components/schemas/TotalHeld'
+        interestTotal:
+          $ref: '#/components/schemas/InterestTotal'
+    DepositDetail:
+      type: object
+      properties:
+        depositId:
+          type: string
+        depositReturnDue:
+          type: string
+        requestDate:
+          type: string
+        productType:
+          type: string
+        billingAccountNumber:
+          type: string
+        depositRequestedAmount:
+          type: number
+          format: double
+        depositRequestedCurrency:
+          type: string
+        depositStatus:
+          type: string
+        depositPaidOn:
+          type: string
+        depositPaidCurrency:
+          type: string
+        depositPaidAmount:
+          type: number
+          format: double
+        depositNotReturned:
+          type: number
+          format: double
+        refundAmount:
+          type: number
+          format: double
+        refundCurrency:
+          type: string
+        dateRefunded:
+          type: string
+        refundMethod:
+          type: string
+        billAdjutsmentAmount:
+          type: number
+          format: double
+        billAdjustmentAmountCurrency:
+          type: string
+        billAdjustmentDate:
+          type: string
+        billAdjustmentMethod:
+          type: string
+        interestCodeText:
+          type: string
+        interestCalculated:
+          type: number
+          format: double
+        interestAmountOpen:
+          type: number
+          format: double
+    TotalHeld:
+      type: object
+      properties:
+        totalHeldCurrency:
+          type: string
+        totalHeldAmount:
+          type: number
+          format: double
+
+    InterestTotal:
+      type: object
+      properties:
+        units:
+          type: string
+        amount:
+          type: number
+          format: double
+    DepositReleaseRequest:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DepositReleaseRequestInfo'
+      required:
+        - headerInfo
+        - requestInfo
+
+    DepositReleaseRequestInfo:
+      type: object
+      properties:
+        isPartial:
+          type: string
+        billingAccountNumber:
+          type: string
+        toBeReleasedDepositAmt:
+          type: number
+          format: double
+        currencyCd:
+          type: string
+        depositId:
+          type: string
+
+    DepositReleaseResponse:
+      type: object
+      properties:
+        headerInfo:
+          $ref: '#/components/schemas/HeaderInfo'
+        requestInfo:
+          $ref: '#/components/schemas/DepositReleaseRequestInfo'
+        responseInfo:
+          $ref: '#/components/schemas/DepositReleaseResponseInfo'
+      required:
+        - headerInfo
+        - requestInfo
+        - responseInfo
+
+    DepositReleaseResponseInfo:
+      type: object
+      properties:
+        transactionStatus:
+          type: string
+        errorInfo:
+          $ref: '#/components/schemas/ErrorInfo'
+    HeaderInfo:
+      type: object
+      properties:
+        sendTimeStamp:
+          type: string
+          description: sendTimeStamp
+          example: '123456789'
+        srcApplicationCd:
+          type: string
+          description: srcApplicationCd
+          example: '123456789'
+        requestId:
+          type: string
+          description: requestId
+        inputChannelCd:
+          type: string
+          description: inputChannelCd
+          example: '123456789'
+        srcSysTransactionId:
+          type: string
+          description: srcSysTransactionId
+        userId:
+          type: string
+          description: userId
+          example: '123456789'
+      description: header request
+    ErrorInfo:
+      required:
+      - errorCd
+      - errorMessage
+      type: object
+      properties:
+        errorCd:
+          type: string
+          description: Unique error code for each type of error
+          example: '10083'
+        errorMessage:
+          type: string
+          description: Error message
+          example: No Account Available]]></string>
+      </storable>
+      <set name="Dynamic Parameters" null="true"/>
+      <string name="Folder" value="BRIMCM_APIs_Collection"/>
+      <boolean name="Is Dirty" value="false"/>
+      <boolean name="Is Dry Run" value="false"/>
+      <boolean name="Is Encrypted" value="false"/>
+      <boolean name="Is Locked" value="false"/>
+      <boolean name="Is Valid" value="true"/>
+      <string name="Key" value="CMD1730713974676"/>
+      <string name="Modified By" value="AD40566"/>
+      <long name="Modified Date" value="1730913961737"/>
+      <string name="Name" value="PRF_OPENAPI_Collection_Deposit"/>
+      <string name="Owner" value="CUSTADM"/>
+      <string name="Type" value="Open API Profile"/>
+      <int name="Version" value="3"/>
+      <string name="documentation" value=""/>
+   </storable>
+</openapiprofile>
