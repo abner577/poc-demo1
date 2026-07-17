@@ -17,11 +17,11 @@
       <boolean name="Is Valid" value="true"/>
       <string name="Key" value="CMD1718740621169"/>
       <string name="Modified By" value="AD69583"/>
-      <long name="Modified Date" value="1784226071297"/>
+      <long name="Modified Date" value="1784296507513"/>
       <string name="Name" value="APL_Collection_PromiseToPay"/>
       <string name="Owner" value="CUSTADM"/>
       <string name="Type" value="APL Code"/>
-      <int name="Version" value="60"/>
+      <int name="Version" value="61"/>
       <string name="documentation" value=""/>
    </storable>
 </apl_script>
